@@ -4,6 +4,9 @@ nav:
   - web(前端+后端):
     - html: web/html.md
     - css: web/css.md
+    - js:
+      - 基础语法: web/js/js.md
+      - DOM: web/js/DOM.md
 markdown_extensions:
   - pymdownx.highlight:
       anchor_linenums: true
@@ -15,6 +18,8 @@ markdown_extensions:
   - pymdownx.tabbed:
       alternate_style: true
   - attr_list
+  - pymdownx.arithmatex:
+      generic: true
 theme:
   name: material
   icon:
@@ -34,3 +39,9 @@ theme:
 dev_addr: 0.0.0.0:9000
 site_url: http://localhost:9000/docs
 use_directory_urls: false
+extra_javascript:
+- themes/js/mathjax.js
+- https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.0/es5/tex-mml-chtml.js
+- https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.0/es5/tex-chtml.js
+- https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.0/es5/tex-chtml-full.js
+- https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.0/es5/tex-svg-full.js
