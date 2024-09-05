@@ -9,6 +9,7 @@ nav:
     - css: web/css.md
     - js:
       - 基础语法: web/js/js.md
+      - 进阶语法: web/js/js-advanced.md
       - DOM: web/js/DOM.md
 markdown_extensions:
   - pymdownx.highlight:
