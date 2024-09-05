@@ -1,4 +1,7 @@
-site_name: My Docs
+site_name: Honglei Gu's personal blog
+repo_url: https://github.com/everythingfades/personal-blog.git
+site_author: Honglei Gu(everythingfades)
+copyright: '2024 by Honglei Gu'
 nav:
   - Home: index.md
   - web(前端+后端):
