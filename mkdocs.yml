@@ -11,6 +11,8 @@ nav:
       - 基础语法: web/js/js.md
       - 进阶语法: web/js/js-advanced.md
       - DOM: web/js/DOM.md
+      - BOM: web/js/BOM.md
+    - AJAX: web/AJAX.md
 markdown_extensions:
   - pymdownx.highlight:
       anchor_linenums: true
