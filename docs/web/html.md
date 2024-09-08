@@ -19,7 +19,7 @@
 
         ```
     === "效果"
-        请自行查看 examples/basic_html_stuff/basic_skeleton.html, 并确保阅读首页须知
+        请自行查看 <a href="https://github.com/everythingfades/html/blob/main/examples/basic_html_stuff/basic_skeleton.html">examples/basic_html_stuff/basic_skeleton.html</a>, 并确保阅读首页须知
 
 ## 1.2 标签
 主要分为单标签和双标签
@@ -66,7 +66,7 @@
 
     === "效果"
 
-        请自行查看 examples/basic_html_stuff/meta.html, 并确保阅读首页须知
+        请自行查看 <a href="https://github.com/everythingfades/html/blob/main/examples/basic_html_stuff/meta.html">examples/basic_html_stuff/meta.html</a>, 并确保阅读首页须知
 
 
 
@@ -101,7 +101,7 @@
 
     === "效果"
 
-        请自行查看 examples/basic_html_stuff/h.html, 并确保阅读首页须知
+        请自行查看 <a href="https://github.com/everythingfades/html/blob/main/examples/basic_html_stuff/h.html">examples/basic_html_stuff/h.html</a>, 并确保阅读首页须知
 
 
 #### 1.2.2.2 < p>< /p>
@@ -134,7 +134,7 @@
 
     === "效果"
 
-        请自行查看examples/basic_html_stuff/p.html,并确保阅读首页须知
+        请自行查看<a href="https://github.com/everythingfades/html/blob/main/examples/basic_html_stuff/p.html">examples/basic_html_stuff/p.html</a>,并确保阅读首页须知
 
 
 
@@ -164,7 +164,7 @@
 
     === "效果"
 
-        请自行查看examples/basic_html_stuff/br.html,并确保阅读首页须知
+        请自行查看<a href="https://github.com/everythingfades/html/blob/main/examples/basic_html_stuff/br.html">examples/basic_html_stuff/br.html</a>,并确保阅读首页须知
 
 
 
@@ -200,7 +200,7 @@
 
         ```
     === "效果"
-        请自行查看examples/basic_html_stuff/hr.html,并确保阅读首页须知,
+        请自行查看<a href="https://github.com/everythingfades/html/blob/main/examples/basic_html_stuff/hr.html">examples/basic_html_stuff/hr.html</a>,并确保阅读首页须知,
 
 
 
@@ -235,7 +235,7 @@
         ```
     === "效果"
 
-        请自行查看examples/basic_html_stuff/img.html,并确保阅读首页须知,
+        请自行查看<a href="https://github.com/everythingfades/html/blob/main/examples/basic_html_stuff/img.html">examples/basic_html_stuff/img.html</a>,并确保阅读首页须知,
 
 #### 1.2.2.7 < a>
 用来实现链接
@@ -262,14 +262,14 @@
         </html>
         ```
     === "效果"
-        请自行查看examples/basic_html_stuff/a.html,并确保阅读首页须知,
+        请自行查看<a href="https://github.com/everythingfades/html/blob/main/examples/basic_html_stuff/a.html">examples/basic_html_stuff/a.html</a>,并确保阅读首页须知,
 
 
 
 #### 1.2.2.8 文本标签类:
 !!! info
     === "说明"
-        这部分整合在examples/basic_html_stuff/text.html中,需要请自行查看,并确保阅读首页须知
+        这部分整合在<a href="https://github.com/everythingfades/html/blob/main/examples/basic_html_stuff/text.html">examples/basic_html_stuff/text.html</a>中,需要请自行查看,并确保阅读首页须知
 
 ##### 1.2.2.8.1 < b>
 加粗
@@ -470,7 +470,7 @@
         </html>
         ```
     === "效果"
-        请自行查看examples/basic_html_stuff/ol.html
+        请自行查看<a href="https://github.com/everythingfades/html/blob/main/examples/basic_html_stuff/ol.html">examples/basic_html_stuff/ol.html</a>
 
 
 
@@ -537,7 +537,7 @@ ul里面只能有li标签,多数情况下其实感觉没必要用这个,直接cs
         ```
     === "效果"
 
-        请自行查阅examples/basic_html_stuff/ul.html,并确保阅读首页须知
+        请自行查阅<a href="https://github.com/everythingfades/html/blob/main/examples/basic_html_stuff/ul.html">examples/basic_html_stuff/ul.html</a>,并确保阅读首页须知
 
 #### 1.2.2.14 < table>< /table>
 
@@ -583,7 +583,7 @@ vscode里可以用table>tr*5>td*5快捷生成一个5*5的表格
         ```
     === "效果"
 
-        请自行查看example/basic_html_stuff/table.html,并确保阅读首页须知
+        请自行查看<a href="https://github.com/everythingfades/html/blob/main/examples/basic_html_stuff/table.html">example/basic_html_stuff/table.html</a>,并确保阅读首页须知
 
 ##### 1.2.2.14.1 合并单元格
 合并方案:
@@ -657,13 +657,13 @@ vscode里可以用table>tr*5>td*5快捷生成一个5*5的表格
         </html>
         ```
     === "效果"
-        请自行查阅example/basic_html_stuff/table.html,并确保阅读首页须知
+        请自行查阅<a href="https://github.com/everythingfades/html/blob/main/examples/basic_html_stuff/table.html">example/basic_html_stuff/table.html</a>,并确保阅读首页须知
 
 
 
 #### 1.2.2.15 < form>< /form>
 
-(学了vue之后感觉不太需要这个)
+(学了vue 和 element-plus 之后感觉不太需要这个)
 
 用于创建可以提交的表单
 
@@ -688,7 +688,7 @@ vscode里可以用table>tr*5>td*5快捷生成一个5*5的表格
         </form>
         ```
     === "效果"
-        请自行查看examples/basic_html_stuff/form.html,并确保阅读首页须知,
+        请自行查看<a href="https://github.com/everythingfades/html/blob/main/examples/basic_html_stuff/form.html">examples/basic_html_stuff/form.html<a>,并确保阅读首页须知,
 
 
 
@@ -730,7 +730,7 @@ vscode里可以用table>tr*5>td*5快捷生成一个5*5的表格
         </html>
         ```
     === "效果"
-        请自行查看example/basic_html_stuff/input.html
+        请自行查看<a href="https://github.com/everythingfades/html/blob/main/examples/basic_html_stuff/input.html">example/basic_html_stuff/input.html</a>
 
 #### 1.2.2.17 select:
 下拉菜单
@@ -760,7 +760,7 @@ vscode里可以用table>tr*5>td*5快捷生成一个5*5的表格
         </html>
         ```
     === "效果"
-        请自行查看examples/basic_html_stuff/select.html,并确保阅读首页须知,
+        请自行查看<a href="https://github.com/everythingfades/html/blob/main/examples/basic_html_stuff/select.html">examples/basic_html_stuff/select.html</a>,并确保阅读首页须知,
 
 
 
@@ -791,7 +791,7 @@ vscode里可以用table>tr*5>td*5快捷生成一个5*5的表格
         </html>
         ```
     === "效果"
-        请自行查看examples/basic_html_stuff/label.html,并确保阅读首页须知,
+        请自行查看<a href="https://github.com/everythingfades/html/blob/main/examples/basic_html_stuff/label.html">examples/basic_html_stuff/label.html</a>,并确保阅读首页须知,
 
 
 
@@ -825,7 +825,7 @@ vscode里可以用table>tr*5>td*5快捷生成一个5*5的表格
         </html>
         ```
     === "代码"
-        请自行查看examples/basic_html_stuff/button.html,并确保阅读首页须知,
+        请自行查看<a href="https://github.com/everythingfades/html/blob/main/examples/basic_html_stuff/button.html">examples/basic_html_stuff/button.html</a>,并确保阅读首页须知,
 
 
 

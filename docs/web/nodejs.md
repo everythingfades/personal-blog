@@ -24,7 +24,7 @@
         })
         ```
     === "示例"
-        请自行查看examples/nodejs/jss/fs.js
+        请自行查看<a href="https://github.com/everythingfades/html/blob/main/examples/nodejs/jss/fs.js">examples/nodejs/jss/fs.js</a>
 
 ## 8.2 URL端口:
 端口号可以是0-65535之间的任意整数
@@ -43,7 +43,7 @@ http协议默认访问80端口
 
 !!! info
     === "示例"
-        请自行查看examples/nodejs/jss/web.js以及webhtml.js
+        请自行查看<a href="https://github.com/everythingfades/html/blob/main/examples/nodejs/jss/web.js">examples/nodejs/jss/web.js</a>以及<a href="https://github.com/everythingfades/html/blob/main/examples/nodejs/webhtml.js">webhtml.js</a>
 
 ## 8.4 模块化:
 ### 8.4.1 Commonjs:
@@ -73,13 +73,13 @@ http协议默认访问80端口
         export default {}
         ```
     === "导出示例"
-        请自行查看examples/nodejs/jss/export.js
+        请自行查看<a href="https://github.com/everythingfades/html/blob/main/examples/nodejs/jss/export.js">examples/nodejs/jss/export.js</a>
     === "导入"
         ```javascript
         import obj from "模块名或者路径"
         ```
     === "导入示例"
-        请自行查看examples/nodejs/jss/useexports.js
+        请自行查看<a href="https://github.com/everythingfades/html/blob/main/examples/nodejs/jss/useexports.js">examples/nodejs/jss/useexports.js</a>
 
 nodejs默认是支持commonjs的,如果需要ECMA需要再所在文件夹新建package.json文件夹,设置{"type":"module"}
 #### 8.4.2.2 命名导入导出

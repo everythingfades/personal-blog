@@ -4,7 +4,7 @@
 ## 5.1 DOM元素:
 !!! info
     === "示例"
-        请自行查看examples/js_involved/html/js_select.html
+        请自行查看<a href="https://github.com/everythingfades/html/blob/main/examples/js_involved/html/js_select.html">examples/js_involved/html/js_select.html</a>
 ### 5.1.1 获取DOM元素:
 !!! example
     === "代码"
@@ -40,7 +40,7 @@
 #### 5.1.3.1 className
 !!! info
     === "示例"
-      请自行查看examples/js_involved/html/className.html
+      请自行查看<a href="https://github.com/everythingfades/html/blob/main/examples/js_involved/html/className.html">examples/js_involved/html/className.html</a>
 
 如果修改的样式很多,直接通过style属性修改会比较麻烦,于是可以通过借助css类名的形式改属性
 
@@ -55,7 +55,7 @@
 #### 5.1.3.2 classList:
 !!! info
     === "示例"
-      请自行查看examples/js_involved/html/classList.html
+      请自行查看<a href="https://github.com/everythingfades/html/blob/main/examples/js_involved/html/classList.html">examples/js_involved/html/classList.html</a>
 
 !!! example
     === "代码"
@@ -72,16 +72,16 @@
 #### 5.1.3.3 表单类
 !!! info
     === "示例"
-      请自行查看examples/js_involved/html/form.html
+      请自行查看<a href="https://github.com/everythingfades/html/blob/main/examples/js_involved/html/form.html">examples/js_involved/html/form.html</a>
     === "示例"
-      请自行查看examples/js_involved/html/exampleForm.html
+      请自行查看<a href="https://github.com/everythingfades/html/blob/main/examples/js_involved/html/exampleForm.html">examples/js_involved/html/exampleForm.html</a>
 
 如果获取innerHTML是空,需要通过表单名称.value获取所有的值
 
 ### 5.1.4 自定义属性:
 !!! info
     === "示例"
-      请自行查看examples/js_involved/self-defined-attr.html
+      请自行查看<a href="https://github.com/everythingfades/html/blob/main/examples/js_involved/html/self-define-attr.html">examples/js_involved/self-defined-attr.html</a>
 
 自定义属性名称以data-开头
 
@@ -92,7 +92,7 @@
       setInterval(函数,间隔时间)
       ```
     === "示例"
-      请自行查看examples/js_involved/html/timer.html
+      请自行查看<a href="https://github.com/everythingfades/html/blob/main/examples/js_involved/html/timer.html">examples/js_involved/html/timer.html</a>
 
 
 - 间隔时间是毫秒,表示每过间隔时间执行一次函数,一旦开启就一直执行,注意函数的位置写的是函数名,也就是不加参数
@@ -106,7 +106,7 @@
 ## 5.3 事件监听
 !!! info
     === "示例"
-      请自行查看examples/js_involved/html/eventListener.html
+      请自行查看<a href="https://github.com/everythingfades/html/blob/main/examples/js_involved/html/eventListener.html">examples/js_involved/html/eventListener.html</a>
 ```
 元素对象.addEventListener('事件类型',执行函数)
 ```
@@ -119,9 +119,9 @@
 ### 5.3.1 事件类型:
 !!! info
     === "示例"
-      请自行查看examples/js_involved/html/otherEvent.html
+      请自行查看<a href="https://github.com/everythingfades/html/blob/main/examples/js_involved/html/otherEvent.html">examples/js_involved/html/otherEvent.html</a>
     === "示例"
-      请自行查看examples/js_involved/html/mouseEvent.html
+      请自行查看<a href="https://github.com/everythingfades/html/blob/main/examples/js_involved/html/mouseEvent.html">examples/js_involved/html/mouseEvent.html</a>
 - 鼠标
   - click 鼠标点击
   - mouseenter 鼠标经过
@@ -138,7 +138,7 @@
 ### 5.3.2 事件对象:
 !!! info
     === "示例"
-      请自行查看examples/js_involved/html/eventobject.html
+      请自行查看<a href="https://github.com/everythingfades/html/blob/main/examples/js_involved/html/eventobject.html">examples/js_involved/html/eventobject.html</a>
 一个存储时间执行是的相关参数的一个对象,是事件监听绑定函数传入的参数,差不多就是一个json
 - type:
   - 获取当前的时间类型
@@ -153,7 +153,7 @@
 ### 5.3.3 环境对象：
 !!! info
     === "示例"
-      请自行查看examples/js_involved/html/this.html
+      请自行查看<a href="https://github.com/everythingfades/html/blob/main/examples/js_involved/html/this.html">examples/js_involved/html/this.html</a>
 
 this, java的this
 
@@ -179,7 +179,7 @@ this, java的this
 ### 5.4.1 事件捕获:
 !!! info
     === "示例"
-      请自行查看examples/js_involved/html/eventCapture.html
+      请自行查看<a href="https://github.com/everythingfades/html/blob/main/examples/js_involved/html/eventCapture.html">examples/js_involved/html/eventCapture.html</a>
 
 - 在addEventListener里传入第三个参数,true为使用捕获机制,false为不使用捕获机制
 - 如果是用onclick绑定的则没有捕获阶段
@@ -187,7 +187,7 @@ this, java的this
 ### 5.4.2 事件冒泡
 !!! info
     === "示例"
-      请自行查看examples/js_involved/html/mouseEvent.html
+      请自行查看<a href="https://github.com/everythingfades/html/blob/main/examples/js_involved/html/mouseEvent.html">examples/js_involved/html/mouseEvent.html</a>
 
 - 相当于子类父类继承,如果点击的部分在子类里,他也在父类里,这个时候绑定的同名函数将会按照冒泡阶段从小向大依次执行
 
@@ -208,14 +208,14 @@ this, java的this
 ### 5.4.5 特殊事件:
 !!! info
     === "示例"
-      请自行查看examples/js_involved/html/mouseEvent.html
+      请自行查看<a href="https://github.com/everythingfades/html/blob/main/examples/js_involved/html/mouseEvent.html">examples/js_involved/html/mouseEvent.html</a>
 - mouseover和mouseout有冒泡效果
 - mouseenter和mouseleave没有冒泡效果
 
 ### 5.4.6 事件委托
 !!! info
     === "示例"
-      请自行查看examples/js_involved/html/eventCommission.html
+      请自行查看<a href="https://github.com/everythingfades/html/blob/main/examples/js_involved/html/eventCommission.html">examples/js_involved/html/eventCommission.html</a>
 同时给多个元素注册事件
 
 就是定义一个父对象,触发子对象的时候会通过冒泡触发父对象的事件
@@ -227,13 +227,13 @@ this, java的this
       e.pre1ventDefault()
       ```
     === "示例"
-      请自行查看examples/js_involved/html/preventDefault.html
+      请自行查看<a href="https://github.com/everythingfades/html/blob/main/examples/js_involved/html/preventDefault.html">examples/js_involved/html/preventDefault.html</a>
 
 
 ### 5.4.8 其他事件:
 !!! info
     === "示例"
-      请自行查看examples/js_involved/html/otherEvent.html
+      请自行查看<a href="https://github.com/everythingfades/html/blob/main/examples/js_involved/html/otherEvent.html">examples/js_involved/html/otherEvent.html</a>
 #### 5.4.8.1 页面加载事件
 ##### 5.4.8.1.1 load
 加载外部资源的加载完毕的时候触发的事件
@@ -258,7 +258,7 @@ window是document的更上一级
 #### 5.4.8.2 元素滚动事件
 !!! info
     === "示例"
-      请自行查看examples/js_involved/html/scrollExample.html
+      请自行查看<a href="https://github.com/everythingfades/html/blob/main/examples/js_involved/html/scrollExample.html">examples/js_involved/html/scrollExample.html</a>
 ##### 5.4.8.2.1 scroll
 滚动到某个区域的时候会触发的东西
 
@@ -277,7 +277,7 @@ window是document的更上一级
 #### 5.4.8.3 resize事件
 !!! info
     === "示例"
-      请自行查看examples/js_involved/html/resizeEvent.html
+      请自行查看<a href="https://github.com/everythingfades/html/blob/main/examples/js_involved/html/resizeEvent.html">examples/js_involved/html/resizeEvent.html</a>
 当浏览器窗口大小发生变化的时候触发
 
 !!! example
@@ -291,7 +291,7 @@ window是document的更上一级
 ##### 5.4.8.3.2 offsetLeft offsetTop
 !!! info
     === "示例"
-      请自行查看examples/js_involved/html/offset.html
+      请自行查看<a href="https://github.com/everythingfades/html/blob/main/examples/js_involved/html/offset.html">examples/js_involved/html/offset.html</a>
 
 获取元素距离自己定位父级元素的左,上距离,这个会包含border很margin等
 
@@ -300,7 +300,7 @@ window是document的更上一级
 ## 5.5 日期对象:
 !!! info
     === "示例"
-      请自行查看examples/js_involved/html/date.html
+      请自行查看<a href="https://github.com/everythingfades/html/blob/main/examples/js_involved/html/date.html">examples/js_involved/html/date.html</a>
 ### 5.5.1 实例化:
 java里的new关键字仙剑一个对象(js这么久居然没有新建过对象)
 
@@ -342,7 +342,7 @@ java里的new关键字仙剑一个对象(js这么久居然没有新建过对象)
         Date.now()
         ```
     === "示例"
-      请自行查看examples/js_involved/html/timestamp.html
+      请自行查看<a href="https://github.com/everythingfades/html/blob/main/examples/js_involved/html/timestamp.html">examples/js_involved/html/timestamp.html</a>
 是指从1970年01月01日00分00秒开始到现在的毫秒数
 
 !!! example
@@ -368,7 +368,7 @@ java里的new关键字仙剑一个对象(js这么久居然没有新建过对象)
 ## 5.6 节点操作:
 !!! info
     === "示例"
-      请自行查看examples/js_involved/html/modifyDOM.html
+      请自行查看<a href="https://github.com/everythingfades/html/blob/main/examples/js_involved/html/modifyDOM.html">examples/js_involved/html/modifyDOM.html</a>
 ### 5.6.1 DOM 节点
 - 元素节点
   - 所有的标签, body, div
@@ -412,9 +412,9 @@ java里的new关键字仙剑一个对象(js这么久居然没有新建过对象)
 ### 5.6.3 添加节点
 !!! info
     === "示例"
-      请自行查看examples/js_involved/html/createElement.html
+      请自行查看<a href="https://github.com/everythingfades/html/blob/main/examples/js_involved/html/createElement.html">examples/js_involved/html/createElement.html</a>
     === "示例"
-      请自行查看examples/js_involved/html/createInsertElement.html
+      请自行查看<a href="https://github.com/everythingfades/html/blob/main/examples/js_involved/html/createInsertElement.html">examples/js_involved/html/createInsertElement.html</a>
 
 - 先新建一个新的节点,
 
@@ -468,6 +468,6 @@ swiper:移动端插件 具体的建议去查api文档
 
 !!! info
     === "示例"
-      请自行查看examples/js_involved/html/swiper.html
+      请自行查看<a href="https://github.com/everythingfades/html/blob/main/examples/js_involved/html/object2table.html">examples/js_involved/html/swiper.html</a>
 
 ctrl cv全栈工程师上线
