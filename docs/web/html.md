@@ -583,7 +583,7 @@ vscode里可以用table>tr*5>td*5快捷生成一个5*5的表格
         ```
     === "效果"
 
-        请自行查看example/basic_html_stuff/table.html,并确保阅读首页须知
+        请自行查看<a href="https://github.com/everythingfades/html/blob/main/examples/basic_html_stuff/table.html">example/basic_html_stuff/table.html</a>,并确保阅读首页须知
 
 ##### 1.2.2.14.1 合并单元格
 合并方案:
@@ -657,13 +657,13 @@ vscode里可以用table>tr*5>td*5快捷生成一个5*5的表格
         </html>
         ```
     === "效果"
-        请自行查阅example/basic_html_stuff/table.html,并确保阅读首页须知
+        请自行查阅<a href="https://github.com/everythingfades/html/blob/main/examples/basic_html_stuff/table.html">example/basic_html_stuff/table.html</a>,并确保阅读首页须知
 
 
 
 #### 1.2.2.15 < form>< /form>
 
-(学了vue之后感觉不太需要这个)
+(学了vue 和 element-plus 之后感觉不太需要这个)
 
 用于创建可以提交的表单
 

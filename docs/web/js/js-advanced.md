@@ -1335,13 +1335,20 @@ https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js
 带要调试的代码框里写debugger,然后在f12里调试
 
 ## 4.13 this:
+!!! info
+    === "说明"
+        请自行查看<a href="https://github.com/everythingfades/html/blob/main/examples/js_involved/html/this.html">examples/js_involved/html/this.html</a>
 ### 4.13.1 普通函数:
 谁调用指向谁
 
 #### 4.13.1.1 箭头函数:
 不存在this,获取最近可用作用域的this
 
+
 #### 4.13.1.2 改变this:
+!!! info
+    === "说明"
+        请自行查看<a href="https://github.com/everythingfades/html/blob/main/examples/js_involved/html/modifythis.html">examples/js_involved/html/modifythis.html</a>
 ##### 4.13.1.2.1 call()
 
 ```
@@ -1390,6 +1397,9 @@ _.debounce(fun, [wait = 0], [option = ])
     === "说明"
         请自行查看[examples/js_involved/html/throttle.html]
 ### 4.15.1 lodash
+!!! info
+    === "说明"
+        请自行查看<a href="https://github.com/everythingfades/html/blob/main/examples/js_involved/html/lodash.html">examples/js_involved/html/lodash.html</a>
 ```
 _.throttle(fun, [wait = 0], [option=])
 ```

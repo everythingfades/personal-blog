@@ -81,7 +81,7 @@
 ### 5.1.4 自定义属性:
 !!! info
     === "示例"
-      请自行查看examples/js_involved/self-defined-attr.html
+      请自行查看<a href="https://github.com/everythingfades/html/blob/main/examples/js_involved/html/self-define-attr.html">examples/js_involved/self-defined-attr.html</a>
 
 自定义属性名称以data-开头
 

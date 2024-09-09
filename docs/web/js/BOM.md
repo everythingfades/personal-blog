@@ -104,7 +104,7 @@ location本身是个对象,可以获取一些属性
         localStorage.getItem(key)
         ```
 
-### 6.5.2sessionStorage:
+### 6.5.2 sessionStorage:
 生命周期为关闭浏览器窗口
 
 在同一个页面下数据可以共享

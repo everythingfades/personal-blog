@@ -310,7 +310,7 @@
 
 - color
     - 各种颜色: 查表https://www.w3schools.com/colors/colors_names.asp
-    - 色值:(茴香豆有4种写法,色值有5种写法)
+    - 色值:(茴香豆有4种写法,色值主要有3种写法)
       - RGB值:rgb(255,99,71),三个值分别对应rgb三个值,取值范围0-255
         - < p style="background-color:rgb(255, 99, 71)">html< /p>:<p style="background-color:rgb(255,99,71)">rgb(255,99,71)</p>
       - HEX值:#ff6347,和上面差不多,每两位表示RGB中的一个值,前面加上井号
@@ -415,7 +415,7 @@
     === "说明"
         这部分所有效果可自行查看[examples/css_involved/html/background.html],并确保阅读首页须知,不然太乱了
 ### 2.6.1 background-color
-和color一样
+和color一样,但是color是文字的颜色,bgc是背景的颜色
 ### 2.6.2 background-image
 那个url()里面可以填本地地址,直接从本地访问图片,也可以直接url,
 
@@ -699,7 +699,7 @@ margin不算进盒子
 
 !!! info
     === "说明"
-        弹性盒子部分所有效果可自行查看examples/css_involved/html/flex-box.html,并确保阅读首页须知,不然太乱了
+        弹性盒子部分所有效果可自行查看<a href="https://github.com/everythingfades/html/blob/main/examples/css_involved/html/flex-box.html">examples/css_involved/html/flex-box.html,并确保阅读首页须知,不然太乱了
 
 弹性元素由弹性容器和弹性子元素组成,通过设置display的属性将其定义为弹性容器
 
@@ -788,7 +788,7 @@ margin不算进盒子
         浮动部分所有效果可自行查看[examples/css_involved/html/float.html],并确保阅读首页须知,不然太乱了
 !!! info
     === "说明"
-        清除浮动部分所有效果可自行查看examples/css_involved/html/disable-float.html,并确保阅读首页须知,不然太乱了
+        清除浮动部分所有效果可自行查看<a href="https://github.com/everythingfades/html/blob/main/examples/css_involved/html/disable-float.html">examples/css_involved/html/disable-float.html</a>,并确保阅读首页须知,不然太乱了
 
 float属性:(只有左右浮动,没有上下浮动),可以是元素拖了文档流
 
@@ -1119,7 +1119,7 @@ rem是个相对单位,表示1HTML字号大小,是相对HTML标签字号计算出
 #### 2.19.6 媒体查询:
 !!! info
     === "说明"
-        自行查看examples/css_involved/html/media-search.html,并确保阅读首页须知
+        自行查看<a href="https://github.com/everythingfades/html/blob/main/examples/css_involved/html/media-search.html">examples/css_involved/html/media-search.html</a>,并确保阅读首页须知
 
 检测视口的宽度,编写差异化的css, 如果用rem调整大小,只需要固定html字号即可
 
