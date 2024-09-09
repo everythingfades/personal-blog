@@ -1,35 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
-         <loc>http://localhost:9000/docs/index.html</loc>
-         <lastmod>2024-09-05</lastmod>
+         <loc>http://localhost:9000/index.html</loc>
+         <lastmod>2024-09-09</lastmod>
     </url>
     <url>
-         <loc>http://localhost:9000/docs/html1.html</loc>
-         <lastmod>2024-09-05</lastmod>
+         <loc>http://localhost:9000/html1.html</loc>
+         <lastmod>2024-09-09</lastmod>
     </url>
     <url>
-         <loc>http://localhost:9000/docs/web/css.html</loc>
-         <lastmod>2024-09-05</lastmod>
+         <loc>http://localhost:9000/web/AJAX.html</loc>
+         <lastmod>2024-09-09</lastmod>
     </url>
     <url>
-         <loc>http://localhost:9000/docs/web/html.html</loc>
-         <lastmod>2024-09-05</lastmod>
+         <loc>http://localhost:9000/web/css.html</loc>
+         <lastmod>2024-09-09</lastmod>
     </url>
     <url>
-         <loc>http://localhost:9000/docs/web/js/BOM.html</loc>
-         <lastmod>2024-09-05</lastmod>
+         <loc>http://localhost:9000/web/html.html</loc>
+         <lastmod>2024-09-09</lastmod>
     </url>
     <url>
-         <loc>http://localhost:9000/docs/web/js/DOM.html</loc>
-         <lastmod>2024-09-05</lastmod>
+         <loc>http://localhost:9000/web/nodejs.html</loc>
+         <lastmod>2024-09-09</lastmod>
     </url>
     <url>
-         <loc>http://localhost:9000/docs/web/js/js-advanced.html</loc>
-         <lastmod>2024-09-05</lastmod>
+         <loc>http://localhost:9000/web/webpack.html</loc>
+         <lastmod>2024-09-09</lastmod>
     </url>
     <url>
-         <loc>http://localhost:9000/docs/web/js/js.html</loc>
-         <lastmod>2024-09-05</lastmod>
+         <loc>http://localhost:9000/web/js/BOM.html</loc>
+         <lastmod>2024-09-09</lastmod>
+    </url>
+    <url>
+         <loc>http://localhost:9000/web/js/DOM.html</loc>
+         <lastmod>2024-09-09</lastmod>
+    </url>
+    <url>
+         <loc>http://localhost:9000/web/js/js-advanced.html</loc>
+         <lastmod>2024-09-09</lastmod>
+    </url>
+    <url>
+         <loc>http://localhost:9000/web/js/js.html</loc>
+         <lastmod>2024-09-09</lastmod>
     </url>
 </urlset>

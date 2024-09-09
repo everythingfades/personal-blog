@@ -13,6 +13,8 @@ nav:
       - DOM: web/js/DOM.md
       - BOM: web/js/BOM.md
     - AJAX: web/AJAX.md
+    - nodejs: web/nodejs.md
+    - webpack: web/webpack.md
 markdown_extensions:
   - pymdownx.highlight:
       anchor_linenums: true
@@ -26,8 +28,11 @@ markdown_extensions:
   - attr_list
   - pymdownx.arithmatex:
       generic: true
+  - md_in_html
 theme:
   name: material
+  features:
+    - content.code.annotate
   icon:
     admonition:
       note: octicons/tag-16
@@ -43,10 +48,10 @@ theme:
       example: octicons/beaker-16
       quote: octicons/quote-16
 dev_addr: 0.0.0.0:9000
-site_url: http://localhost:9000/docs
+site_url: http://localhost:9000/
 use_directory_urls: false
 extra_javascript:
-- themes/js/mathjax.js
+- theme/js/mathjax.js
 - https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.0/es5/tex-mml-chtml.js
 - https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.0/es5/tex-chtml.js
 - https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.0/es5/tex-chtml-full.js
