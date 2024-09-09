@@ -172,4 +172,4 @@ npm下比直接拷贝node_modules快得多
 [examples/nodejs/jss/webhtml.js]: https://github.com/everythingfades/html/blob/main/examples/nodejs/jss/webhtml.js
 [examples/nodejs/jss/export.js]: https://github.com/everythingfades/html/blob/main/examples/nodejs/jss/export.js
 [examples/nodejs/jss/useexports.js]: https://github.com/everythingfades/html/blob/main/examples/nodejs/jss/useexports.js
-[examples/nodejs/jss/EMCA]: https://github.com/everythingfades/html/blob/main/examples/nodejs/jss/EMCA
+[examples/nodejs/jss/EMCA]: https://github.com/everythingfades/html/tree/main/examples/nodejs/jss/ECMA
