@@ -923,7 +923,7 @@ js是有和Python一样的or None语法的
         getage [Function: getage]
     
 !!! example "案例" 
-    查看examples/js_involved/html/object2table.html
+    查看[examples/js_involved/html/object2table.html]
 
 ### 3.10.4 内置对象
 例如document,console,Math等相当于内置库
@@ -1003,3 +1003,7 @@ $$\begin{array}{c}
         ```
     === "输出"
         true
+
+
+
+[examples/js_involved/html/object2table.html]: https://github.com/everythingfades/html/blob/main/examples/js_involved/html/object2table.html

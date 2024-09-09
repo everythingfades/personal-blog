@@ -16,10 +16,10 @@
                 某个网页
             </body>
         </html>
-
         ```
+
     === "效果"
-        请自行查看 examples/basic_html_stuff/basic_skeleton.html, 并确保阅读首页须知
+        请自行查看 [examples/basic_html_stuff/basic_skeleton.html], 并确保阅读首页须知
 
 ## 1.2 标签
 主要分为单标签和双标签
@@ -66,8 +66,7 @@
 
     === "效果"
 
-        请自行查看 examples/basic_html_stuff/meta.html, 并确保阅读首页须知
-
+        请自行查看 [examples/basic_html_stuff/meta.html], 并确保阅读首页须知
 
 
 ### 1.2.2 其他标签:
@@ -101,7 +100,7 @@
 
     === "效果"
 
-        请自行查看 examples/basic_html_stuff/h.html, 并确保阅读首页须知
+        请自行查看 [examples/basic_html_stuff/h.html], 并确保阅读首页须知
 
 
 #### 1.2.2.2 < p>< /p>
@@ -134,7 +133,7 @@
 
     === "效果"
 
-        请自行查看examples/basic_html_stuff/p.html,并确保阅读首页须知
+        请自行查看[examples/basic_html_stuff/p.html],并确保阅读首页须知
 
 
 
@@ -164,7 +163,7 @@
 
     === "效果"
 
-        请自行查看examples/basic_html_stuff/br.html,并确保阅读首页须知
+        请自行查看[examples/basic_html_stuff/br.html],并确保阅读首页须知
 
 
 
@@ -200,7 +199,8 @@
 
         ```
     === "效果"
-        请自行查看examples/basic_html_stuff/hr.html,并确保阅读首页须知,
+        请自行查看[examples/basic_html_stuff/hr.html],并确保阅读首页须知,
+    [examples/basic_html_stuff/hr.html]: https://github.com/everythingfades/html/blob/main/examples/basic_html_stuff/hr.html
 
 
 
@@ -235,7 +235,7 @@
         ```
     === "效果"
 
-        请自行查看examples/basic_html_stuff/img.html,并确保阅读首页须知,
+        请自行查看[examples/basic_html_stuff/img.html],并确保阅读首页须知,
 
 #### 1.2.2.7 < a>
 用来实现链接
@@ -262,14 +262,14 @@
         </html>
         ```
     === "效果"
-        请自行查看examples/basic_html_stuff/a.html,并确保阅读首页须知,
+        请自行查看[examples/basic_html_stuff/a.html],并确保阅读首页须知,
 
 
 
 #### 1.2.2.8 文本标签类:
 !!! info
     === "说明"
-        这部分整合在examples/basic_html_stuff/text.html中,需要请自行查看,并确保阅读首页须知
+        这部分整合在[examples/basic_html_stuff/text.html]中,需要请自行查看,并确保阅读首页须知
 
 ##### 1.2.2.8.1 < b>
 加粗
@@ -470,7 +470,7 @@
         </html>
         ```
     === "效果"
-        请自行查看examples/basic_html_stuff/ol.html
+        请自行查看[examples/basic_html_stuff/ol.html]
 
 
 
@@ -537,7 +537,7 @@ ul里面只能有li标签,多数情况下其实感觉没必要用这个,直接cs
         ```
     === "效果"
 
-        请自行查阅examples/basic_html_stuff/ul.html,并确保阅读首页须知
+        请自行查阅[examples/basic_html_stuff/ul.html],并确保阅读首页须知
 
 #### 1.2.2.14 < table>< /table>
 
@@ -688,7 +688,7 @@ vscode里可以用table>tr*5>td*5快捷生成一个5*5的表格
         </form>
         ```
     === "效果"
-        请自行查看examples/basic_html_stuff/form.html,并确保阅读首页须知,
+        请自行查看[examples/basic_html_stuff/form.html],并确保阅读首页须知,
 
 
 
@@ -730,7 +730,7 @@ vscode里可以用table>tr*5>td*5快捷生成一个5*5的表格
         </html>
         ```
     === "效果"
-        请自行查看example/basic_html_stuff/input.html
+        请自行查看[example/basic_html_stuff/input.html]
 
 #### 1.2.2.17 select:
 下拉菜单
@@ -760,7 +760,7 @@ vscode里可以用table>tr*5>td*5快捷生成一个5*5的表格
         </html>
         ```
     === "效果"
-        请自行查看examples/basic_html_stuff/select.html,并确保阅读首页须知,
+        请自行查看[examples/basic_html_stuff/select.html],并确保阅读首页须知,
 
 
 
@@ -791,7 +791,7 @@ vscode里可以用table>tr*5>td*5快捷生成一个5*5的表格
         </html>
         ```
     === "效果"
-        请自行查看examples/basic_html_stuff/label.html,并确保阅读首页须知,
+        请自行查看[examples/basic_html_stuff/label.html],并确保阅读首页须知,
 
 
 
@@ -825,7 +825,7 @@ vscode里可以用table>tr*5>td*5快捷生成一个5*5的表格
         </html>
         ```
     === "代码"
-        请自行查看examples/basic_html_stuff/button.html,并确保阅读首页须知,
+        请自行查看[examples/basic_html_stuff/button.html],并确保阅读首页须知,
 
 
 
@@ -836,3 +836,20 @@ vscode里可以用table>tr*5>td*5快捷生成一个5*5的表格
 具体可以看下面这个网址,不是很必要就不写了
 
 <a href="https://www.runoob.com/html/html-blocks.html">点我查看</a>
+
+[examples/basic_html_stuff/basic_skeleton.html]: https://github.com/everythingfades/html/blob/main/examples/basic_html_stuff/basic_skeleton.html
+[examples/basic_html_stuff/meta.html]: https://github.com/everythingfades/html/blob/main/examples/basic_html_stuff/meta.html
+[examples/basic_html_stuff/h.html]: https://github.com/everythingfades/html/blob/main/examples/basic_html_stuff/h.html
+[examples/basic_html_stuff/p.html]: https://github.com/everythingfades/html/blob/main/examples/basic_html_stuff/p.html
+[examples/basic_html_stuff/br.html]: https://github.com/everythingfades/html/blob/main/examples/basic_html_stuff/br.html
+[examples/basic_html_stuff/hr.html]: https://github.com/everythingfades/html/blob/main/examples/basic_html_stuff/hr.html
+[examples/basic_html_stuff/img.html]: https://github.com/everythingfades/html/blob/main/examples/basic_html_stuff/img.html
+[examples/basic_html_stuff/a.html]: https://github.com/everythingfades/html/blob/main/examples/basic_html_stuff/a.html
+[examples/basic_html_stuff/text.html]: https://github.com/everythingfades/html/blob/main/examples/basic_html_stuff/text.html
+[examples/basic_html_stuff/ol.html]: https://github.com/everythingfades/html/blob/main/examples/basic_html_stuff/ol.html
+[examples/basic_html_stuff/ul.html]: https://github.com/everythingfades/html/blob/main/examples/basic_html_stuff/ul.html
+[examples/basic_html_stuff/form.html]: https://github.com/everythingfades/html/blob/main/examples/basic_html_stuff/form.html
+[examples/basic_html_stuff/input.html]: https://github.com/everythingfades/html/blob/main/examples/basic_html_stuff/input.html
+[examples/basic_html_stuff/select.html]: https://github.com/everythingfades/html/blob/main/examples/basic_html_stuff/select.html
+[examples/basic_html_stuff/label.html]: https://github.com/everythingfades/html/blob/main/examples/basic_html_stuff/label.html
+[examples/basic_html_stuff/button.html]: https://github.com/everythingfades/html/blob/main/examples/basic_html_stuff/button.html

@@ -1382,14 +1382,18 @@ _.debounce(fun, [wait = 0], [option = ])
 ### 4.14.2 手写:
 !!! info
     === "说明"
-        请自行查看examples/js_involved/html/debounce.html
+        请自行查看[examples/js_involved/html/debounce.html]
 
 ## 4.15 节流:
 单位时间内,频繁出发时间,只执行一次,就是设置技能cd
 !!! info
     === "说明"
-        请自行查看examples/js_involved/html/throttle.html
+        请自行查看[examples/js_involved/html/throttle.html]
 ### 4.15.1 lodash
 ```
 _.throttle(fun, [wait = 0], [option=])
 ```
+
+
+[examples/js_involved/html/debounce.html]: https://github.com/everythingfades/html/blob/main/examples/js_involved/html/debounce.html
+[examples/js_involved/html/throttle.html]: https://github.com/everythingfades/html/blob/main/examples/js_involved/html/throttle.html
