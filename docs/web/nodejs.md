@@ -94,7 +94,7 @@ nodejs默认是支持commonjs的,如果需要ECMA需要再所在文件夹新建p
 
 !!! info
     === "示例"
-        整个examples/nodejs/jss/EMCA都是示例
+        整个[examples/nodejs/jss/EMCA]都是示例
 
 ### 8.4.3 包:
 这个和python的概念一样,把init.py换成package.json,一般是如下形式:
@@ -172,3 +172,4 @@ npm下比直接拷贝node_modules快得多
 [examples/nodejs/jss/webhtml.js]: https://github.com/everythingfades/html/blob/main/examples/nodejs/jss/webhtml.js
 [examples/nodejs/jss/export.js]: https://github.com/everythingfades/html/blob/main/examples/nodejs/jss/export.js
 [examples/nodejs/jss/useexports.js]: https://github.com/everythingfades/html/blob/main/examples/nodejs/jss/useexports.js
+[examples/nodejs/jss/EMCA]: https://github.com/everythingfades/html/blob/main/examples/nodejs/jss/EMCA
