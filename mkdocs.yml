@@ -15,6 +15,7 @@ nav:
     - AJAX: web/AJAX.md
     - nodejs: web/nodejs.md
     - webpack: web/webpack.md
+    - vue2: web/vue2.md
 markdown_extensions:
   - pymdownx.highlight:
       anchor_linenums: true
