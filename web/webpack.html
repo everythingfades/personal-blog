@@ -13,6 +13,10 @@
         <link rel="canonical" href="http://localhost:9000/web/webpack.html">
       
       
+        <link rel="prev" href="nodejs.html">
+      
+      
+        <link rel="next" href="vue2.html">
       
       
       <link rel="icon" href="../assets/images/favicon.png">
@@ -20,7 +24,7 @@
     
     
       
-        <title>9. webpack: - Honglei Gu's personal blog</title>
+        <title>webpack - Honglei Gu's personal blog</title>
       
     
     
@@ -139,7 +143,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              9. webpack:
+              webpack
             
           </span>
         </div>
@@ -273,17 +277,19 @@
       
   
   
+    
   
   
+  
     
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
         
           
           <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
@@ -297,7 +303,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_2">
             <span class="md-nav__icon md-icon"></span>
             web(前端+后端)
@@ -506,6 +512,244 @@
   
   <span class="md-ellipsis">
     nodejs
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    webpack
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="webpack.html" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    webpack
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#91-webpack" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.1 修改webpack打包入口和出口
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#92-webpackhtml" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.2 webpack自动生成html
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#93-css" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.3 打包css
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9.3 打包css">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#931-css" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.3.1 提取css
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9.3.1 提取css">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#9311-css" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.3.1.1 压缩css
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#94-less" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.4 打包less:
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#95" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.5 打包图片:
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#96-webpack" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.6 Webpack搭建开发环境
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#97" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.7 打包优化:
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#98" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.8 打包模式的应用:
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#99" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.9 注入环境变量
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#910-source-map" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.10 调错source map,
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#911-alias" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.11 解析别名alias
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#912-cdn" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.12 使用CDN
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#913" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.13 多页面打包:
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#914-splitchunks" class="md-nav__link">
+    <span class="md-ellipsis">
+      9.14 splitChunks:分割公共代码:
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="vue2.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    vue2
   </span>
   
 
