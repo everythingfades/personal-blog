@@ -887,7 +887,7 @@ update: 值被更新
         examples/vue/vue2router
 
 ### SPA(Single Page Aplication)单页应用程序
-![image.png](image.png)
+![image.png](../../assets/image.png)
 
 ### 路由:
 路径和组件的映射关系, eg localhost:8888/notebook
@@ -1089,7 +1089,7 @@ const router = new VueRouter({
 ## 自定义创建项目：
 vue create 之后选自定义， 勾选需要的配置项
 
-![图片](../assets/6ba8c5d5fa1eb249504bfb652757995.png)
+![图片](../../assets/6ba8c5d5fa1eb249504bfb652757995.png)
 
 eslint规范中应用最广的是standard config，无分号规范
 ### eslint代码规范：

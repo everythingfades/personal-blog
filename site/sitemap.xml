@@ -2,46 +2,50 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>http://localhost:9000/index.html</loc>
-         <lastmod>2024-09-09</lastmod>
+         <lastmod>2024-09-12</lastmod>
     </url>
     <url>
          <loc>http://localhost:9000/html1.html</loc>
-         <lastmod>2024-09-09</lastmod>
+         <lastmod>2024-09-12</lastmod>
     </url>
     <url>
          <loc>http://localhost:9000/web/AJAX.html</loc>
-         <lastmod>2024-09-09</lastmod>
+         <lastmod>2024-09-12</lastmod>
     </url>
     <url>
          <loc>http://localhost:9000/web/css.html</loc>
-         <lastmod>2024-09-09</lastmod>
+         <lastmod>2024-09-12</lastmod>
     </url>
     <url>
          <loc>http://localhost:9000/web/html.html</loc>
-         <lastmod>2024-09-09</lastmod>
+         <lastmod>2024-09-12</lastmod>
     </url>
     <url>
          <loc>http://localhost:9000/web/nodejs.html</loc>
-         <lastmod>2024-09-09</lastmod>
+         <lastmod>2024-09-12</lastmod>
+    </url>
+    <url>
+         <loc>http://localhost:9000/web/vue2.html</loc>
+         <lastmod>2024-09-12</lastmod>
     </url>
     <url>
          <loc>http://localhost:9000/web/webpack.html</loc>
-         <lastmod>2024-09-09</lastmod>
+         <lastmod>2024-09-12</lastmod>
     </url>
     <url>
          <loc>http://localhost:9000/web/js/BOM.html</loc>
-         <lastmod>2024-09-09</lastmod>
+         <lastmod>2024-09-12</lastmod>
     </url>
     <url>
          <loc>http://localhost:9000/web/js/DOM.html</loc>
-         <lastmod>2024-09-09</lastmod>
+         <lastmod>2024-09-12</lastmod>
     </url>
     <url>
          <loc>http://localhost:9000/web/js/js-advanced.html</loc>
-         <lastmod>2024-09-09</lastmod>
+         <lastmod>2024-09-12</lastmod>
     </url>
     <url>
          <loc>http://localhost:9000/web/js/js.html</loc>
-         <lastmod>2024-09-09</lastmod>
+         <lastmod>2024-09-12</lastmod>
     </url>
 </urlset>

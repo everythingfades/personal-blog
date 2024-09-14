@@ -1,4 +1,8 @@
 # 须知
+## for english users:
+
+this project was originally written in chinese, translation will be done in the next couple of weeks
+
 ## 简介:
 本项目主要记录学习网页的相关笔记,会持续更新及修改
 

@@ -4,18 +4,22 @@ site_author: Honglei Gu(everythingfades)
 copyright: '2024 by Honglei Gu'
 nav:
   - Home: index.md
-  - web(前端+后端):
-    - html: web/html.md
-    - css: web/css.md
-    - js:
-      - 基础语法: web/js/js.md
-      - 进阶语法: web/js/js-advanced.md
-      - DOM: web/js/DOM.md
-      - BOM: web/js/BOM.md
-    - AJAX: web/AJAX.md
-    - nodejs: web/nodejs.md
-    - webpack: web/webpack.md
-    - vue2: web/vue2.md
+  - 中文:
+    - web(前端+后端):
+      - html: zh/web/html.md
+      - css: zh/web/css.md
+      - js:
+        - 基础语法: zh/web/js/js.md
+        - 进阶语法: zh/web/js/js-advanced.md
+        - DOM: zh/web/js/DOM.md
+        - BOM: zh/web/js/BOM.md
+      - AJAX: zh/web/AJAX.md
+      - nodejs: zh/web/nodejs.md
+      - webpack: zh/web/webpack.md
+      - vue2: zh/web/vue2.md
+  - English:
+    - web:
+      - html: en/web/html.md
 markdown_extensions:
   - pymdownx.highlight:
       anchor_linenums: true
