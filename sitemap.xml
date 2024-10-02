@@ -2,54 +2,62 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>http://localhost:9000/index.html</loc>
-         <lastmod>2024-09-14</lastmod>
+         <lastmod>2024-10-02</lastmod>
     </url>
     <url>
          <loc>http://localhost:9000/html1.html</loc>
-         <lastmod>2024-09-14</lastmod>
+         <lastmod>2024-10-02</lastmod>
+    </url>
+    <url>
+         <loc>http://localhost:9000/en/Imperial/year2/pintos.html</loc>
+         <lastmod>2024-10-02</lastmod>
+    </url>
+    <url>
+         <loc>http://localhost:9000/en/web/css.html</loc>
+         <lastmod>2024-10-02</lastmod>
     </url>
     <url>
          <loc>http://localhost:9000/en/web/html.html</loc>
-         <lastmod>2024-09-14</lastmod>
+         <lastmod>2024-10-02</lastmod>
     </url>
     <url>
          <loc>http://localhost:9000/zh/web/AJAX.html</loc>
-         <lastmod>2024-09-14</lastmod>
+         <lastmod>2024-10-02</lastmod>
     </url>
     <url>
          <loc>http://localhost:9000/zh/web/css.html</loc>
-         <lastmod>2024-09-14</lastmod>
+         <lastmod>2024-10-02</lastmod>
     </url>
     <url>
          <loc>http://localhost:9000/zh/web/html.html</loc>
-         <lastmod>2024-09-14</lastmod>
+         <lastmod>2024-10-02</lastmod>
     </url>
     <url>
          <loc>http://localhost:9000/zh/web/nodejs.html</loc>
-         <lastmod>2024-09-14</lastmod>
+         <lastmod>2024-10-02</lastmod>
     </url>
     <url>
          <loc>http://localhost:9000/zh/web/vue2.html</loc>
-         <lastmod>2024-09-14</lastmod>
+         <lastmod>2024-10-02</lastmod>
     </url>
     <url>
          <loc>http://localhost:9000/zh/web/webpack.html</loc>
-         <lastmod>2024-09-14</lastmod>
+         <lastmod>2024-10-02</lastmod>
     </url>
     <url>
          <loc>http://localhost:9000/zh/web/js/BOM.html</loc>
-         <lastmod>2024-09-14</lastmod>
+         <lastmod>2024-10-02</lastmod>
     </url>
     <url>
          <loc>http://localhost:9000/zh/web/js/DOM.html</loc>
-         <lastmod>2024-09-14</lastmod>
+         <lastmod>2024-10-02</lastmod>
     </url>
     <url>
          <loc>http://localhost:9000/zh/web/js/js-advanced.html</loc>
-         <lastmod>2024-09-14</lastmod>
+         <lastmod>2024-10-02</lastmod>
     </url>
     <url>
          <loc>http://localhost:9000/zh/web/js/js.html</loc>
-         <lastmod>2024-09-14</lastmod>
+         <lastmod>2024-10-02</lastmod>
     </url>
 </urlset>
