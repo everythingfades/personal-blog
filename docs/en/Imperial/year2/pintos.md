@@ -2,23 +2,40 @@
 the Imperial Task 0 was from official repo, the rest may be different from the original Stanford version
 ## project structure:
 - src/device:
-  - contains code to deal with supporting devices
-  - timer.c in Task 0
+
+$\qquad$ contains code to deal with supporting devices
+
+$\qquad$ timer.c in Task 0
+
 - src/threads:
-  - task 1,2,3
-  - all thread related stuff
+
+$\qquad$ task 1,2,3
+
+$\qquad$ all thread related stuff
+
 - src/userprog:
-  - task 2,3
-  - user programs, process loading and system calls
-  - Pintos' page table implementation and exception handler
+
+$\qquad$ task 2,3
+
+$\qquad$ user programs, process loading and system calls
+
+$\qquad$ Pintos' page table implementation and exception handler
+
 - src/vm:
-  - task 3
-  - virtually empty, create virtual memory here
+
+$\qquad$ task 3
+
+$\qquad$ virtually empty, create virtual memory here
+
 - src/filesys:
-  - filesystem implmentation
-  - do not modify
+
+$\qquad$ filesystem implmentation
+
+$\qquad$ do not modify
+
 - src/lib:
-  - libs
+
+$\qquad$ libs
 ## set up:
 - clone: git clone https://gitlab.doc.ic.ac.uk/lab2425_autumn/pintos_task0_hg1523.git
 - compile pintos utilities: make in <repo>/src/utils
