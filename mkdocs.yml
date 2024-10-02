@@ -20,7 +20,7 @@ nav:
   - English:
     - Imperial:
       - year2:
-        - pintos: en/Imperial/year2/pintos
+        - pintos: en/Imperial/year2/pintos.md
     - web:
       - html: en/web/html.md
 markdown_extensions:
