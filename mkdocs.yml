@@ -18,6 +18,9 @@ nav:
       - webpack: zh/web/webpack.md
       - vue2: zh/web/vue2.md
   - English:
+    - Imperial:
+      - year2:
+        - pintos: en/Imperial/year2/pintos
     - web:
       - html: en/web/html.md
 markdown_extensions:
