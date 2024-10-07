@@ -22,6 +22,7 @@ nav:
       - year2:
         - pintos: en/Imperial/year2/pintos.md
         - SED-Ex1: en/Imperial/year2/SED_Ex1.md
+        - 50001-Algorithms: en/Imperial/year2/50001-Algorithms.md
     - web:
       - html: en/web/html.md
 markdown_extensions:

@@ -639,6 +639,97 @@ no, the error is in line 108, the second timer_sleep
 
 I have no idea currently, I am temporarily commenting it out in timer_sleep
 
+**As suggested on Edstem, block and unblock should be protected and not directly used**
+
+simple change, we add a sema in the threads
+
+```C
+struct thread
+  {
+    /* Owned by thread.c. */
+    tid_t tid;                          /* Thread identifier. */
+    enum thread_status status;          /* Thread state. */
+    char name[16];                      /* Name (for debugging purposes). */
+    uint8_t *stack;                     /* Saved stack pointer. */
+    int priority;                       /* Priority. */
+    struct list_elem allelem;           /* List element for all threads list. */
+
+    /* Shared between thread.c and synch.c. */
+    struct list_elem elem;              /* List element. */
+
+#ifdef USERPROG
+    /* Owned by userprog/process.c. */
+    uint32_t *pagedir;                  /* Page directory. */
+#endif
+
+// mycode starts
+    uint32_t sleep_ticks;               /* sleep for some ticks, 0 at default */
+    struct semaphore * sleep_sema;      /* semaphore for sleeping */
+// mycode ends
+
+    /* Owned by thread.c. */
+    unsigned magic;                     /* Detects stack overflow. */
+  };
+```
+
+we initialize the sema and call sema_down every_time we try to make the thread sleep
+
+```C
+void
+timer_sleep (int64_t ticks) 
+{
+  // int64_t start = timer_ticks ();
+  if (ticks <= 0){
+    // when timer_sleep is passed in a negative or 0 ticks
+    // sleep for 0 ticks is doing nothing
+    // while negative ticks are invalid
+    return;
+  }
+  ASSERT (intr_get_level () == INTR_ON);
+  enum intr_level old_level = intr_disable();
+  // printf("sleeping thread %s", thread_current() -> name);
+  // this printf fails the test
+// mycode start
+  struct thread * cur = thread_current();
+  cur -> sleep_ticks = ticks;
+  struct semaphore sema;
+  cur -> sleep_sema = &sema;
+  sema_init (&sema, 0);
+  intr_set_level(old_level);
+  sema_down(&sema);
+// mycode ends
+  // while (timer_elapsed (start) < ticks) 
+  //   thread_yield ();
+}
+```
+
+the check it every timeslice(tick?) to sema_up
+
+```C
+// mycode starts
+/* Check every threads whether they should be awaked. */
+void check_sleep_time(struct thread *t, void *aux UNUSED) {
+  // the aux parameter is unused, it is just for the thread_foreach function
+
+  // if the thread is being blocked or time to wake up, unblock it
+  if (t -> status == THREAD_BLOCKED && t -> sleep_ticks> 0) {
+
+    // obviously we have to decrement the time here or else it blocks forever
+    t -> sleep_ticks --; 
+    if (t -> sleep_ticks == 0){ 
+      // I know the curved brackets are not needed, but throwing it away usually cause confusion
+
+      // if block time up, unblock
+      sema_up(t -> sleep_sema);
+    }
+  }
+}
+// mycode ends
+```
+
+the intr_level stuff still persists, comment the line out and we are all fixed, but I'll return to that when I know what to do
+
+okay, it is the bug mentioned in edstem, changed two lines and no error, so all done
 ### code analysis
 
 After the completion, let's looking into the code for a detailed analysis
@@ -652,6 +743,8 @@ first, bss, read the cmd args, init the whole program as a thread,
 init the memory etc.
 
 so basically the program is a idle thread?
+
+the idle thread starts the others tasks and is only blocked at the exit of the whole program
 
 # Task 1: scheduling
 
