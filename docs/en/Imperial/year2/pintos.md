@@ -205,36 +205,71 @@ void cond_wait(struct condition *cond, struct lock *lock) {
  list_push_back(&cond->waiters, &waiter.elem);
  // push the elem to the waiters list
  lock_release(lock); // release the lock
- sema_down(&waiter.semaphore);// wait
- lock_acquire(lock);
+ sema_down(&waiter.semaphore);// wait, the threa is blocked at this time
+ lock_acquire(lock);// get the lock back again
 }
 ```
 
+## debugging
+### printf:
+basic feature, just print out whatevr you want to check
+
+- note that this cannot be used in schedule(), this is because printf causes the current thread to be blocked while the thread should not be
+- and some of the tests that would match the output will fail
+
+### ASSERT:
+remember to use 
+```C
+#include <debug.h>
+```
+
+before you use this
+
+basically the same, you assert something is true and edit the conditions
+
+but notice that ASSERT mallocs, so if the mallocing fails, the program PANICs
+
+### backtraces:
+pintos offer the backrace command,
+
+if a garbled backtrace occurs, then it means the thread stack is corrupted
+
+### gdb:
+just gdb
+
+notice that pintos runs qemu, a virtual machine
+
+so if you enter the program with gdb, you would see qemu code
+
+first do ```pintos --gdb -- -q run alarm-single```
+
+then open up a new terminal in src/devices/build
+
+and run ```pintos-gdb kernel.o```
+
+then run ```debug pintos``` in gdb
+
+and then the rest is the same as gdb
 # Task 0
 ##  Part A- Codebase Preview
-### Part 1
-Which Git command should youma run to retrieve a copy of your individual repository for PintOS Task 0 in your local directory?
-(Hint: be specific to this task and think about ease of use.)
+### Part 1 Which Git command should you run to retrieve a copy of your individual repository for PintOS Task 0 in your local directory? (Hint: be specific to this task and think about ease of use.)
 
 - cd somewhere
 - git clone https://gitlab.doc.ic.ac.uk/lab2425_autumn/pintos_task0_hg1523.git
 
-### Part 2
-Why is using the strcpy() function to copy strings usually a bad idea?
+### Part 2 Why is using the strcpy() function to copy strings usually a bad idea?
 (Hint: be sure to clearly identify the problem.)
 
 - there is not length parameter in strcpy, so for example, if I am try to copy 7 chars from "Hello", it may copy "Hello" and two addition mysterious chars
 
-###  Part 3: 
-If test src/tests/devices/alarm-multiple fails, where would you find its output and result logs?
+###  Part 3: If test src/tests/devices/alarm-multiple fails, where would you find its output and result logs?
 Provide both paths and filenames.
 (Hint: you might want to run this test and find out.)
 
 - the output: build/tests/devices/alarm-single.output
 - the result log: build/tests/devices/alarm-single.result
 
-### Part 4:
-In PintOS, a thread is characterized by a struct and an execution stack.
+### Part 4: In PintOS, a thread is characterized by a struct and an execution stack.
 
 (
 the thread struct looks like this:
@@ -271,6 +306,90 @@ so we have the struct as shown above and a execution stack, there are some poten
 3. if memory size is a concern, we may cut the name field as tid should be sufficient to identify the threads
 #### (b) Explain how this relates to stack overflow and how PintOS identifies if a stack overflow has occurred.
 
+pintos create a magic component in the thread to detect overflow. Normally the magic number is set to a random value and if something overflows. It exceeds it original size and start affecting the magic value. So to check overflow, we simply assert if the magic value remains the same. If not, overflow, otherwise maybe yes or does not matter.
+
+### Part 5: Explain how thread scheduling in PintOS currently works in roughly 300 words. Include the chain of execution of function calls.(Hint: we expect you to at least mention which functions participate in a context switch, how they interact, how and when the thread state is modified and the role of interrupts.)
+
+(This need fix)
+  The scheduler it self first get the current thread and the next thread from the ready_list using running_thread() and next_thread_to_run(), if we need a switch or the next thread to run is different, we call switch_threads() to switch the thread. 
+
+  The switch_threads() function would first store the state of the caller to %ebx, %ebp, %esi, %edi with pushl. Then we move the current stack pointer to the old thread's stack. This is the moment where the state of the old thread is modified. After this, we do a similar operation to the current state to restore the stack pointer. The final returned value is the caller's state in the altered context. 
+
+  After this, we set the current thread runningm and if the previous thread is dying, null or is the initial thread, we destroy the previous thread.
+
+  These functions should execution is interruption is not enabled. As if we are interrupting, we set the inte_level, block the whatever is running in the CPU until the interruption flag sti is set again in intr_enable. Interruption makes sure that if something went wrong, we would not continue executing running threads in a wrong context.
+
+### Part 6: In PintOS, what is the default length (in ticks and in seconds) of a scheduler time slice? (Hint: read the Task 0 documentation carefully.)
+
+the default length of a scheduler time slice is 4 ticks
+
+line 54 src\threads\thread.c
+
+```C
+/* Scheduling. */
+#define TIME_SLICE 4/* # of timer ticks to give each thread. */
+```
+or 100Hz, 0.01s
+
+line 7 src\devices\timer.h
+
+```C
+/* Number of timer interrupts per second. */
+#define TIMER_FREQ 100
+```
+
+###  Part 7: In PintOS, how would you print an unsigned 64 bit int? (Consider that you are working with C99).Don’t forget to state any inclusions needed by your code
+
+As shown in lectures, use the PRIu64
+
+```C
+  printf(">>>> Now sleping thread %s for %"PRIu64" ticks value", thread_current()->name, ticks);
+
+```
+
+### Part 8: Explain the property of reproducibility and how the lack of reproducibility will affect debugging
+
+the property of reproducibility illustrate that no matter what time you execute the program, if the parameter are the same, the output should be correspondingly consistent
+
+If the program lacks reproducibility, you might find trouble determining what value it should be in the process and thus unable to identify potential errors
+
+### Part 9:  In PintOS, locks are implemented on top of semaphores.
+#### (a) How do the functions in the API of locks relate to those of semaphores?
+
+the locks utilizes semaphormes
+
+```C
+struct lock 
+  {
+    struct thread *holder;      /* Thread holding lock (for debugging). */
+    struct semaphore semaphore; /* Binary semaphore controlling access. */
+  };
+```
+
+so for example, the lock_release utilizes the sema_up function
+
+```C
+void
+lock_release (struct lock *lock) 
+{
+  ASSERT (lock != NULL);
+  ASSERT (lock_held_by_current_thread (lock));
+
+  lock->holder = NULL;
+  sema_up (&lock->semaphore);
+}
+```
+
+it just do some assertions, set the holder to null and sema_up
+#### (b) What extra property do locks have that semaphores do not?
+
+the holder, the pointer to the thread that is controlling this lock
+
+###  Part 10: Define what is meant by a race-condition. Why is the test if(x \!= null) insufficient to prevent a segmentation fault from occurring on an attempted access to a structure through pointer x? (Hint: you should assume that the pointer variable is correctly typed, that the structure was successfully initialised earlier in the program and that there are other threads running in parallel.)
+
+The race-condition is when two threads in parallel tries to alter the same resource at the same time. The uncertainty in the order the thread access the resource may cause chaos
+
+Therefore, even if x != null, there is a possibility that everything is initialized properly, but say x is 1 at first, and should be x = 1 when thread A executes, but then a fast thread B alters x to 2 before A could even react.
 
 ##  Part B- The Alarm Clock
 ### testing:
@@ -278,7 +397,6 @@ so we have the struct as shown above and a execution stack, there are some poten
 - single test: ```make build/tests/device/${testname}.result```
 
 ### coding - the experience
-#### 02/10/2024
 
 check the timer function
 
@@ -360,19 +478,15 @@ thread_unblock needs a argument
 
 this makes all the tests failed
 
-Kernel panic in run: PANIC at ../../threads/thread.c:236 in thread_block(): assertion `intr_get_level () == INTR_OFF' failed.
+because we need to wait for a certain number of ticks, so we try to find the place where ticks is calculated
 
-so in line 236, intr_get_level give INTR_ON in thread_block()
+in thread.c, there is this thread_tick function
 
-after changing
+one possible solution is to add a remaining_sleeping_time in the thread struct, which is decremented by 1 every time
 
-then it seems like a dead cycle
+then if it is zero, we unblock it, or use a semaphore, condition, whatever
 
-giving this idea up, although plausible
-
-
-
-new Idea: change the thread struct
+so we add a new int64_t variable to the struct thread
 
 ```C
 struct thread
@@ -394,17 +508,293 @@ struct thread
 #endif
 
 // mycode starts
-   // remaining_sleeping_time indicates the remaining time
-   // this sleeping thread can sleep
-   int remaining_sleeping_time;
+    uint32_t sleep_ticks;               /* sleep for some ticks, 0 at default */
 // mycode ends
 
     /* Owned by thread.c. */
     unsigned magic;                     /* Detects stack overflow. */
   };
+```
+
+so we simply have to check sleep_ticks
+
+then we decrement sleep_ticks and unblock when it turns to 0
+
+ticks is controlled by timer_interrupt or thread_tick
+
+so we have to check everytime timer_interrupt or thread_tick is called
+
+At first I wanted to maintain a list
+
+by then I found this thread_foreach that does the iteration for me
+
+so I simply call
+
+```C
+// mycode starts
+/* Check every threads whether they should be awaked. */
+void check_sleep_time(struct thread *t, void *aux UNUSED) {
+  // the aux parameter is unused, it is just for the thread_foreach function
+
+  // if the thread is being blocked or time to wake up, unblock it
+  if (t -> status == THREAD_BLOCKED && t -> sleep_ticks> 0) {
+
+    // obviously we have to decrement the time here or else it blocks forever
+    t -> sleep_ticks --; 
+    if (t -> sleep_ticks == 0){ 
+      // I know the curved brackets are not needed, but throwing it away usually cause confusion
+
+      // if block time up, unblock
+      thread_unblock(t);
+    }
+  }
+}
+// mycode ends
 
 ```
 
-### analyze the program first
-the pintos main program is in src\threads\init.c
+and 
 
+```C
+void
+thread_tick (void) 
+{
+  struct thread *t = thread_current ();
+
+  /* Update statistics. */
+  if (t == idle_thread)
+    idle_ticks++;
+#ifdef USERPROG
+  else if (t->pagedir != NULL)
+    user_ticks++;
+#endif
+  else
+    kernel_ticks++;
+
+  /* Enforce preemption. */
+  if (++thread_ticks >= TIME_SLICE)
+    intr_yield_on_return ();
+// mycode starts
+  thread_foreach(check_sleep_time,NULL);
+// mycode ends
+}
+```
+
+but then the test timeouts, I am not certain why
+
+but putting the code in timer_interrupt fixed the issue, perhaps I have added something mysterious add later deleted it
+
+and of course, forgetting to remove 
+
+```C
+printf("sleeping thread %s", thread_current() -> name);
+```
+
+which is an example in lectures, failed some test that relied on output
+
+then the alarm_zero and alarm_negative timeouts
+
+since we do not check the ticks, if it is negative, it decrements to $-\infty$
+
+so add
+
+```C
+if (ticks <= 0){
+  // when timer_sleep is passed in a negative or 0 ticks
+  // sleep for 0 ticks is doing nothing
+  // while negative ticks are invalid
+  return;
+}
+```
+
+at this time, the only error is in no_busy_wait, 
+
+```
+Kernel PANIC at ../../devices/timer.c:99 in timer_sleep(): assertion `intr_get_level () == INTR_ON' failed.
+```
+
+intr_get_level does some assembly thing
+
+```C
+enum intr_level
+intr_get_level (void) 
+{
+  uint32_t flags;
+
+  /* Push the flags register on the processor stack, then pop the
+     value off the stack into `flags'.  See [IA32-v2b] "PUSHF"
+     and "POP" and [IA32-v3a] 5.8.1 "Masking Maskable Hardware
+     Interrupts". */
+  asm volatile ("pushfl; popl %0" : "=g" (flags));
+
+  return flags & FLAG_IF ? INTR_ON : INTR_OFF;
+}
+```
+
+asm volatile store something to the flags variable, not knowing which
+
+the test_alarm_no_busy_wait calls an extra time_sleep before the thread to yield the CPU, I guess this is where the error occurs, so go gdb
+
+no, the error is in line 108, the second timer_sleep
+
+I have no idea currently, I am temporarily commenting it out in timer_sleep
+
+### code analysis
+
+After the completion, let's looking into the code for a detailed analysis
+
+basically it executes the init.c in the threads folder
+
+it does a whole bunch of init
+
+first, bss, read the cmd args, init the whole program as a thread,
+
+init the memory etc.
+
+so basically the program is a idle thread?
+
+# Task 1: scheduling
+
+make pintos more amendable for multi-threading
+
+## position
+- all work should be done under src/threads
+- compilation should occur under src/threads
+- new files should be added to src/Makefile.build
+
+## Testing:
+- all tests: make check
+- single tests: make build/tests/threads/<test-name>.result
+
+**some tests take much longer to run thean others**
+
+**Autotesting may take 30 mins**
+
+## pintos init:
+Initial thread:
+- Initial thread is in src/threads/inti.c is started by the pintos boot (line 93 thread_init)
+- Initial thread starts the threading sub-system and “promotes” itself to a standard Pintos thread in thread_init()
+- Initial thread then initialises other subsystems (e.g. malloc, timer)
+- Initial thread then parses Pintos command-line arguments
+- Initial thread then starts other threads, via thread_create()
+
+
+test are running by in the init.c
+
+```C
+/* Runs the task specified in ARGV[1]. */
+static void
+run_task (char **argv)
+{
+  const char *task = argv[1];
+  
+  printf ("Executing '%s':\n", task);
+#ifdef USERPROG
+  process_wait (process_execute (task));
+#else
+  run_test (task);
+#endif
+  printf ("Execution of '%s' complete.\n", task);
+}
+```
+
+**The initial thread is not created by thread_create()**
+
+**You may need to add initialisation code for any elements you add to struct thread to thread_init() as well**
+
+## requirements:
+### Priority scheduling
+
+requirements:
+- Rewrite scheduler to take thread priorities into account
+- Allow processes to modify and query their priority
+
+we always want the ready thread with the highest priority should run
+
+if:
+- a new thread is created
+- a thread is unblocked
+- a thread is woken from timer_sleep
+
+some thread may have higher priority, the current thread should yield to it as soon as possible
+
+**sleeping thread should not be woken early, regardless of priority**
+
+allow modification to the priority, implement
+
+- void thread_sets_priority(int new) sets the thread’s priority to new
+ int thread
+ get
+ set
+ priority(int new
+ priority)
+ priority, if valid
+ priority(void)
+ returns the current thread’s (effective) priority
+
+
+
+## Priority donation (for locks)
+- Improve performance for high-priority threads
+
+prevent priority inversion by allowing high-priority threads to donate their priority to other threads holding contended resources
+
+priority inversion may occur when some thread of lowerer priority is using the resource, holding the lock while some other thread with higher priority is spawned
+
+- Multiple threads may donate to a single thread
+- A thread can only donate to one thread (which holds the resource)
+- The donation is revoked when the resource is freed
+- Donations may nest (e.g. A donates to B and B donates to C)
+
+**block threads may have their priorities modified**
+
+effective priority
+- A thread's effective priority is always the highest of its base priority and al its Donations
+
+proiority update
+- THe priority updated by thread_sets_priority(int new_priority) should laways be the thread's base priority
+
+priority query
+- the priority returned from  thread_get_priority(void) should always be the threads's effective priority
+
+
+
+## BSD-style scheduler
+- Alternative scheduler implementation based on allocated CPU time
+- Requires implementing some fixed-point maths routines
+
+its another ides of preventing priority inversion using feedback scheduling
+
+- Measure the CPU usage of each thread every tick
+- Decay the CPU usage for all threads once per second
+- Calculate the system load average once per second
+- Update the priority of threads every 4th tick
+- Always run the thread with highest priority
+
+**do not do #ifdefs to disable the scheduler**
+
+### FPU(Floating point unit)
+simulate real arithmetic without access to a FPU
+
+Correctness:
+- Abstract out the actual arithmetic to make the test easier
+- small differences in implementation (round down / round up, etc,) can have differences in output, read the spec carefully
+
+Effciency:
+- This code will be run many times a second, being optimal is essential
+- Functions vs. macros may give different performance characteristics
+
+see section B.6
+
+## suggested order of the implementation
+- choose the best task 0 implementation
+
+- Initial thread_get_priority() & thread_set_priority()
+- Prioritised unblocking on synchronisation primitives (semaphores,locks and conditions)
+
+- Priority scheduling
+- Priority donation(suggested hardest)
+- Final thread_get_priority() & thread_set_priority
+
+- Fixed-point maths routines
+- BSD-style scheduler
