@@ -1130,13 +1130,17 @@
 <ul>
 <li>since we need to make sure everything is unique, we need to check whether the element is comparable</li>
 </ul>
-<p>so two possible realization:
-- to let the user pass in a comparator for the given class
-- to let the user only pass in Java comparable
-- to let the user only pass in a certain type</p>
-<p>we need to add (the space in &lt; T&gt; prevents it from being a html tag, at least in the editor)
-- public &lt; T extends Comparable<T>&gt; RecentlyUsedList()
-- public &lt; T&gt; RecentlyUsedList(Comparator&lt; T&gt; comparator)</p>
+<p>so two possible realization:</p>
+<ul>
+<li>to let the user pass in a comparator for the given class</li>
+<li>to let the user only pass in Java comparable</li>
+<li>to let the user only pass in a certain type</li>
+</ul>
+<p>we need to add (the space in &lt; T&gt; prevents it from being a html tag, at least in the editor)</p>
+<ul>
+<li>public &lt; T extends Comparable<T>&gt; RecentlyUsedList()</li>
+<li>public &lt; T&gt; RecentlyUsedList(Comparator&lt; T&gt; comparator)</li>
+</ul>
 <h2 id="rules-of-test-driven-development">Rules of Test-Driven Development</h2>
 <ul>
 <li>Start by writing a test (1 test).</li>
@@ -1149,10 +1153,12 @@
 <li>Repeat.</li>
 </ul>
 <h2 id="coding-the-experience">coding - the experience</h2>
-<p>summarize the functions
-- public &lt; T extends Comparable<T>&gt; RecentlyUsedList()
-- public &lt; T&gt; RecentlyUsedList(Comparator&lt; T&gt; comparator)
-- public <T> T retrieve(int index)</p>
+<p>summarize the functions</p>
+<ul>
+<li>public &lt; T extends Comparable<T>&gt; RecentlyUsedList()</li>
+<li>public &lt; T&gt; RecentlyUsedList(Comparator&lt; T&gt; comparator)</li>
+<li>public <T> T retrieve(int index)</li>
+</ul>
 <p>other methods may be added for simplicity</p>
 <ul>
 <li>public void add(T item)</li>
@@ -1178,6 +1184,47 @@
 </code></pre></div>
 <p>this passes, move to refactoring, pass</p>
 <h4 id="test2">test2</h4>
+<p>we want to add a comparator to the constructor</p>
+<p>so we write the test</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nd">@Test</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">  </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">testInitWithComparator</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span><span class="n">RecentlyUsedList</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span><span class="w"> </span><span class="n">list</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">RecentlyUsedList</span><span class="o">&lt;&gt;</span><span class="p">(</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">      </span><span class="k">new</span><span class="w"> </span><span class="n">Comparator</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">        </span><span class="kd">public</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">compare</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">s1</span><span class="p">,</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">s2</span><span class="p">){</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">          </span><span class="c1">// lets just imitate the regular comparator</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">          </span><span class="k">return</span><span class="w"> </span><span class="n">s1</span><span class="p">.</span><span class="na">compareTo</span><span class="p">(</span><span class="n">s2</span><span class="p">);</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">        </span><span class="p">}</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="w">      </span><span class="p">}</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="w">    </span><span class="p">);</span>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="w">    </span><span class="c1">// I know this is ugly, but it is simpler, comparator is an interface</span>
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="w">    </span><span class="n">assertThat</span><span class="p">(</span><span class="s">&quot;List is null&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">list</span><span class="p">.</span><span class="na">getList</span><span class="p">().</span><span class="na">size</span><span class="p">()</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="w">    </span><span class="c1">// there should be a method to get the list, since it should be private</span>
+<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>
+<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a><span class="w">    </span><span class="c1">// since the initialized list should be empty, so we simply check the size of the list by whatever method</span>
+<a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a><span class="w">    </span><span class="c1">// with size() or length or whatever</span>
+<a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a>
+<a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a><span class="w">    </span><span class="n">assertThat</span><span class="p">(</span><span class="s">&quot;comparator is not null&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">list</span><span class="p">.</span><span class="na">getComparator</span><span class="p">()</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="kc">null</span><span class="p">);</span>
+<a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a><span class="w">    </span><span class="c1">// first we need to check if the comparator is not null</span>
+<a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a><span class="w">    </span><span class="n">assertThat</span><span class="p">(</span><span class="s">&quot;comparator works well&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">list</span><span class="p">.</span><span class="na">getComparator</span><span class="p">().</span><span class="na">compare</span><span class="p">(</span><span class="s">&quot;PintOS&quot;</span><span class="p">,</span><span class="s">&quot;PaintOS&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+<a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a><span class="w">    </span><span class="c1">// then we need to check if the comparator is working well</span>
+<a id="__codelineno-2-22" name="__codelineno-2-22" href="#__codelineno-2-22"></a><span class="w">    </span><span class="c1">// nightmare from C: changed to random stuff because no malloc</span>
+<a id="__codelineno-2-23" name="__codelineno-2-23" href="#__codelineno-2-23"></a><span class="w">    </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&quot;testInit passed&quot;</span><span class="p">);</span>
+<a id="__codelineno-2-24" name="__codelineno-2-24" href="#__codelineno-2-24"></a><span class="w">  </span><span class="p">}</span>
+</code></pre></div>
+<p>then we try to write the code</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kd">public</span><span class="w"> </span><span class="nf">RecentlyUsedList</span><span class="p">(</span><span class="n">Comparator</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="w"> </span><span class="n">comparator</span><span class="p">){</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">  </span><span class="n">list</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">LinkedList</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">();</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">  </span><span class="k">this</span><span class="p">.</span><span class="na">comparator</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">comparator</span><span class="p">;</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="p">}</span>
+</code></pre></div>
+<p>test failed</p>
+<p>Hey, you forget to write the getComparator method</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kd">public</span><span class="w"> </span><span class="n">Comparator</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">getComparator</span><span class="p">(){</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">comparator</span><span class="p">;</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="p">}</span>
+</code></pre></div>
+<p>test passed, went on for refactoring</p>
+<p>so now all the init stuff are good to go</p>
 
 
 
