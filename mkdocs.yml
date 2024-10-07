@@ -21,6 +21,7 @@ nav:
     - Imperial:
       - year2:
         - pintos: en/Imperial/year2/pintos.md
+        - SED-Ex1: en/Imperial/year2/SED_Ex1.md
     - web:
       - html: en/web/html.md
 markdown_extensions:
