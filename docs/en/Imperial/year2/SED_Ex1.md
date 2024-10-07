@@ -29,11 +29,13 @@ so currently decided to use linked list
 - since we need to make sure everything is unique, we need to check whether the element is comparable
 
 so two possible realization:
+
 - to let the user pass in a comparator for the given class
 - to let the user only pass in Java comparable
 - to let the user only pass in a certain type
 
 we need to add (the space in < T> prevents it from being a html tag, at least in the editor)
+
 - public < T extends Comparable<T>> RecentlyUsedList()
 - public < T> RecentlyUsedList(Comparator< T> comparator)
 
@@ -49,6 +51,7 @@ we need to add (the space in < T> prevents it from being a html tag, at least in
 
 ## coding - the experience
 summarize the functions
+
 - public < T extends Comparable<T>> RecentlyUsedList()
 - public < T> RecentlyUsedList(Comparator< T> comparator)
 - public <T> T retrieve(int index)
@@ -87,3 +90,59 @@ public RecentlyUsedList(){
 this passes, move to refactoring, pass
 
 #### test2
+
+we want to add a comparator to the constructor
+
+so we write the test
+
+```Java
+@Test
+  public void testInitWithComparator() {
+    RecentlyUsedList<String> list = new RecentlyUsedList<>(
+      new Comparator<String>() {
+        public int compare(String s1, String s2){
+          // lets just imitate the regular comparator
+          return s1.compareTo(s2);
+        }
+      }
+    );
+    // I know this is ugly, but it is simpler, comparator is an interface
+    assertThat("List is null", list.getList().size() == 0);
+    // there should be a method to get the list, since it should be private
+    
+    // since the initialized list should be empty, so we simply check the size of the list by whatever method
+    // with size() or length or whatever
+
+    assertThat("comparator is not null", list.getComparator() != null);
+    // first we need to check if the comparator is not null
+    assertThat("comparator works well", list.getComparator().compare("PintOS","PaintOS") != 0);
+    // then we need to check if the comparator is working well
+    // nightmare from C: changed to random stuff because no malloc
+    System.out.println("testInit passed");
+  }
+```
+
+then we try to write the code
+
+```Java
+public RecentlyUsedList(Comparator<T> comparator){
+  list = new LinkedList<T>();
+  this.comparator = comparator;
+}
+```
+
+test failed
+
+Hey, you forget to write the getComparator method
+
+```Java
+public Comparator<T> getComparator(){
+  return comparator;
+}
+```
+
+test passed, went on for refactoring
+
+so now all the init stuff are good to go
+
+
