@@ -993,3 +993,62 @@ fail, the output was from 30 -> 21, we get the opposite, it should be > in list_
 so I am decieved by the name in list_insert_ordered, the param is less, bu t nonono,
 
 so then we have the first half done
+
+then, when the priority changes, that should be after set_priority
+
+from the previous work, we notice that every time tick, ready_list and all_list is sorted by priority, even if priority change
+
+so all we need to do is block(yield) the current thread, and the scheduler would automatically choose the one with the highest priority
+
+see the comment in the test priority-change
+
+```C
+/* Verifies that lowering a thread's priority so that it is no
+   longer the highest-priority thread in the system causes it to
+   yield immediately. */
+```
+
+so we simply add thread_yield to the thread_set_priority
+
+then we get
+
+```
+  (priority-change) begin
+  (priority-change) Creating a high-priority thread 2.
+- (priority-change) Thread 2 now lowering priority.
+  (priority-change) Thread 2 should have just lowered its priority.
++ (priority-change) Thread 2 now lowering priority.
+  (priority-change) Thread 2 exiting.
+  (priority-change) Thread 2 should have just exited.
+  (priority-change) end
+```
+
+we check the test
+
+```C
+void
+test_priority_change (void) 
+{
+  /* This test does not work with the MLFQS. */
+  ASSERT (!thread_mlfqs);
+
+  msg ("Creating a high-priority thread 2.");
+  thread_create ("thread 2", PRI_DEFAULT + 1, changing_thread, NULL);
+  msg ("Thread 2 should have just lowered its priority.");
+  thread_set_priority (PRI_DEFAULT - 2);
+  msg ("Thread 2 should have just exited.");
+}
+
+static void
+changing_thread (void *aux UNUSED) 
+{
+  msg ("Thread 2 now lowering priority.");
+  thread_set_priority (PRI_DEFAULT - 1);
+  msg ("Thread 2 exiting.");
+}
+
+```
+
+so the thread_create should be executing a bit later
+
+this is because the priority queue may have changed when the thread creates
