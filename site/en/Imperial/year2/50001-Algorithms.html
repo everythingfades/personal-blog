@@ -16,7 +16,7 @@
         <link rel="prev" href="SED_Ex1.html">
       
       
-        <link rel="next" href="../../web/html.html">
+        <link rel="next" href="50004-Operating-System.html">
       
       
       <link rel="icon" href="../../../assets/images/favicon.png">
@@ -825,10 +825,40 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#model-to-evaluate-the-cost-of-the-algorithm" class="md-nav__link">
+    <span class="md-ellipsis">
+      Model to evaluate the cost of the algorithm
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="50004-Operating-System.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    50004-Operating-System
+  </span>
+  
+
+      </a>
     </li>
   
 
@@ -956,6 +986,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#model-to-evaluate-the-cost-of-the-algorithm" class="md-nav__link">
+    <span class="md-ellipsis">
+      Model to evaluate the cost of the algorithm
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1049,6 +1088,78 @@
 <h2 id="normal-forms">Normal Forms</h2>
 <p>lazy stuff are in WHNF(Weak-Head Normal Form), strict stuff are in NF(Normal Form)</p>
 <p>this is usually defined in terms of the lambda calculus</p>
+<ul>
+<li>abstraction: \x -&gt; e</li>
+<li>application: f x</li>
+<li>variables: x</li>
+</ul>
+<p>An expression e is in Normal Form if it is not reducable</p>
+<ul>
+<li>\x -&gt; e where e is normal</li>
+<li>x is normal</li>
+<li>f x is normal when f is a variable and both f and x are normal</li>
+</ul>
+<p>WHNF is similar but bodies of lambda need not be normal</p>
+<p><code>\x -&gt; (\y -&gt; y) x</code></p>
+<p><code>x : (\...) 7 xs</code> is WHNF <code>(:) x ()</code></p>
+<p>NF:
+- 1
+- Just 4
+- [1,2,3]
+- \x -&gt; x+1
+- Just
+- \f -&gt; f 7(we dont know what f is)</p>
+<p>WHNF (all the above and)
+- 1 : repeat 1
+- \x -&gt; 3 + 4
+- Just (3+4)</p>
+<p>Expressions(all the above and)
+- 3 + 4
+- repeeat 1</p>
+<h2 id="model-to-evaluate-the-cost-of-the-algorithm">Model to evaluate the cost of the algorithm</h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="nf">e</span><span class="w"> </span><span class="kt">::=</span><span class="w"> </span><span class="n">x</span><span class="w">          </span><span class="c1">-- variable</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">    </span><span class="o">|</span><span class="w"> </span><span class="n">k</span><span class="w">          </span><span class="c1">-- constant(0,[],(:),+,*)</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="w">    </span><span class="o">|</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="n">e1</span><span class="w"> </span><span class="o">..</span><span class="w"> </span><span class="n">en</span><span class="w"> </span><span class="c1">-- application</span>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="w">    </span><span class="o">|</span><span class="w"> </span><span class="kr">if</span><span class="w"> </span><span class="n">e</span><span class="w"> </span><span class="kr">then</span><span class="w"> </span><span class="n">e1</span><span class="w"> </span><span class="kr">else</span><span class="w"> </span><span class="n">e2</span><span class="w"> </span><span class="c1">-- conditional</span>
+</code></pre></div>
+<p>since we can do <code>f e1 .. en = e</code> and <code>[x,y,z] = x : y : z : []</code></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="nf">insert</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="n">xs</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="w">  </span><span class="kr">if</span><span class="w"> </span><span class="n">null</span><span class="w"> </span><span class="n">xs</span><span class="w"> </span><span class="kr">then</span><span class="w"> </span><span class="kt">:</span><span class="w"> </span><span class="kt">[]</span>
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="w">  </span><span class="kr">else</span><span class="w"> </span><span class="kr">if</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">head</span><span class="w"> </span><span class="n">xs</span><span class="w"> </span><span class="kr">then</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="kt">:</span><span class="w"> </span><span class="n">xs</span>
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="w">  </span><span class="kr">else</span><span class="w"> </span><span class="n">head</span><span class="w"> </span><span class="n">xs</span><span class="w"> </span><span class="kt">:</span><span class="w"> </span><span class="n">insert</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="p">(</span><span class="n">tail</span><span class="w"> </span><span class="n">xs</span><span class="p">)</span>
+</code></pre></div>
+<p>let <code>T(f) x1 .. xn</code> is the number of steps it takes to evaluate <code>f x1 .. xn</code></p>
+<p>when f is primitive (+), (*), (:)</p>
+<ul>
+<li>T(f) x1 .. xn = 0</li>
+<li>T(head) xs = 0</li>
+<li>T(f e1 .. en) = T(f) e1 .. en + T(e1) + .. + T(en)</li>
+<li>T(if e then e1 else e2) = T(e) + if e then T(e1) else T(e2)</li>
+</ul>
+<p>we have length = if null xs then 0 else 1 + length (tail xs)</p>
+<p>T(length xs) = T(length) + T(null) + T(xs) + if null xs then T(0) else T(+) + T(1) + T(length) + ...</p>
+<p>Composition:</p>
+<p>The cost of 
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>T(f(g(x))) = T(f) (g x) + T(g(x))
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>           = T(f) (g x) + T(g) x + T(x)
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>           = T(f) (g x) + T(g) x
+</code></pre></div></p>
+<p>complexity</p>
+<p>functions used to describe complexity comprise of the following</p>
+<ul>
+<li>symbols: x, n, m</li>
+<li>logs</li>
+<li>exp</li>
+<li>constants</li>
+</ul>
+<p>complexity functions includes
+- <span class="arithmatex">\(O\)</span>
+- <span class="arithmatex">\(\Theta\)</span>
+- <span class="arithmatex">\(\Omega\)</span>
+- <span class="arithmatex">\(\omega\)</span>
+- <span class="arithmatex">\(o\)</span></p>
+<p>for f(x) and g(x) check <span class="arithmatex">\(\lim_{n\to\infty} \frac{f(n)}{g(n)}\)</span> and 0</p>
+<p>see https://oi.wiki/basic/complexity/</p>
 
 
 
