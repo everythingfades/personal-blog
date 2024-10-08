@@ -1286,6 +1286,27 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="50001-Algorithms.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    50001-Algorithms
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -2408,6 +2429,86 @@ or 100Hz, 0.01s</p>
 <p>the test_alarm_no_busy_wait calls an extra time_sleep before the thread to yield the CPU, I guess this is where the error occurs, so go gdb</p>
 <p>no, the error is in line 108, the second timer_sleep</p>
 <p>I have no idea currently, I am temporarily commenting it out in timer_sleep</p>
+<p><strong>As suggested on Edstem, block and unblock should be protected and not directly used</strong></p>
+<p>simple change, we add a sema in the threads</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a><span class="k">struct</span><span class="w"> </span><span class="nc">thread</span>
+<a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a><span class="w">  </span><span class="p">{</span>
+<a id="__codelineno-29-3" name="__codelineno-29-3" href="#__codelineno-29-3"></a><span class="w">    </span><span class="cm">/* Owned by thread.c. */</span>
+<a id="__codelineno-29-4" name="__codelineno-29-4" href="#__codelineno-29-4"></a><span class="w">    </span><span class="n">tid_t</span><span class="w"> </span><span class="n">tid</span><span class="p">;</span><span class="w">                          </span><span class="cm">/* Thread identifier. */</span>
+<a id="__codelineno-29-5" name="__codelineno-29-5" href="#__codelineno-29-5"></a><span class="w">    </span><span class="k">enum</span><span class="w"> </span><span class="n">thread_status</span><span class="w"> </span><span class="n">status</span><span class="p">;</span><span class="w">          </span><span class="cm">/* Thread state. */</span>
+<a id="__codelineno-29-6" name="__codelineno-29-6" href="#__codelineno-29-6"></a><span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="n">name</span><span class="p">[</span><span class="mi">16</span><span class="p">];</span><span class="w">                      </span><span class="cm">/* Name (for debugging purposes). */</span>
+<a id="__codelineno-29-7" name="__codelineno-29-7" href="#__codelineno-29-7"></a><span class="w">    </span><span class="kt">uint8_t</span><span class="w"> </span><span class="o">*</span><span class="n">stack</span><span class="p">;</span><span class="w">                     </span><span class="cm">/* Saved stack pointer. */</span>
+<a id="__codelineno-29-8" name="__codelineno-29-8" href="#__codelineno-29-8"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">priority</span><span class="p">;</span><span class="w">                       </span><span class="cm">/* Priority. */</span>
+<a id="__codelineno-29-9" name="__codelineno-29-9" href="#__codelineno-29-9"></a><span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">list_elem</span><span class="w"> </span><span class="n">allelem</span><span class="p">;</span><span class="w">           </span><span class="cm">/* List element for all threads list. */</span>
+<a id="__codelineno-29-10" name="__codelineno-29-10" href="#__codelineno-29-10"></a>
+<a id="__codelineno-29-11" name="__codelineno-29-11" href="#__codelineno-29-11"></a><span class="w">    </span><span class="cm">/* Shared between thread.c and synch.c. */</span>
+<a id="__codelineno-29-12" name="__codelineno-29-12" href="#__codelineno-29-12"></a><span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">list_elem</span><span class="w"> </span><span class="n">elem</span><span class="p">;</span><span class="w">              </span><span class="cm">/* List element. */</span>
+<a id="__codelineno-29-13" name="__codelineno-29-13" href="#__codelineno-29-13"></a>
+<a id="__codelineno-29-14" name="__codelineno-29-14" href="#__codelineno-29-14"></a><span class="cp">#ifdef USERPROG</span>
+<a id="__codelineno-29-15" name="__codelineno-29-15" href="#__codelineno-29-15"></a><span class="w">    </span><span class="cm">/* Owned by userprog/process.c. */</span>
+<a id="__codelineno-29-16" name="__codelineno-29-16" href="#__codelineno-29-16"></a><span class="w">    </span><span class="kt">uint32_t</span><span class="w"> </span><span class="o">*</span><span class="n">pagedir</span><span class="p">;</span><span class="w">                  </span><span class="cm">/* Page directory. */</span>
+<a id="__codelineno-29-17" name="__codelineno-29-17" href="#__codelineno-29-17"></a><span class="cp">#endif</span>
+<a id="__codelineno-29-18" name="__codelineno-29-18" href="#__codelineno-29-18"></a>
+<a id="__codelineno-29-19" name="__codelineno-29-19" href="#__codelineno-29-19"></a><span class="c1">// mycode starts</span>
+<a id="__codelineno-29-20" name="__codelineno-29-20" href="#__codelineno-29-20"></a><span class="w">    </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">sleep_ticks</span><span class="p">;</span><span class="w">               </span><span class="cm">/* sleep for some ticks, 0 at default */</span>
+<a id="__codelineno-29-21" name="__codelineno-29-21" href="#__codelineno-29-21"></a><span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">semaphore</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">sleep_sema</span><span class="p">;</span><span class="w">      </span><span class="cm">/* semaphore for sleeping */</span>
+<a id="__codelineno-29-22" name="__codelineno-29-22" href="#__codelineno-29-22"></a><span class="c1">// mycode ends</span>
+<a id="__codelineno-29-23" name="__codelineno-29-23" href="#__codelineno-29-23"></a>
+<a id="__codelineno-29-24" name="__codelineno-29-24" href="#__codelineno-29-24"></a><span class="w">    </span><span class="cm">/* Owned by thread.c. */</span>
+<a id="__codelineno-29-25" name="__codelineno-29-25" href="#__codelineno-29-25"></a><span class="w">    </span><span class="kt">unsigned</span><span class="w"> </span><span class="n">magic</span><span class="p">;</span><span class="w">                     </span><span class="cm">/* Detects stack overflow. */</span>
+<a id="__codelineno-29-26" name="__codelineno-29-26" href="#__codelineno-29-26"></a><span class="w">  </span><span class="p">};</span>
+</code></pre></div>
+<p>we initialize the sema and call sema_down every_time we try to make the thread sleep</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a><span class="kt">void</span>
+<a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a><span class="nf">timer_sleep</span><span class="w"> </span><span class="p">(</span><span class="kt">int64_t</span><span class="w"> </span><span class="n">ticks</span><span class="p">)</span><span class="w"> </span>
+<a id="__codelineno-30-3" name="__codelineno-30-3" href="#__codelineno-30-3"></a><span class="p">{</span>
+<a id="__codelineno-30-4" name="__codelineno-30-4" href="#__codelineno-30-4"></a><span class="w">  </span><span class="c1">// int64_t start = timer_ticks ();</span>
+<a id="__codelineno-30-5" name="__codelineno-30-5" href="#__codelineno-30-5"></a><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ticks</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mi">0</span><span class="p">){</span>
+<a id="__codelineno-30-6" name="__codelineno-30-6" href="#__codelineno-30-6"></a><span class="w">    </span><span class="c1">// when timer_sleep is passed in a negative or 0 ticks</span>
+<a id="__codelineno-30-7" name="__codelineno-30-7" href="#__codelineno-30-7"></a><span class="w">    </span><span class="c1">// sleep for 0 ticks is doing nothing</span>
+<a id="__codelineno-30-8" name="__codelineno-30-8" href="#__codelineno-30-8"></a><span class="w">    </span><span class="c1">// while negative ticks are invalid</span>
+<a id="__codelineno-30-9" name="__codelineno-30-9" href="#__codelineno-30-9"></a><span class="w">    </span><span class="k">return</span><span class="p">;</span>
+<a id="__codelineno-30-10" name="__codelineno-30-10" href="#__codelineno-30-10"></a><span class="w">  </span><span class="p">}</span>
+<a id="__codelineno-30-11" name="__codelineno-30-11" href="#__codelineno-30-11"></a><span class="w">  </span><span class="n">ASSERT</span><span class="w"> </span><span class="p">(</span><span class="n">intr_get_level</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">INTR_ON</span><span class="p">);</span>
+<a id="__codelineno-30-12" name="__codelineno-30-12" href="#__codelineno-30-12"></a><span class="w">  </span><span class="k">enum</span><span class="w"> </span><span class="n">intr_level</span><span class="w"> </span><span class="n">old_level</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">intr_disable</span><span class="p">();</span>
+<a id="__codelineno-30-13" name="__codelineno-30-13" href="#__codelineno-30-13"></a><span class="w">  </span><span class="c1">// printf(&quot;sleeping thread %s&quot;, thread_current() -&gt; name);</span>
+<a id="__codelineno-30-14" name="__codelineno-30-14" href="#__codelineno-30-14"></a><span class="w">  </span><span class="c1">// this printf fails the test</span>
+<a id="__codelineno-30-15" name="__codelineno-30-15" href="#__codelineno-30-15"></a><span class="c1">// mycode start</span>
+<a id="__codelineno-30-16" name="__codelineno-30-16" href="#__codelineno-30-16"></a><span class="w">  </span><span class="k">struct</span><span class="w"> </span><span class="nc">thread</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">cur</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">thread_current</span><span class="p">();</span>
+<a id="__codelineno-30-17" name="__codelineno-30-17" href="#__codelineno-30-17"></a><span class="w">  </span><span class="n">cur</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">sleep_ticks</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ticks</span><span class="p">;</span>
+<a id="__codelineno-30-18" name="__codelineno-30-18" href="#__codelineno-30-18"></a><span class="w">  </span><span class="k">struct</span><span class="w"> </span><span class="nc">semaphore</span><span class="w"> </span><span class="n">sema</span><span class="p">;</span>
+<a id="__codelineno-30-19" name="__codelineno-30-19" href="#__codelineno-30-19"></a><span class="w">  </span><span class="n">cur</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">sleep_sema</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">sema</span><span class="p">;</span>
+<a id="__codelineno-30-20" name="__codelineno-30-20" href="#__codelineno-30-20"></a><span class="w">  </span><span class="n">sema_init</span><span class="w"> </span><span class="p">(</span><span class="o">&amp;</span><span class="n">sema</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+<a id="__codelineno-30-21" name="__codelineno-30-21" href="#__codelineno-30-21"></a><span class="w">  </span><span class="n">intr_set_level</span><span class="p">(</span><span class="n">old_level</span><span class="p">);</span>
+<a id="__codelineno-30-22" name="__codelineno-30-22" href="#__codelineno-30-22"></a><span class="w">  </span><span class="n">sema_down</span><span class="p">(</span><span class="o">&amp;</span><span class="n">sema</span><span class="p">);</span>
+<a id="__codelineno-30-23" name="__codelineno-30-23" href="#__codelineno-30-23"></a><span class="c1">// mycode ends</span>
+<a id="__codelineno-30-24" name="__codelineno-30-24" href="#__codelineno-30-24"></a><span class="w">  </span><span class="c1">// while (timer_elapsed (start) &lt; ticks) </span>
+<a id="__codelineno-30-25" name="__codelineno-30-25" href="#__codelineno-30-25"></a><span class="w">  </span><span class="c1">//   thread_yield ();</span>
+<a id="__codelineno-30-26" name="__codelineno-30-26" href="#__codelineno-30-26"></a><span class="p">}</span>
+</code></pre></div>
+<p>the check it every timeslice(tick?) to sema_up</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a><span class="c1">// mycode starts</span>
+<a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a><span class="cm">/* Check every threads whether they should be awaked. */</span>
+<a id="__codelineno-31-3" name="__codelineno-31-3" href="#__codelineno-31-3"></a><span class="kt">void</span><span class="w"> </span><span class="nf">check_sleep_time</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">thread</span><span class="w"> </span><span class="o">*</span><span class="n">t</span><span class="p">,</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">aux</span><span class="w"> </span><span class="n">UNUSED</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-31-4" name="__codelineno-31-4" href="#__codelineno-31-4"></a><span class="w">  </span><span class="c1">// the aux parameter is unused, it is just for the thread_foreach function</span>
+<a id="__codelineno-31-5" name="__codelineno-31-5" href="#__codelineno-31-5"></a>
+<a id="__codelineno-31-6" name="__codelineno-31-6" href="#__codelineno-31-6"></a><span class="w">  </span><span class="c1">// if the thread is being blocked or time to wake up, unblock it</span>
+<a id="__codelineno-31-7" name="__codelineno-31-7" href="#__codelineno-31-7"></a><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">t</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">status</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">THREAD_BLOCKED</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">t</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">sleep_ticks</span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-31-8" name="__codelineno-31-8" href="#__codelineno-31-8"></a>
+<a id="__codelineno-31-9" name="__codelineno-31-9" href="#__codelineno-31-9"></a><span class="w">    </span><span class="c1">// obviously we have to decrement the time here or else it blocks forever</span>
+<a id="__codelineno-31-10" name="__codelineno-31-10" href="#__codelineno-31-10"></a><span class="w">    </span><span class="n">t</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">sleep_ticks</span><span class="w"> </span><span class="o">--</span><span class="p">;</span><span class="w"> </span>
+<a id="__codelineno-31-11" name="__codelineno-31-11" href="#__codelineno-31-11"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">t</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">sleep_ticks</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">){</span><span class="w"> </span>
+<a id="__codelineno-31-12" name="__codelineno-31-12" href="#__codelineno-31-12"></a><span class="w">      </span><span class="c1">// I know the curved brackets are not needed, but throwing it away usually cause confusion</span>
+<a id="__codelineno-31-13" name="__codelineno-31-13" href="#__codelineno-31-13"></a>
+<a id="__codelineno-31-14" name="__codelineno-31-14" href="#__codelineno-31-14"></a><span class="w">      </span><span class="c1">// if block time up, unblock</span>
+<a id="__codelineno-31-15" name="__codelineno-31-15" href="#__codelineno-31-15"></a><span class="w">      </span><span class="n">sema_up</span><span class="p">(</span><span class="n">t</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">sleep_sema</span><span class="p">);</span>
+<a id="__codelineno-31-16" name="__codelineno-31-16" href="#__codelineno-31-16"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-31-17" name="__codelineno-31-17" href="#__codelineno-31-17"></a><span class="w">  </span><span class="p">}</span>
+<a id="__codelineno-31-18" name="__codelineno-31-18" href="#__codelineno-31-18"></a><span class="p">}</span>
+<a id="__codelineno-31-19" name="__codelineno-31-19" href="#__codelineno-31-19"></a><span class="c1">// mycode ends</span>
+</code></pre></div>
+<p>the intr_level stuff still persists, comment the line out and we are all fixed, but I'll return to that when I know what to do</p>
+<p>okay, it is the bug mentioned in edstem, changed two lines and no error, so all done</p>
 <h3 id="code-analysis">code analysis</h3>
 <p>After the completion, let's looking into the code for a detailed analysis</p>
 <p>basically it executes the init.c in the threads folder</p>
@@ -2415,6 +2516,7 @@ or 100Hz, 0.01s</p>
 <p>first, bss, read the cmd args, init the whole program as a thread,</p>
 <p>init the memory etc.</p>
 <p>so basically the program is a idle thread?</p>
+<p>the idle thread starts the others tasks and is only blocked at the exit of the whole program</p>
 <h1 id="task-1-scheduling">Task 1: scheduling</h1>
 <p>make pintos more amendable for multi-threading</p>
 <h2 id="position">position</h2>
@@ -2438,20 +2540,20 @@ or 100Hz, 0.01s</p>
 - Initial thread then parses Pintos command-line arguments
 - Initial thread then starts other threads, via thread_create()</p>
 <p>test are running by in the init.c</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a><span class="cm">/* Runs the task specified in ARGV[1]. */</span>
-<a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a><span class="k">static</span><span class="w"> </span><span class="kt">void</span>
-<a id="__codelineno-29-3" name="__codelineno-29-3" href="#__codelineno-29-3"></a><span class="nf">run_task</span><span class="w"> </span><span class="p">(</span><span class="kt">char</span><span class="w"> </span><span class="o">**</span><span class="n">argv</span><span class="p">)</span>
-<a id="__codelineno-29-4" name="__codelineno-29-4" href="#__codelineno-29-4"></a><span class="p">{</span>
-<a id="__codelineno-29-5" name="__codelineno-29-5" href="#__codelineno-29-5"></a><span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">task</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
-<a id="__codelineno-29-6" name="__codelineno-29-6" href="#__codelineno-29-6"></a>
-<a id="__codelineno-29-7" name="__codelineno-29-7" href="#__codelineno-29-7"></a><span class="w">  </span><span class="n">printf</span><span class="w"> </span><span class="p">(</span><span class="s">&quot;Executing &#39;%s&#39;:</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">task</span><span class="p">);</span>
-<a id="__codelineno-29-8" name="__codelineno-29-8" href="#__codelineno-29-8"></a><span class="cp">#ifdef USERPROG</span>
-<a id="__codelineno-29-9" name="__codelineno-29-9" href="#__codelineno-29-9"></a><span class="w">  </span><span class="n">process_wait</span><span class="w"> </span><span class="p">(</span><span class="n">process_execute</span><span class="w"> </span><span class="p">(</span><span class="n">task</span><span class="p">));</span>
-<a id="__codelineno-29-10" name="__codelineno-29-10" href="#__codelineno-29-10"></a><span class="cp">#else</span>
-<a id="__codelineno-29-11" name="__codelineno-29-11" href="#__codelineno-29-11"></a><span class="w">  </span><span class="n">run_test</span><span class="w"> </span><span class="p">(</span><span class="n">task</span><span class="p">);</span>
-<a id="__codelineno-29-12" name="__codelineno-29-12" href="#__codelineno-29-12"></a><span class="cp">#endif</span>
-<a id="__codelineno-29-13" name="__codelineno-29-13" href="#__codelineno-29-13"></a><span class="w">  </span><span class="n">printf</span><span class="w"> </span><span class="p">(</span><span class="s">&quot;Execution of &#39;%s&#39; complete.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">task</span><span class="p">);</span>
-<a id="__codelineno-29-14" name="__codelineno-29-14" href="#__codelineno-29-14"></a><span class="p">}</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a><span class="cm">/* Runs the task specified in ARGV[1]. */</span>
+<a id="__codelineno-32-2" name="__codelineno-32-2" href="#__codelineno-32-2"></a><span class="k">static</span><span class="w"> </span><span class="kt">void</span>
+<a id="__codelineno-32-3" name="__codelineno-32-3" href="#__codelineno-32-3"></a><span class="nf">run_task</span><span class="w"> </span><span class="p">(</span><span class="kt">char</span><span class="w"> </span><span class="o">**</span><span class="n">argv</span><span class="p">)</span>
+<a id="__codelineno-32-4" name="__codelineno-32-4" href="#__codelineno-32-4"></a><span class="p">{</span>
+<a id="__codelineno-32-5" name="__codelineno-32-5" href="#__codelineno-32-5"></a><span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">task</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+<a id="__codelineno-32-6" name="__codelineno-32-6" href="#__codelineno-32-6"></a>
+<a id="__codelineno-32-7" name="__codelineno-32-7" href="#__codelineno-32-7"></a><span class="w">  </span><span class="n">printf</span><span class="w"> </span><span class="p">(</span><span class="s">&quot;Executing &#39;%s&#39;:</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">task</span><span class="p">);</span>
+<a id="__codelineno-32-8" name="__codelineno-32-8" href="#__codelineno-32-8"></a><span class="cp">#ifdef USERPROG</span>
+<a id="__codelineno-32-9" name="__codelineno-32-9" href="#__codelineno-32-9"></a><span class="w">  </span><span class="n">process_wait</span><span class="w"> </span><span class="p">(</span><span class="n">process_execute</span><span class="w"> </span><span class="p">(</span><span class="n">task</span><span class="p">));</span>
+<a id="__codelineno-32-10" name="__codelineno-32-10" href="#__codelineno-32-10"></a><span class="cp">#else</span>
+<a id="__codelineno-32-11" name="__codelineno-32-11" href="#__codelineno-32-11"></a><span class="w">  </span><span class="n">run_test</span><span class="w"> </span><span class="p">(</span><span class="n">task</span><span class="p">);</span>
+<a id="__codelineno-32-12" name="__codelineno-32-12" href="#__codelineno-32-12"></a><span class="cp">#endif</span>
+<a id="__codelineno-32-13" name="__codelineno-32-13" href="#__codelineno-32-13"></a><span class="w">  </span><span class="n">printf</span><span class="w"> </span><span class="p">(</span><span class="s">&quot;Execution of &#39;%s&#39; complete.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">task</span><span class="p">);</span>
+<a id="__codelineno-32-14" name="__codelineno-32-14" href="#__codelineno-32-14"></a><span class="p">}</span>
 </code></pre></div>
 <p><strong>The initial thread is not created by thread_create()</strong></p>
 <p><strong>You may need to add initialisation code for any elements you add to struct thread to thread_init() as well</strong></p>

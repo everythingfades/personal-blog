@@ -744,7 +744,21 @@ init the memory etc.
 
 so basically the program is a idle thread?
 
-the idle thread starts the others tasks and is only blocked at the exit of the whole program
+the idle thread is put on the ready list by thread_start() and it will be scheduled initially then never appears in the ready list
+
+if the ready_list is empty, then next_thread_to_run() returnts the idle thread
+
+the main stuff happens when the run_actions is called, the main function process the cli args
+
+if run keyword is detected in run_actions() in init.c, then run_task function is called
+
+if the user program is defined, then we do the normal setup, else we run the tests
+
+the run_test function is in src/tests/threads/tests.h but since it is extern, it is actually in src/tests/devices/tests.h for pintos_task0_hg1523
+
+then it assigns which task to run in the folder and executes the task
+
+
 
 # Task 1: scheduling
 
