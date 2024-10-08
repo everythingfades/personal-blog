@@ -1251,6 +1251,39 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#my-task-in-group-priority-scheduling" class="md-nav__link">
+    <span class="md-ellipsis">
+      my task in group: priority scheduling
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="my task in group: priority scheduling">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#spec-doc" class="md-nav__link">
+    <span class="md-ellipsis">
+      spec doc:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solution" class="md-nav__link">
+    <span class="md-ellipsis">
+      solution?:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1298,6 +1331,27 @@
   
   <span class="md-ellipsis">
     50001-Algorithms
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="50004-Operating-System.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    50004-Operating-System
   </span>
   
 
@@ -1896,6 +1950,39 @@
       suggested order of the implementation
     </span>
   </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#my-task-in-group-priority-scheduling" class="md-nav__link">
+    <span class="md-ellipsis">
+      my task in group: priority scheduling
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="my task in group: priority scheduling">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#spec-doc" class="md-nav__link">
+    <span class="md-ellipsis">
+      spec doc:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solution" class="md-nav__link">
+    <span class="md-ellipsis">
+      solution?:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -2516,7 +2603,13 @@ or 100Hz, 0.01s</p>
 <p>first, bss, read the cmd args, init the whole program as a thread,</p>
 <p>init the memory etc.</p>
 <p>so basically the program is a idle thread?</p>
-<p>the idle thread starts the others tasks and is only blocked at the exit of the whole program</p>
+<p>the idle thread is put on the ready list by thread_start() and it will be scheduled initially then never appears in the ready list</p>
+<p>if the ready_list is empty, then next_thread_to_run() returnts the idle thread</p>
+<p>the main stuff happens when the run_actions is called, the main function process the cli args</p>
+<p>if run keyword is detected in run_actions() in init.c, then run_task function is called</p>
+<p>if the user program is defined, then we do the normal setup, else we run the tests</p>
+<p>the run_test function is in src/tests/threads/tests.h but since it is extern, it is actually in src/tests/devices/tests.h for pintos_task0_hg1523</p>
+<p>then it assigns which task to run in the folder and executes the task</p>
 <h1 id="task-1-scheduling">Task 1: scheduling</h1>
 <p>make pintos more amendable for multi-threading</p>
 <h2 id="position">position</h2>
@@ -2637,7 +2730,9 @@ or 100Hz, 0.01s</p>
 <li>
 <p>Priority scheduling</p>
 </li>
-<li>Priority donation(suggested hardest)</li>
+<li>
+<p>Priority donation(suggested hardest)</p>
+</li>
 <li>
 <p>Final thread_get_priority() &amp; thread_set_priority</p>
 </li>
@@ -2646,6 +2741,112 @@ or 100Hz, 0.01s</p>
 </li>
 <li>BSD-style scheduler</li>
 </ul>
+<h2 id="my-task-in-group-priority-scheduling">my task in group: priority scheduling</h2>
+<h3 id="spec-doc">spec doc:</h3>
+<ul>
+<li>When a thread is added to the ready list that has a higher priority than the currently running thread, the current thread should immediately yield the processor to the new thread. </li>
+<li>Similarly, when threads are waiting for a lock, semaphore, or condition variable, the highest priority waiting thread should be awakened first.</li>
+<li>In both the priority scheduler and the advanced scheduler you will write later, the running thread should be that with the highest priority.</li>
+</ul>
+<h3 id="solution">solution?:</h3>
+<p>we always want the thread with the highest priority to be the first or at a fixed position, a one obvious solution is the sort the list,</p>
+<p>sorting the list everything is painful and time-consuming, it will be better if we could init the list sorted, like insertion sort, but we need to take care of conditions that a priority changes</p>
+<p>lets first don't care about priority change</p>
+<p>if we want the list to be created as a sorted list, we would want to use <em>insert_sort</em> or <em>list_insert_ordered</em></p>
+<p>originally the ready_list or the all_list(the only two lists) is created with <em>list_push_back</em> in <em>thread_yield</em>, <em>init_thread</em>, and <em>thread_unblock</em></p>
+<p>so we change these</p>
+<p>watch the params of <em>list_insert_ordered</em></p>
+<p>it take three params, 
+<div class="highlight"><pre><span></span><code><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a><span class="kt">void</span>
+<a id="__codelineno-33-2" name="__codelineno-33-2" href="#__codelineno-33-2"></a><span class="nf">list_insert_ordered</span><span class="w"> </span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">list</span><span class="w"> </span><span class="o">*</span><span class="n">list</span><span class="p">,</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">list_elem</span><span class="w"> </span><span class="o">*</span><span class="n">elem</span><span class="p">,</span>
+<a id="__codelineno-33-3" name="__codelineno-33-3" href="#__codelineno-33-3"></a><span class="w">                     </span><span class="n">list_less_func</span><span class="w"> </span><span class="o">*</span><span class="n">less</span><span class="p">,</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">aux</span><span class="p">)</span>
+<a id="__codelineno-33-4" name="__codelineno-33-4" href="#__codelineno-33-4"></a><span class="p">{</span>
+<a id="__codelineno-33-5" name="__codelineno-33-5" href="#__codelineno-33-5"></a><span class="w">  </span><span class="k">struct</span><span class="w"> </span><span class="nc">list_elem</span><span class="w"> </span><span class="o">*</span><span class="n">e</span><span class="p">;</span>
+<a id="__codelineno-33-6" name="__codelineno-33-6" href="#__codelineno-33-6"></a>
+<a id="__codelineno-33-7" name="__codelineno-33-7" href="#__codelineno-33-7"></a><span class="w">  </span><span class="n">ASSERT</span><span class="w"> </span><span class="p">(</span><span class="n">list</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">);</span>
+<a id="__codelineno-33-8" name="__codelineno-33-8" href="#__codelineno-33-8"></a><span class="w">  </span><span class="n">ASSERT</span><span class="w"> </span><span class="p">(</span><span class="n">elem</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">);</span>
+<a id="__codelineno-33-9" name="__codelineno-33-9" href="#__codelineno-33-9"></a><span class="w">  </span><span class="n">ASSERT</span><span class="w"> </span><span class="p">(</span><span class="n">less</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">);</span>
+<a id="__codelineno-33-10" name="__codelineno-33-10" href="#__codelineno-33-10"></a>
+<a id="__codelineno-33-11" name="__codelineno-33-11" href="#__codelineno-33-11"></a><span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">e</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">list_begin</span><span class="w"> </span><span class="p">(</span><span class="n">list</span><span class="p">);</span><span class="w"> </span><span class="n">e</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">list_end</span><span class="w"> </span><span class="p">(</span><span class="n">list</span><span class="p">);</span><span class="w"> </span><span class="n">e</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">list_next</span><span class="w"> </span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+<a id="__codelineno-33-12" name="__codelineno-33-12" href="#__codelineno-33-12"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">less</span><span class="w"> </span><span class="p">(</span><span class="n">elem</span><span class="p">,</span><span class="w"> </span><span class="n">e</span><span class="p">,</span><span class="w"> </span><span class="n">aux</span><span class="p">))</span>
+<a id="__codelineno-33-13" name="__codelineno-33-13" href="#__codelineno-33-13"></a><span class="w">      </span><span class="k">break</span><span class="p">;</span>
+<a id="__codelineno-33-14" name="__codelineno-33-14" href="#__codelineno-33-14"></a><span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">list_insert</span><span class="w"> </span><span class="p">(</span><span class="n">e</span><span class="p">,</span><span class="w"> </span><span class="n">elem</span><span class="p">);</span>
+<a id="__codelineno-33-15" name="__codelineno-33-15" href="#__codelineno-33-15"></a><span class="p">}</span>
+</code></pre></div></p>
+<p>then see what is required for less</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a><span class="n">less</span><span class="p">(</span><span class="n">elem</span><span class="p">,</span><span class="w"> </span><span class="n">e</span><span class="p">,</span><span class="w"> </span><span class="n">aux</span><span class="p">)</span>
+</code></pre></div>
+<p>following <em>thread_foreach</em>, we can assume the aux is another auxillary variable, possibly not used</p>
+<p>the <em>list</em> variable should be <em>&amp;ready_list</em> and the <em>elem</em> should be the list_elem to insert, obviously</p>
+<p>the less compares the priority,</p>
+<p>we could imagine the less should first get the threads of the two elems by <em>list_entry</em> and get the priority then compare</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a><span class="c1">// mycode starts part1</span>
+<a id="__codelineno-35-2" name="__codelineno-35-2" href="#__codelineno-35-2"></a>
+<a id="__codelineno-35-3" name="__codelineno-35-3" href="#__codelineno-35-3"></a><span class="cm">/* </span>
+<a id="__codelineno-35-4" name="__codelineno-35-4" href="#__codelineno-35-4"></a><span class="cm">  compares the priority from list elems</span>
+<a id="__codelineno-35-5" name="__codelineno-35-5" href="#__codelineno-35-5"></a><span class="cm">  returns ture if the priority of e1 is less than e2</span>
+<a id="__codelineno-35-6" name="__codelineno-35-6" href="#__codelineno-35-6"></a><span class="cm">  the name is for consistency with the list.c functions</span>
+<a id="__codelineno-35-7" name="__codelineno-35-7" href="#__codelineno-35-7"></a><span class="cm">  but I don&#39;t think we should alter the core lib</span>
+<a id="__codelineno-35-8" name="__codelineno-35-8" href="#__codelineno-35-8"></a><span class="cm">*/</span>
+<a id="__codelineno-35-9" name="__codelineno-35-9" href="#__codelineno-35-9"></a><span class="kt">bool</span><span class="w"> </span><span class="nf">list_less_priority</span><span class="p">(</span><span class="k">struct</span><span class="w"> </span><span class="nc">list_elem</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">e1</span><span class="p">,</span>
+<a id="__codelineno-35-10" name="__codelineno-35-10" href="#__codelineno-35-10"></a><span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">list_elem</span><span class="w"> </span><span class="o">*</span><span class="n">e2</span><span class="p">,</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">aux</span><span class="w"> </span><span class="n">UNUSED</span><span class="p">)</span>
+<a id="__codelineno-35-11" name="__codelineno-35-11" href="#__codelineno-35-11"></a><span class="p">{</span>
+<a id="__codelineno-35-12" name="__codelineno-35-12" href="#__codelineno-35-12"></a><span class="w">  </span><span class="k">struct</span><span class="w"> </span><span class="nc">thread</span><span class="w"> </span><span class="o">*</span><span class="n">threadOfE1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">list_entry</span><span class="p">(</span><span class="n">e1</span><span class="p">,</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">thread</span><span class="p">,</span><span class="w"> </span><span class="n">elem</span><span class="p">);</span>
+<a id="__codelineno-35-13" name="__codelineno-35-13" href="#__codelineno-35-13"></a><span class="w">  </span><span class="k">struct</span><span class="w"> </span><span class="nc">thread</span><span class="w"> </span><span class="o">*</span><span class="n">threadOfE2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">list_entry</span><span class="p">(</span><span class="n">e2</span><span class="p">,</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">thread</span><span class="p">,</span><span class="w"> </span><span class="n">elem</span><span class="p">);</span>
+<a id="__codelineno-35-14" name="__codelineno-35-14" href="#__codelineno-35-14"></a><span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="p">(</span><span class="n">threadOfE1</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">priority</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="p">(</span><span class="n">threadOfE2</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">priority</span><span class="p">);</span>
+<a id="__codelineno-35-15" name="__codelineno-35-15" href="#__codelineno-35-15"></a><span class="p">}</span>
+<a id="__codelineno-35-16" name="__codelineno-35-16" href="#__codelineno-35-16"></a><span class="c1">// mycode ends</span>
+</code></pre></div>
+<p>we get</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a>../../lib/kernel/list.h:173:27: note: expected ‘_Bool (*)(const struct list_elem *, const struct list_elem *, void *)’ but argument is of type ‘_Bool (*)(struct list_elem *, struct list_elem *, void *)’
+</code></pre></div>
+<p>so we add two const(const is like java final, the stuff inside the function cannot alter it)</p>
+<p>fail, the output was from 30 -&gt; 21, we get the opposite, it should be &gt; in list_less_priority</p>
+<p>so I am decieved by the name in list_insert_ordered, the param is less, bu t nonono,</p>
+<p>so then we have the first half done</p>
+<p>then, when the priority changes, that should be after set_priority</p>
+<p>from the previous work, we notice that every time tick, ready_list and all_list is sorted by priority, even if priority change</p>
+<p>so all we need to do is block(yield) the current thread, and the scheduler would automatically choose the one with the highest priority</p>
+<p>see the comment in the test priority-change</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a><span class="cm">/* Verifies that lowering a thread&#39;s priority so that it is no</span>
+<a id="__codelineno-37-2" name="__codelineno-37-2" href="#__codelineno-37-2"></a><span class="cm">   longer the highest-priority thread in the system causes it to</span>
+<a id="__codelineno-37-3" name="__codelineno-37-3" href="#__codelineno-37-3"></a><span class="cm">   yield immediately. */</span>
+</code></pre></div>
+<p>so we simply add thread_yield to the thread_set_priority</p>
+<p>then we get</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a>  (priority-change) begin
+<a id="__codelineno-38-2" name="__codelineno-38-2" href="#__codelineno-38-2"></a>  (priority-change) Creating a high-priority thread 2.
+<a id="__codelineno-38-3" name="__codelineno-38-3" href="#__codelineno-38-3"></a>- (priority-change) Thread 2 now lowering priority.
+<a id="__codelineno-38-4" name="__codelineno-38-4" href="#__codelineno-38-4"></a>  (priority-change) Thread 2 should have just lowered its priority.
+<a id="__codelineno-38-5" name="__codelineno-38-5" href="#__codelineno-38-5"></a>+ (priority-change) Thread 2 now lowering priority.
+<a id="__codelineno-38-6" name="__codelineno-38-6" href="#__codelineno-38-6"></a>  (priority-change) Thread 2 exiting.
+<a id="__codelineno-38-7" name="__codelineno-38-7" href="#__codelineno-38-7"></a>  (priority-change) Thread 2 should have just exited.
+<a id="__codelineno-38-8" name="__codelineno-38-8" href="#__codelineno-38-8"></a>  (priority-change) end
+</code></pre></div>
+<p>we check the test</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a><span class="kt">void</span>
+<a id="__codelineno-39-2" name="__codelineno-39-2" href="#__codelineno-39-2"></a><span class="nf">test_priority_change</span><span class="w"> </span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span>
+<a id="__codelineno-39-3" name="__codelineno-39-3" href="#__codelineno-39-3"></a><span class="p">{</span>
+<a id="__codelineno-39-4" name="__codelineno-39-4" href="#__codelineno-39-4"></a><span class="w">  </span><span class="cm">/* This test does not work with the MLFQS. */</span>
+<a id="__codelineno-39-5" name="__codelineno-39-5" href="#__codelineno-39-5"></a><span class="w">  </span><span class="n">ASSERT</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">thread_mlfqs</span><span class="p">);</span>
+<a id="__codelineno-39-6" name="__codelineno-39-6" href="#__codelineno-39-6"></a>
+<a id="__codelineno-39-7" name="__codelineno-39-7" href="#__codelineno-39-7"></a><span class="w">  </span><span class="n">msg</span><span class="w"> </span><span class="p">(</span><span class="s">&quot;Creating a high-priority thread 2.&quot;</span><span class="p">);</span>
+<a id="__codelineno-39-8" name="__codelineno-39-8" href="#__codelineno-39-8"></a><span class="w">  </span><span class="n">thread_create</span><span class="w"> </span><span class="p">(</span><span class="s">&quot;thread 2&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">PRI_DEFAULT</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">changing_thread</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">);</span>
+<a id="__codelineno-39-9" name="__codelineno-39-9" href="#__codelineno-39-9"></a><span class="w">  </span><span class="n">msg</span><span class="w"> </span><span class="p">(</span><span class="s">&quot;Thread 2 should have just lowered its priority.&quot;</span><span class="p">);</span>
+<a id="__codelineno-39-10" name="__codelineno-39-10" href="#__codelineno-39-10"></a><span class="w">  </span><span class="n">thread_set_priority</span><span class="w"> </span><span class="p">(</span><span class="n">PRI_DEFAULT</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">2</span><span class="p">);</span>
+<a id="__codelineno-39-11" name="__codelineno-39-11" href="#__codelineno-39-11"></a><span class="w">  </span><span class="n">msg</span><span class="w"> </span><span class="p">(</span><span class="s">&quot;Thread 2 should have just exited.&quot;</span><span class="p">);</span>
+<a id="__codelineno-39-12" name="__codelineno-39-12" href="#__codelineno-39-12"></a><span class="p">}</span>
+<a id="__codelineno-39-13" name="__codelineno-39-13" href="#__codelineno-39-13"></a>
+<a id="__codelineno-39-14" name="__codelineno-39-14" href="#__codelineno-39-14"></a><span class="k">static</span><span class="w"> </span><span class="kt">void</span>
+<a id="__codelineno-39-15" name="__codelineno-39-15" href="#__codelineno-39-15"></a><span class="nf">changing_thread</span><span class="w"> </span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">aux</span><span class="w"> </span><span class="n">UNUSED</span><span class="p">)</span><span class="w"> </span>
+<a id="__codelineno-39-16" name="__codelineno-39-16" href="#__codelineno-39-16"></a><span class="p">{</span>
+<a id="__codelineno-39-17" name="__codelineno-39-17" href="#__codelineno-39-17"></a><span class="w">  </span><span class="n">msg</span><span class="w"> </span><span class="p">(</span><span class="s">&quot;Thread 2 now lowering priority.&quot;</span><span class="p">);</span>
+<a id="__codelineno-39-18" name="__codelineno-39-18" href="#__codelineno-39-18"></a><span class="w">  </span><span class="n">thread_set_priority</span><span class="w"> </span><span class="p">(</span><span class="n">PRI_DEFAULT</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+<a id="__codelineno-39-19" name="__codelineno-39-19" href="#__codelineno-39-19"></a><span class="w">  </span><span class="n">msg</span><span class="w"> </span><span class="p">(</span><span class="s">&quot;Thread 2 exiting.&quot;</span><span class="p">);</span>
+<a id="__codelineno-39-20" name="__codelineno-39-20" href="#__codelineno-39-20"></a><span class="p">}</span>
+</code></pre></div>
+<p>so the thread_create should be executing a bit later</p>
+<p>this is because the priority queue may have changed when the thread creates</p>
 
 
 
