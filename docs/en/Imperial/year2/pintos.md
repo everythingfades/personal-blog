@@ -900,8 +900,96 @@ see section B.6
 - Prioritised unblocking on synchronisation primitives (semaphores,locks and conditions)
 
 - Priority scheduling
+
 - Priority donation(suggested hardest)
 - Final thread_get_priority() & thread_set_priority
 
 - Fixed-point maths routines
 - BSD-style scheduler
+
+## my task in group: priority scheduling
+### spec doc:
+- When a thread is added to the ready list that has a higher priority than the currently running thread, the current thread should immediately yield the processor to the new thread. 
+-  Similarly, when threads are waiting for a lock, semaphore, or condition variable, the highest priority waiting thread should be awakened first.
+- In both the priority scheduler and the advanced scheduler you will write later, the running thread should be that with the highest priority.
+
+### solution?:
+we always want the thread with the highest priority to be the first or at a fixed position, a one obvious solution is the sort the list,
+
+sorting the list everything is painful and time-consuming, it will be better if we could init the list sorted, like insertion sort, but we need to take care of conditions that a priority changes
+
+lets first don't care about priority change
+
+if we want the list to be created as a sorted list, we would want to use *insert_sort* or *list_insert_ordered*
+
+originally the ready_list or the all_list(the only two lists) is created with *list_push_back* in *thread_yield*, *init_thread*, and *thread_unblock*
+
+so we change these
+
+watch the params of *list_insert_ordered*
+
+it take three params, 
+```C
+void
+list_insert_ordered (struct list *list, struct list_elem *elem,
+                     list_less_func *less, void *aux)
+{
+  struct list_elem *e;
+
+  ASSERT (list != NULL);
+  ASSERT (elem != NULL);
+  ASSERT (less != NULL);
+
+  for (e = list_begin (list); e != list_end (list); e = list_next (e))
+    if (less (elem, e, aux))
+      break;
+  return list_insert (e, elem);
+}
+```
+
+then see what is required for less
+
+```C
+less(elem, e, aux)
+```
+
+following *thread_foreach*, we can assume the aux is another auxillary variable, possibly not used
+
+the *list* variable should be *&ready_list* and the *elem* should be the list_elem to insert, obviously
+
+the less compares the priority,
+
+we could imagine the less should first get the threads of the two elems by *list_entry* and get the priority then compare
+
+```C
+// mycode starts part1
+
+/* 
+  compares the priority from list elems
+  returns ture if the priority of e1 is less than e2
+  the name is for consistency with the list.c functions
+  but I don't think we should alter the core lib
+*/
+bool list_less_priority(struct list_elem * e1,
+    struct list_elem *e2, void * aux UNUSED)
+{
+  struct thread *threadOfE1 = list_entry(e1, struct thread, elem);
+  struct thread *threadOfE2 = list_entry(e2, struct thread, elem);
+  return (threadOfE1 -> priority) < (threadOfE2 -> priority);
+}
+// mycode ends
+```
+
+we get
+
+```
+../../lib/kernel/list.h:173:27: note: expected ‘_Bool (*)(const struct list_elem *, const struct list_elem *, void *)’ but argument is of type ‘_Bool (*)(struct list_elem *, struct list_elem *, void *)’
+```
+
+so we add two const(const is like java final, the stuff inside the function cannot alter it)
+
+fail, the output was from 30 -> 21, we get the opposite, it should be > in list_less_priority
+
+so I am decieved by the name in list_insert_ordered, the param is less, bu t nonono,
+
+so then we have the first half done
