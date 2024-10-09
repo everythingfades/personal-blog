@@ -1052,3 +1052,146 @@ changing_thread (void *aux UNUSED)
 so the thread_create should be executing a bit later
 
 this is because the priority queue may have changed when the thread creates
+
+so we basically just add *thread_yield* in *thread_create*
+
+```C
+tid_t
+thread_create (const char *name, int priority,
+               thread_func *function, void *aux) 
+{
+  struct thread *t;
+  struct kernel_thread_frame *kf;
+  struct switch_entry_frame *ef;
+  struct switch_threads_frame *sf;
+  tid_t tid;
+  enum intr_level old_level;
+
+  ASSERT (function != NULL);
+
+  /* Allocate thread. */
+  t = palloc_get_page (PAL_ZERO);
+  if (t == NULL)
+    return TID_ERROR;
+
+  /* Initialize thread. */
+  init_thread (t, name, priority);
+  tid = t->tid = allocate_tid ();
+
+  /* Prepare thread for first run by initializing its stack.
+     Do this atomically so intermediate values for the 'stack' 
+     member cannot be observed. */
+  old_level = intr_disable ();
+
+  /* Stack frame for kernel_thread(). */
+  kf = alloc_frame (t, sizeof *kf);
+  kf->eip = NULL;
+  kf->function = function;
+  kf->aux = aux;
+
+  /* Stack frame for switch_entry(). */
+  ef = alloc_frame (t, sizeof *ef);
+  ef->eip = (void (*) (void)) kernel_thread;
+
+  /* Stack frame for switch_threads(). */
+  sf = alloc_frame (t, sizeof *sf);
+  sf->eip = switch_entry;
+  sf->ebp = 0;
+
+  intr_set_level (old_level);
+
+  /* Add to run queue. */
+  thread_unblock (t);
+
+// mycode starts task1
+  // so basically, there is a possiblity that the priority here is the current highest priority
+  // the we need to yield the CPU
+  if (thread_get_priority()  < priority) {
+    // thread_get_priority gets the priority of the current thread
+    thread_yield();
+  }
+// mycode ends
+  return tid;
+}
+```
+
+## other tasks
+### task1: init thread_get_priority and thread_set_priority
+these are implement in the in codebase
+
+```C
+void
+thread_set_priority (int new_priority) 
+{
+  thread_current ()->priority = new_priority;
+// mycode starts task1
+  thread_yield();
+// mycode ends
+}
+```
+
+```C
+/* Returns the current thread's priority. */
+int
+thread_get_priority (void) 
+{
+  return thread_current ()->priority;
+}
+```
+
+### task2: Prioritized unblocking on synchronisation primitives
+
+actually I think this is included in task3, since no matter which tick we are at, ready_list and all_list is always sorted by priority, semas call thread unblock and do the removal from ready_list, locks come from semas, conditionals are similar.
+
+### task3: done
+
+### task4 & 5:
+priority donation
+
+so first, we need to figure out which thread waits for which
+
+and record the donations(possibly in an array of structs)
+
+so if we are implementing this for locks, we should do
+
+if the thread is holding the lock, we record this thread
+
+get the current thread at everytick, if no donations happen during this lock, we add a donation
+
+then after the lock, we restore the donation
+
+so basically what we are altering is just a list of donations that belong to each thread itself
+
+when we later call thread_get_priority, we iterate through the list of donations and get the final priority
+
+this way we do not have to do anything to the thread_set_priority as by default it changes the priority member field, but donations only happen in the list
+
+### task6:FPU
+so we have two sets of variable
+- integers: priority, nice, ready_threads
+- real_numbers: recent_cpu load_avg
+
+pintos does not support floating-point arithmetic
+
+treat the rightmost bits of an integer as representing a fraction
+
+so if 32bit int, the lowest 14 can be fractions, so we get $\frac{x}{2^{14}}$, so 17 bit for the numerator, 1 for sign, the rest for denominator
+
+- $f = 2^q$ where p,q are in fixed-point format, p+q = 31, f = 1 << q
+- integer n to fixed-point $n * f$
+- fixed-point x to integer(round towards zero) $x / f$
+- convert x to integer(round to nearest) $\begin{cases}\begin{array}{c}\frac{(x + \frac{f}{2})}{f} & x\ge 0\\\frac{(x - \frac{f}{2})}{f} & x\le 0\end{array}\end{cases}$
+- add fixed-point x and fixed-point y: $x+y$
+- subtract fixed-point y from fixed-point x: $x-y$
+- add fixed-point and integer n: $x + n * f$
+- subtract integer n from fixed-point x: $x - n * f$
+- multiply fixed point x by fixed-point y: $((int64_t)x) * y / f$
+- multiply fixed point x by integer n : $x * n$
+- divide fixed-point x by fixed-point y: $((int64_t)x) * f / y$
+- divide fixed-point x by integer n: $x / n$
+
+### task7:BSD scheduler
+
+so it just do one thing
+
+- priority argument to *thread_create*, *thread_get/set_priority* should be ignored
