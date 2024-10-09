@@ -1284,6 +1284,75 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#other-tasks" class="md-nav__link">
+    <span class="md-ellipsis">
+      other tasks
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="other tasks">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#task1-init-thread_get_priority-and-thread_set_priority" class="md-nav__link">
+    <span class="md-ellipsis">
+      task1: init thread_get_priority and thread_set_priority
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task2-prioritized-unblocking-on-synchronisation-primitives" class="md-nav__link">
+    <span class="md-ellipsis">
+      task2: Prioritized unblocking on synchronisation primitives
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task3-done" class="md-nav__link">
+    <span class="md-ellipsis">
+      task3: done
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task4-5" class="md-nav__link">
+    <span class="md-ellipsis">
+      task4 &amp; 5:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task6fpu" class="md-nav__link">
+    <span class="md-ellipsis">
+      task6:FPU
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task7bsd-scheduler" class="md-nav__link">
+    <span class="md-ellipsis">
+      task7:BSD scheduler
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1976,6 +2045,75 @@
   <a href="#solution" class="md-nav__link">
     <span class="md-ellipsis">
       solution?:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#other-tasks" class="md-nav__link">
+    <span class="md-ellipsis">
+      other tasks
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="other tasks">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#task1-init-thread_get_priority-and-thread_set_priority" class="md-nav__link">
+    <span class="md-ellipsis">
+      task1: init thread_get_priority and thread_set_priority
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task2-prioritized-unblocking-on-synchronisation-primitives" class="md-nav__link">
+    <span class="md-ellipsis">
+      task2: Prioritized unblocking on synchronisation primitives
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task3-done" class="md-nav__link">
+    <span class="md-ellipsis">
+      task3: done
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task4-5" class="md-nav__link">
+    <span class="md-ellipsis">
+      task4 &amp; 5:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task6fpu" class="md-nav__link">
+    <span class="md-ellipsis">
+      task6:FPU
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#task7bsd-scheduler" class="md-nav__link">
+    <span class="md-ellipsis">
+      task7:BSD scheduler
     </span>
   </a>
   
@@ -2847,6 +2985,124 @@ or 100Hz, 0.01s</p>
 </code></pre></div>
 <p>so the thread_create should be executing a bit later</p>
 <p>this is because the priority queue may have changed when the thread creates</p>
+<p>so we basically just add <em>thread_yield</em> in <em>thread_create</em></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a><span class="n">tid_t</span>
+<a id="__codelineno-40-2" name="__codelineno-40-2" href="#__codelineno-40-2"></a><span class="nf">thread_create</span><span class="w"> </span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">priority</span><span class="p">,</span>
+<a id="__codelineno-40-3" name="__codelineno-40-3" href="#__codelineno-40-3"></a><span class="w">               </span><span class="n">thread_func</span><span class="w"> </span><span class="o">*</span><span class="n">function</span><span class="p">,</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">aux</span><span class="p">)</span><span class="w"> </span>
+<a id="__codelineno-40-4" name="__codelineno-40-4" href="#__codelineno-40-4"></a><span class="p">{</span>
+<a id="__codelineno-40-5" name="__codelineno-40-5" href="#__codelineno-40-5"></a><span class="w">  </span><span class="k">struct</span><span class="w"> </span><span class="nc">thread</span><span class="w"> </span><span class="o">*</span><span class="n">t</span><span class="p">;</span>
+<a id="__codelineno-40-6" name="__codelineno-40-6" href="#__codelineno-40-6"></a><span class="w">  </span><span class="k">struct</span><span class="w"> </span><span class="nc">kernel_thread_frame</span><span class="w"> </span><span class="o">*</span><span class="n">kf</span><span class="p">;</span>
+<a id="__codelineno-40-7" name="__codelineno-40-7" href="#__codelineno-40-7"></a><span class="w">  </span><span class="k">struct</span><span class="w"> </span><span class="nc">switch_entry_frame</span><span class="w"> </span><span class="o">*</span><span class="n">ef</span><span class="p">;</span>
+<a id="__codelineno-40-8" name="__codelineno-40-8" href="#__codelineno-40-8"></a><span class="w">  </span><span class="k">struct</span><span class="w"> </span><span class="nc">switch_threads_frame</span><span class="w"> </span><span class="o">*</span><span class="n">sf</span><span class="p">;</span>
+<a id="__codelineno-40-9" name="__codelineno-40-9" href="#__codelineno-40-9"></a><span class="w">  </span><span class="n">tid_t</span><span class="w"> </span><span class="n">tid</span><span class="p">;</span>
+<a id="__codelineno-40-10" name="__codelineno-40-10" href="#__codelineno-40-10"></a><span class="w">  </span><span class="k">enum</span><span class="w"> </span><span class="n">intr_level</span><span class="w"> </span><span class="n">old_level</span><span class="p">;</span>
+<a id="__codelineno-40-11" name="__codelineno-40-11" href="#__codelineno-40-11"></a>
+<a id="__codelineno-40-12" name="__codelineno-40-12" href="#__codelineno-40-12"></a><span class="w">  </span><span class="n">ASSERT</span><span class="w"> </span><span class="p">(</span><span class="n">function</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">);</span>
+<a id="__codelineno-40-13" name="__codelineno-40-13" href="#__codelineno-40-13"></a>
+<a id="__codelineno-40-14" name="__codelineno-40-14" href="#__codelineno-40-14"></a><span class="w">  </span><span class="cm">/* Allocate thread. */</span>
+<a id="__codelineno-40-15" name="__codelineno-40-15" href="#__codelineno-40-15"></a><span class="w">  </span><span class="n">t</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">palloc_get_page</span><span class="w"> </span><span class="p">(</span><span class="n">PAL_ZERO</span><span class="p">);</span>
+<a id="__codelineno-40-16" name="__codelineno-40-16" href="#__codelineno-40-16"></a><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">t</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nb">NULL</span><span class="p">)</span>
+<a id="__codelineno-40-17" name="__codelineno-40-17" href="#__codelineno-40-17"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">TID_ERROR</span><span class="p">;</span>
+<a id="__codelineno-40-18" name="__codelineno-40-18" href="#__codelineno-40-18"></a>
+<a id="__codelineno-40-19" name="__codelineno-40-19" href="#__codelineno-40-19"></a><span class="w">  </span><span class="cm">/* Initialize thread. */</span>
+<a id="__codelineno-40-20" name="__codelineno-40-20" href="#__codelineno-40-20"></a><span class="w">  </span><span class="n">init_thread</span><span class="w"> </span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="w"> </span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">priority</span><span class="p">);</span>
+<a id="__codelineno-40-21" name="__codelineno-40-21" href="#__codelineno-40-21"></a><span class="w">  </span><span class="n">tid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">t</span><span class="o">-&gt;</span><span class="n">tid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">allocate_tid</span><span class="w"> </span><span class="p">();</span>
+<a id="__codelineno-40-22" name="__codelineno-40-22" href="#__codelineno-40-22"></a>
+<a id="__codelineno-40-23" name="__codelineno-40-23" href="#__codelineno-40-23"></a><span class="w">  </span><span class="cm">/* Prepare thread for first run by initializing its stack.</span>
+<a id="__codelineno-40-24" name="__codelineno-40-24" href="#__codelineno-40-24"></a><span class="cm">     Do this atomically so intermediate values for the &#39;stack&#39; </span>
+<a id="__codelineno-40-25" name="__codelineno-40-25" href="#__codelineno-40-25"></a><span class="cm">     member cannot be observed. */</span>
+<a id="__codelineno-40-26" name="__codelineno-40-26" href="#__codelineno-40-26"></a><span class="w">  </span><span class="n">old_level</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">intr_disable</span><span class="w"> </span><span class="p">();</span>
+<a id="__codelineno-40-27" name="__codelineno-40-27" href="#__codelineno-40-27"></a>
+<a id="__codelineno-40-28" name="__codelineno-40-28" href="#__codelineno-40-28"></a><span class="w">  </span><span class="cm">/* Stack frame for kernel_thread(). */</span>
+<a id="__codelineno-40-29" name="__codelineno-40-29" href="#__codelineno-40-29"></a><span class="w">  </span><span class="n">kf</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">alloc_frame</span><span class="w"> </span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="w"> </span><span class="o">*</span><span class="n">kf</span><span class="p">);</span>
+<a id="__codelineno-40-30" name="__codelineno-40-30" href="#__codelineno-40-30"></a><span class="w">  </span><span class="n">kf</span><span class="o">-&gt;</span><span class="n">eip</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span>
+<a id="__codelineno-40-31" name="__codelineno-40-31" href="#__codelineno-40-31"></a><span class="w">  </span><span class="n">kf</span><span class="o">-&gt;</span><span class="n">function</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">function</span><span class="p">;</span>
+<a id="__codelineno-40-32" name="__codelineno-40-32" href="#__codelineno-40-32"></a><span class="w">  </span><span class="n">kf</span><span class="o">-&gt;</span><span class="n">aux</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">aux</span><span class="p">;</span>
+<a id="__codelineno-40-33" name="__codelineno-40-33" href="#__codelineno-40-33"></a>
+<a id="__codelineno-40-34" name="__codelineno-40-34" href="#__codelineno-40-34"></a><span class="w">  </span><span class="cm">/* Stack frame for switch_entry(). */</span>
+<a id="__codelineno-40-35" name="__codelineno-40-35" href="#__codelineno-40-35"></a><span class="w">  </span><span class="n">ef</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">alloc_frame</span><span class="w"> </span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="w"> </span><span class="o">*</span><span class="n">ef</span><span class="p">);</span>
+<a id="__codelineno-40-36" name="__codelineno-40-36" href="#__codelineno-40-36"></a><span class="w">  </span><span class="n">ef</span><span class="o">-&gt;</span><span class="n">eip</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="kt">void</span><span class="p">))</span><span class="w"> </span><span class="n">kernel_thread</span><span class="p">;</span>
+<a id="__codelineno-40-37" name="__codelineno-40-37" href="#__codelineno-40-37"></a>
+<a id="__codelineno-40-38" name="__codelineno-40-38" href="#__codelineno-40-38"></a><span class="w">  </span><span class="cm">/* Stack frame for switch_threads(). */</span>
+<a id="__codelineno-40-39" name="__codelineno-40-39" href="#__codelineno-40-39"></a><span class="w">  </span><span class="n">sf</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">alloc_frame</span><span class="w"> </span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="w"> </span><span class="o">*</span><span class="n">sf</span><span class="p">);</span>
+<a id="__codelineno-40-40" name="__codelineno-40-40" href="#__codelineno-40-40"></a><span class="w">  </span><span class="n">sf</span><span class="o">-&gt;</span><span class="n">eip</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">switch_entry</span><span class="p">;</span>
+<a id="__codelineno-40-41" name="__codelineno-40-41" href="#__codelineno-40-41"></a><span class="w">  </span><span class="n">sf</span><span class="o">-&gt;</span><span class="n">ebp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<a id="__codelineno-40-42" name="__codelineno-40-42" href="#__codelineno-40-42"></a>
+<a id="__codelineno-40-43" name="__codelineno-40-43" href="#__codelineno-40-43"></a><span class="w">  </span><span class="n">intr_set_level</span><span class="w"> </span><span class="p">(</span><span class="n">old_level</span><span class="p">);</span>
+<a id="__codelineno-40-44" name="__codelineno-40-44" href="#__codelineno-40-44"></a>
+<a id="__codelineno-40-45" name="__codelineno-40-45" href="#__codelineno-40-45"></a><span class="w">  </span><span class="cm">/* Add to run queue. */</span>
+<a id="__codelineno-40-46" name="__codelineno-40-46" href="#__codelineno-40-46"></a><span class="w">  </span><span class="n">thread_unblock</span><span class="w"> </span><span class="p">(</span><span class="n">t</span><span class="p">);</span>
+<a id="__codelineno-40-47" name="__codelineno-40-47" href="#__codelineno-40-47"></a>
+<a id="__codelineno-40-48" name="__codelineno-40-48" href="#__codelineno-40-48"></a><span class="c1">// mycode starts task1</span>
+<a id="__codelineno-40-49" name="__codelineno-40-49" href="#__codelineno-40-49"></a><span class="w">  </span><span class="c1">// so basically, there is a possiblity that the priority here is the current highest priority</span>
+<a id="__codelineno-40-50" name="__codelineno-40-50" href="#__codelineno-40-50"></a><span class="w">  </span><span class="c1">// the we need to yield the CPU</span>
+<a id="__codelineno-40-51" name="__codelineno-40-51" href="#__codelineno-40-51"></a><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">thread_get_priority</span><span class="p">()</span><span class="w">  </span><span class="o">&lt;</span><span class="w"> </span><span class="n">priority</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-40-52" name="__codelineno-40-52" href="#__codelineno-40-52"></a><span class="w">    </span><span class="c1">// thread_get_priority gets the priority of the current thread</span>
+<a id="__codelineno-40-53" name="__codelineno-40-53" href="#__codelineno-40-53"></a><span class="w">    </span><span class="n">thread_yield</span><span class="p">();</span>
+<a id="__codelineno-40-54" name="__codelineno-40-54" href="#__codelineno-40-54"></a><span class="w">  </span><span class="p">}</span>
+<a id="__codelineno-40-55" name="__codelineno-40-55" href="#__codelineno-40-55"></a><span class="c1">// mycode ends</span>
+<a id="__codelineno-40-56" name="__codelineno-40-56" href="#__codelineno-40-56"></a><span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">tid</span><span class="p">;</span>
+<a id="__codelineno-40-57" name="__codelineno-40-57" href="#__codelineno-40-57"></a><span class="p">}</span>
+</code></pre></div>
+<h2 id="other-tasks">other tasks</h2>
+<h3 id="task1-init-thread_get_priority-and-thread_set_priority">task1: init thread_get_priority and thread_set_priority</h3>
+<p>these are implement in the in codebase</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a><span class="kt">void</span>
+<a id="__codelineno-41-2" name="__codelineno-41-2" href="#__codelineno-41-2"></a><span class="nf">thread_set_priority</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">new_priority</span><span class="p">)</span><span class="w"> </span>
+<a id="__codelineno-41-3" name="__codelineno-41-3" href="#__codelineno-41-3"></a><span class="p">{</span>
+<a id="__codelineno-41-4" name="__codelineno-41-4" href="#__codelineno-41-4"></a><span class="w">  </span><span class="n">thread_current</span><span class="w"> </span><span class="p">()</span><span class="o">-&gt;</span><span class="n">priority</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">new_priority</span><span class="p">;</span>
+<a id="__codelineno-41-5" name="__codelineno-41-5" href="#__codelineno-41-5"></a><span class="c1">// mycode starts task1</span>
+<a id="__codelineno-41-6" name="__codelineno-41-6" href="#__codelineno-41-6"></a><span class="w">  </span><span class="n">thread_yield</span><span class="p">();</span>
+<a id="__codelineno-41-7" name="__codelineno-41-7" href="#__codelineno-41-7"></a><span class="c1">// mycode ends</span>
+<a id="__codelineno-41-8" name="__codelineno-41-8" href="#__codelineno-41-8"></a><span class="p">}</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a><span class="cm">/* Returns the current thread&#39;s priority. */</span>
+<a id="__codelineno-42-2" name="__codelineno-42-2" href="#__codelineno-42-2"></a><span class="kt">int</span>
+<a id="__codelineno-42-3" name="__codelineno-42-3" href="#__codelineno-42-3"></a><span class="nf">thread_get_priority</span><span class="w"> </span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span>
+<a id="__codelineno-42-4" name="__codelineno-42-4" href="#__codelineno-42-4"></a><span class="p">{</span>
+<a id="__codelineno-42-5" name="__codelineno-42-5" href="#__codelineno-42-5"></a><span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">thread_current</span><span class="w"> </span><span class="p">()</span><span class="o">-&gt;</span><span class="n">priority</span><span class="p">;</span>
+<a id="__codelineno-42-6" name="__codelineno-42-6" href="#__codelineno-42-6"></a><span class="p">}</span>
+</code></pre></div>
+<h3 id="task2-prioritized-unblocking-on-synchronisation-primitives">task2: Prioritized unblocking on synchronisation primitives</h3>
+<p>actually I think this is included in task3, since no matter which tick we are at, ready_list and all_list is always sorted by priority, semas call thread unblock and do the removal from ready_list, locks come from semas, conditionals are similar.</p>
+<h3 id="task3-done">task3: done</h3>
+<h3 id="task4-5">task4 &amp; 5:</h3>
+<p>priority donation</p>
+<p>so first, we need to figure out which thread waits for which</p>
+<p>and record the donations(possibly in an array of structs)</p>
+<p>so if we are implementing this for locks, we should do</p>
+<p>if the thread is holding the lock, we record this thread</p>
+<p>get the current thread at everytick, if no donations happen during this lock, we add a donation</p>
+<p>then after the lock, we restore the donation</p>
+<p>so basically what we are altering is just a list of donations that belong to each thread itself</p>
+<p>when we later call thread_get_priority, we iterate through the list of donations and get the final priority</p>
+<p>this way we do not have to do anything to the thread_set_priority as by default it changes the priority member field, but donations only happen in the list</p>
+<h3 id="task6fpu">task6:FPU</h3>
+<p>so we have two sets of variable
+- integers: priority, nice, ready_threads
+- real_numbers: recent_cpu load_avg</p>
+<p>pintos does not support floating-point arithmetic</p>
+<p>treat the rightmost bits of an integer as representing a fraction</p>
+<p>so if 32bit int, the lowest 14 can be fractions, so we get <span class="arithmatex">\(\frac{x}{2^{14}}\)</span>, so 17 bit for the numerator, 1 for sign, the rest for denominator</p>
+<ul>
+<li><span class="arithmatex">\(f = 2^q\)</span> where p,q are in fixed-point format, p+q = 31, f = 1 &lt;&lt; q</li>
+<li>integer n to fixed-point <span class="arithmatex">\(n * f\)</span></li>
+<li>fixed-point x to integer(round towards zero) <span class="arithmatex">\(x / f\)</span></li>
+<li>convert x to integer(round to nearest) <span class="arithmatex">\(\begin{cases}\begin{array}{c}\frac{(x + \frac{f}{2})}{f} &amp; x\ge 0\\\frac{(x - \frac{f}{2})}{f} &amp; x\le 0\end{array}\end{cases}\)</span></li>
+<li>add fixed-point x and fixed-point y: <span class="arithmatex">\(x+y\)</span></li>
+<li>subtract fixed-point y from fixed-point x: <span class="arithmatex">\(x-y\)</span></li>
+<li>add fixed-point and integer n: <span class="arithmatex">\(x + n * f\)</span></li>
+<li>subtract integer n from fixed-point x: <span class="arithmatex">\(x - n * f\)</span></li>
+<li>multiply fixed point x by fixed-point y: <span class="arithmatex">\(((int64_t)x) * y / f\)</span></li>
+<li>multiply fixed point x by integer n : <span class="arithmatex">\(x * n\)</span></li>
+<li>divide fixed-point x by fixed-point y: <span class="arithmatex">\(((int64_t)x) * f / y\)</span></li>
+<li>divide fixed-point x by integer n: <span class="arithmatex">\(x / n\)</span></li>
+</ul>
+<h3 id="task7bsd-scheduler">task7:BSD scheduler</h3>
+<p>so it just do one thing</p>
+<ul>
+<li>priority argument to <em>thread_create</em>, <em>thread_get/set_priority</em> should be ignored</li>
+</ul>
 
 
 
