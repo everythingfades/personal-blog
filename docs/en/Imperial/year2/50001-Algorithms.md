@@ -144,6 +144,8 @@ e ::= x          -- variable
     | if e then e1 else e2 -- conditional
 ```
 
+Functions will always have the form `f x1 .. xn`
+
 since we can do ```f e1 .. en = e``` and ```[x,y,z] = x : y : z : []```
 
 ```haskell
@@ -153,27 +155,41 @@ insert x xs =
   else head xs : insert x (tail xs)
 ```
 
-let ```T(f) x1 .. xn``` is the number of steps it takes to evaluate ```f x1 .. xn```
+let ```T(f) x1 .. xn``` is the number of steps it takes to evaluate ```f```and````x1 .. xn```
 
 when f is primitive (+), (*), (:)
 
-- T(f) x1 .. xn = 0
-- T(head) xs = 0
-- T(f e1 .. en) = T(f) e1 .. en + T(e1) + .. + T(en)
-- T(if e then e1 else e2) = T(e) + if e then T(e1) else T(e2)
+```haskell
+T(x) = 0  -- in other words, variables are free
+T(k) = 0  -- in other words, constants are free
+-- evaluating an application is the same as evaluating all the arguments,
+-- and then the application of `f` to those arguments (as above)
+T(f e1 .. en) = T(f) e1 .. en + T(e1) + .. + T(en)
+T(if e then e1 else e2) = T(e) + if e then T(e1) else T(e2)
+-- evaluating a condition first evaluates the condition, then conditonally
+-- evaluates either arm of the conditional.
+```
 
-we have length = if null xs then 0 else 1 + length (tail xs)
+we have 
+
+```haskell
+length = if null xs then 0 else 1 + length (tail xs)
+```
 
 T(length xs) = T(length) + T(null) + T(xs) + if null xs then T(0) else T(+) + T(1) + T(length) + ...
 
 Composition:
 
 The cost of 
-```
-T(f(g(x))) = T(f) (g x) + T(g(x))
-           = T(f) (g x) + T(g) x + T(x)
-           = T(f) (g x) + T(g) x
-```
+
+this is the composition rule
+
+$$\begin{aligned}
+T(f(g(x))) &= T(f)\quad(g\quad x) + T(g(x))\\
+           &= T(f)\quad(g\quad x) + T(g)\quad x + T(x)\\
+           &= T(f)\quad(g\quad x) + T(g)\quad x
+\end{aligned}$$
+
 
 complexity
 
@@ -185,14 +201,109 @@ functions used to describe complexity comprise of the following
 - constants
 
 complexity functions includes
-- $O$
+- $O$ : $\exists, c, n_0, for all n \ge n_0, 0 \le f(n)\le c\bullet g(n)$
 - $\Theta$
-- $\Omega$
+- $\Omega$ : $\exists, c, n_0, for all n \ge n_0, 0 \le c \bullet f(n)\le g(n)$
 - $\omega$
-- $o$
+- $o$ : $\exists, c, n_0, for all n \ge n_0, 0 \le f(n)\lt c \bullet g(n)$
+
+(complete this later)
 
 for f(x) and g(x) check $\lim_{n\to\infty} \frac{f(n)}{g(n)}$ and 0
 
 see https://oi.wiki/basic/complexity/
 
 
+
+
+# tutorial 1:
+## Exercise 1.1
+**Given the following function concatenating two lists**
+
+```haskell
+(++) :: [Int] -> [Int] -> [Int]
+[] ++ ys = ys
+(x:xs) ++ ys = x : (xs ++ ys)
+```
+
+**with a recurrence relation T(n,m), approximate the time it takes to compute xs ++ ys for any list xs of length n and ys of length m**
+
+$$\begin{aligned}
+T(0, m) &= 1\\
+T(n,m) &= 1 + T(n-1, m)\\
+  &= 2 + T(n-2, m)\\
+  &= k + T(n-k, m) \forall k < n\\
+  &= n + T(0,m)\\
+  &=n
+\end{aligned}$$
+
+## Exercise 1.2
+**Consider an alternative strict time analysis function T', define to be the same as T, except T' is refined to have cost 1 instead of 0 on variables, constants and primitive functions, i.e**
+
+$$\begin{aligned}
+T'(x) &= 1\\
+T'(k) &= 1\\
+T'(f) x_1\dots x_n &=1
+\end{aligned}$$
+
+**Compute T'(length xs) in terms of T'(length (tail xs))**
+
+$$\begin{aligned}
+T'(\text{length xs}) &= T'(\text{length}) + T'(\text{xs})\\
+&= 1 + T' (\text{length}) \text{xs}\\
+&= 1 + 1 + T'(\text{if null xs then 0 else 1 + length (tail xs)}) & \text{the def of length}\\
+&= 2 + T'(\text{null xs}) + \text{if null xs than T'(0) else T'(1 + length (tail xs))}\\
+&= 2 + T'(\text{null xs}) + T'(xs) + \text{if null xs than T'(0) else T'(1 + length (tail xs))} & \text{analysis of null}\\
+&= 4 + \text{if null xs then T'(0) else T'(1 + length (tail xs))}\\
+&= 4 + \text{if null xs then T'(0) else T'(1) + T'(+) + T'(length (tail xs))}\\
+&= 4 + \text{if null xs then 1 else 2 + T'(length (tail xs))}\\
+\end{aligned}$$
+
+done
+
+```haskell
+length [] = 0
+length (y:ys) = 1 + (length ys)
+```
+
+## 1.3
+**Compute the strict running time of T(length (insert x xs)) using the composition rule**
+
+```haskell
+insert :: Ord a => a -> [a] -> [a]
+insert x [] = [x]
+insert x (y:ys) = 
+  | x <= y    = x : y : ys
+  | otherwise = y : insert x ys 
+
+length [] = 0
+length (y:ys) = 1 + (length ys)
+```
+
+$\begin{aligned}\text{T(length (insert x xs))}\\
+=\text{T(length) (insert x xs) + T(insert) x xs} & (\text{composition rule})\\
+=\text{T(length)}
+\end{aligned}$
+
+## 1.4
+**Pattern matching can be added to the expresion language e as follows**
+
+```
+e ::= ... | case e of [] -> e;(x:xs) -> e
+```
+
+**Give an appropriate definetion of T(case e1 of [] -> e2;(x:xs) -> e3)**
+
+so 
+```haskell
+e1
+  | [] = e2
+  | (x : xs) = e3
+```
+
+$$\begin{aligned}
+\text{T(case e1 of []} \to \text{e2;(x:xs)} \to \text{e3)}\\
+ = T(e_1) + \text{case e1 of []} \to \text{T(e2)}
+\end{aligned}$$
+
+(this is to be continued)
