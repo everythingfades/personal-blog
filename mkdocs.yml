@@ -23,6 +23,7 @@ nav:
         - pintos: en/Imperial/year2/pintos.md
         - SED-Ex1: en/Imperial/year2/SED_Ex1.md
         - 50001-Algorithms: en/Imperial/year2/50001-Algorithms.md
+        - 50003-Model-of-Computation: en/Imperial/year2/50003-Models-of-Computation.md
         - 50004-Operating-System: en/Imperial/year2/50004-Operating-System.md
     - web:
       - html: en/web/html.md

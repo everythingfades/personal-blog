@@ -168,12 +168,37 @@ T(f e1 .. en) = T(f) e1 .. en + T(e1) + .. + T(en)
 T(if e then e1 else e2) = T(e) + if e then T(e1) else T(e2)
 -- evaluating a condition first evaluates the condition, then conditonally
 -- evaluates either arm of the conditional.
+T(f) x1 .. xn = 1 + T(e)
 ```
 
 we have 
 
 ```haskell
-length = if null xs then 0 else 1 + length (tail xs)
+length xs = if null xs then 0 else 1 + length (tail xs)
+
+T(length xs)
+= -- by T(f e1 .. en) = T(f) e1 .. en + T(e1) + .. + T(en)
+T(length) xs + T(xs)
+= -- by T(x) = 0
+T(length) xs + 0
+= -- by T(f) x1 .. xn = 1 + T(e)
+1 + T(if null xs then 0 else 1 + length (tail xs))
+= -- by T(if e then e1 else e2) = T(e) + if e then T(e1) else T(e2)
+1 + T(null xs) + if null xs then T(0) else T(length (tail xs))
+= -- by T(f e1 .. en) = T(f) e1 .. en + T(e1) + .. + T(en)
+1 + T(null) xs + T(xs) + if null xs then T(0) else T(length (tail xs))
+= -- By T(primitive) = 0, T(x) = 0
+1 + 0 + 0 + if null xs then T(0) else T(length (tail xs))
+= -- By T(k) = 0
+1 + if null xs then 0 else T(length (tail xs))
+= -- By T(f e1 .. en) = T(f) e1 .. en + T(e1) + .. + T(en)
+1 + if null xs then 0 else T(length) (tail xs) + T(tail xs)
+= -- By T(f e1 .. en) = T(f) e1 .. en + T(e1) + .. + T(en)
+1 + if null xs then 0 else T(length) (tail xs) + T(tail) xs + T(xs)
+= -- By T(primitive) = 0, T(x) = 0
+1 + if null xs then 0 else T(length) (tail xs) + 0 + 0
+= -- simplify
+1 + if null xs then 0 else T(length) (tail xs)
 ```
 
 T(length xs) = T(length) + T(null) + T(xs) + if null xs then T(0) else T(+) + T(1) + T(length) + ...
@@ -200,12 +225,25 @@ functions used to describe complexity comprise of the following
 - exp
 - constants
 
+so define some symbols here
+
+we have two functions f and g
+
+- $f\succ g \iff \lim_{n\to\infty}\frac{f(n)}{g(n)} = 0$
+- $f\succcurlyeq g \iff \lim_{n\to\infty}\frac{f(n)}{g(n)} \lt \infty$
+- $f\asymp g \iff \lim_{n\to\infty}0<\frac{f(n)}{g(n)}< \infty$
+- $f\preccurlyeq g \iff \lim_{n\to\infty}\frac{f(n)}{g(n)} > 0$
+- $f\prec g \iff \lim_{n\to\infty}\frac{f(n)}{g(n)} = \infty$
+
+(the symbols are \succ \succcurlyeq \asymp \preccurlyeq \prec)
+
 complexity functions includes
-- $O$ : $\exists, c, n_0, for all n \ge n_0, 0 \le f(n)\le c\bullet g(n)$
-- $\Theta$
-- $\Omega$ : $\exists, c, n_0, for all n \ge n_0, 0 \le c \bullet f(n)\le g(n)$
-- $\omega$
-- $o$ : $\exists, c, n_0, for all n \ge n_0, 0 \le f(n)\lt c \bullet g(n)$
+
+- $O$ : $f(n)\in O(g(n))\iff f\succcurlyeq g$
+- $o$ : $f(n)\in O(g(n))\iff f\succ g$
+- $\Theta$ : $f(n)\in \Theta(g(n))\iff f\asymp g$
+- $\omega$ : $f(n)\in \Omega(g(n))\iff f\prec g$
+- $\Omega$ : $f(n)\in \Omega(g(n))\iff f\preccurlyeq g$
 
 (complete this later)
 
@@ -280,10 +318,28 @@ length [] = 0
 length (y:ys) = 1 + (length ys)
 ```
 
-$\begin{aligned}\text{T(length (insert x xs))}\\
-=\text{T(length) (insert x xs) + T(insert) x xs} & (\text{composition rule})\\
-=\text{T(length)}
-\end{aligned}$
+so T_length is obviously n+1 with n being the length of the list
+
+so T(length (tail xs)) = length xs - 1
+
+note that we computed T_insert(n) = n+1
+
+where n is the length of y:ys
+
+$$\begin{array}{l|l}\text{T(length (insert x xs))} &\\
+=\text{T(length) (insert x xs) + T(insert) x xs} & \text{by composition rule}\\\\
+=\text{T(if null (insert x xs) then 0 else 1 +}\\\quad\text{ length (tail (insert x xs))) + T(insert) x xs} & \text{by the def of length}\\\\
+=\text{T(null (insert x xs)) + }\\\quad\text{if null (insert x xs) then 0 else}\\\quad\text{T(length (tail (insert x xs))) +} & \text{by T(if e then e1 else e2) =}\\\quad\text{T(insert) x xs} & \text{T(e) + if e then T(e1) else T(e2)}\\\\
+=\text{T(null) (insert x xs) + T(insert x xs) +}\\\quad\text{ if null (insert x xs) then 0 else} & \text{by T(f e1 .. en) =}\\\quad\text{T(length (tail (insert x xs)))  + T(insert) x xs} & \text{T(f) e1 .. en + T(e1) + .. + T(en)}\\\\
+= \text{2 * T(insert) x xs + T(x) + T(xs) +}\\\quad\text{ if null (insert x xs) then 0 else}\\\quad\text{T(length (tail (insert x xs))) } & \text{by T(primitive) = 0, T(null) _ = 0}\\\\
+= \text{2 * T(insert) x xs +}\\\quad\text{ if null (insert x xs) then 0 else}\\\quad\text{T(length (tail (insert x xs)))} & \text{by T(primitive) = 0, T(x), T(xs) = 0}\\\\
+= \text{2 * T(insert) x xs +}\\\quad\text{ if null (insert x xs) then 0 else}\\\quad\text{T(length) (tail (insert x xs))} + &\text{by T(f e1 .. en) = }\\\quad\text{T(tail (insert x xs))} & \text{T(f) e1 .. en + T(e1) + .. + T(en)}\\\\
+= \text{2 * T(insert) x xs +}\\\quad\text{ if null (insert x xs) then 0 else}\\\quad\text{T(length) (tail (insert x xs))} + &\text{by T(f e1 .. en) = }\\\quad\text{T(tail) (insert x xs) + T(insert x xs)}& \text{T(f) e1 .. en + T(e1) + .. + T(en)}\\\\
+= \text{2 * T(insert) x xs +}\\\quad\text{ if null (insert x xs) then 0 else}\\\quad\text{T(length) (tail (insert x xs))} + \\\quad\text{T(tail) (insert x xs) + T(insert) x xs +}&\text{by T(f e1 .. en) = }\\\quad\text{T(x) + T(xs)} & \text{T(f) e1 .. en + T(e1) + .. + T(en)}\\\\
+= \text{2 * T(insert) x xs +}\\\quad\text{ if null (insert x xs) then 0 else}\\\quad\text{T(length) (tail (insert x xs))} + \\\quad\text{T(tail) (insert x xs) + T(insert) x xs}&\text{by T(primitive) = 0, T(x),T(xs) = 0}\\\\
+= \text{3 * T(insert) x xs +}\\\quad\text{ if null (insert x xs) then 0 else}\\\quad\text{T(length) (tail (insert x xs))} + \\\quad\text{T(tail) (insert x xs)} & \text{by cleaning up}\\\\
+= \text{3 * T(insert) x xs +}\\\quad\text{ if null (insert x xs) then 0 else}\\\quad\text{T(length) (tail (insert x xs))}& \text{by T(primitive) = 0, T(tail) _ = 0}\\\\
+\end{array}$$
 
 ## 1.4
 **Pattern matching can be added to the expresion language e as follows**
@@ -301,9 +357,77 @@ e1
   | (x : xs) = e3
 ```
 
+the rest is the same as if then
+
 $$\begin{aligned}
 \text{T(case e1 of []} \to \text{e2;(x:xs)} \to \text{e3)}\\
- = T(e_1) + \text{case e1 of []} \to \text{T(e2)}
+ = T(e_1) + \text{if null e1 } \to \text{T(e2)}
 \end{aligned}$$
 
-(this is to be continued)
+## 1.5(finally no more T stuff)
+
+**prove formally that**$(n+1)^2\in\Theta(n^2)$**by exhibiting the necessary constants**
+
+$\lim_{n\to\infty}\frac{(n+1)^2}{n^2}\\
+=\lim_{n\to\infty}\frac{n^2+2n+1}{n^2}\\
+=\lim_{n\to\infty}1 + \frac{2}{n} + \frac{1}{n^2}\\
+=1\le\infty$
+
+so by definition
+
+$(n+1)^2\in\Theta(n^2)$
+
+## 1.6(done in class, will add proof afterwards)
+**Justify whether wach of the following is true or false**
+
+- $2n^2 + 3n\in\Theta(x^2)$ -> true
+- $2n^2 + 3n\in O(n^3)$ -> true
+- $n\log n\in O(n\sqrt{n})$ -> true
+- $n + \sqrt{n}\in O(\sqrt{n}\log n)$ -> fasle
+- $2^{\log n}\in O(n)$ -> true
+
+## 1.7
+
+**Show formally that**$o(g(n))$**is a proper subset of**$O(g(n))$**for any function g using thier definitions**
+
+so consider a arbitrary $f(x)\in o(g(n))$
+
+then by definition
+
+$\lim_{n\to\infty} \frac{f(n)}{g(n)} = 0 \lt\infty$
+
+so then by definition of $O(g(n))$
+
+$f(n)\in O(g(n))\iff \lim_{n\to\infty}\frac{f(n)}{g(n)}\lt \infty$
+
+so obviously $f(n)\in O(g(n))$
+
+as since f(n) is taken arbitrarily, $o(g(n))\subset O(g(n))$
+
+
+## 1.8
+**Explain why there is no definition $\theta(g(n))$ that corresponds to $\Theta(g(n))$ even though there is $o(g(n))$ coressponding to $O(g(n))$ and $\omega(g(n)$ correspond to $\Omega(g(n))$**
+
+so lets take a look at the definitions
+
+
+- $f\succ g \iff \lim_{n\to\infty}\frac{f(n)}{g(n)} = 0$
+- $f\succcurlyeq g \iff \lim_{n\to\infty}\frac{f(n)}{g(n)} \lt \infty$
+- $f\asymp g \iff \lim_{n\to\infty}0<\frac{f(n)}{g(n)}< \infty$
+- $f\prec g \iff \lim_{n\to\infty}\frac{f(n)}{g(n)} = \infty$
+- $f\preccurlyeq g \iff \lim_{n\to\infty}\frac{f(n)}{g(n)} > 0$
+
+(the symbols are \succ \succcurlyeq \asymp \prec \preccurlyeq)
+
+complexity functions includes
+
+
+- $o$ : $f(n)\in O(g(n))\iff f\succ g$
+- $O$ : $f(n)\in O(g(n))\iff f\succcurlyeq g$
+- $\Theta$ : $f(n)\in \Theta(g(n))\iff f\asymp g$
+- $\omega$ : $f(n)\in \Omega(g(n))\iff f\prec g$
+- $\Omega$ : $f(n)\in \Omega(g(n))\iff f\preccurlyeq g$
+
+you could see that the capitalized notation and the lowercase notation corresponds to each other, they only miss a curve line in the expression, but how do you add a curve line to $\asymp$?
+
+also, from o -> O -> $\Theta$ -> $\omega$ -> $\Omega$ you could see that if $g(n)$ is fixed, $f(n)$ actually display a incresing trend, simply no space for $\theta$
