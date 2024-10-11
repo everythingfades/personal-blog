@@ -107,7 +107,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#lecture-1" class="md-skip">
+        <a href="#register-machines" class="md-skip">
           Skip to content
         </a>
       
@@ -847,7 +847,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#register-machines" class="md-nav__link">
+  <a href="#register-machines_1" class="md-nav__link">
     <span class="md-ellipsis">
       register machines
     </span>
@@ -955,6 +955,15 @@
   <a href="#numerical-coding-of-lists" class="md-nav__link">
     <span class="md-ellipsis">
       Numerical coding of lists
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#numerical-coding-of-programs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Numerical coding of Programs
     </span>
   </a>
   
@@ -1113,7 +1122,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#register-machines" class="md-nav__link">
+  <a href="#register-machines_1" class="md-nav__link">
     <span class="md-ellipsis">
       register machines
     </span>
@@ -1226,6 +1235,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#numerical-coding-of-programs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Numerical coding of Programs
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1244,7 +1262,7 @@
   
 
 
-<h1 id="lecture-1">lecture 1:</h1>
+<h1 id="register-machines">Register Machines</h1>
 <h2 id="come-common-fesatures-about-the-historical-algorithms">come common fesatures about the historical algorithms</h2>
 <ul>
 <li>
@@ -1256,7 +1274,7 @@
 </li>
 <li>procedures may not terminate, but we can recognise when it does terminate and the result</li>
 </ul>
-<h2 id="register-machines">register machines</h2>
+<h2 id="register-machines_1">register machines</h2>
 <ul>
 <li>add 1 to the contents of a register</li>
 <li>test whether the contents of a register is 0</li>
@@ -1280,7 +1298,7 @@ HALT &amp; \text{stop executing instructions}
 - <span class="arithmatex">\(L_0: R_1^- \to L_1, L_2\)</span>
 - <span class="arithmatex">\(L_1: R^+_0 \to L_0\)</span>
 - <span class="arithmatex">\(R_2^- \to L_3,L_4\)</span>
-- <span class="arithmatex">\(L_#: R_0^+\to L_2\)</span>
+- <span class="arithmatex">\(L_3: R_0^+\to L_2\)</span>
 - <span class="arithmatex">\(L_4: HALT\)</span></p>
 <p>so this sums up <span class="arithmatex">\(R_1, R_2\)</span> and put it into <span class="arithmatex">\(R_0\)</span></p>
 <p><img alt="slide6" src="../../../assets/Imperial/50003/lecture1-slide6.png" /></p>
@@ -1331,7 +1349,7 @@ HALT &amp; \text{stop executing instructions}
 - the set S of the pair (A,D) where A is an algorithm and D is some input datum on which the algorithm is designed to operate
 - <span class="arithmatex">\(A(D)\downarrow\)</span> holds for <span class="arithmatex">\((A,D)\in S\)</span> if algorithm A when applied to D eventually produces a result: that is, eventually halts.</p>
 <p>this problem is unsolvable, or no algorithm H such that</p>
-<p><span class="arithmatex">\(\forall (A,D)\in S,H(A,D) = \begin{cases}\begin{array}1 &amp; A(D)\downarrow\\0 &amp; \text{otherwise}\end{cases}\end{cases}\)</span></p>
+<p><span class="arithmatex">\(\forall (A,D)\in S,H(A,D) = \begin{cases}\begin{array}1 &amp; A(D)\downarrow\\0 &amp; \text{otherwise}\end{array}\end{cases}\)</span></p>
 <h2 id="numerical-coding-of-pairs">Numerical coding of pairs</h2>
 <p><strong>definition</strong></p>
 <p>For <span class="arithmatex">\(x,y\in\mathbb{N}\)</span>, define <span class="arithmatex">\(\begin{cases}《x,y》\triangleq 2^x(2y+1)\\&lt;x,y&gt;\triangleq 2^x(2y+1) - 1\end{cases}\)</span></p>
@@ -1351,9 +1369,58 @@ HALT &amp; \text{stop executing instructions}
 <li>list cons <span class="arithmatex">\(x::l\in List \mathbb{N}\)</span> and <span class="arithmatex">\(l\in List\mathbb{N}\)</span></li>
 </ul>
 <p><strong>Notation</strong>:<span class="arithmatex">\([x_1, x_2,..., x_n]\triangleq x_1::(x_2::(...x_n::[]...))\)</span></p>
-<p>For <span class="arithmatex">\(l\in List\mathbb{N}\)</span> define  <span class="arithmatex">\(\textopencorner l\textcorner\in\mathbb{N}\)</span> by induction on the length of the list</p>
-<p><span class="arithmatex">\(l:\begin{cases}\textopencorner l\textcorner\triangleq 0\\\textopencornerx::l\textcorner\triangleq《x,\textopencorner l\textcorner》= 2^x(2\bullet \textopencorner l\textcorner + 1)\end{cases}\)</span></p>
-<p>Thus, <span class="arithmatex">\(\textopencorner[x_1, x_2,...,x_n] = 《x_1,《x_2,... 《x_n, 0》...》》\)</span></p>
+<p>For <span class="arithmatex">\(l\in List\mathbb{N}\)</span> define  <span class="arithmatex">\(^{\lceil} l^{\rceil}\in\mathbb{N}\)</span> by induction on the length of the list</p>
+<p><span class="arithmatex">\(l:\begin{cases}^{\lceil} l^{\rceil}\triangleq 0\\^{\lceil}x::l^{\rceil}\triangleq《x,^{\lceil} l^{\rceil}》= 2^x(2\bullet ^{\lceil} l^{\rceil} + 1)\end{cases}\)</span></p>
+<p>Thus, <span class="arithmatex">\(^{\lceil}[x_1, x_2,...,x_n] = 《x_1,《x_2,... 《x_n, 0》...》》\)</span></p>
+<p>so for example</p>
+<p><span class="arithmatex">\(^{\lceil}[3]^{\rceil} = ^{\lceil}3::[]^{\rceil} = 《3,0》 = 2^3(2+0+1) = 8 = 1000_2\)</span> </p>
+<p><span class="arithmatex">\(^{\lceil}[1,3]^{\rceil} = 《1,^{\lceil}[3]^{\rceil}》 = 《1,8》 = 34 = 100010\)</span></p>
+<p>so you could see this encoding is just reversing the list, adding the element value amount of zero and add a 1 as separator</p>
+<p><strong>result</strong> The function <span class="arithmatex">\(l\to^{\lceil}l^{\rceil}\)</span> gives a bijection from <span class="arithmatex">\(List\mathbb{N}\)</span> to <span class="arithmatex">\(\mathbb{N}\)</span></p>
+<h2 id="numerical-coding-of-programs">Numerical coding of Programs</h2>
+<p>so it would be nicer if we encoding a program in to binary codes</p>
+<p>if we have the program</p>
+<p><span class="arithmatex">\(\begin{array}{|c|}
+\hline\\
+L_0:body_0\\
+L_1:body_1\\
+\vdots\\
+L_n:body_n\\
+\hline
+\end{array}\)</span></p>
+<p>then we can encode the program by </p>
+<p><span class="arithmatex">\(^{\lceil}P {^{\rceil}}\triangleq {^{\lceil}}\quad{^{\lceil}}body_0 {^{\rceil}},..., {^{\lceil}}body_n{^{\rceil}}\quad{^{\rceil}}\)</span></p>
+<p>where the numerical code <span class="arithmatex">\(^{\lceil}body^{\rceil}\)</span> of an instruction body is defined:</p>
+<p><span class="arithmatex">\(\begin{cases}
+\begin{aligned}
+^{\lceil}R_i^+\to L_j^{\rceil} &amp;\triangleq 《2i，j》\\
+^{\lceil}R^-_i\to L_j,L_k^{\rceil} &amp; \triangleq 《2i+1,&lt;j,k&gt;》\\
+^{\lceil}HALT^{\rceil} &amp;\triangleq 0\\
+\end{aligned}
+\end{cases}\)</span></p>
+<p>so return to the example, we could do this:</p>
+<p><img alt="slide21" src="../../../assets/Imperial/50003/lecture1-slide21.png" /></p>
+<p>the even numbers represent minus operations, odds for plus and 0 for Halt</p>
+<p>this list is then converted into the encoding like above</p>
+<p>decoding is the same</p>
+<p>Any <span class="arithmatex">\(x\in\mathbb{N}\)</span> decodes to a unique instruction <span class="arithmatex">\(body(x)\)</span></p>
+<p>if <span class="arithmatex">\(x = 0\to HALT\)</span></p>
+<p>else let <span class="arithmatex">\(x = 《y,z》\)</span></p>
+<p>if y = 2i is even, then <span class="arithmatex">\(R_i^+\to L_z\)</span></p>
+<p>else y = 2i+1, let <span class="arithmatex">\(x = &lt;j,k&gt;\)</span> in <span class="arithmatex">\(R_i^-\to L_j, L_k\)</span></p>
+<p>for example</p>
+<p><span class="arithmatex">\(786432 = 2^{19} + 2^{18} = 0b11\underbrace{0...0}_{18"0"s}\)</span></p>
+<p><span class="arithmatex">\(18 = 0b10010 = 《1,4》 = 《1,&lt;0,2&gt;》 = {^{\lceil}}R_0^-\to L_0,L_2{^{\rceil}}\)</span></p>
+<p><span class="arithmatex">\(0 = ^{\lceil}HALT^{\rceil}\)</span></p>
+<p>so <span class="arithmatex">\(prog(786432) = \begin{array}{|c|}\hline L-0:R_0^-\to L_0,L_2\\L_1:HALT\\ \hline\end{array}\)</span></p>
+<h1 id="universal-register-machines">Universal Register Machines</h1>
+<h2 id="gadgets">Gadgets:</h2>
+<p>a partial register-machine graph, has only one wire, and one or more exits</p>
+<p>its like a function, may use other reigsters, call scratch register for temporary storage</p>
+<p><img alt="slide2" src="../../../assets/Imperial/50003/lecture2-slide2.png" /></p>
+<p>for copying, we do first zero and add other to this</p>
+<p>so copying <span class="arithmatex">\(R_1\)</span> to both <span class="arithmatex">\(R_2\)</span> and <span class="arithmatex">\(R_3\)</span> would be</p>
+<p><img alt="slide5" src="../../../assets/Imperial/50003/lecture2-slide5.png" /></p>
 
 
 
