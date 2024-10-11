@@ -16,7 +16,7 @@
         <link rel="prev" href="SED_Ex1.html">
       
       
-        <link rel="next" href="50004-Operating-System.html">
+        <link rel="next" href="50003-Models-of-Computation.html">
       
       
       <link rel="icon" href="../../../assets/images/favicon.png">
@@ -850,6 +850,27 @@
   
   
     <li class="md-nav__item">
+      <a href="50003-Models-of-Computation.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    50003-Model-of-Computation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="50004-Operating-System.html" class="md-nav__link">
         
   
@@ -1139,9 +1160,34 @@
 <a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="kt">T</span><span class="p">(</span><span class="kr">if</span><span class="w"> </span><span class="n">e</span><span class="w"> </span><span class="kr">then</span><span class="w"> </span><span class="n">e1</span><span class="w"> </span><span class="kr">else</span><span class="w"> </span><span class="n">e2</span><span class="p">)</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kt">T</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="kr">if</span><span class="w"> </span><span class="n">e</span><span class="w"> </span><span class="kr">then</span><span class="w"> </span><span class="kt">T</span><span class="p">(</span><span class="n">e1</span><span class="p">)</span><span class="w"> </span><span class="kr">else</span><span class="w"> </span><span class="kt">T</span><span class="p">(</span><span class="n">e2</span><span class="p">)</span>
 <a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="c1">-- evaluating a condition first evaluates the condition, then conditonally</span>
 <a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a><span class="c1">-- evaluates either arm of the conditional.</span>
+<a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a><span class="kt">T</span><span class="p">(</span><span class="n">f</span><span class="p">)</span><span class="w"> </span><span class="n">x1</span><span class="w"> </span><span class="o">..</span><span class="w"> </span><span class="n">xn</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="kt">T</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
 </code></pre></div>
 <p>we have </p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="nf">length</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kr">if</span><span class="w"> </span><span class="n">null</span><span class="w"> </span><span class="n">xs</span><span class="w"> </span><span class="kr">then</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="kr">else</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">length</span><span class="w"> </span><span class="p">(</span><span class="n">tail</span><span class="w"> </span><span class="n">xs</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="nf">length</span><span class="w"> </span><span class="n">xs</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="kr">if</span><span class="w"> </span><span class="n">null</span><span class="w"> </span><span class="n">xs</span><span class="w"> </span><span class="kr">then</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="kr">else</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">length</span><span class="w"> </span><span class="p">(</span><span class="n">tail</span><span class="w"> </span><span class="n">xs</span><span class="p">)</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="kt">T</span><span class="p">(</span><span class="n">length</span><span class="w"> </span><span class="n">xs</span><span class="p">)</span>
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="ow">=</span><span class="w"> </span><span class="c1">-- by T(f e1 .. en) = T(f) e1 .. en + T(e1) + .. + T(en)</span>
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="kt">T</span><span class="p">(</span><span class="n">length</span><span class="p">)</span><span class="w"> </span><span class="n">xs</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="kt">T</span><span class="p">(</span><span class="n">xs</span><span class="p">)</span>
+<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="ow">=</span><span class="w"> </span><span class="c1">-- by T(x) = 0</span>
+<a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="kt">T</span><span class="p">(</span><span class="n">length</span><span class="p">)</span><span class="w"> </span><span class="n">xs</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">0</span>
+<a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a><span class="ow">=</span><span class="w"> </span><span class="c1">-- by T(f) x1 .. xn = 1 + T(e)</span>
+<a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a><span class="mi">1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="kt">T</span><span class="p">(</span><span class="kr">if</span><span class="w"> </span><span class="n">null</span><span class="w"> </span><span class="n">xs</span><span class="w"> </span><span class="kr">then</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="kr">else</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">length</span><span class="w"> </span><span class="p">(</span><span class="n">tail</span><span class="w"> </span><span class="n">xs</span><span class="p">))</span>
+<a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a><span class="ow">=</span><span class="w"> </span><span class="c1">-- by T(if e then e1 else e2) = T(e) + if e then T(e1) else T(e2)</span>
+<a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a><span class="mi">1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="kt">T</span><span class="p">(</span><span class="n">null</span><span class="w"> </span><span class="n">xs</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="kr">if</span><span class="w"> </span><span class="n">null</span><span class="w"> </span><span class="n">xs</span><span class="w"> </span><span class="kr">then</span><span class="w"> </span><span class="kt">T</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="kr">else</span><span class="w"> </span><span class="kt">T</span><span class="p">(</span><span class="n">length</span><span class="w"> </span><span class="p">(</span><span class="n">tail</span><span class="w"> </span><span class="n">xs</span><span class="p">))</span>
+<a id="__codelineno-11-12" name="__codelineno-11-12" href="#__codelineno-11-12"></a><span class="ow">=</span><span class="w"> </span><span class="c1">-- by T(f e1 .. en) = T(f) e1 .. en + T(e1) + .. + T(en)</span>
+<a id="__codelineno-11-13" name="__codelineno-11-13" href="#__codelineno-11-13"></a><span class="mi">1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="kt">T</span><span class="p">(</span><span class="n">null</span><span class="p">)</span><span class="w"> </span><span class="n">xs</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="kt">T</span><span class="p">(</span><span class="n">xs</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="kr">if</span><span class="w"> </span><span class="n">null</span><span class="w"> </span><span class="n">xs</span><span class="w"> </span><span class="kr">then</span><span class="w"> </span><span class="kt">T</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="kr">else</span><span class="w"> </span><span class="kt">T</span><span class="p">(</span><span class="n">length</span><span class="w"> </span><span class="p">(</span><span class="n">tail</span><span class="w"> </span><span class="n">xs</span><span class="p">))</span>
+<a id="__codelineno-11-14" name="__codelineno-11-14" href="#__codelineno-11-14"></a><span class="ow">=</span><span class="w"> </span><span class="c1">-- By T(primitive) = 0, T(x) = 0</span>
+<a id="__codelineno-11-15" name="__codelineno-11-15" href="#__codelineno-11-15"></a><span class="mi">1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="kr">if</span><span class="w"> </span><span class="n">null</span><span class="w"> </span><span class="n">xs</span><span class="w"> </span><span class="kr">then</span><span class="w"> </span><span class="kt">T</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="kr">else</span><span class="w"> </span><span class="kt">T</span><span class="p">(</span><span class="n">length</span><span class="w"> </span><span class="p">(</span><span class="n">tail</span><span class="w"> </span><span class="n">xs</span><span class="p">))</span>
+<a id="__codelineno-11-16" name="__codelineno-11-16" href="#__codelineno-11-16"></a><span class="ow">=</span><span class="w"> </span><span class="c1">-- By T(k) = 0</span>
+<a id="__codelineno-11-17" name="__codelineno-11-17" href="#__codelineno-11-17"></a><span class="mi">1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="kr">if</span><span class="w"> </span><span class="n">null</span><span class="w"> </span><span class="n">xs</span><span class="w"> </span><span class="kr">then</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="kr">else</span><span class="w"> </span><span class="kt">T</span><span class="p">(</span><span class="n">length</span><span class="w"> </span><span class="p">(</span><span class="n">tail</span><span class="w"> </span><span class="n">xs</span><span class="p">))</span>
+<a id="__codelineno-11-18" name="__codelineno-11-18" href="#__codelineno-11-18"></a><span class="ow">=</span><span class="w"> </span><span class="c1">-- By T(f e1 .. en) = T(f) e1 .. en + T(e1) + .. + T(en)</span>
+<a id="__codelineno-11-19" name="__codelineno-11-19" href="#__codelineno-11-19"></a><span class="mi">1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="kr">if</span><span class="w"> </span><span class="n">null</span><span class="w"> </span><span class="n">xs</span><span class="w"> </span><span class="kr">then</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="kr">else</span><span class="w"> </span><span class="kt">T</span><span class="p">(</span><span class="n">length</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="n">tail</span><span class="w"> </span><span class="n">xs</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="kt">T</span><span class="p">(</span><span class="n">tail</span><span class="w"> </span><span class="n">xs</span><span class="p">)</span>
+<a id="__codelineno-11-20" name="__codelineno-11-20" href="#__codelineno-11-20"></a><span class="ow">=</span><span class="w"> </span><span class="c1">-- By T(f e1 .. en) = T(f) e1 .. en + T(e1) + .. + T(en)</span>
+<a id="__codelineno-11-21" name="__codelineno-11-21" href="#__codelineno-11-21"></a><span class="mi">1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="kr">if</span><span class="w"> </span><span class="n">null</span><span class="w"> </span><span class="n">xs</span><span class="w"> </span><span class="kr">then</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="kr">else</span><span class="w"> </span><span class="kt">T</span><span class="p">(</span><span class="n">length</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="n">tail</span><span class="w"> </span><span class="n">xs</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="kt">T</span><span class="p">(</span><span class="n">tail</span><span class="p">)</span><span class="w"> </span><span class="n">xs</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="kt">T</span><span class="p">(</span><span class="n">xs</span><span class="p">)</span>
+<a id="__codelineno-11-22" name="__codelineno-11-22" href="#__codelineno-11-22"></a><span class="ow">=</span><span class="w"> </span><span class="c1">-- By T(primitive) = 0, T(x) = 0</span>
+<a id="__codelineno-11-23" name="__codelineno-11-23" href="#__codelineno-11-23"></a><span class="mi">1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="kr">if</span><span class="w"> </span><span class="n">null</span><span class="w"> </span><span class="n">xs</span><span class="w"> </span><span class="kr">then</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="kr">else</span><span class="w"> </span><span class="kt">T</span><span class="p">(</span><span class="n">length</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="n">tail</span><span class="w"> </span><span class="n">xs</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">0</span>
+<a id="__codelineno-11-24" name="__codelineno-11-24" href="#__codelineno-11-24"></a><span class="ow">=</span><span class="w"> </span><span class="c1">-- simplify</span>
+<a id="__codelineno-11-25" name="__codelineno-11-25" href="#__codelineno-11-25"></a><span class="mi">1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="kr">if</span><span class="w"> </span><span class="n">null</span><span class="w"> </span><span class="n">xs</span><span class="w"> </span><span class="kr">then</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="kr">else</span><span class="w"> </span><span class="kt">T</span><span class="p">(</span><span class="n">length</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="n">tail</span><span class="w"> </span><span class="n">xs</span><span class="p">)</span>
 </code></pre></div>
 <p>T(length xs) = T(length) + T(null) + T(xs) + if null xs then T(0) else T(+) + T(1) + T(length) + ...</p>
 <p>Composition:</p>
@@ -1160,12 +1206,24 @@ T(f(g(x))) &amp;= T(f)\quad(g\quad x) + T(g(x))\\
 <li>exp</li>
 <li>constants</li>
 </ul>
-<p>complexity functions includes
-- <span class="arithmatex">\(O\)</span> : <span class="arithmatex">\(\exists, c, n_0, for all n \ge n_0, 0 \le f(n)\le c\bullet g(n)\)</span>
-- <span class="arithmatex">\(\Theta\)</span>
-- <span class="arithmatex">\(\Omega\)</span> : <span class="arithmatex">\(\exists, c, n_0, for all n \ge n_0, 0 \le c \bullet f(n)\le g(n)\)</span>
-- <span class="arithmatex">\(\omega\)</span>
-- <span class="arithmatex">\(o\)</span> : <span class="arithmatex">\(\exists, c, n_0, for all n \ge n_0, 0 \le f(n)\lt c \bullet g(n)\)</span></p>
+<p>so define some symbols here</p>
+<p>we have two functions f and g</p>
+<ul>
+<li><span class="arithmatex">\(f\succ g \iff \lim_{n\to\infty}\frac{f(n)}{g(n)} = 0\)</span></li>
+<li><span class="arithmatex">\(f\succcurlyeq g \iff \lim_{n\to\infty}\frac{f(n)}{g(n)} \lt \infty\)</span></li>
+<li><span class="arithmatex">\(f\asymp g \iff \lim_{n\to\infty}0&lt;\frac{f(n)}{g(n)}&lt; \infty\)</span></li>
+<li><span class="arithmatex">\(f\preccurlyeq g \iff \lim_{n\to\infty}\frac{f(n)}{g(n)} &gt; 0\)</span></li>
+<li><span class="arithmatex">\(f\prec g \iff \lim_{n\to\infty}\frac{f(n)}{g(n)} = \infty\)</span></li>
+</ul>
+<p>(the symbols are \succ \succcurlyeq \asymp \preccurlyeq \prec)</p>
+<p>complexity functions includes</p>
+<ul>
+<li><span class="arithmatex">\(O\)</span> : <span class="arithmatex">\(f(n)\in O(g(n))\iff f\succcurlyeq g\)</span></li>
+<li><span class="arithmatex">\(o\)</span> : <span class="arithmatex">\(f(n)\in O(g(n))\iff f\succ g\)</span></li>
+<li><span class="arithmatex">\(\Theta\)</span> : <span class="arithmatex">\(f(n)\in \Theta(g(n))\iff f\asymp g\)</span></li>
+<li><span class="arithmatex">\(\omega\)</span> : <span class="arithmatex">\(f(n)\in \Omega(g(n))\iff f\prec g\)</span></li>
+<li><span class="arithmatex">\(\Omega\)</span> : <span class="arithmatex">\(f(n)\in \Omega(g(n))\iff f\preccurlyeq g\)</span></li>
+</ul>
 <p>(complete this later)</p>
 <p>for f(x) and g(x) check <span class="arithmatex">\(\lim_{n\to\infty} \frac{f(n)}{g(n)}\)</span> and 0</p>
 <p>see https://oi.wiki/basic/complexity/</p>
@@ -1218,10 +1276,24 @@ T'(\text{length xs}) &amp;= T'(\text{length}) + T'(\text{xs})\\
 <a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a><span class="nf">length</span><span class="w"> </span><span class="kt">[]</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="mi">0</span>
 <a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a><span class="nf">length</span><span class="w"> </span><span class="p">(</span><span class="n">y</span><span class="kt">:</span><span class="n">ys</span><span class="p">)</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="n">length</span><span class="w"> </span><span class="n">ys</span><span class="p">)</span>
 </code></pre></div>
-<p><span class="arithmatex">\(\begin{aligned}\text{T(length (insert x xs))}\\
-=\text{T(length) (insert x xs) + T(insert) x xs} &amp; (\text{composition rule})\\
-=\text{T(length)}
-\end{aligned}\)</span></p>
+<p>so T_length is obviously n+1 with n being the length of the list</p>
+<p>so T(length (tail xs)) = length xs - 1</p>
+<p>note that we computed T_insert(n) = n+1</p>
+<p>where n is the length of y:ys</p>
+<div class="arithmatex">\[\begin{array}{l|l}\text{T(length (insert x xs))} &amp;\\
+=\text{T(length) (insert x xs) + T(insert) x xs} &amp; \text{by composition rule}\\\\
+=\text{T(if null (insert x xs) then 0 else 1 +}\\\quad\text{ length (tail (insert x xs))) + T(insert) x xs} &amp; \text{by the def of length}\\\\
+=\text{T(null (insert x xs)) + }\\\quad\text{if null (insert x xs) then 0 else}\\\quad\text{T(length (tail (insert x xs))) +} &amp; \text{by T(if e then e1 else e2) =}\\\quad\text{T(insert) x xs} &amp; \text{T(e) + if e then T(e1) else T(e2)}\\\\
+=\text{T(null) (insert x xs) + T(insert x xs) +}\\\quad\text{ if null (insert x xs) then 0 else} &amp; \text{by T(f e1 .. en) =}\\\quad\text{T(length (tail (insert x xs)))  + T(insert) x xs} &amp; \text{T(f) e1 .. en + T(e1) + .. + T(en)}\\\\
+= \text{2 * T(insert) x xs + T(x) + T(xs) +}\\\quad\text{ if null (insert x xs) then 0 else}\\\quad\text{T(length (tail (insert x xs))) } &amp; \text{by T(primitive) = 0, T(null) _ = 0}\\\\
+= \text{2 * T(insert) x xs +}\\\quad\text{ if null (insert x xs) then 0 else}\\\quad\text{T(length (tail (insert x xs)))} &amp; \text{by T(primitive) = 0, T(x), T(xs) = 0}\\\\
+= \text{2 * T(insert) x xs +}\\\quad\text{ if null (insert x xs) then 0 else}\\\quad\text{T(length) (tail (insert x xs))} + &amp;\text{by T(f e1 .. en) = }\\\quad\text{T(tail (insert x xs))} &amp; \text{T(f) e1 .. en + T(e1) + .. + T(en)}\\\\
+= \text{2 * T(insert) x xs +}\\\quad\text{ if null (insert x xs) then 0 else}\\\quad\text{T(length) (tail (insert x xs))} + &amp;\text{by T(f e1 .. en) = }\\\quad\text{T(tail) (insert x xs) + T(insert x xs)}&amp; \text{T(f) e1 .. en + T(e1) + .. + T(en)}\\\\
+= \text{2 * T(insert) x xs +}\\\quad\text{ if null (insert x xs) then 0 else}\\\quad\text{T(length) (tail (insert x xs))} + \\\quad\text{T(tail) (insert x xs) + T(insert) x xs +}&amp;\text{by T(f e1 .. en) = }\\\quad\text{T(x) + T(xs)} &amp; \text{T(f) e1 .. en + T(e1) + .. + T(en)}\\\\
+= \text{2 * T(insert) x xs +}\\\quad\text{ if null (insert x xs) then 0 else}\\\quad\text{T(length) (tail (insert x xs))} + \\\quad\text{T(tail) (insert x xs) + T(insert) x xs}&amp;\text{by T(primitive) = 0, T(x),T(xs) = 0}\\\\
+= \text{3 * T(insert) x xs +}\\\quad\text{ if null (insert x xs) then 0 else}\\\quad\text{T(length) (tail (insert x xs))} + \\\quad\text{T(tail) (insert x xs)} &amp; \text{by cleaning up}\\\\
+= \text{3 * T(insert) x xs +}\\\quad\text{ if null (insert x xs) then 0 else}\\\quad\text{T(length) (tail (insert x xs))}&amp; \text{by T(primitive) = 0, T(tail) _ = 0}\\\\
+\end{array}\]</div>
 <h2 id="14">1.4</h2>
 <p><strong>Pattern matching can be added to the expresion language e as follows</strong></p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>e ::= ... | case e of [] -&gt; e;(x:xs) -&gt; e
@@ -1232,11 +1304,58 @@ T'(\text{length xs}) &amp;= T'(\text{length}) + T'(\text{xs})\\
 <a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="w">  </span><span class="o">|</span><span class="w"> </span><span class="kt">[]</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="n">e2</span>
 <a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a><span class="w">  </span><span class="o">|</span><span class="w"> </span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="kt">:</span><span class="w"> </span><span class="n">xs</span><span class="p">)</span><span class="w"> </span><span class="ow">=</span><span class="w"> </span><span class="n">e3</span>
 </code></pre></div></p>
+<p>the rest is the same as if then</p>
 <div class="arithmatex">\[\begin{aligned}
 \text{T(case e1 of []} \to \text{e2;(x:xs)} \to \text{e3)}\\
- = T(e_1) + \text{case e1 of []} \to \text{T(e2)}
+ = T(e_1) + \text{if null e1 } \to \text{T(e2)}
 \end{aligned}\]</div>
-<p>(this is to be continued)</p>
+<h2 id="15finally-no-more-t-stuff">1.5(finally no more T stuff)</h2>
+<p><strong>prove formally that</strong><span class="arithmatex">\((n+1)^2\in\Theta(n^2)\)</span><strong>by exhibiting the necessary constants</strong></p>
+<p><span class="arithmatex">\(\lim_{n\to\infty}\frac{(n+1)^2}{n^2}\\
+=\lim_{n\to\infty}\frac{n^2+2n+1}{n^2}\\
+=\lim_{n\to\infty}1 + \frac{2}{n} + \frac{1}{n^2}\\
+=1\le\infty\)</span></p>
+<p>so by definition</p>
+<p><span class="arithmatex">\((n+1)^2\in\Theta(n^2)\)</span></p>
+<h2 id="16done-in-class-will-add-proof-afterwards">1.6(done in class, will add proof afterwards)</h2>
+<p><strong>Justify whether wach of the following is true or false</strong></p>
+<ul>
+<li><span class="arithmatex">\(2n^2 + 3n\in\Theta(x^2)\)</span> -&gt; true</li>
+<li><span class="arithmatex">\(2n^2 + 3n\in O(n^3)\)</span> -&gt; true</li>
+<li><span class="arithmatex">\(n\log n\in O(n\sqrt{n})\)</span> -&gt; true</li>
+<li><span class="arithmatex">\(n + \sqrt{n}\in O(\sqrt{n}\log n)\)</span> -&gt; fasle</li>
+<li><span class="arithmatex">\(2^{\log n}\in O(n)\)</span> -&gt; true</li>
+</ul>
+<h2 id="17">1.7</h2>
+<p><strong>Show formally that</strong><span class="arithmatex">\(o(g(n))\)</span><strong>is a proper subset of</strong><span class="arithmatex">\(O(g(n))\)</span><strong>for any function g using thier definitions</strong></p>
+<p>so consider a arbitrary <span class="arithmatex">\(f(x)\in o(g(n))\)</span></p>
+<p>then by definition</p>
+<p><span class="arithmatex">\(\lim_{n\to\infty} \frac{f(n)}{g(n)} = 0 \lt\infty\)</span></p>
+<p>so then by definition of <span class="arithmatex">\(O(g(n))\)</span></p>
+<p><span class="arithmatex">\(f(n)\in O(g(n))\iff \lim_{n\to\infty}\frac{f(n)}{g(n)}\lt \infty\)</span></p>
+<p>so obviously <span class="arithmatex">\(f(n)\in O(g(n))\)</span></p>
+<p>as since f(n) is taken arbitrarily, <span class="arithmatex">\(o(g(n))\subset O(g(n))\)</span></p>
+<h2 id="18">1.8</h2>
+<p><strong>Explain why there is no definition <span class="arithmatex">\(\theta(g(n))\)</span> that corresponds to <span class="arithmatex">\(\Theta(g(n))\)</span> even though there is <span class="arithmatex">\(o(g(n))\)</span> coressponding to <span class="arithmatex">\(O(g(n))\)</span> and <span class="arithmatex">\(\omega(g(n)\)</span> correspond to <span class="arithmatex">\(\Omega(g(n))\)</span></strong></p>
+<p>so lets take a look at the definitions</p>
+<ul>
+<li><span class="arithmatex">\(f\succ g \iff \lim_{n\to\infty}\frac{f(n)}{g(n)} = 0\)</span></li>
+<li><span class="arithmatex">\(f\succcurlyeq g \iff \lim_{n\to\infty}\frac{f(n)}{g(n)} \lt \infty\)</span></li>
+<li><span class="arithmatex">\(f\asymp g \iff \lim_{n\to\infty}0&lt;\frac{f(n)}{g(n)}&lt; \infty\)</span></li>
+<li><span class="arithmatex">\(f\prec g \iff \lim_{n\to\infty}\frac{f(n)}{g(n)} = \infty\)</span></li>
+<li><span class="arithmatex">\(f\preccurlyeq g \iff \lim_{n\to\infty}\frac{f(n)}{g(n)} &gt; 0\)</span></li>
+</ul>
+<p>(the symbols are \succ \succcurlyeq \asymp \prec \preccurlyeq)</p>
+<p>complexity functions includes</p>
+<ul>
+<li><span class="arithmatex">\(o\)</span> : <span class="arithmatex">\(f(n)\in O(g(n))\iff f\succ g\)</span></li>
+<li><span class="arithmatex">\(O\)</span> : <span class="arithmatex">\(f(n)\in O(g(n))\iff f\succcurlyeq g\)</span></li>
+<li><span class="arithmatex">\(\Theta\)</span> : <span class="arithmatex">\(f(n)\in \Theta(g(n))\iff f\asymp g\)</span></li>
+<li><span class="arithmatex">\(\omega\)</span> : <span class="arithmatex">\(f(n)\in \Omega(g(n))\iff f\prec g\)</span></li>
+<li><span class="arithmatex">\(\Omega\)</span> : <span class="arithmatex">\(f(n)\in \Omega(g(n))\iff f\preccurlyeq g\)</span></li>
+</ul>
+<p>you could see that the capitalized notation and the lowercase notation corresponds to each other, they only miss a curve line in the expression, but how do you add a curve line to <span class="arithmatex">\(\asymp\)</span>?</p>
+<p>also, from o -&gt; O -&gt; <span class="arithmatex">\(\Theta\)</span> -&gt; <span class="arithmatex">\(\omega\)</span> -&gt; <span class="arithmatex">\(\Omega\)</span> you could see that if <span class="arithmatex">\(g(n)\)</span> is fixed, <span class="arithmatex">\(f(n)\)</span> actually display a incresing trend, simply no space for <span class="arithmatex">\(\theta\)</span></p>
 
 
 

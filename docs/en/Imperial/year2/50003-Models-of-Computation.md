@@ -1,4 +1,4 @@
-# lecture 1:
+# Register Machines
 ## come common fesatures about the historical algorithms
 - finite descriptions of the procedure of elementary operations
 (drown a person, if he dies then not witch, if not dead then witch and killed)
@@ -34,7 +34,7 @@ Program:
 - $L_0: R_1^- \to L_1, L_2$
 - $L_1: R^+_0 \to L_0$
 - $R_2^- \to L_3,L_4$
-- $L_#: R_0^+\to L_2$
+- $L_3: R_0^+\to L_2$
 - $L_4: HALT$
 
 so this sums up $R_1, R_2$ and put it into $R_0$
@@ -115,7 +115,7 @@ The halting problem is the decision problem with
 
 this problem is unsolvable, or no algorithm H such that
 
-$\forall (A,D)\in S,H(A,D) = \begin{cases}\begin{array}1 & A(D)\downarrow\\0 & \text{otherwise}\end{cases}\end{cases}$
+$\forall (A,D)\in S,H(A,D) = \begin{cases}\begin{array}1 & A(D)\downarrow\\0 & \text{otherwise}\end{array}\end{cases}$
 
 ## Numerical coding of pairs
 
@@ -150,8 +150,92 @@ let List $\mathbb{N}$ be the set of all finite lists of natural numbers, defined
 
 **Notation**:$[x_1, x_2,..., x_n]\triangleq x_1::(x_2::(...x_n::[]...))$
 
-For $l\in List\mathbb{N}$ define  $\textopencorner l\textcorner\in\mathbb{N}$ by induction on the length of the list
+For $l\in List\mathbb{N}$ define  $^{\lceil} l^{\rceil}\in\mathbb{N}$ by induction on the length of the list
 
-$l:\begin{cases}\textopencorner l\textcorner\triangleq 0\\\textopencornerx::l\textcorner\triangleq《x,\textopencorner l\textcorner》= 2^x(2\bullet \textopencorner l\textcorner + 1)\end{cases}$
+$l:\begin{cases}^{\lceil} l^{\rceil}\triangleq 0\\^{\lceil}x::l^{\rceil}\triangleq《x,^{\lceil} l^{\rceil}》= 2^x(2\bullet ^{\lceil} l^{\rceil} + 1)\end{cases}$
 
-Thus, $\textopencorner[x_1, x_2,...,x_n] = 《x_1,《x_2,... 《x_n, 0》...》》$
+Thus, $^{\lceil}[x_1, x_2,...,x_n] = 《x_1,《x_2,... 《x_n, 0》...》》$
+
+so for example
+
+$^{\lceil}[3]^{\rceil} = ^{\lceil}3::[]^{\rceil} = 《3,0》 = 2^3(2+0+1) = 8 = 1000_2$ 
+
+$^{\lceil}[1,3]^{\rceil} = 《1,^{\lceil}[3]^{\rceil}》 = 《1,8》 = 34 = 100010$
+
+so you could see this encoding is just reversing the list, adding the element value amount of zero and add a 1 as separator
+
+**result** The function $l\to^{\lceil}l^{\rceil}$ gives a bijection from $List\mathbb{N}$ to $\mathbb{N}$
+
+## Numerical coding of Programs
+
+so it would be nicer if we encoding a program in to binary codes
+
+if we have the program
+
+$\begin{array}{|c|}
+\hline\\
+L_0:body_0\\
+L_1:body_1\\
+\vdots\\
+L_n:body_n\\
+\hline
+\end{array}$
+
+then we can encode the program by 
+
+$^{\lceil}P {^{\rceil}}\triangleq {^{\lceil}}\quad{^{\lceil}}body_0 {^{\rceil}},..., {^{\lceil}}body_n{^{\rceil}}\quad{^{\rceil}}$
+
+where the numerical code $^{\lceil}body^{\rceil}$ of an instruction body is defined:
+
+$\begin{cases}
+\begin{aligned}
+^{\lceil}R_i^+\to L_j^{\rceil} &\triangleq 《2i，j》\\
+^{\lceil}R^-_i\to L_j,L_k^{\rceil} & \triangleq 《2i+1,<j,k>》\\
+^{\lceil}HALT^{\rceil} &\triangleq 0\\
+\end{aligned}
+\end{cases}$
+
+so return to the example, we could do this:
+
+![slide21](../../../assets/Imperial/50003/lecture1-slide21.png)
+
+the even numbers represent minus operations, odds for plus and 0 for Halt
+
+this list is then converted into the encoding like above
+
+decoding is the same
+
+Any $x\in\mathbb{N}$ decodes to a unique instruction $body(x)$
+
+if $x = 0\to HALT$
+
+else let $x = 《y,z》$
+
+if y = 2i is even, then $R_i^+\to L_z$
+
+else y = 2i+1, let $x = <j,k>$ in $R_i^-\to L_j, L_k$
+
+for example
+
+$786432 = 2^{19} + 2^{18} = 0b11\underbrace{0...0}_{18"0"s}$
+
+$18 = 0b10010 = 《1,4》 = 《1,<0,2>》 = {^{\lceil}}R_0^-\to L_0,L_2{^{\rceil}}$
+
+$0 = ^{\lceil}HALT^{\rceil}$
+
+so $prog(786432) = \begin{array}{|c|}\hline L-0:R_0^-\to L_0,L_2\\L_1:HALT\\ \hline\end{array}$
+
+# Universal Register Machines
+## Gadgets:
+
+a partial register-machine graph, has only one wire, and one or more exits
+
+its like a function, may use other reigsters, call scratch register for temporary storage
+
+![slide2](../../../assets/Imperial/50003/lecture2-slide2.png)
+
+for copying, we do first zero and add other to this
+
+so copying $R_1$ to both $R_2$ and $R_3$ would be
+
+![slide5](../../../assets/Imperial/50003/lecture2-slide5.png)
