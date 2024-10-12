@@ -943,6 +943,54 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#poweron" class="md-nav__link">
+    <span class="md-ellipsis">
+      powerOn()
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="powerOn()">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#switchingthecameraonpowersupthesensor" class="md-nav__link">
+    <span class="md-ellipsis">
+      switchingTheCameraOnPowersUpTheSensor
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#poweroff" class="md-nav__link">
+    <span class="md-ellipsis">
+      powerOff()
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="powerOff()">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#canpoweroffandwaits" class="md-nav__link">
+    <span class="md-ellipsis">
+      canPowerOffandWaits
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1250,6 +1298,54 @@
   <a href="#canwritecompleteafterpressingshutteratpoweroff" class="md-nav__link">
     <span class="md-ellipsis">
       canWriteCompleteAfterPressingShutterAtPowerOff
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#poweron" class="md-nav__link">
+    <span class="md-ellipsis">
+      powerOn()
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="powerOn()">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#switchingthecameraonpowersupthesensor" class="md-nav__link">
+    <span class="md-ellipsis">
+      switchingTheCameraOnPowersUpTheSensor
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#poweroff" class="md-nav__link">
+    <span class="md-ellipsis">
+      powerOff()
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="powerOff()">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#canpoweroffandwaits" class="md-nav__link">
+    <span class="md-ellipsis">
+      canPowerOffandWaits
     </span>
   </a>
   
@@ -1620,6 +1716,62 @@ a time to CameraTest. Use JUnit and jMock to write your tests.</p>
 </code></pre></div>
 <p>also add <em>writeComplete();</em> into <em>pressShutter()</em></p>
 <p>refactor? I dont think we need to do that</p>
+<h3 id="poweron">powerOn()</h3>
+<h4 id="switchingthecameraonpowersupthesensor">switchingTheCameraOnPowersUpTheSensor</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="nd">@Test</span>
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">switchingTheCameraOnPowersUpTheSensor</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>
+<a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a><span class="w">  </span><span class="c1">// Turn on the camera and check whether there&#39;s a call</span>
+<a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a><span class="w">  </span><span class="c1">// to power up the sensor</span>
+<a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a><span class="w">  </span><span class="n">context</span><span class="p">.</span><span class="na">checking</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">Expectations</span><span class="p">()</span><span class="w"> </span><span class="p">{{</span>
+<a id="__codelineno-16-7" name="__codelineno-16-7" href="#__codelineno-16-7"></a><span class="w">    </span><span class="n">exactly</span><span class="p">(</span><span class="mi">1</span><span class="p">).</span><span class="na">of</span><span class="p">(</span><span class="n">sensor</span><span class="p">).</span><span class="na">powerUp</span><span class="p">();</span>
+<a id="__codelineno-16-8" name="__codelineno-16-8" href="#__codelineno-16-8"></a><span class="w">  </span><span class="p">}});</span>
+<a id="__codelineno-16-9" name="__codelineno-16-9" href="#__codelineno-16-9"></a>
+<a id="__codelineno-16-10" name="__codelineno-16-10" href="#__codelineno-16-10"></a><span class="w">  </span><span class="n">Camera</span><span class="w"> </span><span class="n">camera</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Camera</span><span class="p">(</span><span class="n">sensor</span><span class="p">,</span><span class="w"> </span><span class="n">memoryCard</span><span class="p">);</span>
+<a id="__codelineno-16-11" name="__codelineno-16-11" href="#__codelineno-16-11"></a><span class="w">  </span><span class="n">camera</span><span class="p">.</span><span class="na">powerOn</span><span class="p">();</span>
+<a id="__codelineno-16-12" name="__codelineno-16-12" href="#__codelineno-16-12"></a><span class="w">  </span><span class="n">context</span><span class="p">.</span><span class="na">assertIsSatisfied</span><span class="p">();</span>
+<a id="__codelineno-16-13" name="__codelineno-16-13" href="#__codelineno-16-13"></a><span class="p">}</span>
+</code></pre></div>
+<p>implementation:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">powerOn</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="w">  </span><span class="c1">// power up the sensor</span>
+<a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a><span class="w">  </span><span class="n">sensor</span><span class="p">.</span><span class="na">powerUp</span><span class="p">();</span>
+<a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a><span class="w">  </span><span class="c1">// a simple implementation</span>
+<a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a><span class="w">  </span><span class="n">power</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span>
+<a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a><span class="p">}</span>
+</code></pre></div>
+<p>no refactoring needed</p>
+<h3 id="poweroff">powerOff()</h3>
+<h4 id="canpoweroffandwaits">canPowerOffandWaits</h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="nd">@Test</span>
+<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">canPowerOffandWaits</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a><span class="w">  </span><span class="n">Camera</span><span class="w"> </span><span class="n">camera</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Camera</span><span class="p">(</span><span class="n">sensor</span><span class="p">,</span><span class="w"> </span><span class="n">memoryCard</span><span class="p">);</span>
+<a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a>
+<a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a><span class="w">  </span><span class="n">context</span><span class="p">.</span><span class="na">checking</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">Expectations</span><span class="p">()</span><span class="w"> </span><span class="p">{{</span>
+<a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a><span class="w">    </span><span class="n">exactly</span><span class="p">(</span><span class="mi">1</span><span class="p">).</span><span class="na">of</span><span class="p">(</span><span class="n">sensor</span><span class="p">).</span><span class="na">powerDown</span><span class="p">();</span>
+<a id="__codelineno-18-7" name="__codelineno-18-7" href="#__codelineno-18-7"></a><span class="w">  </span><span class="p">}});</span>
+<a id="__codelineno-18-8" name="__codelineno-18-8" href="#__codelineno-18-8"></a>
+<a id="__codelineno-18-9" name="__codelineno-18-9" href="#__codelineno-18-9"></a><span class="w">  </span><span class="n">camera</span><span class="p">.</span><span class="na">powerOff</span><span class="p">();</span>
+<a id="__codelineno-18-10" name="__codelineno-18-10" href="#__codelineno-18-10"></a>
+<a id="__codelineno-18-11" name="__codelineno-18-11" href="#__codelineno-18-11"></a><span class="w">  </span><span class="n">context</span><span class="p">.</span><span class="na">assertIsSatisfied</span><span class="p">();</span>
+<a id="__codelineno-18-12" name="__codelineno-18-12" href="#__codelineno-18-12"></a>
+<a id="__codelineno-18-13" name="__codelineno-18-13" href="#__codelineno-18-13"></a><span class="p">}</span>
+</code></pre></div>
+<p>implementation:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">powerOff</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a><span class="w">  </span><span class="c1">// powers down the sensor</span>
+<a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a><span class="w">  </span><span class="c1">// but if data is being written, do nothing</span>
+<a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a><span class="w">  </span><span class="c1">// when data finishes writing, powerOff</span>
+<a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a><span class="w">  </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">status</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">Status</span><span class="p">.</span><span class="na">READY</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a><span class="w">    </span><span class="c1">// wait until the status is ready</span>
+<a id="__codelineno-19-7" name="__codelineno-19-7" href="#__codelineno-19-7"></a><span class="w">    </span><span class="k">continue</span><span class="p">;</span>
+<a id="__codelineno-19-8" name="__codelineno-19-8" href="#__codelineno-19-8"></a><span class="w">  </span><span class="p">}</span>
+<a id="__codelineno-19-9" name="__codelineno-19-9" href="#__codelineno-19-9"></a><span class="w">  </span><span class="n">sensor</span><span class="p">.</span><span class="na">powerDown</span><span class="p">();</span>
+<a id="__codelineno-19-10" name="__codelineno-19-10" href="#__codelineno-19-10"></a><span class="w">  </span><span class="c1">// a simple implementation</span>
+<a id="__codelineno-19-11" name="__codelineno-19-11" href="#__codelineno-19-11"></a><span class="w">  </span><span class="n">power</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="p">;</span>
+<a id="__codelineno-19-12" name="__codelineno-19-12" href="#__codelineno-19-12"></a><span class="p">}</span>
+</code></pre></div>
+<p>we are able to set the waiting without alter the memorycard, so this is best we could do</p>
 
 
 
