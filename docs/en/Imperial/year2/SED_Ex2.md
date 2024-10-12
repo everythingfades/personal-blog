@@ -478,5 +478,5 @@ public void powerOff() {
 }
 ```
 
-we are able to set the waiting without alter the memorycard, so this is best we could do
+we are unable to set the waiting without altering the MemoryCard, so this is best we could do
 
