@@ -409,3 +409,74 @@ public void writeComplete() {
 also add *writeComplete();* into *pressShutter()*
 
 refactor? I dont think we need to do that
+
+### powerOn()
+#### switchingTheCameraOnPowersUpTheSensor
+
+```Java
+@Test
+public void switchingTheCameraOnPowersUpTheSensor() {
+
+  // Turn on the camera and check whether there's a call
+  // to power up the sensor
+  context.checking(new Expectations() {{
+    exactly(1).of(sensor).powerUp();
+  }});
+
+  Camera camera = new Camera(sensor, memoryCard);
+  camera.powerOn();
+  context.assertIsSatisfied();
+}
+```
+
+implementation:
+
+```Java
+public void powerOn() {
+  // power up the sensor
+  sensor.powerUp();
+  // a simple implementation
+  power = true;
+}
+```
+
+no refactoring needed
+
+### powerOff()
+#### canPowerOffandWaits
+
+```Java
+@Test
+public void canPowerOffandWaits() {
+  Camera camera = new Camera(sensor, memoryCard);
+
+  context.checking(new Expectations() {{
+    exactly(1).of(sensor).powerDown();
+  }});
+
+  camera.powerOff();
+
+  context.assertIsSatisfied();
+  
+}
+```
+
+implementation:
+
+```Java
+public void powerOff() {
+  // powers down the sensor
+  // but if data is being written, do nothing
+  // when data finishes writing, powerOff
+  while (status != Status.READY) {
+    // wait until the status is ready
+    continue;
+  }
+  sensor.powerDown();
+  // a simple implementation
+  power = false;
+}
+```
+
+we are able to set the waiting without alter the memorycard, so this is best we could do
+
