@@ -357,12 +357,8 @@ e1
   | (x : xs) = e3
 ```
 
-the rest is the same as if then
+the rest is the same as if then (two if thens)
 
-$$\begin{aligned}
-\text{T(case e1 of []} \to \text{e2;(x:xs)} \to \text{e3)}\\
- = T(e_1) + \text{if null e1 } \to \text{T(e2)}
-\end{aligned}$$
 
 ## 1.5(finally no more T stuff)
 
@@ -431,3 +427,388 @@ complexity functions includes
 you could see that the capitalized notation and the lowercase notation corresponds to each other, they only miss a curve line in the expression, but how do you add a curve line to $\asymp$?
 
 also, from o -> O -> $\Theta$ -> $\omega$ -> $\Omega$ you could see that if $g(n)$ is fixed, $f(n)$ actually display a incresing trend, simply no space for $\theta$
+
+# Lecture 2:
+This lecture is about different kinds of lists
+
+In haskell, we have the singly-linked lists
+
+```haskell
+data [a] where
+  [] :: [a]              -- O(1)
+  (:) :: a -> [a] -> [a] -- O(1)
+```
+
+we also have grammer sugar for list
+
+```haskell
+[1,2,3]
+-- is the same as
+1 : (2 : (3 : []))
+```
+
+we want persistent data structures, or stuff we can reuse
+
+so (++)
+
+```haskell
+(++) :: [a] -> [a] -> [a]
+```
+
+append two lists together
+
+```[1,2,3] ++ [4,5,6] = [1,2,3,4,5,6]```
+
+```haskell
+[] ++ [] = []
+[] ++ (y:ys) = (y:ys)
+(x:xs) ++ ys = x : (xs ++ ys)
+```
+
+so this definition goes through all the elements in xs and ys, and destroies ys
+
+rather we can do 
+
+```haskell
+[] ++ ys = ys
+(x : xs) ++ ys = x : (xs ++ ys) 
+```
+
+this definition preserves ys, so it has structual sharing
+
+We have to tear down xs, and we cannot mutate it
+
+time complexity O(n), n = length xs, obviously
+
+```haskell
+concat :: [[a]] -> [a]
+concat [] = []
+concat (xs:xss) = xs ++ concat xss
+```
+
+so the time complexity is $O(nm)$ where all the xs has average lenght n and xss has length m
+
+```haskell
+foldr :: (a -> b -> b) -> b -> [a] -> b
+```
+
+foldr is a recipe for right associative application of the function f to elements of a list and k
+
+```haskell
+(:) x ((:) y ((:) z []))
+
+f x (f y (f z k))
+```
+
+so
+
+```haskell
+foldr f k [] = k
+foldr f k (x:xs) = f x (foldr f k xs)
+```
+
+```haskell
+xs ++ ys = foldr (:) ys xs
+concat xss = foldr (++) [] xss
+```
+
+we also have foldl which  applies to left associative operators
+
+```haskell
+f (f (f k x) y) z
+```
+
+```foldr f k``` and ```foldl f k``` do the same thing *extrinsically*
+
+so f needs to be associative and k needs to be a zero
+
+in other words
+
+```haskell
+f x k = x
+f k x = x
+```
+
+The mathematical model of this is a Monoid
+
+```haskell
+class Monoid m where
+  mempty :: m
+  (<>)   :: m -> m -> m
+```
+
+so
+
+```
+mempty <> x = x
+x <> (y <> z) = (x <> y) <> z
+```
+
+in this way we can show that
+
+```foldr (<>) mempty = foldl (<>) mempty```
+
+```haskell
+instance Monoid Int where
+  mempty = 0
+  (<>) = (+)
+```
+
+or
+
+```haskell
+instance Monoid [a] where
+  mempty = []
+  (<>) = (++)
+```
+
+```foldr (++) [] = foldl (++) []```, they do the same thing
+
+Are the complexity of ```concat1 = foldr (++) []``` and ```concat2 = foldl (++) []```
+
+yes and no, if they are the same size then yes, other then no
+
+foldl will keep traversing the early lists again and again
+
+so
+
+```haskell
+foldr (++) [] -- O(n)
+foldl (++) [] -- O(n^2)
+```
+
+Surely this is not a problem, we have Trees
+
+```haskell
+data Tree a = Lead a | Fork (Tree a) (Tree a)
+```
+
+```haskell
+values :: Tree a -> [a]
+values (Lead x) = [x]
+values (Fork lt rt) = values lt ++ values rt
+```
+
+```haskell
+t :: Tree Int
+t = Fork (Fork (Leaf 1))
+               (Leaf 2)
+         (Fork (Leaf 3))
+               (Leaf 4)
+```
+
+what values does is replace forks with ++
+
+```haskell
+vs :: [Int]
+vs = ([1] ++ [2]) ++ ([3] ++ [4])
+```
+We have no control here of the associativity of the ++s
+
+the worst case of ++ is O(n^2). we can do better, but we need a different structure
+
+
+this is the interface for sequencial data-structures
+```haskell
+class Seq seq where
+  nil :: seq
+  cons :: a -> seq a -> seq a
+  snoc :: seq a -> a -> seq a
+  append :: seq a -> seq a -> seq a
+  len :: seq a -> Int
+```
+
+we will also add two special cases
+
+```haskell
+toList :: seq a -> [a]
+fromList :: [a] -> seq a
+```
+
+We can make a structure adhere to this
+
+```haskell
+instance Seq [] where
+  nil = []               -- O(1)
+  cons = (:)             -- O(1)
+  snoc xs x = xs ++ [s]  -- O(n)
+  append = (++)          -- O(n)
+  len = length           -- O(n
+
+  toList = id            -- O(1)
+  fromList = id          -- O(1)
+```
+
+Let's make a new sequence
+
+```haskell
+data LenList a = LenList Int [a]
+```
+
+```haskell
+instance Seq LenList where
+  nil = LenList 0 []
+  cons x (LenList n xs) = LenList (n + 1) (x : xs)
+  snoc (LenList n xs) x = LenList (n + 1) (snoc xs x)
+  append (LenList n xs) (LenList m ys) = LenList (n + m) (xs ++ ys)
+  len (LenList n _) = n -- O(1)
+
+  toList (LenList _ xs) = xs -- O(1)
+  fromList xs = LenList (length xs) xs -- O(n)
+```
+
+as a side note, there are probably more operations we'd like to support
+
+```haskell
+head :: seq a -> a      -- for list O(1)
+tail :: seq a -> seq a      -- for list O(1)
+init :: seq a -> seq a      -- for list O(1)
+last:: seq a -> a      -- for list O(n)
+(!!) :: seq a -> Int -> a      -- for list O(n)
+```
+
+We'll do this in another lecture
+
+We are interested in a representations of sequences where appending is cheap.
+
+Let's look at function composition
+
+```haskell
+(f . g) x = f (g x)
+((f . g) . h) x = (f . g) (h x)
+                = f (g (h x))
+
+(f . (g . h)) x = f ((g . h) x)
+                = f (g (h x))
+```
+
+Function composition has a nice property: It does not matter which way round you write it, lets do this to lists
+
+```haskell
+xs ++ (ys ++ zs)
+=
+xs ++ (ys ++ (zs ++ []))
+=
+(xs ++) ((ys ++) ((zs ++) []))
+=
+(xs ++) . (ys ++) . (zs ++) [] :: [a]
+~
+toList ((xs ++) . (ys ++) . (zs ++)) :: [a]
+~
+toList (fromList xs . fromList ys . fromList zs) :: [a]
+```
+
+```haskell
+data DList a = DList ([a] -> [a])
+```
+
+this is called a difference List
+
+Lets use the aove intuition to start filling the following
+
+```haskell
+instance Seq DList where
+  toList (DList dxs) = dxs [] -- O(n)
+  fromList xs        = DList (xs ++) -- O(1)
+
+  nil               = DList id
+```
+
+Early on, we knwo that Lists are monoids
+
+```haskell
+[] ++ xs = xs
+xs ++ [] = xs
+xs ++ (ys ++ zs) = (xs ++ ys) ++ zs
+```
+
+```haskell
+id . f = f
+f . id = f
+f . (g . h) = (f . g) . h
+```
+
+Functions of type (a -> a) are also monoids. This seems to line up nicely
+
+```haskell
+cons x dxs = fromList [x] `append` dxs -- O(?)
+           = DList ([x] ++)  `append` dxs
+           = DList (x :) `append` dxs
+           -- imagine pattern matching here
+           = DList ((x :) . dxs)
+snoc dxs x = dxs `append` fromList [x] -- O(?)
+           = dxs `append` DList (x :)
+           -- imagine pattern matching here
+           = DList (dxs . (x :))
+
+cons x (DList dxs) = DList ((x :) . dxs) -- O(1)
+snoc x (DList dxs) = DList (dxs . (x :)) -- O(1)
+```
+
+so now
+
+```haskell
+append (DList dxs) (DList dys) = DList (dxs . dys) -- O(1)
+```
+
+```haskell
+len dxs = length (toList dxs) -- O(2n) ~ O(n)
+```
+
+```haskell
+head dxs = head (toList dxs) -- O(n)
+```
+
+So difference Lists are good at constructing Lists. They are awful at processing
+
+```haskell
+values' :: Tree a -> [a]
+values' t = toList (go t)
+  where go :: Tree a -> DList a
+        go (Leaf x) = cons x nil
+        go (Fork rt lt) = go (lt) `app end` go rt
+```
+
+so The complexity of go ens ip being O(n) in the number of nodes in the tree, n . toList is O(n), m <= n, in the number of leaves in the tree m. values has overall complexity O(n) in the size of the tree
+
+We have seen an asymptotic improvement in the performance of values
+
+```haskell
+t :: Tree Int
+t = Fork (Fork (Leaf 1))
+               (Leaf 2)
+         (Fork (Leaf 3))
+               (Leaf 4)
+```
+
+```haskell
+vs = values' t
+   = toList (go t)
+   = toList (go Fork (Fork (Leaf 1))
+                           (Leaf 2)
+                     (Fork (Leaf 3))
+                           (Leaf 4))
+    -- we know that go replaces leaves 
+    -- with singletons an forks with appends
+   = toList (append (append ([1]))
+                       ([2])
+                       (append ([3]))
+                       ([4]))
+   = toList (append (DList ((1 :)))
+                       (DList ((2 :)))
+                append ((DList ((3 :))))
+                       (DList ((4 :))))
+   = toList (append (DList ((1 :)))
+                       (DList ((2 :)))
+                append ((DList ((3 :))))
+                       (DList ((4 :))))
+   = toList (append )
+
+```
+
+Are difference Lists useful?
+
+In a purefully functional language, haskell, its good, but why haskell, why functional programming
+
+in an impure language like scala, we can do better, we can just add things at the end of a mutable builder. In fact, sometimes toList is O(1) even for those
+

@@ -644,3 +644,124 @@ typical value: 10ms - 200ms
 - linux: 100ms
 - windows client: 20ms
 - windows server: 180ms
+
+## Shortest Job First (SJF)
+
+Non-preemptive scheduling with run-times known in advance, then we pick the shortest job first
+
+
+if A(8) -> B(4) -> C(4) -> D(4)
+
+then the turanaround time is 8 + (8 + 4) + (8 + 4 + 4) + (8 + 4 + 4 + 4) = 56
+
+if B(4) -> C(4) -> D(4) -> A(8)
+
+then the turnaround time is 4 + (4 + 4) + (4 + 4 + 4) + (4 + 4 + 4 + 8) = 44
+
+### Shortest Remaining Time(SRT)
+
+this is a preemptive version of Shortest Job First
+- Runtime have to be known in advance
+
+choose the process whose remaining time is shortest
+
+so
+
+![slide15](../../../assets/Imperial/50004/lecture4-slide15.png)
+
+### problem: how to know the runtime in advance?
+
+they are not usually available in advance
+
+Compute CPU burst estimates based on heuristics
+- E.g. based on previous history
+- Not always applicable
+
+User-supplied estimates
+- need to counteract cheating to get higher priority
+
+## Fair Share Scheduling:
+Users are assigned some fraciton of the CPU
+- Schduler takes into accoun twho owns a process before scheduling it
+
+assume each user take 50% of the CPU
+- User 1: ABCD
+- User 2: EF
+
+A RR scheduler would maybe do A E B F C E D A E B F C E D F
+
+so the user list is iterated when scheduling
+
+## Priority Scheduling
+
+Jobs are running based on their priority(consider PintOS)
+
+they can be externally defined or based on some process-specific metrics
+
+they can be static(do change) or dynamic(pintos)
+
+the processes with the highest priorities is going to run first
+
+## General-Purpose Scheduling
+
+Favoue short and IO bound jobs
+- good resource utilisation and short response times
+
+they react quickly and can adpat to changes
+- each process have IO-bound periods and CPU-bound period
+
+## Multilevel Feedback Queues
+form this on, this would be implementations
+
+implemented on many OSs including pintos
+
+one queue for each priority level, in each queue, we can use round-robin
+
+consider the zipping method in hashset for resolving conflict in same hashcode
+
+![slide21](../../../assets/Imperial/50004/lecture4-slide21.png)
+
+### Concerns:
+need to determine current nature of the job (IO-bound /CPU-bound)
+
+Need to worry about starvation of lower-priority jobs
+
+feedback mechanism:
+- priorities recomputed periodically
+- Aging: increse job;s priority as it waits
+
+this is not very flexible and does not react fast to changes
+- apps have no control
+- priorities make no guarantee
+- often need warm-up
+
+Cheating is a consern:
+- may add meaningless I/O to boost priority
+
+Cannot donate priority
+
+## Lottery Scheduling
+
+Jobs recieve lottery tickets for various resources
+
+at each decision, one ticket is chosen at random and the job holding the ticket wins
+
+so if 100 tickets and P1 has 20 tickets, then in the long run P1 gets 20% of the CPU time
+
+### characteristics:
+Number of lottery tickets is meaningful, unlike priorities
+
+this is highly responsive
+- new job given p% of tickets has the p% chance to get the resource at the next scheduling decision
+
+no starvation
+
+jobs can exchange tickets for donations
+
+adding or removing the jobs affect remaining jobs proportionally
+
+Unpredictable response-time: unlucky
+
+## Summary:
+s
+Scheduling algorithms often need to balance conflicting goals, so different algorithms are suitable for different scheduling goals

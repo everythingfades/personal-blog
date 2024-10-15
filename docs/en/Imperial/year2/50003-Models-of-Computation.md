@@ -20,7 +20,7 @@ a register machine is specified by:
 - finite many register $R_0, R_1, ..., R_n$ eahc capable to storing a natural numebr
 - a program consisting of a finite list of instruction of the form label: body where, $\forall i = 0,1,2,...$ the (i+1)th instruction has label $L_i$,  the instruction body take the form:
 
-$\begin{array}
+$\begin{array}{c}
 R^+\to L' & \text{add 1 to the contents of register R and jump to instruction label L'}\\
 R^-\to L',L"&\text{if the content of R is greater than 0, the subtract one and jump to L' else jump to L"}\\
 HALT & \text{stop executing instructions}
