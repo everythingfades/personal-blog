@@ -1652,6 +1652,77 @@ OS-kernel thinks it is mamaging processes only</li>
 <li>windows client: 20ms</li>
 <li>windows server: 180ms</li>
 </ul>
+<h2 id="shortest-job-first-sjf">Shortest Job First (SJF)</h2>
+<p>Non-preemptive scheduling with run-times known in advance, then we pick the shortest job first</p>
+<p>if A(8) -&gt; B(4) -&gt; C(4) -&gt; D(4)</p>
+<p>then the turanaround time is 8 + (8 + 4) + (8 + 4 + 4) + (8 + 4 + 4 + 4) = 56</p>
+<p>if B(4) -&gt; C(4) -&gt; D(4) -&gt; A(8)</p>
+<p>then the turnaround time is 4 + (4 + 4) + (4 + 4 + 4) + (4 + 4 + 4 + 8) = 44</p>
+<h3 id="shortest-remaining-timesrt">Shortest Remaining Time(SRT)</h3>
+<p>this is a preemptive version of Shortest Job First
+- Runtime have to be known in advance</p>
+<p>choose the process whose remaining time is shortest</p>
+<p>so</p>
+<p><img alt="slide15" src="../../../assets/Imperial/50004/lecture4-slide15.png" /></p>
+<h3 id="problem-how-to-know-the-runtime-in-advance">problem: how to know the runtime in advance?</h3>
+<p>they are not usually available in advance</p>
+<p>Compute CPU burst estimates based on heuristics
+- E.g. based on previous history
+- Not always applicable</p>
+<p>User-supplied estimates
+- need to counteract cheating to get higher priority</p>
+<h2 id="fair-share-scheduling">Fair Share Scheduling:</h2>
+<p>Users are assigned some fraciton of the CPU
+- Schduler takes into accoun twho owns a process before scheduling it</p>
+<p>assume each user take 50% of the CPU
+- User 1: ABCD
+- User 2: EF</p>
+<p>A RR scheduler would maybe do A E B F C E D A E B F C E D F</p>
+<p>so the user list is iterated when scheduling</p>
+<h2 id="priority-scheduling">Priority Scheduling</h2>
+<p>Jobs are running based on their priority(consider PintOS)</p>
+<p>they can be externally defined or based on some process-specific metrics</p>
+<p>they can be static(do change) or dynamic(pintos)</p>
+<p>the processes with the highest priorities is going to run first</p>
+<h2 id="general-purpose-scheduling">General-Purpose Scheduling</h2>
+<p>Favoue short and IO bound jobs
+- good resource utilisation and short response times</p>
+<p>they react quickly and can adpat to changes
+- each process have IO-bound periods and CPU-bound period</p>
+<h2 id="multilevel-feedback-queues">Multilevel Feedback Queues</h2>
+<p>form this on, this would be implementations</p>
+<p>implemented on many OSs including pintos</p>
+<p>one queue for each priority level, in each queue, we can use round-robin</p>
+<p>consider the zipping method in hashset for resolving conflict in same hashcode</p>
+<p><img alt="slide21" src="../../../assets/Imperial/50004/lecture4-slide21.png" /></p>
+<h3 id="concerns">Concerns:</h3>
+<p>need to determine current nature of the job (IO-bound /CPU-bound)</p>
+<p>Need to worry about starvation of lower-priority jobs</p>
+<p>feedback mechanism:
+- priorities recomputed periodically
+- Aging: increse job;s priority as it waits</p>
+<p>this is not very flexible and does not react fast to changes
+- apps have no control
+- priorities make no guarantee
+- often need warm-up</p>
+<p>Cheating is a consern:
+- may add meaningless I/O to boost priority</p>
+<p>Cannot donate priority</p>
+<h2 id="lottery-scheduling">Lottery Scheduling</h2>
+<p>Jobs recieve lottery tickets for various resources</p>
+<p>at each decision, one ticket is chosen at random and the job holding the ticket wins</p>
+<p>so if 100 tickets and P1 has 20 tickets, then in the long run P1 gets 20% of the CPU time</p>
+<h3 id="characteristics">characteristics:</h3>
+<p>Number of lottery tickets is meaningful, unlike priorities</p>
+<p>this is highly responsive
+- new job given p% of tickets has the p% chance to get the resource at the next scheduling decision</p>
+<p>no starvation</p>
+<p>jobs can exchange tickets for donations</p>
+<p>adding or removing the jobs affect remaining jobs proportionally</p>
+<p>Unpredictable response-time: unlucky</p>
+<h2 id="summary">Summary:</h2>
+<p>s
+Scheduling algorithms often need to balance conflicting goals, so different algorithms are suitable for different scheduling goals</p>
 
 
 
