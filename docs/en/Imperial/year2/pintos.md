@@ -1190,8 +1190,240 @@ so if 32bit int, the lowest 14 can be fractions, so we get $\frac{x}{2^{14}}$, s
 - divide fixed-point x by fixed-point y: $((int64_t)x) * f / y$
 - divide fixed-point x by integer n: $x / n$
 
+so then, following the instructions, we do
+
+```C
+//
+// Created by zhizh on 08/10/2024.
+//
+
+#ifndef FIXED_POINT_H
+#define FIXED_POINT_H
+
+/* Fixed-Point Real Arithmetic */
+#include <stdint.h>
+
+/* We designate lowest 14 bits as fractional bits */
+// altered by hongleigu, restore if needed
+#define q 14 // this should be the digits of the fractions
+#define F (1 << q);
+// altering end
+typedef int fp; /* type alias fixed point number */
+
+/* n is an integer */
+/* Convert n to fixed point */
+inline fp int_to_fp(int n) {
+  return n * F;
+}
+
+///* Convert float to fixed point */
+//inline fp float_to_fp(float n) {
+//  return n * F;
+//}
+//
+///* Convert fixed point to float */
+//inline float fp_to_float(fp n) {
+//  return ((float) n) / F;
+//}
+
+/* Convert x to integer (rounding toward zero) */
+inline int fp_to_int_round_to_zero(fp x) {
+  return x / F;
+}
+
+/* Convert x to integer (rounding to nearest) */
+inline int fp_to_int_round_to_nearest(fp x) {
+  return (x >= 0) ? (x + F / 2) / F : (x - F / 2) / F;
+}
+
+/* Add x and y where x and y are fixed-point */
+inline fp add_fps(fp x, fp y) {
+  return x + y;
+}
+
+/* Subtract y from x where y and x are fixed-point */
+inline fp sub_fps(fp x, fp y) {
+  return x - y;
+}
+
+/* Add x and n where x is fixed-point and n is integer */
+inline fp add_fp_int(fp x, int n) {
+  return x + n * F;
+}
+
+/* Subtract n from x where n is integer and x is fixed-point */
+inline fp sub_fp_int(fp x, int n) {
+  return x - n * F;
+}
+
+/* Multiply x by y where x and y are fixed-point */
+inline fp mul_fps(fp x, fp y) {
+  return ((int64_t) x) * y / F;
+}
+
+/* Multiply x by n where x is fixed-pont and n is integer */
+inline fp mul_fp_int(fp x, int n) {
+  return x * n;
+}
+
+/* Divide x by y where x and y are fixed-point */
+inline fp div_fps(fp x, fp y) {
+  return ((int64_t) x) * F / y;
+}
+
+/* Divide x by n where x is fixed-point and n is integer */
+inline fp div_fp_int(fp x, int n) {
+  return x / n;
+}
+
+#endif //FIXED_POINT_H
+
+```
+
+this is not hard actually, just cumbersome
+
 ### task7:BSD scheduler
 
 so it just do one thing
 
 - priority argument to *thread_create*, *thread_get/set_priority* should be ignored
+
+so basically we should ignore these and update all the recent_cpu and load_avg stuff inorder to pass the mlfqs tests(maybe TDD, we can see the sample result for mlfqs-recent-1)
+
+first of all, all these must be done under mlfqs environment, so we do an if statement before that
+
+the recent_cpu need to be updated every physical second, so thats ticks * TIMER_FREQ, where TIMER_FREQ is set to 100 by default
+
+we alter the thread_tick function(actually the timer_interrupt will also do, they are basically the same)
+
+```C
+void
+thread_tick (void) 
+{
+  struct thread *t = thread_current();
+  /* Update statistics. */
+  /* adding BSD scheduler related code */
+  /* Each time a timer interrupt occurs,
+	recent_cpu is incremented by 1 for the running thread only,
+	unless the idle thread is running.
+  */
+  if (t == idle_thread)
+    idle_ticks++;
+  else {
+#ifdef USERPROG
+  if (t->pagedir != NULL)
+    user_ticks++;
+  else
+#endif
+    kernel_ticks++;
+
+    t -> recent_cpu = add_fp_int(t->recent_cpu, 1);
+  	}
+    /* Once per second after system boot, load_avg is updated according to the formual */
+    /* Once per second the value of recent_cpu is recalcualted for every thread,
+	 whether running, ready, or blocked using the formula
+   */
+// mycode starts task1 subtask6&7 hongleigu
+  if (thread_mlfqs) {
+    if (timer_ticks() % TIMER_FREQ == 0) {
+      thread_mlfqs_update_recent_cpu_and_load_avg(t);
+      // thread_foreach(update_recent_cpu, NULL);
+    } else if (timer_ticks() % TIME_SLICE == 0){
+      // the spec says do it as necessary
+      // lets just do every time slice
+      thread_mlfqs_update_priority(t);
+    }
+  }
+//
+  /* Enforce preemption. */
+  if (++thread_ticks >= TIME_SLICE)
+    intr_yield_on_return ();
+}
+```
+
+we also do the addition to recent_cpu first
+
+the addition update_priority happens when the threads need to update priority with
+
+$\text{priority} = \text{PRI_MAX} - (\text{recent_cpu} /4) - (nice * 2)$
+
+so from this we can infer that whenever recent_cpu and nice change, we should update the priority, also, we should do the updating every time slice just in case the testing program changes priority at some time but we did not update
+
+that is the reason of the stuff in the else statement
+
+but notice these two functions are yet to implement
+
+we will do recent_cpu and load_avg first
+
+load_avg is simple
+
+
+$\text{load_avg} = \frac{59}{60}*\text{load_avg} + \frac{1}{60}*\text{ready_threads}$
+
+just get the length of the list, do multiplication and done
+
+but recent_cpu does nasty things
+
+$\text{rencent_cpu} = \frac{2*\text{load_avg}}{2*\text{load_avg} + 1} * \text{recent_cpu} + nice$
+
+the nice is nasty
+
+you can do $\text{recent_cpu} = (1-\frac{1}{2*\text{load_avg}}\text{recent_cpu} + nice$
+
+but we will fix to the spec
+
+so we have
+
+```C
+void
+thread_mlfqs_update_recent_cpu_and_load_avg(struct thread* t)
+{
+  int ready_threads = list_size(&ready_list);
+  if (t != idle_thread) ready_threads++;
+  /* formula: load_avg =  (59/60)*load_avg + (1/60)*ready_threads; */
+  load_avg = add_fps(mul_fps(c1, load_avg), mul_fp_int(c2, ready_threads));
+
+  struct list_elem *x;
+  for (x = list_begin(&all_list); x != list_end(&all_list); x = list_next(x)) {
+    struct thread *t = list_entry(x, struct thread, allelem);
+    /* Except DYING, the other status are running, ready, and blocked */
+    if (t->status != THREAD_DYING) {
+      /* number used in the calculation for recent cpu*/
+      fp u = mul_fp_int(load_avg, 2);
+      fp x = div_fps(u, add_fp_int(u, 1));
+      fp y = mul_fps(x, t->recent_cpu);
+      t->recent_cpu = add_fp_int(y, t->nice); /* Effciency here may be improved?! */
+    }
+  }
+}
+```
+
+what a pity we cannot use the thread_foreach because this is about allelem, not elem
+
+so then we update the priority
+
+```C
+// mycode ends
+
+// mycode starts: task1 subtask6&7 hongleigu
+/* Update priority. */
+void
+thread_mlfqs_update_priority (struct thread* t)
+{
+  if (t == idle_thread)
+    return;
+
+  ASSERT (thread_mlfqs);
+  ASSERT (t != idle_thread);
+
+  t->priority = fp_to_int_round_to_nearest(sub_fp_int(sub_fps(int_to_fp(PRI_MAX), div_fp_int(t->recent_cpu, 4)), 2 * t->nice));
+  // 
+  t->priority = t->priority < PRI_MIN ? PRI_MIN : t->priority;
+  t->priority = t->priority > PRI_MAX ? PRI_MAX : t->priority;
+}
+```
+
+the last two line is just because I am afraid the priority went beyound the scope (PRI_MIN to PRI_MAX)
+
+so we do the clipping
+
