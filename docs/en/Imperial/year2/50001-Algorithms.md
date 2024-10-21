@@ -240,12 +240,22 @@ we have two functions f and g
 complexity functions includes
 
 - $O$ : $f(n)\in O(g(n))\iff f\succcurlyeq g$
-- $o$ : $f(n)\in O(g(n))\iff f\succ g$
+- $o$ : $f(n)\in o(g(n))\iff f\succ g$
 - $\Theta$ : $f(n)\in \Theta(g(n))\iff f\asymp g$
 - $\omega$ : $f(n)\in \Omega(g(n))\iff f\prec g$
 - $\Omega$ : $f(n)\in \Omega(g(n))\iff f\preccurlyeq g$
 
-(complete this later)
+the formal definition
+
+- $O$: $f(n)\in O(g(n))\iff\exists k > 0, \exists n_0 > 0, \forall n > n_0, f(n)\le k*g(n)$
+- $o$: $f(n)\in o(g(n))\iff\forall k > 0, \exists n_0 > 0, \forall n > n_0, f(n)< k*g(n)$
+- $\omega$: $f(n)\in \omega(g(n))\iff\forall k > 0, \exists n_0 > 0, \forall n > n_0, f(n)> k*g(n)$
+- $\Omega$: $f(n)\in O(g(n))\iff\exists k > 0, \exists n_0 > 0, \forall n > n_0, f(n)\ge k*g(n)$
+- $\Theta$: $f(n)\in O(g(n))\iff f(n)\in O(g(n))\wedge f(n)\in \Omega(g(n))$
+
+so we have: all the capitalize are with exists in the front, and equal in the middle
+
+all the Os are less thans, all the Omegas are less thans, the Theta is combination of the Capitals
 
 for f(x) and g(x) check $\lim_{n\to\infty} \frac{f(n)}{g(n)}$ and 0
 
@@ -790,19 +800,32 @@ vs = values' t
                            (Leaf 4))
     -- we know that go replaces leaves 
     -- with singletons an forks with appends
-   = toList (append (append ([1]))
-                       ([2])
-                       (append ([3]))
-                       ([4]))
-   = toList (append (DList ((1 :)))
-                       (DList ((2 :)))
-                append ((DList ((3 :))))
-                       (DList ((4 :))))
-   = toList (append (DList ((1 :)))
-                       (DList ((2 :)))
-                append ((DList ((3 :))))
-                       (DList ((4 :))))
-   = toList (append )
+   = toList (append (append (cons 1 nil))
+                            (cons 2 nil)
+                    (append (cons 3 nil))
+                            (cons 4 nil))
+   = toList (append (append (cons 1 (DList id)))
+                            (cons 2 (DList id))
+                    (append (cons 3 (DList id)))
+                            (cons 4 (Dlist id)))
+   = toList (append (append (DList ((1 :) . id))
+                            (DList ((2 :) . id)))
+                    (append (DList ((3 :) . id))
+                            (DList ((4 :) . id))))
+   = toList (append (append (DList ((1 :)))
+                            (DList ((2 :))))
+                    (append (DList ((3 :)))
+                            (DList ((4 :)))))
+   = toList (append (DList ((1 :) . (2 :)))
+                    (DList ((3 :) . (4 :))))
+   = ((1 :) . (2 :)) . ((3 :) . (4 :))
+   = ((1 :) . (2 :)) (((3 :) . (4 :)) [])
+   = ((1 :) . (2 :)) ((3 :) ((4 :) []))
+   = ((1 :) . (2 :)) (3 : (4 : []))
+   = (1 :) ((2 :) (3 : (4 : [])))
+   =  1 :  ( 2 :  (3 : (4 : [])))
+    -- or, without simplifying cons
+   =  [1] ++  ( [2] ++  ([3] ++ ([4] ++ [])))
 
 ```
 
@@ -812,3 +835,290 @@ In a purefully functional language, haskell, its good, but why haskell, why func
 
 in an impure language like scala, we can do better, we can just add things at the end of a mutable builder. In fact, sometimes toList is O(1) even for those
 
+# lecture 3:
+divide and conquer (分治 in Chn)
+
+A divide and conquer algorithm is one which 
+- split the problem into subproblems
+- solve the sub-problems and turn them into sub-solutions
+- combine the sub-solutions to form a solution
+
+## merge sorting
+a divide and conquer algorithm
+
+so the sub-problem is to sort smaller list, we need a split
+
+```haskell
+splitAt :: [a] -> Int -> ([a],[a]) -- O(n)
+splitAt xs n = (take n xs, drop n xs)
+```
+
+This function can be used to make a list small
+
+```haskell
+splitHalf :: [a] -> Int -> ([a],[a])
+splitHalf xs = splitAt xs (length xs `div` 2)
+```
+
+we also need to merge the two list together
+
+```haskell
+merge :: Ord => [a] -> [a] -> [a]
+merge [] ys = ys
+merge xs [] = xs
+merge xxs@(x:xs) yys(y:ys)
+  | x <= y = x : merge xs yys -- to make the sorting algorithm stable
+  | otherwise = y : merge xxs ys
+```
+
+so
+
+```haskell
+msort :: Ord => [a] -> [a]
+msort [] = []
+msort [x] = [x]
+msort xs = 
+  let (us,vs) = splitHalf xs
+    us' = msort us
+    vs' = msort vs'
+  in merge us', vs'
+
+```
+
+so 
+
+$
+\begin{aligned}
+\text{T_msort}(0) &= 1\\
+\text{T_msort}(1) &= 1\\
+\text{T_msort}(n) &= \text{T_splitHalf(n)} + 2 *\text{T_msort(n/2)} + 2 *\text{T_merge}(n/2)\\
+&= O(n) + 2 * \text{T_msort(\frac{n}{2})} + 2* O(n)\\
+&= O(n) + 2 * \text{T_msort(\frac{n}{2})}\\
+&= O(n) + O(n) + 4* \text{T_msort(T_msort(\frac{n}{4}))}\\
+&= ...\\
+&= \Theta(n\log n)
+\end{aligned}
+$
+
+## quicksort
+
+subproblems involves partition
+
+```haskell
+partition :: (a -> Bool) -> [a] -> ([a],[a]) 
+-- O(n), as you have to walk throught the list
+partition p xs = (filter p xs, filter (not . p) xs)
+```
+
+takes everything less than the element on one side and the those greater on the other side
+
+```haskell
+allLess :: Ord a => a -> [a] -> ([a],[a]) -- O(n)
+allLess x xs = partition (< x) xs
+```
+
+combine the subproblems by putting them in the right order
+
+```haskell
+qsort :: Ord a => [a] -> [a]
+qsort [] = []
+qsort (x:xs) = 
+  let (us, vs) = allLess x xs
+    us' = qsort us
+    vs' = qsort vs
+  in us' ++ [x] ++ vs'
+```
+
+the complexity
+
+obviously quick sort has optimal and worst cases
+
+so we assume currently the list is optimally chaotic
+
+$
+\begin{aligned}
+\text{T_qsort}(0) &= 0\\
+\text{T_qsort}(n) &= \text{T_allLess}(n-1) + 2 * \text{T_qsort}(\frac{n-1}{2}) + \Text{T_++}(1) + \text{T_++}(\frac{n-1}{2})\\
+&= O(n-1) + 2 * \text{T_qsort}(\frac{n-1}{2}) + O(1) + O(\frac{n-1}{2})\\
+&= O(n) + 2 * \text{T_qsort}(\frac{n-1}{2}) + O(1) + O(n)\\
+&= O(n) + 2 * \text{T_qsort}(\frac{n}{2})\\
+&= \Theta(n\log n)
+\end{aligned}
+$
+
+In the worst case the lsit is sorted
+
+$
+\text{T_qsort}(0) &= 1\\
+\text{T_qsort}(n) = \text{T_allLess}(n-1) + \text{T_qsort}(n-1) + \text{T_++}(0) + \text{T_++}(1)\\
+&= O(n) + O(1) + \text{T_qsort}(n-1) + O(1) + O(1)\\
+&= O(n) + \text{T_qsort}(n-1)\\
+&= O(n^2)$
+
+In the worst case, the list is sorted
+
+## DP
+- write the solution recursively
+- cache to subsolution
+- so more stuff
+
+for example
+
+```haskell
+fib :: Int -> Integer -- O(2^n)
+fib 0 = 1
+fib 1 = 1
+fib n = fib (n-1) + fib (n-2)
+```
+
+use arrays (imagine a dumb prgramming language that you even need to gasp at importing arrays)
+
+```haskell
+(!!) :: [a] -> Int -> a -- O(n)
+(!) :: Ix i => Array i a -> i -> a
+```
+
+The class `Ix` describes indexable things
+
+```haskell
+index0 n i = i
+index0 (n, _) (i,j) = i*n + j
+index0 (n,m,_) (i,j,k) = i*n*m + j*m*k
+```
+
+The dumb inmutabillity make it impossible for variables, you have to make it final
+
+```haskell
+array :: Ix i => (i,i) -> [(i,a)] -> Array i a
+range :: Ix i => (i,i) -> [i]
+```
+
+build a helper function
+
+```haskell
+tabulate :: Ix i => (i,i) -> (i -> a) -> Array i a
+tabulate bounds f = array bounds [(i, f i) | i <- range bounds]
+```
+
+no mutation, everything stupidly final
+
+```haskell
+fib' :: Int -> Integer
+fib' n = table ! n
+  where table :: Array Int Integer
+        table = tabulate (0,n) memo
+
+        memo :: Int -> Integer
+        memo 0 = 1
+        memo 1 = 1
+        memo n = table ! (n-1) + table ! (n-2)
+```
+
+so then
+
+```haskell
+fib' 4 = table ! 4
+      where table = {- array (0,4)-}
+        [
+          (0, memo 0),
+          (1, memo 1),
+          (2, memo 2),
+          (3, memo 3),
+          (4, memo 4)
+        ]
+```
+
+```
+memo 4 = table ! 3 + table ! 2
+memo 3 = table ! 2 + table ! 1
+memo 2 = table ! 1 + table ! 0
+memo 1 = 1
+memo 0 = 1
+```
+
+so
+
+```haskell
+fib' 4 = table ! 4
+      where table = {- array (0,4)-}
+        [
+          (0, 1),
+          (1, 1),
+          (2, 2),
+          (3, 3),
+          (4, 5)
+        ]
+```
+
+the recipe is: start bad, figure out the shap eand size of the table, make the table (referring to some memo funcion), rewrite the function in terms of the table
+
+$
+\begin{aligned}
+\text{T_memo}(0) &= 1\\
+\text{T_memo}(1) &= 1\\
+\text{T_memo}(n) &= \text{T_!}(n-1) + \text{T_!}(n-2)\\
+&= O(1) + O(1)\\
+&= O(1)
+\end{aligned}$
+
+but obviously the space complecity increases to $O(n)$
+
+do sliging window
+
+```haskell
+fib'' :: Int -> Integer
+fib'' n = loop 1 1 n
+  where loop :: Integer -> Integer -> Int -> Integer
+        loop zero one 0 = zero
+        loop zero one 1 = one
+        loop nMinus2 nMinus1 n = loop nMinus1 (nMinus2 + nMinus1) (n-1)
+```
+
+this works as fib has two known subproblems at each step, they are neighbours. It does not work in general
+
+more example with backpack DP
+
+see the OI notes eg. leetcode 322 coinChange
+
+```haskell
+change :: Pence -> Int -- (8^n) as 8 differnt coins
+change 0 = 0
+change g = minimum [ change (g - coin) | coin <- coins, coin <= g]
+-- the subproblem is change g - currentCoin
+```
+
+so just cache the subresults
+
+```haskell
+change' :: Pence -> Int
+change' n = table ! n
+  where table :: Array Pence Int
+        table = tabulate (0, n) memo
+
+        memo :: Pence -> Int
+        memo 0 = 0
+        memo g = minimum [(table ! (g-coin)) + 1| coin <- coins, coin <= g]
+```
+
+```python
+# python
+class Solution:
+    def coinChange(self, coins: List[int], amount: int) -> int:
+        if len(coins) < 1:
+            return -1
+        if len(coins) == 1:
+            if amount % coins[0] != 0:
+                return -1
+            else:
+                return int(amount/coins[0])
+        amount += 1
+        dp = [amount for i in range(amount)]
+        dp[0] = 0
+        for i in range(amount):
+            for j in coins:
+                if i - j >= 0:
+                    dp[i] = min(dp[i], dp[i-j]+1)
+        if dp[-1] != amount:
+            return dp[-1]
+        return -1
+```

@@ -28,6 +28,8 @@ nav:
         - 50004-Operating-System: en/Imperial/year2/50004-Operating-System.md
     - web:
       - html: en/web/html.md
+    - other:
+      - cyber-security: en/other/cyber_security.md
 markdown_extensions:
   - pymdownx.highlight:
       anchor_linenums: true

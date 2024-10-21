@@ -763,5 +763,394 @@ adding or removing the jobs affect remaining jobs proportionally
 Unpredictable response-time: unlucky
 
 ## Summary:
-s
 Scheduling algorithms often need to balance conflicting goals, so different algorithms are suitable for different scheduling goals
+
+## Tutorial
+### 1
+Five batch jobs, A through E, arrive at a data centre at essentially the same 
+time. Their estimated running time are as follows: A=12min, B=5min, 
+C=17min, D=9min and E=10min. Their (externally defined) priorities are: 
+A=8, B=5, C=2, D=6 and E=3, with a lower value corresponding to a higher 
+priority. For each of the following scheduling algorithms, determine the 
+turnaround time for each job, and the average turnaround time for all jobs. 
+Ignore process switching overhead and assume all jobs are completely CPU 
+bound
+#### non-preemptive priority scheduling
+non-preemptive so run to finish
+
+the order is C -> E -> B -> D -> A following the priority order
+
+#### FCFS(first come first serve)
+order: A -> B -> C -> D -> E
+
+#### Shortest job first(SJF)
+order: B -> D -> E -> A -> C
+
+#### Round robin with a time quantum of 1 minute
+
+(A(1) -> B(1) -> C(1) -> D(1) -> E(1)) * 5
+
+(A(1) -> C(1) -> D(1) -> E(1)) * 4
+
+(A(1) -> C(1) -> E(1)) * 1
+
+(A(1) -> C(1)) * 2
+
+C(5) * 5
+
+to do: add the turnaround times
+
+
+
+
+# quiz2:
+## 1.
+**Which of the following constitute the state of a process?**
+- Process Identification (e.g pid) $\correct$
+- The process' address space $\correct$
+- Caches in kernel space $\times$
+- OS provided resources(e.g. open files/devices, handlers for child processes) $\correct$
+- Main memeory (DRAM) $\times$
+- The process' virtual CPU (e.g register) $\correct$
+
+## 2.
+**Which term describes the following "Switching between processes at regular time intervals the illusion of parallelism"**
+- Context Switch
+- Time Slicing $\correct$
+- Deterministic Scheduling
+
+## 3.
+**The overhead associated with a context switch includes the direct cost of saving state, and restoring the state of the process being switched to. What is the main indirect cost?**
+- Restoring registers 
+- Pertubation of caches:
+
+comment: This is a considerable cost - any context switch will inevitably results in cache misses.
+
+## 4.
+Question:
+
+How many processes need to be running to only waste 10% or less of CPU time, if each process spends 80%
+of time waiting for I/O?
+
+(clue: Consider the probability that at a given time that n processes are waiting. P1 waits for 80% of the time, in that 80% P2 can be run, and wastes 80% of the 80% of the time P1 is waiting, etc.)
+
+11, so continuing the hint, every spare 80% should be occupied by another thread, then another 80% of 80% is wasted, this forms a sequence with common ratio 0.8, 11 terms is sufficient to sum up the time used to 90%
+
+## 5.
+question:(too long to format in markdown)
+
+Compare reading a file using a single-threaded file server and a multithreaded server, running on a   single-CPU machine. 
+
+It takes 15 msec to get a request for work, dispatch it, and do the rest of the necessary processing, assuming that the data needed are in the block cache. 
+
+If a disk operation is needed, as is the case one-third of the time, an additional 75 msec is required, during which time the thread sleeps. 
+
+For this problem, assume that thread switching time is negligible.  How many requests/sec can the server handle with 1 thread, 2 threads or 6 threads
+
+see https://edstem.org/us/courses/67154/discussion/5479922
+
+- for one thread, we can at most do 3 requests in 15*3 + 75 = 120ms, so 25req/s
+- for two threads, the second thread can do the same in the 5/8 time that thread 1 is sleeping, so $25 + 25 \times\frac{5}{8} = 40.625$, we can do this because we only care about the average not actual
+- similar for 6 threads $25 + \frac{5}{8}\times 25 + (\frac{5}{8}) \times (25) +\dots + (\frac{5}{8})^5\times(25) \approx 62.69$
+
+## 6
+**How many parameters does the "CreateProcessA" function have?**
+
+10, just see the notes
+
+## 7
+A developer wants to display a prompt ("do you wish to save?") when the user uses Ctrl-C on his program when running from the terminal. 
+
+In order do this, the developer needs to create an register a signal handler. Which signal do they need to handle?
+
+- SIGKEYBOARD
+- SIGSEGV
+- SIGINT $\correct$
+- SIGPIPE
+
+## 8
+**How many X Y and Z characters are printed by this program?**
+
+```C
+#include <uninstd.h>
+#include <stdio.h>
+
+int main() {
+  if (fork() != 0) {
+    printf("X"); fflush(stdout);
+  }
+  if (fork() != 0) {
+    printf("Y"); fflush(stdout);
+  }
+  printf("Z");
+}
+```
+
+every fork creates a child thread
+
+so, first X, forked so 2Y, and 4Z
+
+## 9
+**Given a given number n < N, how many instances of n are printed?**
+
+```C
+#include <unistd.h>
+#include <stdio.h>
+
+int main() {
+  for (int i = 0; i < N; i++) {
+    if (fork()) {
+      printf("%d", i); fflush(stdout);
+    }
+  }
+}
+```
+
+same, every fork(even in the child process) creates a exactly same process, so every fork doubles the number of n, $2^N$
+
+## 10
+**What is a thread?**
+
+- A process
+- A single stream of instructions being executed $\correct$
+- A king of thin yarn used for sewing
+
+## 11
+**Why do Oses provide the thread abstraction?**
+- Allow time sharing on a common resource(This is the process abstraction's job) $\correct$
+- Provide a common API on top of CPU threads so programs do not need to know the specifics of CPU they are executing on $\correct$
+- Provice a security boundary
+- To preven ta failure of one part of the program from crashing another(if any thread in a multithread program segfaults and the signal is unhandled, the entire process and all threads terminate)
+## 12
+**Which of the following are examples of a user-level thread implementation used on operating systems that support kernel threads?**
+
+- Pthreads (this is user-level thread as in notes)
+- Goroutines $\correct$
+- Python threading $\correct$
+- C++ std::thread $\times$(kernal level)
+
+## 13
+A student is compiling a basic pthread example with gcc, however keep getting a linking error: undefined reference to `pthread_create'
+
+What flag might they be missing when compiling with GCC.
+
+-pthread
+
+## 14
+**What is the value_ptr parameter for?**
+
+```int pthread_join(pthread_t thread, void **value_ptr)```
+
+A pointer to the location that value_ptr from pthread_exit(void *value+ptr) should be placed
+
+## 15
+**Linux was heavily influenced by which microkernel operating system (clue: Linux originally implemented its file system, but linux used a monolithic design)**
+
+MINIX, factual stuff
+
+## 16
+
+**What is the main disadvantage of a microkernel design?**
+
+- High complexity - easy to introduce bugs
+- IPC overhead - more ipc requied as more OS components operate in user-mode $\correct$
+- Portability - More difficult to separate machine specific code
+
+# lecture6:
+Sychronization I
+
+## critical sections and mutual exclusion:
+
+- critical sections/region
+the region of code in which the processes aceess a shared resource
+
+- mutual exclusion
+this ensures that if a process is excuting its critical section, no other process can be executing it
+
+so A synchronisation mechanism is require at entry adn exit of the critical section
+
+### requirements
+no two processes can simultaneously be inside a critical section
+
+no other process outside the critical section may prvent othe processes from entering the critical section
+
+correspondingly, process requestign permission to enter must be allowed if no process is inside a critical section
+
+no process requiring access to critical section can be delayed forever
+
+no assumptions are made about the speed
+
+## disabling interrupts:
+this is what pintos does
+
+```C
+void Extract(int acc_no, int sum)
+{
+  CLI(); // CLI is the assembly disable interrupt
+  int B = Acc[acc_no];
+  Acc[acc_no] = B – sum;
+  STI(); // the assembly enable interrupt
+}
+```
+
+but it only works on single-processor systems
+
+some process may never release CPU
+
+
+## Strict Alternation
+```C
+// TO
+while (true) {
+   while (turn != 0) 
+     /* loop */ ;
+   critical_section()
+   turn = 1;
+   
+  noncritical_section0();
+}
+
+// T1
+while (true) {
+  while (turn != 1) 
+    /* loop */ ;
+  critical_section()
+  turn = 0;
+  
+noncritical_section1();
+}
+```
+
+if T0 works for a long time in the noncritical_sention1
+
+and also difficult to implement when there are many threads
+
+## Busy waiting
+Strict alteration solution requires continuously testing the value of a variable
+
+this a called busy-waiting
+- wastes CPU time
+- should onyl do this when the waiting time is expected to be short
+
+some conditions(the idle thread in pintos) can only be checked with busy waiting
+
+## Peterson's solution
+this is just addapted from strict alternation
+
+```C
+// outside the threads
+int turn = 0; 
+int interested[2] = {0, 0};
+// thread is 0 or 1
+void enter_critical(int thread) 
+{
+  int other = 1 – thread;
+  interested[thread] = 1;
+  turn = other;
+  while (turn == other && 
+        interested[other])
+    /* loop */ ;
+}
+void leave_critical(int thread) 
+{ 
+  interested[thread] = 0;
+}
+```
+
+```C
+// T0
+enter_critical(0);
+critical_section();
+leave_critical(0);
+//T1
+enter_critical(1);
+critical_section();
+leave_critical(1);
+```
+
+## Atomic Operations:
+```C
+void Extract(int acc_no, 
+int sum)
+{
+int B = Acc[acc_no];
+Acc[acc_no] = B – sum;
+// if you change it into
+// Acc[acc_no] -= sum
+// it breaks the atomicity as its just 
+// syntactic sugar for the two lines above
+}
+```
+
+Atomic operation: a sequence of one or more 
+statements that is/appears to be indivisible
+
+all executes or none executes like that of SQL
+## locks
+so locks are implemented this way
+
+```C
+void Extract(int acc_no, int sum)
+{
+lock(L);
+int B = Acc[acc_no];
+Acc[acc_no] = B – sum;
+unlock(L);
+}
+```
+
+```C
+void lock(int L) 
+{
+while (L != 0)
+/* wait */ ;
+L = 1;
+}
+```
+
+```C
+void unlock(int L)
+{
+L = 0; 
+}
+```
+### TSL Instruction:
+this is the atomic instruction provided by most CPUs
+
+- Test-and-Set-Lock
+- Atomically sets memory location LOCK to 1 and returns old value
+
+### Priority Inversion
+
+![slide18](../../../assets/Imperial/50004/lecture5-slide18.png)
+
+### locks granularity
+
+in short, things get messed up if we have a global lock
+
+so we have a single lock for every thread
+
+### Lock overhead and Lock contention
+
+- lock overhead: 
+measure of cost assciated with using lcoks
+
+- lock contention: 
+measure of number of processes waiting for the lock, more contetion less parallelism
+
+#### minimising lock contention
+
+choose finer granularity(there are trade off in resources as you need to implement more locks)
+
+release a lock sson as it is not needed or making critical sections small
+
+### read/write lock
+
+in write mode, the thread has exclusive access
+
+multiple threads can acquire the lock in read mode
+
+### race condition:
+multiple threads trying to access the shared data and the final result depends on the order of the processes
+
+
