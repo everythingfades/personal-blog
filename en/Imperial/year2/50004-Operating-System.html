@@ -1049,6 +1049,70 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    other
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            other
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../other/cyber_security.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    cyber-security
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -1721,8 +1785,307 @@ OS-kernel thinks it is mamaging processes only</li>
 <p>adding or removing the jobs affect remaining jobs proportionally</p>
 <p>Unpredictable response-time: unlucky</p>
 <h2 id="summary">Summary:</h2>
-<p>s
-Scheduling algorithms often need to balance conflicting goals, so different algorithms are suitable for different scheduling goals</p>
+<p>Scheduling algorithms often need to balance conflicting goals, so different algorithms are suitable for different scheduling goals</p>
+<h2 id="tutorial">Tutorial</h2>
+<h3 id="1">1</h3>
+<p>Five batch jobs, A through E, arrive at a data centre at essentially the same 
+time. Their estimated running time are as follows: A=12min, B=5min, 
+C=17min, D=9min and E=10min. Their (externally defined) priorities are: 
+A=8, B=5, C=2, D=6 and E=3, with a lower value corresponding to a higher 
+priority. For each of the following scheduling algorithms, determine the 
+turnaround time for each job, and the average turnaround time for all jobs. 
+Ignore process switching overhead and assume all jobs are completely CPU 
+bound</p>
+<h4 id="non-preemptive-priority-scheduling">non-preemptive priority scheduling</h4>
+<p>non-preemptive so run to finish</p>
+<p>the order is C -&gt; E -&gt; B -&gt; D -&gt; A following the priority order</p>
+<h4 id="fcfsfirst-come-first-serve">FCFS(first come first serve)</h4>
+<p>order: A -&gt; B -&gt; C -&gt; D -&gt; E</p>
+<h4 id="shortest-job-firstsjf">Shortest job first(SJF)</h4>
+<p>order: B -&gt; D -&gt; E -&gt; A -&gt; C</p>
+<h4 id="round-robin-with-a-time-quantum-of-1-minute">Round robin with a time quantum of 1 minute</h4>
+<p>(A(1) -&gt; B(1) -&gt; C(1) -&gt; D(1) -&gt; E(1)) * 5</p>
+<p>(A(1) -&gt; C(1) -&gt; D(1) -&gt; E(1)) * 4</p>
+<p>(A(1) -&gt; C(1) -&gt; E(1)) * 1</p>
+<p>(A(1) -&gt; C(1)) * 2</p>
+<p>C(5) * 5</p>
+<p>to do: add the turnaround times</p>
+<h1 id="quiz2">quiz2:</h1>
+<h2 id="1_1">1.</h2>
+<p><strong>Which of the following constitute the state of a process?</strong>
+- Process Identification (e.g pid) <span class="arithmatex">\(\correct\)</span>
+- The process' address space <span class="arithmatex">\(\correct\)</span>
+- Caches in kernel space <span class="arithmatex">\(\times\)</span>
+- OS provided resources(e.g. open files/devices, handlers for child processes) <span class="arithmatex">\(\correct\)</span>
+- Main memeory (DRAM) <span class="arithmatex">\(\times\)</span>
+- The process' virtual CPU (e.g register) <span class="arithmatex">\(\correct\)</span></p>
+<h2 id="2">2.</h2>
+<p><strong>Which term describes the following "Switching between processes at regular time intervals the illusion of parallelism"</strong>
+- Context Switch
+- Time Slicing <span class="arithmatex">\(\correct\)</span>
+- Deterministic Scheduling</p>
+<h2 id="3">3.</h2>
+<p><strong>The overhead associated with a context switch includes the direct cost of saving state, and restoring the state of the process being switched to. What is the main indirect cost?</strong>
+- Restoring registers 
+- Pertubation of caches:</p>
+<p>comment: This is a considerable cost - any context switch will inevitably results in cache misses.</p>
+<h2 id="4">4.</h2>
+<p>Question:</p>
+<p>How many processes need to be running to only waste 10% or less of CPU time, if each process spends 80%
+of time waiting for I/O?</p>
+<p>(clue: Consider the probability that at a given time that n processes are waiting. P1 waits for 80% of the time, in that 80% P2 can be run, and wastes 80% of the 80% of the time P1 is waiting, etc.)</p>
+<p>11, so continuing the hint, every spare 80% should be occupied by another thread, then another 80% of 80% is wasted, this forms a sequence with common ratio 0.8, 11 terms is sufficient to sum up the time used to 90%</p>
+<h2 id="5">5.</h2>
+<p>question:(too long to format in markdown)</p>
+<p>Compare reading a file using a single-threaded file server and a multithreaded server, running on a   single-CPU machine. </p>
+<p>It takes 15 msec to get a request for work, dispatch it, and do the rest of the necessary processing, assuming that the data needed are in the block cache. </p>
+<p>If a disk operation is needed, as is the case one-third of the time, an additional 75 msec is required, during which time the thread sleeps. </p>
+<p>For this problem, assume that thread switching time is negligible.  How many requests/sec can the server handle with 1 thread, 2 threads or 6 threads</p>
+<p>see https://edstem.org/us/courses/67154/discussion/5479922</p>
+<ul>
+<li>for one thread, we can at most do 3 requests in 15*3 + 75 = 120ms, so 25req/s</li>
+<li>for two threads, the second thread can do the same in the 5/8 time that thread 1 is sleeping, so <span class="arithmatex">\(25 + 25 \times\frac{5}{8} = 40.625\)</span>, we can do this because we only care about the average not actual</li>
+<li>similar for 6 threads <span class="arithmatex">\(25 + \frac{5}{8}\times 25 + (\frac{5}{8}) \times (25) +\dots + (\frac{5}{8})^5\times(25) \approx 62.69\)</span></li>
+</ul>
+<h2 id="6">6</h2>
+<p><strong>How many parameters does the "CreateProcessA" function have?</strong></p>
+<p>10, just see the notes</p>
+<h2 id="7">7</h2>
+<p>A developer wants to display a prompt ("do you wish to save?") when the user uses Ctrl-C on his program when running from the terminal. </p>
+<p>In order do this, the developer needs to create an register a signal handler. Which signal do they need to handle?</p>
+<ul>
+<li>SIGKEYBOARD</li>
+<li>SIGSEGV</li>
+<li>SIGINT <span class="arithmatex">\(\correct\)</span></li>
+<li>SIGPIPE</li>
+</ul>
+<h2 id="8">8</h2>
+<p><strong>How many X Y and Z characters are printed by this program?</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;uninstd.h&gt;</span>
+<a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
+<a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a>
+<a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">fork</span><span class="p">()</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-21-6" name="__codelineno-21-6" href="#__codelineno-21-6"></a><span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;X&quot;</span><span class="p">);</span><span class="w"> </span><span class="n">fflush</span><span class="p">(</span><span class="n">stdout</span><span class="p">);</span>
+<a id="__codelineno-21-7" name="__codelineno-21-7" href="#__codelineno-21-7"></a><span class="w">  </span><span class="p">}</span>
+<a id="__codelineno-21-8" name="__codelineno-21-8" href="#__codelineno-21-8"></a><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">fork</span><span class="p">()</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-21-9" name="__codelineno-21-9" href="#__codelineno-21-9"></a><span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Y&quot;</span><span class="p">);</span><span class="w"> </span><span class="n">fflush</span><span class="p">(</span><span class="n">stdout</span><span class="p">);</span>
+<a id="__codelineno-21-10" name="__codelineno-21-10" href="#__codelineno-21-10"></a><span class="w">  </span><span class="p">}</span>
+<a id="__codelineno-21-11" name="__codelineno-21-11" href="#__codelineno-21-11"></a><span class="w">  </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Z&quot;</span><span class="p">);</span>
+<a id="__codelineno-21-12" name="__codelineno-21-12" href="#__codelineno-21-12"></a><span class="p">}</span>
+</code></pre></div>
+<p>every fork creates a child thread</p>
+<p>so, first X, forked so 2Y, and 4Z</p>
+<h2 id="9">9</h2>
+<p><strong>Given a given number n &lt; N, how many instances of n are printed?</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;unistd.h&gt;</span>
+<a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
+<a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a>
+<a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a><span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">N</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-22-6" name="__codelineno-22-6" href="#__codelineno-22-6"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">fork</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-22-7" name="__codelineno-22-7" href="#__codelineno-22-7"></a><span class="w">      </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;%d&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">);</span><span class="w"> </span><span class="n">fflush</span><span class="p">(</span><span class="n">stdout</span><span class="p">);</span>
+<a id="__codelineno-22-8" name="__codelineno-22-8" href="#__codelineno-22-8"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-22-9" name="__codelineno-22-9" href="#__codelineno-22-9"></a><span class="w">  </span><span class="p">}</span>
+<a id="__codelineno-22-10" name="__codelineno-22-10" href="#__codelineno-22-10"></a><span class="p">}</span>
+</code></pre></div>
+<p>same, every fork(even in the child process) creates a exactly same process, so every fork doubles the number of n, <span class="arithmatex">\(2^N\)</span></p>
+<h2 id="10">10</h2>
+<p><strong>What is a thread?</strong></p>
+<ul>
+<li>A process</li>
+<li>A single stream of instructions being executed <span class="arithmatex">\(\correct\)</span></li>
+<li>A king of thin yarn used for sewing</li>
+</ul>
+<h2 id="11">11</h2>
+<p><strong>Why do Oses provide the thread abstraction?</strong>
+- Allow time sharing on a common resource(This is the process abstraction's job) <span class="arithmatex">\(\correct\)</span>
+- Provide a common API on top of CPU threads so programs do not need to know the specifics of CPU they are executing on <span class="arithmatex">\(\correct\)</span>
+- Provice a security boundary
+- To preven ta failure of one part of the program from crashing another(if any thread in a multithread program segfaults and the signal is unhandled, the entire process and all threads terminate)</p>
+<h2 id="12">12</h2>
+<p><strong>Which of the following are examples of a user-level thread implementation used on operating systems that support kernel threads?</strong></p>
+<ul>
+<li>Pthreads (this is user-level thread as in notes)</li>
+<li>Goroutines <span class="arithmatex">\(\correct\)</span></li>
+<li>Python threading <span class="arithmatex">\(\correct\)</span></li>
+<li>C++ std::thread <span class="arithmatex">\(\times\)</span>(kernal level)</li>
+</ul>
+<h2 id="13">13</h2>
+<p>A student is compiling a basic pthread example with gcc, however keep getting a linking error: undefined reference to `pthread_create'</p>
+<p>What flag might they be missing when compiling with GCC.</p>
+<p>-pthread</p>
+<h2 id="14">14</h2>
+<p><strong>What is the value_ptr parameter for?</strong></p>
+<p><code>int pthread_join(pthread_t thread, void **value_ptr)</code></p>
+<p>A pointer to the location that value_ptr from pthread_exit(void *value+ptr) should be placed</p>
+<h2 id="15">15</h2>
+<p><strong>Linux was heavily influenced by which microkernel operating system (clue: Linux originally implemented its file system, but linux used a monolithic design)</strong></p>
+<p>MINIX, factual stuff</p>
+<h2 id="16">16</h2>
+<p><strong>What is the main disadvantage of a microkernel design?</strong></p>
+<ul>
+<li>High complexity - easy to introduce bugs</li>
+<li>IPC overhead - more ipc requied as more OS components operate in user-mode <span class="arithmatex">\(\correct\)</span></li>
+<li>Portability - More difficult to separate machine specific code</li>
+</ul>
+<h1 id="lecture6">lecture6:</h1>
+<p>Sychronization I</p>
+<h2 id="critical-sections-and-mutual-exclusion">critical sections and mutual exclusion:</h2>
+<ul>
+<li>
+<p>critical sections/region
+the region of code in which the processes aceess a shared resource</p>
+</li>
+<li>
+<p>mutual exclusion
+this ensures that if a process is excuting its critical section, no other process can be executing it</p>
+</li>
+</ul>
+<p>so A synchronisation mechanism is require at entry adn exit of the critical section</p>
+<h3 id="requirements">requirements</h3>
+<p>no two processes can simultaneously be inside a critical section</p>
+<p>no other process outside the critical section may prvent othe processes from entering the critical section</p>
+<p>correspondingly, process requestign permission to enter must be allowed if no process is inside a critical section</p>
+<p>no process requiring access to critical section can be delayed forever</p>
+<p>no assumptions are made about the speed</p>
+<h2 id="disabling-interrupts">disabling interrupts:</h2>
+<p>this is what pintos does</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="kt">void</span><span class="w"> </span><span class="nf">Extract</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">acc_no</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">sum</span><span class="p">)</span>
+<a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a><span class="p">{</span>
+<a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a><span class="w">  </span><span class="n">CLI</span><span class="p">();</span><span class="w"> </span><span class="c1">// CLI is the assembly disable interrupt</span>
+<a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a><span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">B</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Acc</span><span class="p">[</span><span class="n">acc_no</span><span class="p">];</span>
+<a id="__codelineno-23-5" name="__codelineno-23-5" href="#__codelineno-23-5"></a><span class="w">  </span><span class="n">Acc</span><span class="p">[</span><span class="n">acc_no</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">B</span><span class="w"> </span><span class="err">–</span><span class="w"> </span><span class="n">sum</span><span class="p">;</span>
+<a id="__codelineno-23-6" name="__codelineno-23-6" href="#__codelineno-23-6"></a><span class="w">  </span><span class="n">STI</span><span class="p">();</span><span class="w"> </span><span class="c1">// the assembly enable interrupt</span>
+<a id="__codelineno-23-7" name="__codelineno-23-7" href="#__codelineno-23-7"></a><span class="p">}</span>
+</code></pre></div>
+<p>but it only works on single-processor systems</p>
+<p>some process may never release CPU</p>
+<h2 id="strict-alternation">Strict Alternation</h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="c1">// TO</span>
+<a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="nb">true</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a><span class="w">   </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">turn</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span>
+<a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a><span class="w">     </span><span class="cm">/* loop */</span><span class="w"> </span><span class="p">;</span>
+<a id="__codelineno-24-5" name="__codelineno-24-5" href="#__codelineno-24-5"></a><span class="w">   </span><span class="n">critical_section</span><span class="p">()</span>
+<a id="__codelineno-24-6" name="__codelineno-24-6" href="#__codelineno-24-6"></a><span class="w">   </span><span class="n">turn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<a id="__codelineno-24-7" name="__codelineno-24-7" href="#__codelineno-24-7"></a>
+<a id="__codelineno-24-8" name="__codelineno-24-8" href="#__codelineno-24-8"></a><span class="w">  </span><span class="n">noncritical_section0</span><span class="p">();</span>
+<a id="__codelineno-24-9" name="__codelineno-24-9" href="#__codelineno-24-9"></a><span class="p">}</span>
+<a id="__codelineno-24-10" name="__codelineno-24-10" href="#__codelineno-24-10"></a>
+<a id="__codelineno-24-11" name="__codelineno-24-11" href="#__codelineno-24-11"></a><span class="c1">// T1</span>
+<a id="__codelineno-24-12" name="__codelineno-24-12" href="#__codelineno-24-12"></a><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="nb">true</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-24-13" name="__codelineno-24-13" href="#__codelineno-24-13"></a><span class="w">  </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">turn</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span>
+<a id="__codelineno-24-14" name="__codelineno-24-14" href="#__codelineno-24-14"></a><span class="w">    </span><span class="cm">/* loop */</span><span class="w"> </span><span class="p">;</span>
+<a id="__codelineno-24-15" name="__codelineno-24-15" href="#__codelineno-24-15"></a><span class="w">  </span><span class="n">critical_section</span><span class="p">()</span>
+<a id="__codelineno-24-16" name="__codelineno-24-16" href="#__codelineno-24-16"></a><span class="w">  </span><span class="n">turn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<a id="__codelineno-24-17" name="__codelineno-24-17" href="#__codelineno-24-17"></a>
+<a id="__codelineno-24-18" name="__codelineno-24-18" href="#__codelineno-24-18"></a><span class="n">noncritical_section1</span><span class="p">();</span>
+<a id="__codelineno-24-19" name="__codelineno-24-19" href="#__codelineno-24-19"></a><span class="p">}</span>
+</code></pre></div>
+<p>if T0 works for a long time in the noncritical_sention1</p>
+<p>and also difficult to implement when there are many threads</p>
+<h2 id="busy-waiting">Busy waiting</h2>
+<p>Strict alteration solution requires continuously testing the value of a variable</p>
+<p>this a called busy-waiting
+- wastes CPU time
+- should onyl do this when the waiting time is expected to be short</p>
+<p>some conditions(the idle thread in pintos) can only be checked with busy waiting</p>
+<h2 id="petersons-solution">Peterson's solution</h2>
+<p>this is just addapted from strict alternation</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="c1">// outside the threads</span>
+<a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a><span class="kt">int</span><span class="w"> </span><span class="n">turn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span>
+<a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a><span class="kt">int</span><span class="w"> </span><span class="n">interested</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">};</span>
+<a id="__codelineno-25-4" name="__codelineno-25-4" href="#__codelineno-25-4"></a><span class="c1">// thread is 0 or 1</span>
+<a id="__codelineno-25-5" name="__codelineno-25-5" href="#__codelineno-25-5"></a><span class="kt">void</span><span class="w"> </span><span class="nf">enter_critical</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="kr">thread</span><span class="p">)</span><span class="w"> </span>
+<a id="__codelineno-25-6" name="__codelineno-25-6" href="#__codelineno-25-6"></a><span class="p">{</span>
+<a id="__codelineno-25-7" name="__codelineno-25-7" href="#__codelineno-25-7"></a><span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">other</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="err">–</span><span class="w"> </span><span class="kr">thread</span><span class="p">;</span>
+<a id="__codelineno-25-8" name="__codelineno-25-8" href="#__codelineno-25-8"></a><span class="w">  </span><span class="n">interested</span><span class="p">[</span><span class="kr">thread</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<a id="__codelineno-25-9" name="__codelineno-25-9" href="#__codelineno-25-9"></a><span class="w">  </span><span class="n">turn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">other</span><span class="p">;</span>
+<a id="__codelineno-25-10" name="__codelineno-25-10" href="#__codelineno-25-10"></a><span class="w">  </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">turn</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">other</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>
+<a id="__codelineno-25-11" name="__codelineno-25-11" href="#__codelineno-25-11"></a><span class="w">        </span><span class="n">interested</span><span class="p">[</span><span class="n">other</span><span class="p">])</span>
+<a id="__codelineno-25-12" name="__codelineno-25-12" href="#__codelineno-25-12"></a><span class="w">    </span><span class="cm">/* loop */</span><span class="w"> </span><span class="p">;</span>
+<a id="__codelineno-25-13" name="__codelineno-25-13" href="#__codelineno-25-13"></a><span class="p">}</span>
+<a id="__codelineno-25-14" name="__codelineno-25-14" href="#__codelineno-25-14"></a><span class="kt">void</span><span class="w"> </span><span class="nf">leave_critical</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="kr">thread</span><span class="p">)</span><span class="w"> </span>
+<a id="__codelineno-25-15" name="__codelineno-25-15" href="#__codelineno-25-15"></a><span class="p">{</span><span class="w"> </span>
+<a id="__codelineno-25-16" name="__codelineno-25-16" href="#__codelineno-25-16"></a><span class="w">  </span><span class="n">interested</span><span class="p">[</span><span class="kr">thread</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<a id="__codelineno-25-17" name="__codelineno-25-17" href="#__codelineno-25-17"></a><span class="p">}</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="c1">// T0</span>
+<a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a><span class="n">enter_critical</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+<a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a><span class="n">critical_section</span><span class="p">();</span>
+<a id="__codelineno-26-4" name="__codelineno-26-4" href="#__codelineno-26-4"></a><span class="n">leave_critical</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+<a id="__codelineno-26-5" name="__codelineno-26-5" href="#__codelineno-26-5"></a><span class="c1">//T1</span>
+<a id="__codelineno-26-6" name="__codelineno-26-6" href="#__codelineno-26-6"></a><span class="n">enter_critical</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<a id="__codelineno-26-7" name="__codelineno-26-7" href="#__codelineno-26-7"></a><span class="n">critical_section</span><span class="p">();</span>
+<a id="__codelineno-26-8" name="__codelineno-26-8" href="#__codelineno-26-8"></a><span class="n">leave_critical</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</code></pre></div>
+<h2 id="atomic-operations">Atomic Operations:</h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a><span class="kt">void</span><span class="w"> </span><span class="nf">Extract</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">acc_no</span><span class="p">,</span><span class="w"> </span>
+<a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a><span class="kt">int</span><span class="w"> </span><span class="n">sum</span><span class="p">)</span>
+<a id="__codelineno-27-3" name="__codelineno-27-3" href="#__codelineno-27-3"></a><span class="p">{</span>
+<a id="__codelineno-27-4" name="__codelineno-27-4" href="#__codelineno-27-4"></a><span class="kt">int</span><span class="w"> </span><span class="n">B</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Acc</span><span class="p">[</span><span class="n">acc_no</span><span class="p">];</span>
+<a id="__codelineno-27-5" name="__codelineno-27-5" href="#__codelineno-27-5"></a><span class="n">Acc</span><span class="p">[</span><span class="n">acc_no</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">B</span><span class="w"> </span><span class="err">–</span><span class="w"> </span><span class="n">sum</span><span class="p">;</span>
+<a id="__codelineno-27-6" name="__codelineno-27-6" href="#__codelineno-27-6"></a><span class="c1">// if you change it into</span>
+<a id="__codelineno-27-7" name="__codelineno-27-7" href="#__codelineno-27-7"></a><span class="c1">// Acc[acc_no] -= sum</span>
+<a id="__codelineno-27-8" name="__codelineno-27-8" href="#__codelineno-27-8"></a><span class="c1">// it breaks the atomicity as its just </span>
+<a id="__codelineno-27-9" name="__codelineno-27-9" href="#__codelineno-27-9"></a><span class="c1">// syntactic sugar for the two lines above</span>
+<a id="__codelineno-27-10" name="__codelineno-27-10" href="#__codelineno-27-10"></a><span class="p">}</span>
+</code></pre></div>
+<p>Atomic operation: a sequence of one or more 
+statements that is/appears to be indivisible</p>
+<p>all executes or none executes like that of SQL</p>
+<h2 id="locks">locks</h2>
+<p>so locks are implemented this way</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a><span class="kt">void</span><span class="w"> </span><span class="nf">Extract</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">acc_no</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">sum</span><span class="p">)</span>
+<a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a><span class="p">{</span>
+<a id="__codelineno-28-3" name="__codelineno-28-3" href="#__codelineno-28-3"></a><span class="n">lock</span><span class="p">(</span><span class="n">L</span><span class="p">);</span>
+<a id="__codelineno-28-4" name="__codelineno-28-4" href="#__codelineno-28-4"></a><span class="kt">int</span><span class="w"> </span><span class="n">B</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Acc</span><span class="p">[</span><span class="n">acc_no</span><span class="p">];</span>
+<a id="__codelineno-28-5" name="__codelineno-28-5" href="#__codelineno-28-5"></a><span class="n">Acc</span><span class="p">[</span><span class="n">acc_no</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">B</span><span class="w"> </span><span class="err">–</span><span class="w"> </span><span class="n">sum</span><span class="p">;</span>
+<a id="__codelineno-28-6" name="__codelineno-28-6" href="#__codelineno-28-6"></a><span class="n">unlock</span><span class="p">(</span><span class="n">L</span><span class="p">);</span>
+<a id="__codelineno-28-7" name="__codelineno-28-7" href="#__codelineno-28-7"></a><span class="p">}</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a><span class="kt">void</span><span class="w"> </span><span class="nf">lock</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">L</span><span class="p">)</span><span class="w"> </span>
+<a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a><span class="p">{</span>
+<a id="__codelineno-29-3" name="__codelineno-29-3" href="#__codelineno-29-3"></a><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">L</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
+<a id="__codelineno-29-4" name="__codelineno-29-4" href="#__codelineno-29-4"></a><span class="cm">/* wait */</span><span class="w"> </span><span class="p">;</span>
+<a id="__codelineno-29-5" name="__codelineno-29-5" href="#__codelineno-29-5"></a><span class="n">L</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<a id="__codelineno-29-6" name="__codelineno-29-6" href="#__codelineno-29-6"></a><span class="p">}</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a><span class="kt">void</span><span class="w"> </span><span class="nf">unlock</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">L</span><span class="p">)</span>
+<a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a><span class="p">{</span>
+<a id="__codelineno-30-3" name="__codelineno-30-3" href="#__codelineno-30-3"></a><span class="n">L</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span>
+<a id="__codelineno-30-4" name="__codelineno-30-4" href="#__codelineno-30-4"></a><span class="p">}</span>
+</code></pre></div>
+<h3 id="tsl-instruction">TSL Instruction:</h3>
+<p>this is the atomic instruction provided by most CPUs</p>
+<ul>
+<li>Test-and-Set-Lock</li>
+<li>Atomically sets memory location LOCK to 1 and returns old value</li>
+</ul>
+<h3 id="priority-inversion">Priority Inversion</h3>
+<p><img alt="slide18" src="../../../assets/Imperial/50004/lecture5-slide18.png" /></p>
+<h3 id="locks-granularity">locks granularity</h3>
+<p>in short, things get messed up if we have a global lock</p>
+<p>so we have a single lock for every thread</p>
+<h3 id="lock-overhead-and-lock-contention">Lock overhead and Lock contention</h3>
+<ul>
+<li>
+<p>lock overhead: 
+measure of cost assciated with using lcoks</p>
+</li>
+<li>
+<p>lock contention: 
+measure of number of processes waiting for the lock, more contetion less parallelism</p>
+</li>
+</ul>
+<h4 id="minimising-lock-contention">minimising lock contention</h4>
+<p>choose finer granularity(there are trade off in resources as you need to implement more locks)</p>
+<p>release a lock sson as it is not needed or making critical sections small</p>
+<h3 id="readwrite-lock">read/write lock</h3>
+<p>in write mode, the thread has exclusive access</p>
+<p>multiple threads can acquire the lock in read mode</p>
+<h3 id="race-condition">race condition:</h3>
+<p>multiple threads trying to access the shared data and the final result depends on the order of the processes</p>
 
 
 
