@@ -941,7 +941,7 @@ What flag might they be missing when compiling with GCC.
 
 ```int pthread_join(pthread_t thread, void **value_ptr)```
 
-A pointer to the location that value_ptr from pthread_exit(void *value+ptr) should be placed
+A pointer to the location that value_ptr from pthread_exit(void *value_ptr) should be placed
 
 ## 15
 **Linux was heavily influenced by which microkernel operating system (clue: Linux originally implemented its file system, but linux used a monolithic design)**
@@ -1152,5 +1152,302 @@ multiple threads can acquire the lock in read mode
 
 ### race condition:
 multiple threads trying to access the shared data and the final result depends on the order of the processes
+(TODO)
+
+# lecture 7
+
+## semaphore example:
+for producer:
+
+- producer deposits item s in the buffer if there is space
+- Items can only be deposit in mutual exclusion
+
+for customer:
+
+- Items cna onyl be fethced if the buffer is not empty
+- Items can only be fetched if mutual exclusion is ensured
+
+for buffer:
+- buffer cna hold 0 to N Items
+
+so basically the semphore sets restriction on the number of threads that could access the current state
+
+![slide10](../../../assets/Imperial/50004/lecture6-slide10.png)
+
+## Monitors:
+
+- shared data
+- entry procedures
+- Internal procedures
+- (Implicit)monitor lock
+- One or more conditional variables
+- Processes can onyl call entry procedures and only one process can b e in the monitor at one time
+
+## Conditional variables
+
+this is associated with high-level conditions
+- for example this can be used to indicate whether some space has become available in the buffer
+
+Operations
+
+- wait(c): releases monitor lock and waits for c to be signaled
+- signal(e): wake up one process waiting for C
+- broadcast(c): wake up all processes waiting for C
+
+Signals do not accumulate
+
+- condiiton variables signaled with no one waiting fo ri, the signal is lost
+
+back to the customer example
+
+```C
+// pseudo-code
+monitor ProducerConsumer
+    condition not_full, not_empty;
+    integer count = 0;
+   
+    entry procedure insert(item)
+       while (count == N) wait(not_full);
+       // if this is in a if statement
+       // 
+       insert_item(item); count++;
+       signal(not_empty);
+    entry procedure remove(item)
+       while (count == 0) wait(not_empty);
+       remove_item(item); count--;
+       signal(not_full);
+ end monitor
+
+```
+
+if the whiles are replaced with if:
+
+```c
+monitor ProducerConsumer
+    condition not_full, not_empty;
+    integer count = 0;
+   
+    entry procedure insert(item)
+       if (count == N) wait(not_full);
+       // if this is in a if statement
+       // 
+       insert_item(item); count++;
+       signal(not_empty);
+    entry procedure remove(item)
+        if (count == 0) wait(not_empty);
+       remove_item(item); count--;
+       signal(not_full);
+ end monitor
+```
+
+consider the following executiong order
+
+- producer 1 tries to insert so it is waiting (count = N)
+- customer 1 consumes an item (count = N-1)
+- producer 2 insert, since count is not N, it does the insert (count = N)
+- producer 1 insert, the if condition has passed before producer 2 insert so it would insert (count = N+1)
+
+so the buffer exceeds the maximum item it can hold
 
 
+monitors are a language construct and is not supported by c
+
+in pintos we have an explicit monitor lock, in java there are sychronized methods and no condition variables
+
+## Summary
+
+Lock
+
+- Reader/writer locks
+- often exposed with Minitor language construct
+- Within a process
+- 1 process/thread in critical section
+
+mutex
+
+- Like lock, but can work across processess too
+
+semaphore
+
+- like mutex, but can let in N processes/threads
+
+# lecture 8 deadlocks
+## the dining philosopher example
+![slide3](../../../assets/Imperial/50004/lecture7-slide3.png)
+
+so there are 5 philosophers and 5 single chopsticks
+
+each philosopher need two chopsticks to eat
+
+if everyone tries to get the same chopstick, deadlocks
+
+## deadlock:
+Set of processes is dead lock if each process is waiting for an event that only another processs can causes
+
+4 conditions, most common deadlock is Resource deadlock
+
+- Mutual exclusion: each resource is either available or assigned to exactly one process
+- Hold and wait: process cna request resources whil it holds other resources earlier
+- No preemption: resources given to a process cannot be forcibly revoked
+- Circular wait: a set of processes in a circular chain, each waiting for a resource held by the next process
+
+## Resource Allocation Graphs
+
+a Directed Graph
+
+- edge form resource to process means that the process is currently owning the process
+- edge from process to resource means that ht eprocess is currently blocked waiting for the resource
+
+![slide7](../../../assets/Imperial/50004/lecture7-slide7.png)
+
+## delaing with dead lock
+### strategies:
+#### ignore it: this works when contention for resource is low or deadlock infrequent
+#### detection & recovery
+After system is deadlocked, detect the dealock and recover from It
+
+![slide9](../../../assets/Imperial/50004/lecture7-slide9.png)
+
+example
+
+![slide10](../../../assets/Imperial/50004/lecture7-slide10.png)
+
+so we do BFS, we find a cycle TEVGUD
+
+but this is time-consuming
+
+recovery can do the following
+
+- Preemption: temporarily take resource from owner and give to another
+- Rollback: Processes are periodically checkpointed, so on deadlock just Rollback
+- Killing the process: directly kill pid
+
+#### dynamic avoidance:
+system grants resource when it knows that it is safe to do so
+
+#### Prevention
+we focus on the 4 conditions(above)
+
+we can do
+
+- remove Mutual Exclusion condition: e.g. share the resource
+- remove Hold and Wait condition: requires all the processes to request resources before start, but you need to know what you need in advance
+- remove No-preemption condition: e.g. forcing process to give up printer half wat not good
+- remove circular wait condition: 
+- - Force single resource per process, then there is Optimality issues
+- - resources, processes must ask for resources in order
+
+or
+
+acquire locks Atomically
+- protect all lock acquisition by global lock(lock acquisition)
+- which Typically means locks acquired at start of functions
+
+Giving up locks
+- give up the lock voluntarily
+
+ordering the resources and thus order lock acquisition
+![slide19](../../../assets/Imperial/50004/lecture7-slide19.png)
+
+### Communication deadlock
+Process A sends message to B and blocks waiting on B's reply
+
+but B didn't get A's message then A is blocked, and B is blocked waiting on the message
+
+so Ordering resource and careful scheduling does not work however
+
+we should use commiunication protocol based on timeouts
+
+## Livelocks
+the threads/processes are not blocked, but they or the system as a whole not making progress
+
+## Starvation:
+need to alter the scheduling policy
+
+## summary:
+Resource deadlock: 
+
+- 4 condition
+- resource allocationi Graphs
+Strategies for avoiding deadlock
+
+communication deadlock: scheduling policy
+
+livelock: overall system make no progress
+
+# lecture9 memory management
+memory is the key component of computer in the con Neumann architecture model*all data and code is stored in memory*
+
+memory management needs to provide allocation and protection
+
+requirements:
+
+we have no knowledge of how memory address generated and no knowledge what memeory addresses are used for
+
+## Overview
+Basic concepts:
+- memory allocation
+- swapping: exchange between the disk and the network
+
+VitualMemeory
+- paging
+
+Demand paging
+- page replacement models
+- working set model
+
+linux implementation
+
+## logical/Phisical address space
+memory management binds logical address space to physical address space
+
+- Logical address is generated by the CPU and seen by processes
+- Physical address is seen by the memory unit and referes to physical system memory
+
+these are same in compile and load-time address-binding schemes
+
+but different in executing time address-binding schemes
+
+## memory management unit(MMU)
+
+mapping logical to physical addresses
+
+user process deals with logical address only
+
+MMU has to be fast so it is **HARDWARE**
+
+## Contiguous Memory Allocation
+
+Main memory usualy split into two partitions:
+
+- Resident operating system(kernel), this is ususally held in low memory
+- user processes(user), this is held in high memory
+
+contiguous allocation with relocation registers
+
+- base register contains value of the smallest physical address
+- limit register contains range of logical addresses, each logical address must be less than limit register
+- MMU maps logical address dynamically
+
+so we do this
+![slide10](../../../assets/Imperial/50004/lecture8-slide10.png)
+
+## multi-partition allocation
+hole:
+- block of available memory
+- holes of various size scattered throughout memory
+
+when a process arrives, allocate a hole bug enough
+
+so it maintains information about allocated partitions and free partitions
+
+### dynamic storage allocation
+- first fit: allocate the first hole that is big enough
+- best fit: allocate smallest hole that is big enough, but you must search the entire list, unless ordered by size
+- worst fit: allocate largest hole, must search list and produces largest leftover hole
+
+### fragmentation:
+
+external fragmentation: you have 100MB of free memory but in 200 half a MB holes
+
+internal fragmentation: allocated memory larger than requested memory

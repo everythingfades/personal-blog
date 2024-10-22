@@ -1100,6 +1100,70 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    other
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            other
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../other/cyber_security.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    cyber-security
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -1355,7 +1419,7 @@ HALT &amp; \text{stop executing instructions}
 <p>because register machine are deterministic, so the next configuration is uniquely defined by the program, so th e relation between the initial and final register contents is a partial function</p>
 <ul>
 <li><span class="arithmatex">\(f(x) = y\)</span> means <span class="arithmatex">\((x,y) \in f\)</span></li>
-<li><span class="arithmatex">\(f(x)\downarrow\)</span> means <span class="arithmatex">\(\exist y\in Y(f(x) = y)\)</span></li>
+<li><span class="arithmatex">\(f(x)\downarrow\)</span> means <span class="arithmatex">\(\exists y\in Y(f(x) = y)\)</span></li>
 <li><span class="arithmatex">\(f(x)\uparrow\)</span> means <span class="arithmatex">\(\neg\exists y\in Y(f(x) = y)\)</span></li>
 <li><span class="arithmatex">\(x\rightharpoonup y\)</span> = set of all partial functions from X to Y</li>
 <li><span class="arithmatex">\(x\to Y\)</span> = set of all (total) functions from X to Y</li>
@@ -1434,6 +1498,83 @@ L_n:body_n\\
 <p><span class="arithmatex">\(18 = 0b10010 = 《1,4》 = 《1,&lt;0,2&gt;》 = {^{\lceil}}R_0^-\to L_0,L_2{^{\rceil}}\)</span></p>
 <p><span class="arithmatex">\(0 = ^{\lceil}HALT^{\rceil}\)</span></p>
 <p>so <span class="arithmatex">\(prog(786432) = \begin{array}{|c|}\hline L-0:R_0^-\to L_0,L_2\\L_1:HALT\\ \hline\end{array}\)</span></p>
+<h1 id="tutorial-1">Tutorial 1:</h1>
+<h2 id="1">1.</h2>
+<p><strong>Consider the register machine given by the following code</strong></p>
+<p><span class="arithmatex">\(\begin{aligned}
+L_0 &amp;: R_1^- \to L_1, L_7\\
+L_1 &amp;: R_0^+ \to L_2\\
+L_2 &amp;: R_2^- \to L_3, L_5\\
+L_3 &amp;: R_3^+ \to L_4\\
+L_4 &amp;: R_0^+ \to R_0^+\to L_1\\
+L_5 &amp;: R_2^+ \to L_6\\
+L_6 &amp;: R_3^- \to L_5, L_0\\
+L_7 &amp;: HALT\\
+\end{aligned}\)</span></p>
+<h3 id="a">(a)</h3>
+<p><strong>Given the graphical representation of the register machine</strong></p>
+<p><img alt="tutorial1-1-a" src="../../../assets/Imperial/50003/tutorial1-1-a.png" /></p>
+<h3 id="b">(b)</h3>
+<p><strong>Give the computation(that is, the sequence of configurations) when the register machine is run from the initial configuration (0,0,2,0,0)</strong>
+$\begin{array}{c}
+L &amp; R_0 &amp; R_1 &amp; R_2 &amp; R_3\
+0 &amp;0&amp; 2&amp; 0&amp; 0\
+1 &amp;0&amp; 1&amp; 0&amp; 0\
+2 &amp;1&amp; 1&amp; 0&amp; 0\
+5 &amp;1&amp; 1&amp; 0&amp; 0\
+6 &amp;1&amp; 1&amp; 1&amp; 0\
+0 &amp;1&amp; 1&amp; 1&amp; 0\
+1 &amp;1&amp; 0&amp; 1&amp; 0\
+2 &amp;2&amp; 0&amp; 1&amp; 0\
+3 &amp;2&amp; 0&amp; 0&amp; 0\
+4 &amp;2&amp; 0&amp; 0&amp; 1\
+1 &amp;3&amp; 0&amp; 0&amp; 1\
+2 &amp;4&amp; 0&amp; 0&amp; 1\
+5 &amp;4&amp; 0&amp; 0&amp; 1\
+6 &amp;4&amp; 0&amp; 1&amp; 1\
+5 &amp;4&amp; 0&amp; 1&amp; 0\
+6 &amp;4&amp; 0&amp; 2&amp; 0\
+0 &amp;4&amp; 0&amp; 2&amp; 0\
+7 &amp;4&amp; 0&amp; 2&amp; 0\
+\end{array}
+$</p>
+<h2 id="2">2.</h2>
+<h3 id="a_1">(a)</h3>
+<p>initial configuration</p>
+<p>(0,x1,x2,0,0)</p>
+<p>$
+\begin{aligned}
+L_0 &amp;: R_0^-\to L_1, L_2\
+L_1 &amp;: R_2^+\to L_0\
+L_2 &amp;: R_1^-\to L_3, L_4\
+L_3 &amp;: R_2^-\to L_2, L_4\
+L_4 &amp;: HALT
+\end{aligned}$</p>
+<h3 id="b_1">(b)</h3>
+<ol>
+<li>I dont think it is computable</li>
+</ol>
+<h2 id="3">3.</h2>
+<h3 id="a_2">(a)</h3>
+<p><span class="arithmatex">\(\begin{aligned}
+L_0&amp;: R_1^-\to L_1, L_3\\
+L_1&amp;: R_1^-\to L_0, L_2\\
+L_2&amp;: R_0^+\to L_3\\
+L_3&amp;: HALT
+\end{aligned}\)</span></p>
+<h3 id="b_2">(b)</h3>
+<p>get x/2</p>
+<h2 id="4">4</h2>
+<h3 id="a_3">(a)</h3>
+<p><img alt="tutorial1-4-a" src="../../../assets/Imperial/50003/tutorial1-4-a.png" /></p>
+<h3 id="b_3">(b)</h3>
+<p><img alt="tutorial1-4-b" src="../../../assets/Imperial/50003/tutorial1-4-b.png" /></p>
+<h3 id="c">(c)</h3>
+<p><img alt="tutorial1-4-c" src="../../../assets/Imperial/50003/tutorial1-4-c.png" /></p>
+<h3 id="d">(d)</h3>
+<p><img alt="tutorial1-4-d" src="../../../assets/Imperial/50003/tutorial1-4-d.png" /></p>
+<h3 id="e">(e)</h3>
+<p>it finds the largest square number below <span class="arithmatex">\(R_1\)</span></p>
 <h1 id="universal-register-machines">Universal Register Machines</h1>
 <h2 id="gadgets">Gadgets:</h2>
 <p>a partial register-machine graph, has only one wire, and one or more exits</p>
@@ -1442,6 +1583,96 @@ L_n:body_n\\
 <p>for copying, we do first zero and add other to this</p>
 <p>so copying <span class="arithmatex">\(R_1\)</span> to both <span class="arithmatex">\(R_2\)</span> and <span class="arithmatex">\(R_3\)</span> would be</p>
 <p><img alt="slide5" src="../../../assets/Imperial/50003/lecture2-slide5.png" /></p>
+<p>and multiplication like this:(basicallt adding multiple times)</p>
+<p><img alt="slide8" src="../../../assets/Imperial/50003/lecture2-slide8.png" /></p>
+<p>we do push X to L like this</p>
+<p><img alt="slide9" src="../../../assets/Imperial/50003/lecture2-slide9.png" /></p>
+<p>so imagine L is l, it is a list with unary zeros and 1 as delimeters</p>
+<p>so to add the x in the front, you need to first add a 1 and the unary x</p>
+<p>the triangle is a doubler, and we continue doubling until x is zero</p>
+<p>consider this</p>
+<p><span class="arithmatex">\(101 -&gt; 101001\)</span> l = [1], x = 2, z = 0</p>
+<p>so <span class="arithmatex">\((2*l + 1)2^x\)</span></p>
+<p>popping does the reverse</p>
+<p><img alt="slide12" src="../../../assets/Imperial/50003/lecture2-slide12.png" /></p>
+<p>summary:</p>
+<p><img alt="slide14" src="../../../assets/Imperial/50003/lecture2-slide14.png" /></p>
+<h2 id="universal-register-machine">Universal Register Machine</h2>
+<p>initial condition:</p>
+<p><span class="arithmatex">\(R_0 = 0, R_1 = e(\text{code of a program}), R_2 = a(\text{code of a list of arguments})\)</span> and other zero registers</p>
+<ul>
+<li>decode e as a RM program P</li>
+<li>decode a as a list of register values <span class="arithmatex">\(a_1, \dots, a_n\)</span></li>
+<li>carry out the computation of the RM program P starting with <span class="arithmatex">\(R_0 = 0, R_1 = a_1,\dots,R_n = a_n\)</span> and any other registers occuring in P set to 0</li>
+</ul>
+<p>registers:</p>
+<ul>
+<li><span class="arithmatex">\(R_0\)</span> result of the simulated RM computation(if any)</li>
+<li><span class="arithmatex">\(R_1\mod P\)</span> Program code of the RM to be simulated</li>
+<li><span class="arithmatex">\(R_2\mod A\)</span> list of RM Arguments(or register contents) of the simulated machine</li>
+<li><span class="arithmatex">\(R_3\mod PC\)</span> Program Counter-label number of the current instruction</li>
+<li><span class="arithmatex">\(R_4\mod N\)</span> label numbers of the Next instruction(s), also used to hold code of current instruction</li>
+<li><span class="arithmatex">\(R_5\mod C\)</span> code of Current instruction body</li>
+<li><span class="arithmatex">\(R_6\mod R\)</span> value of the Register to be used by current instruction</li>
+<li><span class="arithmatex">\(R_7\mod S\)</span> and <span class="arithmatex">\(R_8\mod T\)</span> are auxiliary registers</li>
+<li><span class="arithmatex">\(R_9\)</span> other scratch registers</li>
+</ul>
+<p>structure
+1. copy PCth item of list inP to N (halting if PC &gt; length of list) goto 2
+2. if N = 0 then halt, else, decode N as 《y,z; C::=y, N::=z, goto 3 (here either C=2i and current <span class="arithmatex">\(R_i^+\to L_z\)</span> or C = 2i+1 and <span class="arithmatex">\(R_i^-\to L_j, L_k; z = &lt;j,k&gt;\)</span>)
+3. copy ith item of list in A to R, goto 4
+4. execute current insturction on R; update PC to the next lebel restore register values to A; goto 1</p>
+<p><img alt="slide18" src="../../../assets/Imperial/50003/lecture2-slide18.png" /></p>
+<p>starting from start:</p>
+<ul>
+<li>push the <span class="arithmatex">\(R_0\)</span> to the A list so A is the list of Registers, copy Program code to T</li>
+<li>pop the Program code in T, continue decrementing PC until reached the desired instruction, else, it is empty, pop A back and halt</li>
+<li>pop Number of labels to C, if empty pop A back and halt</li>
+<li>pop A into R, this should <span class="arithmatex">\(R_0\)</span>, C now is instruction number, so continue popping until C is zero, we reached the register we want to reach, so R is the value we are interested in, A is the registers afterwards, S is the registers before R</li>
+<li>if I could do even number registers, theh the instruction is <span class="arithmatex">\(R_i^+\to L_z\)</span>, else <span class="arithmatex">\(R_i^-\to L_j, L_k; z = &lt;j,k&gt;\)</span>, so if even, we increase R, else we increse N (《x,y》=<x,y> + 1)</li>
+<li>if <span class="arithmatex">\(R^-\)</span> success, then I store the R into A(registers to be used), else we update the Program Counter</li>
+<li>we clear the S by popping it into R until empty, then we start again</li>
+</ul>
+<h1 id="halting-question">Halting question</h1>
+<h2 id="non-existence-of-entities">Non Existence of Entities:</h2>
+<p>some object we can describe but not exist</p>
+<p>for example: <span class="arithmatex">\(9^{9^9}\)</span> or "I am telling a lie" is true or false </p>
+<h2 id="halting-program">Halting program</h2>
+<p>A register machine H decides the Halting Problem for all <span class="arithmatex">\(e, a_1,\dots, a_n\in\mathbb{N}\)</span> starting H with</p>
+<p><span class="arithmatex">\(R_0= 0, R_1=e, R_2 = {^{\lceil}}[a_1,\dots, a_n]{^{\rceil}}\)</span></p>
+<p>and all the other zeroed, the computation of H always halts with <span class="arithmatex">\(R_0\)</span> containing 0 or 1, and when it halts, <span class="arithmatex">\(R_0 = 1\)</span> if and only if </p>
+<p>the register machine program with index e eventually halts when started with <span class="arithmatex">\(R_0 = -, R_1 = a_1,\dots,R_n = a_n\)</span> and all other register zeroed</p>
+<p><strong>Theorem</strong> No such register machine H can exist</p>
+<p><img alt="slide2+3" src="../../../assets/Imperial/50003/lecture3-slide2%2B3.png" /></p>
+<p>so the program H' means we transfer <span class="arithmatex">\(R_1\)</span> to <span class="arithmatex">\(R_2\)</span></p>
+<p>and the program C means that the program only halts if <span class="arithmatex">\(R_0\)</span> is 0, or it would be a dead cycle, so</p>
+<p>if C with <span class="arithmatex">\(R_1 = c\)</span> halts if and only if H' with <span class="arithmatex">\(R_1 = c\)</span> halts with <span class="arithmatex">\(R_0 = 0\)</span></p>
+<p>::= means that <code>&lt;symbol&gt; ::= __expression__</code> see https://stackoverflow.com/questions/9196066/what-does-a-double-colon-followed-by-an-equals-sign-mean-in-programming-do</p>
+<p>so the next step is decoding, the above is true if and only if </p>
+<p>H(not H') started with <span class="arithmatex">\(R_1 = c\)</span> and <span class="arithmatex">\(R_2 = {^{\lceil}}[c]{^{\rceil}}\)</span> halts with <span class="arithmatex">\(R_0 = 0\)</span></p>
+<p>by the definition of the question, this is true if and only if <span class="arithmatex">\(prog(c)\)</span> started with <span class="arithmatex">\(R_1 = c\)</span> does not halt</p>
+<p>so <span class="arithmatex">\(C\)</span> iwth <span class="arithmatex">\(R_1 = c\)</span> does not halt</p>
+<p>contradiction</p>
+<h2 id="enumerating-computable-functions">Enumerating computable functions</h2>
+<p>For each <span class="arithmatex">\(e\in\mathbb{N}\)</span> let <span class="arithmatex">\({\phi}_e\\in\mathbb{N}\rightharpoonup\mathbb{N}\)</span> be the unary partial function computed by the RM with program prog(e), so forall <span class="arithmatex">\(x,y\in\mathbb{N}\)</span></p>
+<p><span class="arithmatex">\({\phi}_e(x) = y\)</span> holds iff the computation of prog(e) started with <span class="arithmatex">\(R_0 = 0, R_1 = x\)</span> and all other register zeros eventually hale with <span class="arithmatex">\(R_0 = y\)</span></p>
+<p>then <span class="arithmatex">\(e\mapsto {\phi}_e\)</span> defines a <em>onto</em> function from <span class="arithmatex">\(\mathbb{N}\)</span> to all the computable partial function <span class="arithmatex">\(\mathbb{N}\to\mathbb{N}\)</span></p>
+<h3 id="uncomputable-function">uncomputable function</h3>
+<p>Let <span class="arithmatex">\(f\in\mathbb{N}\rightharpoonup\mathbb{N}\)</span> be the partial function <span class="arithmatex">\(\{(x,0)|\phi_x(x)\uparrow\}\)</span></p>
+<p>then <span class="arithmatex">\(f(x) = \begin{cases}\begin{array}{c}0 &amp; (\phi_x(x)\uparrow)\\undefined &amp; (\phi_x(x)\downarrow)\end{array}\end{cases}\)</span></p>
+<p>f is not computable, because if it is, then we have some <span class="arithmatex">\(f = \phi_e\)</span> for some <span class="arithmatex">\(e\in\mathbb{N}\)</span></p>
+<ul>
+<li>if <span class="arithmatex">\(\phi_x(x)\uparrow\)</span> then <span class="arithmatex">\(f(e) = 0\)</span> (by definition) so <span class="arithmatex">\(\phi_e(e) = 0\)</span>(by definition of e) then <span class="arithmatex">\(\phi_e(e)\downarrow\)</span></li>
+<li>if <span class="arithmatex">\(\phi_x(x)\downarrow\)</span> then <span class="arithmatex">\(f(w)\uparrow\)</span> (by definition of e), so <span class="arithmatex">\(\phi_e(e)\uparrow\)</span> by definition of f</li>
+</ul>
+<p>contradiction anyway, so f not computable</p>
+<h3 id="undecidable-sets-of-numers">undecidable sets of numers</h3>
+<p>Given a subset <span class="arithmatex">\(S\subseteq\mathbb{N}\)</span> its charateristic function <span class="arithmatex">\(\mathbf{X}_{S} \in\mathbb{N}\to\mathbb{N}\)</span></p>
+<p>if <span class="arithmatex">\(\mathbf{X}_S(x)\triangleq\begin{cases}\begin{array}{c}1 &amp; (x\in S)\\0 &amp; (x\notin S)\end{array}\end{cases}\)</span></p>
+<p>Definition:</p>
+<p><span class="arithmatex">\(S\subseteq\mathbb{N}\)</span> is decidable if its charateristic function is a register machine computable function. Otherwise it is called undecidable</p>
+<p>So S is decidable iff there is a RM M with: forall <span class="arithmatex">\(x\in\mathbb{N}\)</span>, M started with <span class="arithmatex">\(R_0 = 0, R_1 = x\)</span> and all other registers zeroed eventually halts with <span class="arithmatex">\(R_0\)</span> containing 1 or 0 and <span class="arithmatex">\(R_0 = 1\)</span> halting iff <span class="arithmatex">\(x\in S\)</span></p>
+<p>so if you try to prove <span class="arithmatex">\(S\subseteq \mathbb{N}\)</span> is undecidable, try to show that decidability of S would imply decidableity of the halting problem</p>
 
 
 
