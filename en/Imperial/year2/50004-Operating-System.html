@@ -1918,7 +1918,7 @@ of time waiting for I/O?</p>
 <h2 id="14">14</h2>
 <p><strong>What is the value_ptr parameter for?</strong></p>
 <p><code>int pthread_join(pthread_t thread, void **value_ptr)</code></p>
-<p>A pointer to the location that value_ptr from pthread_exit(void *value+ptr) should be placed</p>
+<p>A pointer to the location that value_ptr from pthread_exit(void *value_ptr) should be placed</p>
 <h2 id="15">15</h2>
 <p><strong>Linux was heavily influenced by which microkernel operating system (clue: Linux originally implemented its file system, but linux used a monolithic design)</strong></p>
 <p>MINIX, factual stuff</p>
@@ -2085,7 +2085,248 @@ measure of number of processes waiting for the lock, more contetion less paralle
 <p>in write mode, the thread has exclusive access</p>
 <p>multiple threads can acquire the lock in read mode</p>
 <h3 id="race-condition">race condition:</h3>
-<p>multiple threads trying to access the shared data and the final result depends on the order of the processes</p>
+<p>multiple threads trying to access the shared data and the final result depends on the order of the processes
+(TODO)</p>
+<h1 id="lecture-7">lecture 7</h1>
+<h2 id="semaphore-example">semaphore example:</h2>
+<p>for producer:</p>
+<ul>
+<li>producer deposits item s in the buffer if there is space</li>
+<li>Items can only be deposit in mutual exclusion</li>
+</ul>
+<p>for customer:</p>
+<ul>
+<li>Items cna onyl be fethced if the buffer is not empty</li>
+<li>Items can only be fetched if mutual exclusion is ensured</li>
+</ul>
+<p>for buffer:
+- buffer cna hold 0 to N Items</p>
+<p>so basically the semphore sets restriction on the number of threads that could access the current state</p>
+<p><img alt="slide10" src="../../../assets/Imperial/50004/lecture6-slide10.png" /></p>
+<h2 id="monitors">Monitors:</h2>
+<ul>
+<li>shared data</li>
+<li>entry procedures</li>
+<li>Internal procedures</li>
+<li>(Implicit)monitor lock</li>
+<li>One or more conditional variables</li>
+<li>Processes can onyl call entry procedures and only one process can b e in the monitor at one time</li>
+</ul>
+<h2 id="conditional-variables">Conditional variables</h2>
+<p>this is associated with high-level conditions
+- for example this can be used to indicate whether some space has become available in the buffer</p>
+<p>Operations</p>
+<ul>
+<li>wait(c): releases monitor lock and waits for c to be signaled</li>
+<li>signal(e): wake up one process waiting for C</li>
+<li>broadcast(c): wake up all processes waiting for C</li>
+</ul>
+<p>Signals do not accumulate</p>
+<ul>
+<li>condiiton variables signaled with no one waiting fo ri, the signal is lost</li>
+</ul>
+<p>back to the customer example</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a><span class="c1">// pseudo-code</span>
+<a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a><span class="n">monitor</span><span class="w"> </span><span class="n">ProducerConsumer</span>
+<a id="__codelineno-31-3" name="__codelineno-31-3" href="#__codelineno-31-3"></a><span class="w">    </span><span class="n">condition</span><span class="w"> </span><span class="n">not_full</span><span class="p">,</span><span class="w"> </span><span class="n">not_empty</span><span class="p">;</span>
+<a id="__codelineno-31-4" name="__codelineno-31-4" href="#__codelineno-31-4"></a><span class="w">    </span><span class="n">integer</span><span class="w"> </span><span class="n">count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<a id="__codelineno-31-5" name="__codelineno-31-5" href="#__codelineno-31-5"></a>
+<a id="__codelineno-31-6" name="__codelineno-31-6" href="#__codelineno-31-6"></a><span class="w">    </span><span class="n">entry</span><span class="w"> </span><span class="n">procedure</span><span class="w"> </span><span class="n">insert</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+<a id="__codelineno-31-7" name="__codelineno-31-7" href="#__codelineno-31-7"></a><span class="w">       </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">count</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">N</span><span class="p">)</span><span class="w"> </span><span class="n">wait</span><span class="p">(</span><span class="n">not_full</span><span class="p">);</span>
+<a id="__codelineno-31-8" name="__codelineno-31-8" href="#__codelineno-31-8"></a><span class="w">       </span><span class="c1">// if this is in a if statement</span>
+<a id="__codelineno-31-9" name="__codelineno-31-9" href="#__codelineno-31-9"></a><span class="w">       </span><span class="c1">// </span>
+<a id="__codelineno-31-10" name="__codelineno-31-10" href="#__codelineno-31-10"></a><span class="w">       </span><span class="n">insert_item</span><span class="p">(</span><span class="n">item</span><span class="p">);</span><span class="w"> </span><span class="n">count</span><span class="o">++</span><span class="p">;</span>
+<a id="__codelineno-31-11" name="__codelineno-31-11" href="#__codelineno-31-11"></a><span class="w">       </span><span class="n">signal</span><span class="p">(</span><span class="n">not_empty</span><span class="p">);</span>
+<a id="__codelineno-31-12" name="__codelineno-31-12" href="#__codelineno-31-12"></a><span class="w">    </span><span class="n">entry</span><span class="w"> </span><span class="n">procedure</span><span class="w"> </span><span class="n">remove</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+<a id="__codelineno-31-13" name="__codelineno-31-13" href="#__codelineno-31-13"></a><span class="w">       </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">count</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="n">wait</span><span class="p">(</span><span class="n">not_empty</span><span class="p">);</span>
+<a id="__codelineno-31-14" name="__codelineno-31-14" href="#__codelineno-31-14"></a><span class="w">       </span><span class="n">remove_item</span><span class="p">(</span><span class="n">item</span><span class="p">);</span><span class="w"> </span><span class="n">count</span><span class="o">--</span><span class="p">;</span>
+<a id="__codelineno-31-15" name="__codelineno-31-15" href="#__codelineno-31-15"></a><span class="w">       </span><span class="n">signal</span><span class="p">(</span><span class="n">not_full</span><span class="p">);</span>
+<a id="__codelineno-31-16" name="__codelineno-31-16" href="#__codelineno-31-16"></a><span class="w"> </span><span class="n">end</span><span class="w"> </span><span class="n">monitor</span>
+</code></pre></div>
+<p>if the whiles are replaced with if:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a><span class="n">monitor</span><span class="w"> </span><span class="n">ProducerConsumer</span>
+<a id="__codelineno-32-2" name="__codelineno-32-2" href="#__codelineno-32-2"></a><span class="w">    </span><span class="n">condition</span><span class="w"> </span><span class="n">not_full</span><span class="p">,</span><span class="w"> </span><span class="n">not_empty</span><span class="p">;</span>
+<a id="__codelineno-32-3" name="__codelineno-32-3" href="#__codelineno-32-3"></a><span class="w">    </span><span class="n">integer</span><span class="w"> </span><span class="n">count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<a id="__codelineno-32-4" name="__codelineno-32-4" href="#__codelineno-32-4"></a>
+<a id="__codelineno-32-5" name="__codelineno-32-5" href="#__codelineno-32-5"></a><span class="w">    </span><span class="n">entry</span><span class="w"> </span><span class="n">procedure</span><span class="w"> </span><span class="n">insert</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+<a id="__codelineno-32-6" name="__codelineno-32-6" href="#__codelineno-32-6"></a><span class="w">       </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">count</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">N</span><span class="p">)</span><span class="w"> </span><span class="n">wait</span><span class="p">(</span><span class="n">not_full</span><span class="p">);</span>
+<a id="__codelineno-32-7" name="__codelineno-32-7" href="#__codelineno-32-7"></a><span class="w">       </span><span class="c1">// if this is in a if statement</span>
+<a id="__codelineno-32-8" name="__codelineno-32-8" href="#__codelineno-32-8"></a><span class="w">       </span><span class="c1">// </span>
+<a id="__codelineno-32-9" name="__codelineno-32-9" href="#__codelineno-32-9"></a><span class="w">       </span><span class="n">insert_item</span><span class="p">(</span><span class="n">item</span><span class="p">);</span><span class="w"> </span><span class="n">count</span><span class="o">++</span><span class="p">;</span>
+<a id="__codelineno-32-10" name="__codelineno-32-10" href="#__codelineno-32-10"></a><span class="w">       </span><span class="n">signal</span><span class="p">(</span><span class="n">not_empty</span><span class="p">);</span>
+<a id="__codelineno-32-11" name="__codelineno-32-11" href="#__codelineno-32-11"></a><span class="w">    </span><span class="n">entry</span><span class="w"> </span><span class="n">procedure</span><span class="w"> </span><span class="n">remove</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+<a id="__codelineno-32-12" name="__codelineno-32-12" href="#__codelineno-32-12"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">count</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="n">wait</span><span class="p">(</span><span class="n">not_empty</span><span class="p">);</span>
+<a id="__codelineno-32-13" name="__codelineno-32-13" href="#__codelineno-32-13"></a><span class="w">       </span><span class="n">remove_item</span><span class="p">(</span><span class="n">item</span><span class="p">);</span><span class="w"> </span><span class="n">count</span><span class="o">--</span><span class="p">;</span>
+<a id="__codelineno-32-14" name="__codelineno-32-14" href="#__codelineno-32-14"></a><span class="w">       </span><span class="n">signal</span><span class="p">(</span><span class="n">not_full</span><span class="p">);</span>
+<a id="__codelineno-32-15" name="__codelineno-32-15" href="#__codelineno-32-15"></a><span class="w"> </span><span class="n">end</span><span class="w"> </span><span class="n">monitor</span>
+</code></pre></div>
+<p>consider the following executiong order</p>
+<ul>
+<li>producer 1 tries to insert so it is waiting (count = N)</li>
+<li>customer 1 consumes an item (count = N-1)</li>
+<li>producer 2 insert, since count is not N, it does the insert (count = N)</li>
+<li>producer 1 insert, the if condition has passed before producer 2 insert so it would insert (count = N+1)</li>
+</ul>
+<p>so the buffer exceeds the maximum item it can hold</p>
+<p>monitors are a language construct and is not supported by c</p>
+<p>in pintos we have an explicit monitor lock, in java there are sychronized methods and no condition variables</p>
+<h2 id="summary_1">Summary</h2>
+<p>Lock</p>
+<ul>
+<li>Reader/writer locks</li>
+<li>often exposed with Minitor language construct</li>
+<li>Within a process</li>
+<li>1 process/thread in critical section</li>
+</ul>
+<p>mutex</p>
+<ul>
+<li>Like lock, but can work across processess too</li>
+</ul>
+<p>semaphore</p>
+<ul>
+<li>like mutex, but can let in N processes/threads</li>
+</ul>
+<h1 id="lecture-8-deadlocks">lecture 8 deadlocks</h1>
+<h2 id="the-dining-philosopher-example">the dining philosopher example</h2>
+<p><img alt="slide3" src="../../../assets/Imperial/50004/lecture7-slide3.png" /></p>
+<p>so there are 5 philosophers and 5 single chopsticks</p>
+<p>each philosopher need two chopsticks to eat</p>
+<p>if everyone tries to get the same chopstick, deadlocks</p>
+<h2 id="deadlock">deadlock:</h2>
+<p>Set of processes is dead lock if each process is waiting for an event that only another processs can causes</p>
+<p>4 conditions, most common deadlock is Resource deadlock</p>
+<ul>
+<li>Mutual exclusion: each resource is either available or assigned to exactly one process</li>
+<li>Hold and wait: process cna request resources whil it holds other resources earlier</li>
+<li>No preemption: resources given to a process cannot be forcibly revoked</li>
+<li>Circular wait: a set of processes in a circular chain, each waiting for a resource held by the next process</li>
+</ul>
+<h2 id="resource-allocation-graphs">Resource Allocation Graphs</h2>
+<p>a Directed Graph</p>
+<ul>
+<li>edge form resource to process means that the process is currently owning the process</li>
+<li>edge from process to resource means that ht eprocess is currently blocked waiting for the resource</li>
+</ul>
+<p><img alt="slide7" src="../../../assets/Imperial/50004/lecture7-slide7.png" /></p>
+<h2 id="delaing-with-dead-lock">delaing with dead lock</h2>
+<h3 id="strategies">strategies:</h3>
+<h4 id="ignore-it-this-works-when-contention-for-resource-is-low-or-deadlock-infrequent">ignore it: this works when contention for resource is low or deadlock infrequent</h4>
+<h4 id="detection-recovery">detection &amp; recovery</h4>
+<p>After system is deadlocked, detect the dealock and recover from It</p>
+<p><img alt="slide9" src="../../../assets/Imperial/50004/lecture7-slide9.png" /></p>
+<p>example</p>
+<p><img alt="slide10" src="../../../assets/Imperial/50004/lecture7-slide10.png" /></p>
+<p>so we do BFS, we find a cycle TEVGUD</p>
+<p>but this is time-consuming</p>
+<p>recovery can do the following</p>
+<ul>
+<li>Preemption: temporarily take resource from owner and give to another</li>
+<li>Rollback: Processes are periodically checkpointed, so on deadlock just Rollback</li>
+<li>Killing the process: directly kill pid</li>
+</ul>
+<h4 id="dynamic-avoidance">dynamic avoidance:</h4>
+<p>system grants resource when it knows that it is safe to do so</p>
+<h4 id="prevention">Prevention</h4>
+<p>we focus on the 4 conditions(above)</p>
+<p>we can do</p>
+<ul>
+<li>remove Mutual Exclusion condition: e.g. share the resource</li>
+<li>remove Hold and Wait condition: requires all the processes to request resources before start, but you need to know what you need in advance</li>
+<li>remove No-preemption condition: e.g. forcing process to give up printer half wat not good</li>
+<li>remove circular wait condition: </li>
+<li>
+<ul>
+<li>Force single resource per process, then there is Optimality issues</li>
+</ul>
+</li>
+<li>
+<ul>
+<li>resources, processes must ask for resources in order</li>
+</ul>
+</li>
+</ul>
+<p>or</p>
+<p>acquire locks Atomically
+- protect all lock acquisition by global lock(lock acquisition)
+- which Typically means locks acquired at start of functions</p>
+<p>Giving up locks
+- give up the lock voluntarily</p>
+<p>ordering the resources and thus order lock acquisition
+<img alt="slide19" src="../../../assets/Imperial/50004/lecture7-slide19.png" /></p>
+<h3 id="communication-deadlock">Communication deadlock</h3>
+<p>Process A sends message to B and blocks waiting on B's reply</p>
+<p>but B didn't get A's message then A is blocked, and B is blocked waiting on the message</p>
+<p>so Ordering resource and careful scheduling does not work however</p>
+<p>we should use commiunication protocol based on timeouts</p>
+<h2 id="livelocks">Livelocks</h2>
+<p>the threads/processes are not blocked, but they or the system as a whole not making progress</p>
+<h2 id="starvation">Starvation:</h2>
+<p>need to alter the scheduling policy</p>
+<h2 id="summary_2">summary:</h2>
+<p>Resource deadlock: </p>
+<ul>
+<li>4 condition</li>
+<li>resource allocationi Graphs
+Strategies for avoiding deadlock</li>
+</ul>
+<p>communication deadlock: scheduling policy</p>
+<p>livelock: overall system make no progress</p>
+<h1 id="lecture9-memory-management">lecture9 memory management</h1>
+<p>memory is the key component of computer in the con Neumann architecture model<em>all data and code is stored in memory</em></p>
+<p>memory management needs to provide allocation and protection</p>
+<p>requirements:</p>
+<p>we have no knowledge of how memory address generated and no knowledge what memeory addresses are used for</p>
+<h2 id="overview">Overview</h2>
+<p>Basic concepts:
+- memory allocation
+- swapping: exchange between the disk and the network</p>
+<p>VitualMemeory
+- paging</p>
+<p>Demand paging
+- page replacement models
+- working set model</p>
+<p>linux implementation</p>
+<h2 id="logicalphisical-address-space">logical/Phisical address space</h2>
+<p>memory management binds logical address space to physical address space</p>
+<ul>
+<li>Logical address is generated by the CPU and seen by processes</li>
+<li>Physical address is seen by the memory unit and referes to physical system memory</li>
+</ul>
+<p>these are same in compile and load-time address-binding schemes</p>
+<p>but different in executing time address-binding schemes</p>
+<h2 id="memory-management-unitmmu">memory management unit(MMU)</h2>
+<p>mapping logical to physical addresses</p>
+<p>user process deals with logical address only</p>
+<p>MMU has to be fast so it is <strong>HARDWARE</strong></p>
+<h2 id="contiguous-memory-allocation">Contiguous Memory Allocation</h2>
+<p>Main memory usualy split into two partitions:</p>
+<ul>
+<li>Resident operating system(kernel), this is ususally held in low memory</li>
+<li>user processes(user), this is held in high memory</li>
+</ul>
+<p>contiguous allocation with relocation registers</p>
+<ul>
+<li>base register contains value of the smallest physical address</li>
+<li>limit register contains range of logical addresses, each logical address must be less than limit register</li>
+<li>MMU maps logical address dynamically</li>
+</ul>
+<p>so we do this
+<img alt="slide10" src="../../../assets/Imperial/50004/lecture8-slide10.png" /></p>
+<h2 id="multi-partition-allocation">multi-partition allocation</h2>
+<p>hole:
+- block of available memory
+- holes of various size scattered throughout memory</p>
+<p>when a process arrives, allocate a hole bug enough</p>
+<p>so it maintains information about allocated partitions and free partitions</p>
+<h3 id="dynamic-storage-allocation">dynamic storage allocation</h3>
+<ul>
+<li>first fit: allocate the first hole that is big enough</li>
+<li>best fit: allocate smallest hole that is big enough, but you must search the entire list, unless ordered by size</li>
+<li>worst fit: allocate largest hole, must search list and produces largest leftover hole</li>
+</ul>
+<h3 id="fragmentation">fragmentation:</h3>
+<p>external fragmentation: you have 100MB of free memory but in 200 half a MB holes</p>
+<p>internal fragmentation: allocated memory larger than requested memory</p>
 
 
 
