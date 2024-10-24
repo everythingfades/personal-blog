@@ -1122,3 +1122,116 @@ class Solution:
             return dp[-1]
         return -1
 ```
+
+# tutorial2
+## exercise 2.1:
+**Find a binary operation (<>)::(a -> a) -> (a -> a) -> (a -> a) and a element e :: a -> a such that the set of functions of type a -> a with <> and e forms a monoid**
+
+the definition of a monoid is:
+
+so a monoid is not only a data structure but also includes the functions that the following holds
+
+for S and function $ <> :: S\to S\to S$
+
+$\begin{aligned}
+f <> (g <> h) = (f <> g) <> h\\
+f <> e = f = e <> f (e::S)
+\end{aligned}$
+
+for $e::a \to a$
+
+we have the identity function id
+
+$f <> id = f, id <> f = f$
+
+and function composition
+
+$f <> (g <> h) = (f <> g) <> h$
+
+## exercise 2.2:
+**Given any two monoids $(M_1, <>_1, \epsilon_1)$ and $$(M_2, <>_2, \epsilon_2)$, a monoid homomorphism form $M_1$ to $M_2$ is a function $h::M_1 \to M_2$ such that**
+
+$$\begin{aligned}
+H(x <>_1 y) &= (h\text{ }x)<>_2(h\text{ }y)\\
+h\epsilon_1 &= \epsilon_2\end{aligned}$$
+
+**Give three monoid homomorphism from ([Int], ++, []) to (Int, +, 0)**
+
+so we need to find a h that satisfy
+
+$\begin{aligned}
+h(xs ++ ys) &= (h\text{ }xs) + (h\text{ }ys)\\
+h([]) &= 0\\
+h&::[Int]\to Int
+\end{aligned}$
+
+so the three examples are
+
+- sum
+- length
+- constant 0
+
+## exercise 2.3
+**Calculate the asymptotic time complexity of concatl xs below in terms of n and m where xs contains n list, each containing m element**
+
+$\begin{aligned}
+concatl &:: [[a]]\to [a]\\
+concatl&=foldl(++)[]
+\end{aligned}$
+
+## exercise 2.4
+**The List type class is Shown in the figure below, Complete the specification of the List type class by providing a default implementation of all the operations other than fromList and toList**
+
+![tutorial2-4](../../../assets/Imperial/50001/tutorial2-4.png)
+
+so we assume the fromList and the toList is implemented correctly
+
+$\begin{aligned}
+\text{empty}&::\text{list a}\\
+\text{empty}&=\text{fromList }[]\\
+\text{isEmpty}&::\text{list a}\to Bool\\
+\text{isEmpty}&=\text{null}.\text{toList}\\
+\text{tail}&::\text{list a}\to\text{list a}\\
+\text{tail}&= \text{fromList}.\text{tail}.\text{toList}
+\end{aligned}$
+
+so any method of the List type class can be converted to Prelude lists and convert it back
+
+the normalise is just used to convert higher-dimensional lists to one-dimensional lists
+
+$\text{normalise}=\text{fromList}.\text{toList}$
+
+## 2.5
+skipped
+
+## 2.6
+**Implement an instance of List using the following Tree type**
+
+$\text{data Tree a} = \text{Tip}|\text{Leaf a}|\text{Fork (Tree a) (Tree a)}$
+
+**Ensure that the worst case complexity of (++) is O(1). What is the worst case complexity of head**
+
+so for 
+
+```haskell
+toList :: Tree a -> [a]
+toList Tip = []
+toList Leaf x = [x]
+toList (Fork lt rt)
+  = (toList lt) ++ (toList rt)
+
+
+fromList :: [a] -> Tree
+fromList [] = Tip
+fromList (x:xs) = Fork (Leaf x) (fromList xs)
+
+(++) :: Tree a -> Tree a -> Tree a
+t1 `++` t2 = Fork t1 t2
+```
+
+so head is just $\text{head}.\text{toList}$
+
+so if the n in the complexity is
+- the number of elements, you can have empty elements so this is going to be infinite
+- the Forks, then possibly $O(n)$
+- depth: then possibly $O(2^n)$ since depth n implies $2^n$ Forks

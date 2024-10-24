@@ -464,3 +464,189 @@ $S\subseteq\mathbb{N}$ is decidable if its charateristic function is a register 
 So S is decidable iff there is a RM M with: forall $x\in\mathbb{N}$, M started with $R_0 = 0, R_1 = x$ and all other registers zeroed eventually halts with $R_0$ containing 1 or 0 and $R_0 = 1$ halting iff $x\in S$
 
 so if you try to prove $S\subseteq \mathbb{N}$ is undecidable, try to show that decidability of S would imply decidableity of the halting problem
+
+# tutorial 2
+## 1
+**Consider the register machine program P given by the folowing code**
+
+$\begin{aligned}
+L_0 &: R_1^-\to L_1,L_6\\
+L_1 &: R_2^-\to L_2,L_4\\
+L_2 &: R_0^+\to L_3\\
+L_3 &: R_3^+\to L_1\\
+L_4 &: R_3^-\to L_5, L_0\\
+L_5 &: R_2^+\to L_4\\
+L_6&: HALT\\
+\end{aligned}$
+
+**which computes the function $f(x,y) = x\times y$, The code of P, written ${^{\lceil}}P{^{\rceil}}$ has the form ${^{\lceil}}[{^{\lceil}}B_0{^{\rceil}},{^{\lceil}}B_1{^{\rceil}},{^{\lceil}}B_2{^{\rceil}},...]{^{\rceil}}$**
+
+**Give the value of ${^{\lceil}}B_i{^{\rceil}}$ for each i**
+
+following the lecture notes
+
+$\begin{cases}
+\begin{aligned}
+^{\lceil}R_i^+\to L_j^{\rceil} &\triangleq 《2i，j》\\
+^{\lceil}R^-_i\to L_j,L_k^{\rceil} & \triangleq 《2i+1,<j,k>》\\
+^{\lceil}HALT^{\rceil} &\triangleq 0\\
+\end{aligned}
+\end{cases}$
+
+and 
+
+$\begin{cases}《x,y》\triangleq 2^x(2y+1)\\<x,y>\triangleq 2^x(2y+1) - 1\end{cases}$
+
+$\begin{aligned}
+{^{\lceil}}B_0{^{\rceil}} &= 《1， <1,6>》= 《1，25》 = 51\\
+{^{\lceil}}B_1{^{\rceil}} &= 《2， <2,4>》= 《2， 35》 = 2271\\
+{^{\lceil}}B_2{^{\rceil}} &= 《0，3》 = 7\\
+{^{\lceil}}B_3{^{\rceil}} &= 《3，1》 = 24\\
+{^{\lceil}}B_4{^{\rceil}} &= 《3，<5,0>》 = 《3，31》 = 504\\
+{^{\lceil}}B_5{^{\rceil}} &= 《2，4》 = 36\\
+{^{\lceil}}B_6{^{\rceil}} &= 0
+\end{aligned}$
+
+## 2,
+**consider the natural number $2^{216}\times 833$**
+
+### (a)
+
+$2^{216}\times 833 = 2^{216}\times 1101000001_2 = 1101000001\underbrace{0\dots 0}_{216}$
+
+so this represent the list [216,5,1,0]
+
+which is [《3, <2,3>》, 《0,2》,《0,0》,0]
+
+so
+
+$\begin{aligned}
+L_0&: R_3^-\to L_1, L_3\\
+L_1&: R_0^+\to L_2\\
+L_2&: R_0^+\to L_0\\
+L_3&: HALT
+\end{aligned}$
+
+### b:
+it doubles the value of $R_3$ to $R_0$ while clearing $R_3$
+
+## 3.
+![tutorial2-3](../../../assets/Imperial/50003/tutorial2-3.png)
+
+### a.
+![tutorial2-3-a](../../../assets/Imperial/50003/tutorial2-3-a.png)
+
+![tutorial2-3-a-](../../../assets/Imperial/50003/tutorial2-3-a-.png)
+
+### bcdef
+
+![tutorial2-3-bcdef](../../../assets/Imperial/50003/tutorial2-3-bcdef.png)
+
+![tutoial2-3-bcdef-](../../../assets/Imperial/50003/tutorial2-3-bcdef-.png)
+
+# Lecture3 turning machines
+
+## algorithms, informally:
+- its a finite description of the procedure in terms of elementary operations
+- deterministic
+- procedure may not terminate
+
+## turning machines
+
+the machine starts with state s and every step it overwrites the current position on the tape or move left or right or change state
+
+A Turning machine is sepcified by a quadruple $M = (Q, \sum, s, \delta)$ where
+
+- Q is a finist set of machine states
+- $\sum$ is a finite set of tape symbols, containing distinguished symbol $\textvisiblespace$ called blank
+- an initial state $s\in Q$
+- a partial transition function $\delta\in(Q\times\sum)\rightharpoonup (Q\times\sum\times\{L,R\})$
+
+L,R stand for left and right
+
+### configuration
+A turning machine configuration (q,w,u) consist of
+
+- the current state $q\in Q$
+- a finite possibly-empty string $w\in\sum^*$ of tape symbold to the left of the tape head
+- a fintie possibly empty string $u\in\sum^*$ of tape symbols under and to the right of tape head. $\epsilon$ denotes the empty string
+
+An initial configruation is $(s,\epsilon,u)$, for initial state s and string tape symbols u
+
+### functions
+
+we have the two functions $\text{first}:\sum^*\to\sum\times\sum^*$ and $\text{last}:\sum^*\to\sum\times\sum^*$ as follows
+
+$\begin{aligned}
+\text{first(w)} &= \begin{cases}\begin{array}
+(a,v) &\text{if }w = av\\
+(\textvisiblespace,\epsilon)&\text{if }w =\epsilon\\
+\end{array}\end{cases}\\
+\text{first(w)} &= \begin{cases}\begin{array}
+(a,v) &\text{if }w = va\\
+(\textvisiblespace,\epsilon)&\text{if }w =\epsilon\\
+\end{array}\end{cases}
+\end{aligned}$
+
+### Turning machine Computation
+
+Given $M = (Q, \sum, s, \delta)$, define $(q,w,u)\to_M(q',w',u')$ by
+
+$\text{first}(u) = (a,\u')\\
+\frac{\delta(q,a)=(q',a',L)\qquad\text{last(w) = (b,w')}}{(q,w,u)\to_M(q',w',ba'u')}\\
+\frac{\text{first}(u)=(a,u')\qquad\delta(q,a)=(q',a',R)}{(q,w,u)\to_M(q',wa',u')}$
+
+We say a configuration $(q,w,n)$ is anormal form if it has no computation step,this is when $\delta(q,a)$ is undefined for $\text{first}(u) = (a,u')$
+
+a computation of a TM M is a (finite or infinite) sequence of configruations, $c_0,c_1,c_2\dots$ where
+- $c_0=(s,\epsilon,u)$ is an initial configuration
+- $c_i\to_M c_{i+1}$ holds for each $i = 0,1,\dots$
+
+The computation
+
+- does not halt if the sequence is infinite
+- halts if the sequence is finite and its last element $(q,w,u)$ is a normal form
+
+### Graphical representation of a turning machine
+
+the graph representing a TM
+
+- Nodes: states $q\in Q$
+- Edges: representing the transition function
+For $((q,s),(q',s',M))\in\delta$ with $q,q'\in Q, s,s'\in\sum$ and $M\in\{L,R\}$ there is a link from q to q' labelled by $s\to s',M$ and
+- initial state: $s\in Q$ indicated e.g. by an unlabeled edge
+
+### Theorm
+The computation of a Turning machine M can be implemented by a register machine
+
+(a register machine is at least as powerufl as a turning maching)
+
+#### step1:
+fix a numerical encoding of $M$'s state,, tape symbols, tape contents and configurations
+
+Identify the state and tape symbol with numbers:
+
+$Q =\{0,1,\dots,n\}\qquad\sum=\{0,1,\dots,m\}$
+
+where s = 0 and $\textvisiblespace = 0$
+
+
+Code configurations $c = (q,w,u)$ with three numbers
+
+- q the state number
+- ${^{\lceil}}[a_i,\dots,a_1]{^{\rceil}}$ where $q = a_1,\dots,a_i$
+- ${^{\lceil}}[b_i,\dots,b_1]{^{\rceil}}$ where $q = b_1,\dots,b_i$
+
+this reversla make it easier for RM programs
+
+define directions $L = 0, R = 1$
+
+#### step2:
+we can turn the finite table of (argument, result) pairs specifying $\delta$ into a RM gadget
+
+![slide10](../../../assets/Imperial/50003/lecture3-slide10.png)
+
+
+
+
+
