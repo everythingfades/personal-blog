@@ -1,0 +1,1944 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="Honglei Gu(everythingfades)">
+      
+      
+        <link rel="canonical" href="http://localhost:9000/en/Imperial/year2/50003-Models-of-Computation.html">
+      
+      
+        <link rel="prev" href="50001-Algorithms.html">
+      
+      
+        <link rel="next" href="50004-Operating-System.html">
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.34">
+    
+    
+      
+        <title>50003-Model-of-Computation - Honglei Gu's personal blog</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.35f28582.min.css">
+      
+      
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+  
+  <style>:root{--md-admonition-icon--note:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M1 7.775V2.75C1 1.784 1.784 1 2.75 1h5.025c.464 0 .91.184 1.238.513l6.25 6.25a1.75 1.75 0 0 1 0 2.474l-5.026 5.026a1.75 1.75 0 0 1-2.474 0l-6.25-6.25A1.75 1.75 0 0 1 1 7.775m1.5 0c0 .066.026.13.073.177l6.25 6.25a.25.25 0 0 0 .354 0l5.025-5.025a.25.25 0 0 0 0-.354l-6.25-6.25a.25.25 0 0 0-.177-.073H2.75a.25.25 0 0 0-.25.25ZM6 5a1 1 0 1 1 0 2 1 1 0 0 1 0-2"/></svg>');--md-admonition-icon--abstract:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M2.5 1.75v11.5c0 .138.112.25.25.25h3.17a.75.75 0 0 1 0 1.5H2.75A1.75 1.75 0 0 1 1 13.25V1.75C1 .784 1.784 0 2.75 0h8.5C12.216 0 13 .784 13 1.75v7.736a.75.75 0 0 1-1.5 0V1.75a.25.25 0 0 0-.25-.25h-8.5a.25.25 0 0 0-.25.25m13.274 9.537zl-4.557 4.45a.75.75 0 0 1-1.055-.008l-1.943-1.95a.75.75 0 0 1 1.062-1.058l1.419 1.425 4.026-3.932a.75.75 0 1 1 1.048 1.074M4.75 4h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5M4 7.75A.75.75 0 0 1 4.75 7h2a.75.75 0 0 1 0 1.5h-2A.75.75 0 0 1 4 7.75"/></svg>');--md-admonition-icon--info:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13M6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75M8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2"/></svg>');--md-admonition-icon--tip:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.499.75a.75.75 0 0 1 1.5 0v.996C5.9 2.903 6.793 3.65 7.662 4.376l.24.202c-.036-.694.055-1.422.426-2.163C9.1.873 10.794-.045 12.622.26 14.408.558 16 1.94 16 4.25c0 1.278-.954 2.575-2.44 2.734l.146.508.065.22c.203.701.412 1.455.476 2.226.142 1.707-.4 3.03-1.487 3.898C11.714 14.671 10.27 15 8.75 15h-6a.75.75 0 0 1 0-1.5h1.376a4.5 4.5 0 0 1-.563-1.191 3.84 3.84 0 0 1-.05-2.063 4.65 4.65 0 0 1-2.025-.293.75.75 0 0 1 .525-1.406c1.357.507 2.376-.006 2.698-.318l.009-.01a.747.747 0 0 1 1.06 0 .75.75 0 0 1-.012 1.074c-.912.92-.992 1.835-.768 2.586.221.74.745 1.337 1.196 1.621H8.75c1.343 0 2.398-.296 3.074-.836.635-.507 1.036-1.31.928-2.602-.05-.603-.216-1.224-.422-1.93l-.064-.221c-.12-.407-.246-.84-.353-1.29a2.4 2.4 0 0 1-.507-.441 3.1 3.1 0 0 1-.633-1.248.75.75 0 0 1 1.455-.364c.046.185.144.436.31.627.146.168.353.305.712.305.738 0 1.25-.615 1.25-1.25 0-1.47-.95-2.315-2.123-2.51-1.172-.196-2.227.387-2.706 1.345-.46.92-.27 1.774.019 3.062l.042.19.01.05c.348.443.666.949.94 1.553a.75.75 0 1 1-1.365.62c-.553-1.217-1.32-1.94-2.3-2.768L6.7 5.527c-.814-.68-1.75-1.462-2.692-2.619a3.7 3.7 0 0 0-1.023.88c-.406.495-.663 1.036-.722 1.508.116.122.306.21.591.239.388.038.797-.06 1.032-.19a.75.75 0 0 1 .728 1.31c-.515.287-1.23.439-1.906.373-.682-.067-1.473-.38-1.879-1.193L.75 5.677V5.5c0-.984.48-1.94 1.077-2.664.46-.559 1.05-1.055 1.673-1.353z"/></svg>');--md-admonition-icon--success:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.75.75 0 0 1 .018-1.042.75.75 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0"/></svg>');--md-admonition-icon--question:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13M6.92 6.085h.001a.749.749 0 1 1-1.342-.67c.169-.339.436-.701.849-.977C6.845 4.16 7.369 4 8 4a2.76 2.76 0 0 1 1.637.525c.503.377.863.965.863 1.725 0 .448-.115.83-.329 1.15-.205.307-.47.513-.692.662-.109.072-.22.138-.313.195l-.006.004a6 6 0 0 0-.26.16 1 1 0 0 0-.276.245.75.75 0 0 1-1.248-.832c.184-.264.42-.489.692-.661q.154-.1.313-.195l.007-.004c.1-.061.182-.11.258-.161a1 1 0 0 0 .277-.245C8.96 6.514 9 6.427 9 6.25a.61.61 0 0 0-.262-.525A1.27 1.27 0 0 0 8 5.5c-.369 0-.595.09-.74.187a1 1 0 0 0-.34.398M9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/></svg>');--md-admonition-icon--warning:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0 1 14.082 15H1.918a1.75 1.75 0 0 1-1.543-2.575Zm1.763.707a.25.25 0 0 0-.44 0L1.698 13.132a.25.25 0 0 0 .22.368h12.164a.25.25 0 0 0 .22-.368Zm.53 3.996v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0M9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/></svg>');--md-admonition-icon--failure:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M2.344 2.343za8 8 0 0 1 11.314 11.314A8.002 8.002 0 0 1 .234 10.089a8 8 0 0 1 2.11-7.746m1.06 10.253a6.5 6.5 0 1 0 9.108-9.275 6.5 6.5 0 0 0-9.108 9.275M6.03 4.97 8 6.94l1.97-1.97a.749.749 0 0 1 1.275.326.75.75 0 0 1-.215.734L9.06 8l1.97 1.97a.749.749 0 0 1-.326 1.275.75.75 0 0 1-.734-.215L8 9.06l-1.97 1.97a.749.749 0 0 1-1.275-.326.75.75 0 0 1 .215-.734L6.94 8 4.97 6.03a.75.75 0 0 1 .018-1.042.75.75 0 0 1 1.042-.018"/></svg>');--md-admonition-icon--danger:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M9.504.43a1.516 1.516 0 0 1 2.437 1.713L10.415 5.5h2.123c1.57 0 2.346 1.909 1.22 3.004l-7.34 7.142a1.25 1.25 0 0 1-.871.354h-.302a1.25 1.25 0 0 1-1.157-1.723L5.633 10.5H3.462c-1.57 0-2.346-1.909-1.22-3.004zm1.047 1.074L3.286 8.571A.25.25 0 0 0 3.462 9H6.75a.75.75 0 0 1 .694 1.034l-1.713 4.188 6.982-6.793A.25.25 0 0 0 12.538 7H9.25a.75.75 0 0 1-.683-1.06l2.008-4.418.003-.006-.004-.009-.006-.006-.008-.001q-.005 0-.009.004"/></svg>');--md-admonition-icon--bug:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M4.72.22a.75.75 0 0 1 1.06 0l1 .999a3.5 3.5 0 0 1 2.441 0l.999-1a.748.748 0 0 1 1.265.332.75.75 0 0 1-.205.729l-.775.776c.616.63.995 1.493.995 2.444v.327q0 .15-.025.292c.408.14.764.392 1.029.722l1.968-.787a.75.75 0 0 1 .556 1.392L13 7.258V9h2.25a.75.75 0 0 1 0 1.5H13v.5q-.002.615-.141 1.186l2.17.868a.75.75 0 0 1-.557 1.392l-2.184-.873A5 5 0 0 1 8 16a5 5 0 0 1-4.288-2.427l-2.183.873a.75.75 0 0 1-.558-1.392l2.17-.868A5 5 0 0 1 3 11v-.5H.75a.75.75 0 0 1 0-1.5H3V7.258L.971 6.446a.75.75 0 0 1 .558-1.392l1.967.787c.265-.33.62-.583 1.03-.722a1.7 1.7 0 0 1-.026-.292V4.5c0-.951.38-1.814.995-2.444L4.72 1.28a.75.75 0 0 1 0-1.06m.53 6.28a.75.75 0 0 0-.75.75V11a3.5 3.5 0 1 0 7 0V7.25a.75.75 0 0 0-.75-.75ZM6.173 5h3.654A.17.17 0 0 0 10 4.827V4.5a2 2 0 1 0-4 0v.327c0 .096.077.173.173.173"/></svg>');--md-admonition-icon--example:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M5 5.782V2.5h-.25a.75.75 0 0 1 0-1.5h6.5a.75.75 0 0 1 0 1.5H11v3.282l3.666 5.76C15.619 13.04 14.543 15 12.767 15H3.233c-1.776 0-2.852-1.96-1.899-3.458Zm-2.4 6.565a.75.75 0 0 0 .633 1.153h9.534a.75.75 0 0 0 .633-1.153L12.225 10.5h-8.45ZM9.5 2.5h-3V6c0 .143-.04.283-.117.403L4.73 9h6.54L9.617 6.403A.75.75 0 0 1 9.5 6Z"/></svg>');--md-admonition-icon--quote:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M1.75 2.5h10.5a.75.75 0 0 1 0 1.5H1.75a.75.75 0 0 1 0-1.5m4 5h8.5a.75.75 0 0 1 0 1.5h-8.5a.75.75 0 0 1 0-1.5m0 5h8.5a.75.75 0 0 1 0 1.5h-8.5a.75.75 0 0 1 0-1.5M2.5 7.75v6a.75.75 0 0 1-1.5 0v-6a.75.75 0 0 1 1.5 0"/></svg>');}</style>
+
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#register-machines" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../index.html" title="Honglei Gu&#39;s personal blog" class="md-header__button md-logo" aria-label="Honglei Gu's personal blog" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Honglei Gu's personal blog
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              50003-Model-of-Computation
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/everythingfades/personal-blog.git" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../index.html" title="Honglei Gu&#39;s personal blog" class="md-nav__button md-logo" aria-label="Honglei Gu's personal blog" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Honglei Gu's personal blog
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/everythingfades/personal-blog.git" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../index.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    中文
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            中文
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    web(前端+后端)
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            web(前端+后端)
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../zh/web/html.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    html
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../zh/web/css.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    css
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_1_3" id="__nav_2_1_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    js
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1_3">
+            <span class="md-nav__icon md-icon"></span>
+            js
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../zh/web/js/js.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    基础语法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../zh/web/js/js-advanced.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    进阶语法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../zh/web/js/DOM.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DOM
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../zh/web/js/BOM.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    BOM
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../zh/web/AJAX.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    AJAX
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../zh/web/nodejs.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    nodejs
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../zh/web/webpack.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    webpack
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../zh/web/vue2.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    vue2
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    English
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            English
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3_1" id="__nav_3_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Imperial
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            Imperial
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1_1" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3_1_1" id="__nav_3_1_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    year2
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_1_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_1_1">
+            <span class="md-nav__icon md-icon"></span>
+            year2
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="pintos.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    pintos
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="50001-Algorithms.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    50001-Algorithms
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    50003-Model-of-Computation
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="50003-Models-of-Computation.html" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    50003-Model-of-Computation
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#come-common-fesatures-about-the-historical-algorithms" class="md-nav__link">
+    <span class="md-ellipsis">
+      come common fesatures about the historical algorithms
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#register-machines_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      register machines
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="register machines">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#definition" class="md-nav__link">
+    <span class="md-ellipsis">
+      definition:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      configuration:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#computation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Computation:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#halting-computations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Halting Computations
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#no-halting-computations" class="md-nav__link">
+    <span class="md-ellipsis">
+      No Halting computations
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#graphical-representation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Graphical representation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#partial-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Partial functions
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#computable-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      computable functions
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-halting-problem" class="md-nav__link">
+    <span class="md-ellipsis">
+      the halting problem
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#numerical-coding-of-pairs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Numerical coding of pairs
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#numerical-coding-of-lists" class="md-nav__link">
+    <span class="md-ellipsis">
+      Numerical coding of lists
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#numerical-coding-of-programs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Numerical coding of Programs
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="50004-Operating-System.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    50004-Operating-System
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    web
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            web
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../web/html.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    html
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    other
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            other
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3_1" id="__nav_3_3_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    CTF
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            CTF
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../other/CTF/cyber_security.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    cyber-security
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../other/CTF/CTFhub.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CTFhub
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#come-common-fesatures-about-the-historical-algorithms" class="md-nav__link">
+    <span class="md-ellipsis">
+      come common fesatures about the historical algorithms
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#register-machines_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      register machines
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="register machines">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#definition" class="md-nav__link">
+    <span class="md-ellipsis">
+      definition:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      configuration:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#computation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Computation:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#halting-computations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Halting Computations
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#no-halting-computations" class="md-nav__link">
+    <span class="md-ellipsis">
+      No Halting computations
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#graphical-representation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Graphical representation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#partial-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Partial functions
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#computable-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      computable functions
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-halting-problem" class="md-nav__link">
+    <span class="md-ellipsis">
+      the halting problem
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#numerical-coding-of-pairs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Numerical coding of pairs
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#numerical-coding-of-lists" class="md-nav__link">
+    <span class="md-ellipsis">
+      Numerical coding of lists
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#numerical-coding-of-programs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Numerical coding of Programs
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="register-machines">Register Machines</h1>
+<h2 id="come-common-fesatures-about-the-historical-algorithms">come common fesatures about the historical algorithms</h2>
+<ul>
+<li>
+<p>finite descriptions of the procedure of elementary operations
+(drown a person, if he dies then not witch, if not dead then witch and killed)</p>
+</li>
+<li>
+<p>deterministic, next step is uniquely determined if there is one</p>
+</li>
+<li>procedures may not terminate, but we can recognise when it does terminate and the result</li>
+</ul>
+<h2 id="register-machines_1">register machines</h2>
+<ul>
+<li>add 1 to the contents of a register</li>
+<li>test whether the contents of a register is 0</li>
+<li>subtract 1 form the contents of a register if it is not 0</li>
+<li>jumps to ("goto")</li>
+<li>conditionals ("if then else")</li>
+</ul>
+<p>thing can go wrong if the stuff went negative</p>
+<h3 id="definition">definition:</h3>
+<p>a register machine is specified by:
+- finite many register <span class="arithmatex">\(R_0, R_1, ..., R_n\)</span> eahc capable to storing a natural numebr
+- a program consisting of a finite list of instruction of the form label: body where, <span class="arithmatex">\(\forall i = 0,1,2,...\)</span> the (i+1)th instruction has label <span class="arithmatex">\(L_i\)</span>,  the instruction body take the form:</p>
+<p><span class="arithmatex">\(\begin{array}{c}
+R^+\to L' &amp; \text{add 1 to the contents of register R and jump to instruction label L'}\\
+R^-\to L',L"&amp;\text{if the content of R is greater than 0, the subtract one and jump to L' else jump to L"}\\
+HALT &amp; \text{stop executing instructions}
+\end{array}\)</span></p>
+<p>for example</p>
+<p>registers: <span class="arithmatex">\(R_0, R_1, R_2\)</span></p>
+<p>Program:
+- <span class="arithmatex">\(L_0: R_1^- \to L_1, L_2\)</span>
+- <span class="arithmatex">\(L_1: R^+_0 \to L_0\)</span>
+- <span class="arithmatex">\(R_2^- \to L_3,L_4\)</span>
+- <span class="arithmatex">\(L_3: R_0^+\to L_2\)</span>
+- <span class="arithmatex">\(L_4: HALT\)</span></p>
+<p>so this sums up <span class="arithmatex">\(R_1, R_2\)</span> and put it into <span class="arithmatex">\(R_0\)</span></p>
+<p><img alt="slide6" src="../../../assets/Imperial/50003/lecture1-slide6.png" /></p>
+<h3 id="configuration">configuration:</h3>
+<p>A register machine configuration has the form</p>
+<p><span class="arithmatex">\(c = (l,r_0,...,r_n)\)</span></p>
+<p>where l is the current label and <span class="arithmatex">\(r_i\)</span> is the current contents of <span class="arithmatex">\(R_i\)</span></p>
+<p><strong>Notation</strong> <span class="arithmatex">\(R_i = x[\text{in configuration c}] \iff c = (l, r_0,...r_n)\)</span> with <span class="arithmatex">\(r_i = x\)</span></p>
+<p><strong>Initial configurations</strong> <span class="arithmatex">\(c_0 = (0, r_0,...r_n)\)</span></p>
+<h3 id="computation">Computation:</h3>
+<p>A computation of a RM is a (finite or infinte) sequence of configurations</p>
+<p><span class="arithmatex">\(c_0, c_1, c_2\)</span></p>
+<ul>
+<li><span class="arithmatex">\(c_0 = (0, r_0,...r_n)\)</span> is the initial configuration</li>
+<li>each <span class="arithmatex">\(c = (l, r_0...,r_n)\)</span> in the sequence determine the next configuration in the sequence by carrying out the program instruction labelled <span class="arithmatex">\(L_l\)</span> with reigsters containing <span class="arithmatex">\(r_0,... r_n\)</span></li>
+</ul>
+<h3 id="halting-computations">Halting Computations</h3>
+<p>for a finite computation , the last configuration <span class="arithmatex">\(c_m = (l, r, ...)\)</span> is a halting configuration, so the instruction with <span class="arithmatex">\(L_l\)</span>
+- HALT
+- <span class="arithmatex">\(R^+-&gt;L, R^-\to L, L'(R&gt;0)\)</span> or <span class="arithmatex">\(R^-\to L',L(R = 0)\)</span> and there is no instruciton labeled L in the program</p>
+<p><span class="arithmatex">\(L_0: R^+_2 \to L_2\)</span> and <span class="arithmatex">\(L_1:HALT\)</span> halts erroneously</p>
+<h3 id="no-halting-computations">No Halting computations</h3>
+<p>the computation never halts(a loop)</p>
+<h3 id="graphical-representation">Graphical representation</h3>
+<p>instruction is label: body, [L] denotes the register of the bosy of label L</p>
+<p>arcs represent jumps between instrucitons</p>
+<p>Initial instruction START</p>
+<p><img alt="slide11" src="../../../assets/Imperial/50003/lecture1-slide11.png" /></p>
+<p><img alt="slide12" src="../../../assets/Imperial/50003/lecture1-slide12.png" /></p>
+<h2 id="partial-functions">Partial functions</h2>
+<p>definition:</p>
+<p><span class="arithmatex">\((x,y)\in f\wedge (x,y')\in f \to y = y'\)</span></p>
+<p>because register machine are deterministic, so the next configuration is uniquely defined by the program, so th e relation between the initial and final register contents is a partial function</p>
+<ul>
+<li><span class="arithmatex">\(f(x) = y\)</span> means <span class="arithmatex">\((x,y) \in f\)</span></li>
+<li><span class="arithmatex">\(f(x)\downarrow\)</span> means <span class="arithmatex">\(\exists y\in Y(f(x) = y)\)</span></li>
+<li><span class="arithmatex">\(f(x)\uparrow\)</span> means <span class="arithmatex">\(\neg\exists y\in Y(f(x) = y)\)</span></li>
+<li><span class="arithmatex">\(x\rightharpoonup y\)</span> = set of all partial functions from X to Y</li>
+<li><span class="arithmatex">\(x\to Y\)</span> = set of all (total) functions from X to Y</li>
+</ul>
+<h2 id="computable-functions">computable functions</h2>
+<p><span class="arithmatex">\(f\in\mathbb{N}^n\to \mathbb{N}\)</span> is computable if the RM has at least n+1 registers and <span class="arithmatex">\((x_1,...x_n)\in \mathbb{N}^n\)</span> and all <span class="arithmatex">\(y\in\mathbb{N}\)</span></p>
+<p>the computation of M starting with <span class="arithmatex">\(R_0 = 0, R_1 = x_1,...R_n = x_n\)</span> and other registers set ot 0, halts with <span class="arithmatex">\(R_0 = y\)</span> if and onyl if <span class="arithmatex">\(f(x_1, ...x_n) = y\)</span></p>
+<p>e.g. multiplicationis computable</p>
+<p><img alt="slide17" src="../../../assets/Imperial/50003/lecture1-slide17.png" /></p>
+<h2 id="the-halting-problem">the halting problem</h2>
+<p>The halting problem is the decision problem with
+- the set S of the pair (A,D) where A is an algorithm and D is some input datum on which the algorithm is designed to operate
+- <span class="arithmatex">\(A(D)\downarrow\)</span> holds for <span class="arithmatex">\((A,D)\in S\)</span> if algorithm A when applied to D eventually produces a result: that is, eventually halts.</p>
+<p>this problem is unsolvable, or no algorithm H such that</p>
+<p><span class="arithmatex">\(\forall (A,D)\in S,H(A,D) = \begin{cases}\begin{array}1 &amp; A(D)\downarrow\\0 &amp; \text{otherwise}\end{array}\end{cases}\)</span></p>
+<h2 id="numerical-coding-of-pairs">Numerical coding of pairs</h2>
+<p><strong>definition</strong></p>
+<p>For <span class="arithmatex">\(x,y\in\mathbb{N}\)</span>, define <span class="arithmatex">\(\begin{cases}《x,y》\triangleq 2^x(2y+1)\\&lt;x,y&gt;\triangleq 2^x(2y+1) - 1\end{cases}\)</span></p>
+<p>x is the digits to shift, and y determines the front several digits</p>
+<p>0b《x,y》 = 0by|1|0...0, x number of 0s</p>
+<p>0b <x,y> = 0by|0|1...1, x number of 1s</p>
+<p>we can prove these form bijections with natural numbers</p>
+<p><strong>example</strong></p>
+<p>27 = 0b11011 = 《0，13》 = &lt;2,3&gt;</p>
+<p><strong>result</strong></p>
+<p>《-，-》gives a bijection between <span class="arithmatex">\(\mathbb{N}\times\mathbb{N}\)</span> and <span class="arithmatex">\(\mathbb{N}^+ = \{n\in\mathbb{N}|n\neq 0\}\)</span></p>
+<p>&lt;-,-&gt; gives a bijiection between <span class="arithmatex">\(\mathbb{N}\times\mathbb{N}\)</span> and <span class="arithmatex">\(\mathbb{N}\)</span></p>
+<h2 id="numerical-coding-of-lists">Numerical coding of lists</h2>
+<p>let List <span class="arithmatex">\(\mathbb{N}\)</span> be the set of all finite lists of natural numbers, defined by:</p>
+<ul>
+<li>empty list: []</li>
+<li>list cons <span class="arithmatex">\(x::l\in List \mathbb{N}\)</span> and <span class="arithmatex">\(l\in List\mathbb{N}\)</span></li>
+</ul>
+<p><strong>Notation</strong>:<span class="arithmatex">\([x_1, x_2,..., x_n]\triangleq x_1::(x_2::(...x_n::[]...))\)</span></p>
+<p>For <span class="arithmatex">\(l\in List\mathbb{N}\)</span> define  <span class="arithmatex">\(^{\lceil} l^{\rceil}\in\mathbb{N}\)</span> by induction on the length of the list</p>
+<p><span class="arithmatex">\(l:\begin{cases}^{\lceil} l^{\rceil}\triangleq 0\\^{\lceil}x::l^{\rceil}\triangleq《x,^{\lceil} l^{\rceil}》= 2^x(2\bullet ^{\lceil} l^{\rceil} + 1)\end{cases}\)</span></p>
+<p>Thus, <span class="arithmatex">\(^{\lceil}[x_1, x_2,...,x_n] = 《x_1,《x_2,... 《x_n, 0》...》》\)</span></p>
+<p>so for example</p>
+<p><span class="arithmatex">\(^{\lceil}[3]^{\rceil} = ^{\lceil}3::[]^{\rceil} = 《3,0》 = 2^3(2+0+1) = 8 = 1000_2\)</span> </p>
+<p><span class="arithmatex">\(^{\lceil}[1,3]^{\rceil} = 《1,^{\lceil}[3]^{\rceil}》 = 《1,8》 = 34 = 100010\)</span></p>
+<p>so you could see this encoding is just reversing the list, adding the element value amount of zero and add a 1 as separator</p>
+<p><strong>result</strong> The function <span class="arithmatex">\(l\to^{\lceil}l^{\rceil}\)</span> gives a bijection from <span class="arithmatex">\(List\mathbb{N}\)</span> to <span class="arithmatex">\(\mathbb{N}\)</span></p>
+<h2 id="numerical-coding-of-programs">Numerical coding of Programs</h2>
+<p>so it would be nicer if we encoding a program in to binary codes</p>
+<p>if we have the program</p>
+<p><span class="arithmatex">\(\begin{array}{|c|}
+\hline\\
+L_0:body_0\\
+L_1:body_1\\
+\vdots\\
+L_n:body_n\\
+\hline
+\end{array}\)</span></p>
+<p>then we can encode the program by </p>
+<p><span class="arithmatex">\(^{\lceil}P {^{\rceil}}\triangleq {^{\lceil}}\quad{^{\lceil}}body_0 {^{\rceil}},..., {^{\lceil}}body_n{^{\rceil}}\quad{^{\rceil}}\)</span></p>
+<p>where the numerical code <span class="arithmatex">\(^{\lceil}body^{\rceil}\)</span> of an instruction body is defined:</p>
+<p><span class="arithmatex">\(\begin{cases}
+\begin{aligned}
+^{\lceil}R_i^+\to L_j^{\rceil} &amp;\triangleq 《2i，j》\\
+^{\lceil}R^-_i\to L_j,L_k^{\rceil} &amp; \triangleq 《2i+1,&lt;j,k&gt;》\\
+^{\lceil}HALT^{\rceil} &amp;\triangleq 0\\
+\end{aligned}
+\end{cases}\)</span></p>
+<p>so return to the example, we could do this:</p>
+<p><img alt="slide21" src="../../../assets/Imperial/50003/lecture1-slide21.png" /></p>
+<p>the even numbers represent minus operations, odds for plus and 0 for Halt</p>
+<p>this list is then converted into the encoding like above</p>
+<p>decoding is the same</p>
+<p>Any <span class="arithmatex">\(x\in\mathbb{N}\)</span> decodes to a unique instruction <span class="arithmatex">\(body(x)\)</span></p>
+<p>if <span class="arithmatex">\(x = 0\to HALT\)</span></p>
+<p>else let <span class="arithmatex">\(x = 《y,z》\)</span></p>
+<p>if y = 2i is even, then <span class="arithmatex">\(R_i^+\to L_z\)</span></p>
+<p>else y = 2i+1, let <span class="arithmatex">\(x = &lt;j,k&gt;\)</span> in <span class="arithmatex">\(R_i^-\to L_j, L_k\)</span></p>
+<p>for example</p>
+<p><span class="arithmatex">\(786432 = 2^{19} + 2^{18} = 0b11\underbrace{0...0}_{18"0"s}\)</span></p>
+<p><span class="arithmatex">\(18 = 0b10010 = 《1,4》 = 《1,&lt;0,2&gt;》 = {^{\lceil}}R_0^-\to L_0,L_2{^{\rceil}}\)</span></p>
+<p><span class="arithmatex">\(0 = ^{\lceil}HALT^{\rceil}\)</span></p>
+<p>so <span class="arithmatex">\(prog(786432) = \begin{array}{|c|}\hline L-0:R_0^-\to L_0,L_2\\L_1:HALT\\ \hline\end{array}\)</span></p>
+<h1 id="tutorial-1">Tutorial 1:</h1>
+<h2 id="1">1.</h2>
+<p><strong>Consider the register machine given by the following code</strong></p>
+<p><span class="arithmatex">\(\begin{aligned}
+L_0 &amp;: R_1^- \to L_1, L_7\\
+L_1 &amp;: R_0^+ \to L_2\\
+L_2 &amp;: R_2^- \to L_3, L_5\\
+L_3 &amp;: R_3^+ \to L_4\\
+L_4 &amp;: R_0^+ \to R_0^+\to L_1\\
+L_5 &amp;: R_2^+ \to L_6\\
+L_6 &amp;: R_3^- \to L_5, L_0\\
+L_7 &amp;: HALT\\
+\end{aligned}\)</span></p>
+<h3 id="a">(a)</h3>
+<p><strong>Given the graphical representation of the register machine</strong></p>
+<p><img alt="tutorial1-1-a" src="../../../assets/Imperial/50003/tutorial1-1-a.png" /></p>
+<p>model answer:</p>
+<p><img alt="tutoeiral1-1-a-model-answer" src="../../../assets/Imperial/50003/tutorial1-1-a-model-answer.png" /></p>
+<h3 id="b">(b)</h3>
+<p><strong>Give the computation(that is, the sequence of configurations) when the register machine is run from the initial configuration (0,0,2,0,0)</strong></p>
+<p><span class="arithmatex">\(\begin{array}{c}
+L &amp; R_0 &amp; R_1 &amp; R_2 &amp; R_3\\
+0 &amp;0&amp; 2&amp; 0&amp; 0\\
+1 &amp;0&amp; 1&amp; 0&amp; 0\\
+2 &amp;1&amp; 1&amp; 0&amp; 0\\
+5 &amp;1&amp; 1&amp; 0&amp; 0\\
+6 &amp;1&amp; 1&amp; 1&amp; 0\\
+0 &amp;1&amp; 1&amp; 1&amp; 0\\
+1 &amp;1&amp; 0&amp; 1&amp; 0\\
+2 &amp;2&amp; 0&amp; 1&amp; 0\\
+3 &amp;2&amp; 0&amp; 0&amp; 0\\
+4 &amp;2&amp; 0&amp; 0&amp; 1\\
+1 &amp;3&amp; 0&amp; 0&amp; 1\\
+2 &amp;4&amp; 0&amp; 0&amp; 1\\
+5 &amp;4&amp; 0&amp; 0&amp; 1\\
+6 &amp;4&amp; 0&amp; 1&amp; 1\\
+5 &amp;4&amp; 0&amp; 1&amp; 0\\
+6 &amp;4&amp; 0&amp; 2&amp; 0\\
+0 &amp;4&amp; 0&amp; 2&amp; 0\\
+7 &amp;4&amp; 0&amp; 2&amp; 0\\
+\end{array}\)</span></p>
+<p>this is the same as the model answer</p>
+<p>The register machine computer the sum of the first x odd numbers and store it in <span class="arithmatex">\(R_0\)</span>, x is initially stored in <span class="arithmatex">\(R_1\)</span></p>
+<p>Register <span class="arithmatex">\(R_0\)</span> is used for the accumulator and the final result, <span class="arithmatex">\(R_1\)</span> is the input and used fortermination of the machine, <span class="arithmatex">\(R_2\)</span> is used for the loop that calculates 2k, and R3 stores a copy of R2 whilst it is destructively used by the loop. States L1 to L4 compute 1 + 2k and copies R2 into R3 whilst R2 is decremented. L5 and L6 moves R3 back into R2 and increments the value of R2 by 1 (this is equivalent to the operation incrementing k for the next addition).</p>
+<h2 id="2">2.</h2>
+<h3 id="a_1">(a)</h3>
+<p>initial configuration</p>
+<p>(0,x1,x2,0,0)</p>
+<p><span class="arithmatex">\(\begin{aligned}
+L_0 &amp;: R_2^-\to L_1, L_2\\
+L_1 &amp;: R_1^-\to L_0, L_4\\
+L_2 &amp;: R_1^-\to L_3, L_4\\
+L_3 &amp;: R_0^-\to L_2\\
+L_4 &amp;: HALT
+\end{aligned}\)</span></p>
+<p><img alt="tutorial-1-2-b-ii-model-answer" src="../../../assets/Imperial/50003/tutorial1-2-a-ii-model-answer.png" /></p>
+<h3 id="b_1">(b)</h3>
+<ol>
+<li>I dont think it is computable</li>
+</ol>
+<p>model answer:</p>
+<p>recall what it means for register machine M to compute <span class="arithmatex">\(g(x_1,x_2)\)</span>:</p>
+<p>The computation of M starting with <span class="arithmatex">\(R_0 = 0, R_1 = x_1, R_2 = x_2\)</span> and all other registers set to 0 halts with <span class="arithmatex">\(R_0 = y\)</span> if and only if <span class="arithmatex">\(g(x_1, x_2) = y\)</span></p>
+<p>Since <span class="arithmatex">\(g(x_1, x_2)\)</span> is undefine when <span class="arithmatex">\(x_2 &gt; x_1\)</span> there is no y with <span class="arithmatex">\(g(x_1, x_2) = y\)</span> Therefore the machine cannot halt. Instead it must run forever</p>
+<p><img alt="tutorial-1-3-b-model-answer" src="../../../assets/Imperial/50003/tutorial1-3-b-model-answer.png" /></p>
+<h2 id="3">3.</h2>
+<h3 id="a_2">(a)</h3>
+<p><span class="arithmatex">\(\begin{aligned}
+L_0&amp;: R_1^-\to L_1, L_3\\
+L_1&amp;: R_1^-\to L_0, L_2\\
+L_2&amp;: R_0^+\to L_3\\
+L_3&amp;: HALT
+\end{aligned}\)</span></p>
+<h3 id="b_2">(b)</h3>
+<p>get the remiander of x/2</p>
+<h2 id="4">4</h2>
+<h3 id="a_3">(a)</h3>
+<p><img alt="tutorial1-4-a" src="../../../assets/Imperial/50003/tutorial1-4-a.png" /></p>
+<h3 id="b_3">(b)</h3>
+<p><img alt="tutorial1-4-b" src="../../../assets/Imperial/50003/tutorial1-4-b.png" /></p>
+<h3 id="c">(c)</h3>
+<p><img alt="tutorial1-4-c" src="../../../assets/Imperial/50003/tutorial1-4-c.png" /></p>
+<p>model answer:</p>
+<p>need to zero <span class="arithmatex">\(R_0\)</span> first</p>
+<h3 id="d">(d)</h3>
+<p><img alt="tutorial1-4-d" src="../../../assets/Imperial/50003/tutorial1-4-d.png" /></p>
+<h3 id="e">(e)</h3>
+<p>it finds the largest square number below <span class="arithmatex">\(R_1\)</span></p>
+<h1 id="universal-register-machines">Universal Register Machines</h1>
+<h2 id="gadgets">Gadgets:</h2>
+<p>a partial register-machine graph, has only one wire, and one or more exits</p>
+<p>its like a function, may use other reigsters, call scratch register for temporary storage</p>
+<p><img alt="slide2" src="../../../assets/Imperial/50003/lecture2-slide2.png" /></p>
+<p>for copying, we do first zero and add other to this</p>
+<p>so copying <span class="arithmatex">\(R_1\)</span> to both <span class="arithmatex">\(R_2\)</span> and <span class="arithmatex">\(R_3\)</span> would be</p>
+<p><img alt="slide5" src="../../../assets/Imperial/50003/lecture2-slide5.png" /></p>
+<p>and multiplication like this:(basicallt adding multiple times)</p>
+<p><img alt="slide8" src="../../../assets/Imperial/50003/lecture2-slide8.png" /></p>
+<p>we do push X to L like this</p>
+<p><img alt="slide9" src="../../../assets/Imperial/50003/lecture2-slide9.png" /></p>
+<p>so imagine L is l, it is a list with unary zeros and 1 as delimeters</p>
+<p>so to add the x in the front, you need to first add a 1 and the unary x</p>
+<p>the triangle is a doubler, and we continue doubling until x is zero</p>
+<p>consider this</p>
+<p><span class="arithmatex">\(101 -&gt; 101001\)</span> l = [1], x = 2, z = 0</p>
+<p>so <span class="arithmatex">\((2*l + 1)2^x\)</span></p>
+<p>popping does the reverse</p>
+<p><img alt="slide12" src="../../../assets/Imperial/50003/lecture2-slide12.png" /></p>
+<p>summary:</p>
+<p><img alt="slide14" src="../../../assets/Imperial/50003/lecture2-slide14.png" /></p>
+<h2 id="universal-register-machine">Universal Register Machine</h2>
+<p>initial condition:</p>
+<p><span class="arithmatex">\(R_0 = 0, R_1 = e(\text{code of a program}), R_2 = a(\text{code of a list of arguments})\)</span> and other zero registers</p>
+<ul>
+<li>decode e as a RM program P</li>
+<li>decode a as a list of register values <span class="arithmatex">\(a_1, \dots, a_n\)</span></li>
+<li>carry out the computation of the RM program P starting with <span class="arithmatex">\(R_0 = 0, R_1 = a_1,\dots,R_n = a_n\)</span> and any other registers occuring in P set to 0</li>
+</ul>
+<p>registers:</p>
+<ul>
+<li><span class="arithmatex">\(R_0\)</span> result of the simulated RM computation(if any)</li>
+<li><span class="arithmatex">\(R_1\mod P\)</span> Program code of the RM to be simulated</li>
+<li><span class="arithmatex">\(R_2\mod A\)</span> list of RM Arguments(or register contents) of the simulated machine</li>
+<li><span class="arithmatex">\(R_3\mod PC\)</span> Program Counter-label number of the current instruction</li>
+<li><span class="arithmatex">\(R_4\mod N\)</span> label numbers of the Next instruction(s), also used to hold code of current instruction</li>
+<li><span class="arithmatex">\(R_5\mod C\)</span> code of Current instruction body</li>
+<li><span class="arithmatex">\(R_6\mod R\)</span> value of the Register to be used by current instruction</li>
+<li><span class="arithmatex">\(R_7\mod S\)</span> and <span class="arithmatex">\(R_8\mod T\)</span> are auxiliary registers</li>
+<li><span class="arithmatex">\(R_9\)</span> other scratch registers</li>
+</ul>
+<p>structure
+1. copy PCth item of list inP to N (halting if PC &gt; length of list) goto 2
+2. if N = 0 then halt, else, decode N as 《y,z; C::=y, N::=z, goto 3 (here either C=2i and current <span class="arithmatex">\(R_i^+\to L_z\)</span> or C = 2i+1 and <span class="arithmatex">\(R_i^-\to L_j, L_k; z = &lt;j,k&gt;\)</span>)
+3. copy ith item of list in A to R, goto 4
+4. execute current insturction on R; update PC to the next lebel restore register values to A; goto 1</p>
+<p><img alt="slide18" src="../../../assets/Imperial/50003/lecture2-slide18.png" /></p>
+<p>starting from start:</p>
+<ul>
+<li>push the <span class="arithmatex">\(R_0\)</span> to the A list so A is the list of Registers, copy Program code to T</li>
+<li>pop the Program code in T, continue decrementing PC until reached the desired instruction, else, it is empty, pop A back and halt</li>
+<li>pop Number of labels to C, if empty pop A back and halt</li>
+<li>pop A into R, this should <span class="arithmatex">\(R_0\)</span>, C now is instruction number, so continue popping until C is zero, we reached the register we want to reach, so R is the value we are interested in, A is the registers afterwards, S is the registers before R</li>
+<li>if I could do even number registers, theh the instruction is <span class="arithmatex">\(R_i^+\to L_z\)</span>, else <span class="arithmatex">\(R_i^-\to L_j, L_k; z = &lt;j,k&gt;\)</span>, so if even, we increase R, else we increse N (《x,y》=<x,y> + 1)</li>
+<li>if <span class="arithmatex">\(R^-\)</span> success, then I store the R into A(registers to be used), else we update the Program Counter</li>
+<li>we clear the S by popping it into R until empty, then we start again</li>
+</ul>
+<h1 id="halting-question">Halting question</h1>
+<h2 id="non-existence-of-entities">Non Existence of Entities:</h2>
+<p>some object we can describe but not exist</p>
+<p>for example: <span class="arithmatex">\(9^{9^9}\)</span> or "I am telling a lie" is true or false </p>
+<h2 id="halting-program">Halting program</h2>
+<p>A register machine H decides the Halting Problem for all <span class="arithmatex">\(e, a_1,\dots, a_n\in\mathbb{N}\)</span> starting H with</p>
+<p><span class="arithmatex">\(R_0= 0, R_1=e, R_2 = {^{\lceil}}[a_1,\dots, a_n]{^{\rceil}}\)</span></p>
+<p>and all the other zeroed, the computation of H always halts with <span class="arithmatex">\(R_0\)</span> containing 0 or 1, and when it halts, <span class="arithmatex">\(R_0 = 1\)</span> if and only if </p>
+<p>the register machine program with index e eventually halts when started with <span class="arithmatex">\(R_0 = -, R_1 = a_1,\dots,R_n = a_n\)</span> and all other register zeroed</p>
+<p><strong>Theorem</strong> No such register machine H can exist</p>
+<p><img alt="slide2+3" src="../../../assets/Imperial/50003/lecture3-slide2%2B3.png" /></p>
+<p>so the program H' means we transfer <span class="arithmatex">\(R_1\)</span> to <span class="arithmatex">\(R_2\)</span></p>
+<p>and the program C means that the program only halts if <span class="arithmatex">\(R_0\)</span> is 0, or it would be a dead cycle, so</p>
+<p>if C with <span class="arithmatex">\(R_1 = c\)</span> halts if and only if H' with <span class="arithmatex">\(R_1 = c\)</span> halts with <span class="arithmatex">\(R_0 = 0\)</span></p>
+<p>::= means that <code>&lt;symbol&gt; ::= __expression__</code> see https://stackoverflow.com/questions/9196066/what-does-a-double-colon-followed-by-an-equals-sign-mean-in-programming-do</p>
+<p>so the next step is decoding, the above is true if and only if </p>
+<p>H(not H') started with <span class="arithmatex">\(R_1 = c\)</span> and <span class="arithmatex">\(R_2 = {^{\lceil}}[c]{^{\rceil}}\)</span> halts with <span class="arithmatex">\(R_0 = 0\)</span></p>
+<p>by the definition of the question, this is true if and only if <span class="arithmatex">\(prog(c)\)</span> started with <span class="arithmatex">\(R_1 = c\)</span> does not halt</p>
+<p>so <span class="arithmatex">\(C\)</span> iwth <span class="arithmatex">\(R_1 = c\)</span> does not halt</p>
+<p>contradiction</p>
+<h2 id="enumerating-computable-functions">Enumerating computable functions</h2>
+<p>For each <span class="arithmatex">\(e\in\mathbb{N}\)</span> let <span class="arithmatex">\({\phi}_e\\in\mathbb{N}\rightharpoonup\mathbb{N}\)</span> be the unary partial function computed by the RM with program prog(e), so forall <span class="arithmatex">\(x,y\in\mathbb{N}\)</span></p>
+<p><span class="arithmatex">\({\phi}_e(x) = y\)</span> holds iff the computation of prog(e) started with <span class="arithmatex">\(R_0 = 0, R_1 = x\)</span> and all other register zeros eventually hale with <span class="arithmatex">\(R_0 = y\)</span></p>
+<p>then <span class="arithmatex">\(e\mapsto {\phi}_e\)</span> defines a <em>onto</em> function from <span class="arithmatex">\(\mathbb{N}\)</span> to all the computable partial function <span class="arithmatex">\(\mathbb{N}\to\mathbb{N}\)</span></p>
+<h3 id="uncomputable-function">uncomputable function</h3>
+<p>Let <span class="arithmatex">\(f\in\mathbb{N}\rightharpoonup\mathbb{N}\)</span> be the partial function <span class="arithmatex">\(\{(x,0)|\phi_x(x)\uparrow\}\)</span></p>
+<p>then <span class="arithmatex">\(f(x) = \begin{cases}\begin{array}{c}0 &amp; (\phi_x(x)\uparrow)\\undefined &amp; (\phi_x(x)\downarrow)\end{array}\end{cases}\)</span></p>
+<p>f is not computable, because if it is, then we have some <span class="arithmatex">\(f = \phi_e\)</span> for some <span class="arithmatex">\(e\in\mathbb{N}\)</span></p>
+<ul>
+<li>if <span class="arithmatex">\(\phi_x(x)\uparrow\)</span> then <span class="arithmatex">\(f(e) = 0\)</span> (by definition) so <span class="arithmatex">\(\phi_e(e) = 0\)</span>(by definition of e) then <span class="arithmatex">\(\phi_e(e)\downarrow\)</span></li>
+<li>if <span class="arithmatex">\(\phi_x(x)\downarrow\)</span> then <span class="arithmatex">\(f(w)\uparrow\)</span> (by definition of e), so <span class="arithmatex">\(\phi_e(e)\uparrow\)</span> by definition of f</li>
+</ul>
+<p>contradiction anyway, so f not computable</p>
+<h3 id="undecidable-sets-of-numers">undecidable sets of numers</h3>
+<p>Given a subset <span class="arithmatex">\(S\subseteq\mathbb{N}\)</span> its charateristic function <span class="arithmatex">\(\mathbf{X}_{S} \in\mathbb{N}\to\mathbb{N}\)</span></p>
+<p>if <span class="arithmatex">\(\mathbf{X}_S(x)\triangleq\begin{cases}\begin{array}{c}1 &amp; (x\in S)\\0 &amp; (x\notin S)\end{array}\end{cases}\)</span></p>
+<p>Definition:</p>
+<p><span class="arithmatex">\(S\subseteq\mathbb{N}\)</span> is decidable if its charateristic function is a register machine computable function. Otherwise it is called undecidable</p>
+<p>So S is decidable iff there is a RM M with: forall <span class="arithmatex">\(x\in\mathbb{N}\)</span>, M started with <span class="arithmatex">\(R_0 = 0, R_1 = x\)</span> and all other registers zeroed eventually halts with <span class="arithmatex">\(R_0\)</span> containing 1 or 0 and <span class="arithmatex">\(R_0 = 1\)</span> halting iff <span class="arithmatex">\(x\in S\)</span></p>
+<p>so if you try to prove <span class="arithmatex">\(S\subseteq \mathbb{N}\)</span> is undecidable, try to show that decidability of S would imply decidableity of the halting problem</p>
+<h1 id="tutorial-2">tutorial 2</h1>
+<h2 id="1_1">1</h2>
+<p><strong>Consider the register machine program P given by the folowing code</strong></p>
+<p><span class="arithmatex">\(\begin{aligned}
+L_0 &amp;: R_1^-\to L_1,L_6\\
+L_1 &amp;: R_2^-\to L_2,L_4\\
+L_2 &amp;: R_0^+\to L_3\\
+L_3 &amp;: R_3^+\to L_1\\
+L_4 &amp;: R_3^-\to L_5, L_0\\
+L_5 &amp;: R_2^+\to L_4\\
+L_6&amp;: HALT\\
+\end{aligned}\)</span></p>
+<p><strong>which computes the function <span class="arithmatex">\(f(x,y) = x\times y\)</span>, The code of P, written <span class="arithmatex">\({^{\lceil}}P{^{\rceil}}\)</span> has the form <span class="arithmatex">\({^{\lceil}}[{^{\lceil}}B_0{^{\rceil}},{^{\lceil}}B_1{^{\rceil}},{^{\lceil}}B_2{^{\rceil}},...]{^{\rceil}}\)</span></strong></p>
+<p><strong>Give the value of <span class="arithmatex">\({^{\lceil}}B_i{^{\rceil}}\)</span> for each i</strong></p>
+<p>following the lecture notes</p>
+<p><span class="arithmatex">\(\begin{cases}
+\begin{aligned}
+^{\lceil}R_i^+\to L_j^{\rceil} &amp;\triangleq 《2i，j》\\
+^{\lceil}R^-_i\to L_j,L_k^{\rceil} &amp; \triangleq 《2i+1,&lt;j,k&gt;》\\
+^{\lceil}HALT^{\rceil} &amp;\triangleq 0\\
+\end{aligned}
+\end{cases}\)</span></p>
+<p>and </p>
+<p><span class="arithmatex">\(\begin{cases}《x,y》\triangleq 2^x(2y+1)\\&lt;x,y&gt;\triangleq 2^x(2y+1) - 1\end{cases}\)</span></p>
+<p><span class="arithmatex">\(\begin{aligned}
+{^{\lceil}}B_0{^{\rceil}} &amp;= 《1， &lt;1,6&gt;》= 《1，25》 = 51\\
+{^{\lceil}}B_1{^{\rceil}} &amp;= 《2， &lt;2,4&gt;》= 《2， 35》 = 2271\\
+{^{\lceil}}B_2{^{\rceil}} &amp;= 《0，3》 = 7\\
+{^{\lceil}}B_3{^{\rceil}} &amp;= 《3，1》 = 24\\
+{^{\lceil}}B_4{^{\rceil}} &amp;= 《3，&lt;5,0&gt;》 = 《3，31》 = 504\\
+{^{\lceil}}B_5{^{\rceil}} &amp;= 《2，4》 = 36\\
+{^{\lceil}}B_6{^{\rceil}} &amp;= 0
+\end{aligned}\)</span></p>
+<h2 id="2_1">2,</h2>
+<p><strong>consider the natural number <span class="arithmatex">\(2^{216}\times 833\)</span></strong></p>
+<h3 id="a_4">(a)</h3>
+<p><span class="arithmatex">\(2^{216}\times 833 = 2^{216}\times 1101000001_2 = 1101000001\underbrace{0\dots 0}_{216}\)</span></p>
+<p>so this represent the list [216,5,1,0]</p>
+<p>which is [《3, &lt;2,3&gt;》, 《0,2》,《0,0》,0]</p>
+<p>so</p>
+<p><span class="arithmatex">\(\begin{aligned}
+L_0&amp;: R_3^-\to L_1, L_3\\
+L_1&amp;: R_0^+\to L_2\\
+L_2&amp;: R_0^+\to L_0\\
+L_3&amp;: HALT
+\end{aligned}\)</span></p>
+<h3 id="b_4">b:</h3>
+<p>it doubles the value of <span class="arithmatex">\(R_3\)</span> to <span class="arithmatex">\(R_0\)</span> while clearing <span class="arithmatex">\(R_3\)</span></p>
+<h2 id="3_1">3.</h2>
+<p><img alt="tutorial2-3" src="../../../assets/Imperial/50003/tutorial2-3.png" /></p>
+<h3 id="a_5">a.</h3>
+<p><img alt="tutorial2-3-a" src="../../../assets/Imperial/50003/tutorial2-3-a.png" /></p>
+<p><img alt="tutorial2-3-a-" src="../../../assets/Imperial/50003/tutorial2-3-a-.png" /></p>
+<h3 id="bcdef">bcdef</h3>
+<p><img alt="tutorial2-3-bcdef" src="../../../assets/Imperial/50003/tutorial2-3-bcdef.png" /></p>
+<p><img alt="tutoial2-3-bcdef-" src="../../../assets/Imperial/50003/tutorial2-3-bcdef-.png" /></p>
+<h1 id="lecture3-turning-machines">Lecture3 turning machines</h1>
+<h2 id="algorithms-informally">algorithms, informally:</h2>
+<ul>
+<li>its a finite description of the procedure in terms of elementary operations</li>
+<li>deterministic</li>
+<li>procedure may not terminate</li>
+</ul>
+<h2 id="turning-machines">turning machines</h2>
+<p>the machine starts with state s and every step it overwrites the current position on the tape or move left or right or change state</p>
+<p>A Turning machine is sepcified by a quadruple <span class="arithmatex">\(M = (Q, \sum, s, \delta)\)</span> where</p>
+<ul>
+<li>Q is a finist set of machine states</li>
+<li><span class="arithmatex">\(\sum\)</span> is a finite set of tape symbols, containing distinguished symbol <span class="arithmatex">\(\textvisiblespace\)</span> called blank</li>
+<li>an initial state <span class="arithmatex">\(s\in Q\)</span></li>
+<li>a partial transition function <span class="arithmatex">\(\delta\in(Q\times\sum)\rightharpoonup (Q\times\sum\times\{L,R\})\)</span></li>
+</ul>
+<p>L,R stand for left and right</p>
+<h3 id="configuration_1">configuration</h3>
+<p>A turning machine configuration (q,w,u) consist of</p>
+<ul>
+<li>the current state <span class="arithmatex">\(q\in Q\)</span></li>
+<li>a finite possibly-empty string <span class="arithmatex">\(w\in\sum^*\)</span> of tape symbold to the left of the tape head</li>
+<li>a fintie possibly empty string <span class="arithmatex">\(u\in\sum^*\)</span> of tape symbols under and to the right of tape head. <span class="arithmatex">\(\epsilon\)</span> denotes the empty string</li>
+</ul>
+<p>An initial configruation is <span class="arithmatex">\((s,\epsilon,u)\)</span>, for initial state s and string tape symbols u</p>
+<h3 id="functions">functions</h3>
+<p>we have the two functions <span class="arithmatex">\(\text{first}:\sum^*\to\sum\times\sum^*\)</span> and <span class="arithmatex">\(\text{last}:\sum^*\to\sum\times\sum^*\)</span> as follows</p>
+<p><span class="arithmatex">\(\begin{aligned}
+\text{first(w)} &amp;= \begin{cases}\begin{array}
+(a,v) &amp;\text{if }w = av\\
+(\textvisiblespace,\epsilon)&amp;\text{if }w =\epsilon\\
+\end{array}\end{cases}\\
+\text{first(w)} &amp;= \begin{cases}\begin{array}
+(a,v) &amp;\text{if }w = va\\
+(\textvisiblespace,\epsilon)&amp;\text{if }w =\epsilon\\
+\end{array}\end{cases}
+\end{aligned}\)</span></p>
+<h3 id="turning-machine-computation">Turning machine Computation</h3>
+<p>Given <span class="arithmatex">\(M = (Q, \sum, s, \delta)\)</span>, define <span class="arithmatex">\((q,w,u)\to_M(q',w',u')\)</span> by</p>
+<p><span class="arithmatex">\(\text{first}(u) = (a,\u')\\
+\frac{\delta(q,a)=(q',a',L)\qquad\text{last(w) = (b,w')}}{(q,w,u)\to_M(q',w',ba'u')}\\
+\frac{\text{first}(u)=(a,u')\qquad\delta(q,a)=(q',a',R)}{(q,w,u)\to_M(q',wa',u')}\)</span></p>
+<p>We say a configuration <span class="arithmatex">\((q,w,n)\)</span> is anormal form if it has no computation step,this is when <span class="arithmatex">\(\delta(q,a)\)</span> is undefined for <span class="arithmatex">\(\text{first}(u) = (a,u')\)</span></p>
+<p>a computation of a TM M is a (finite or infinite) sequence of configruations, <span class="arithmatex">\(c_0,c_1,c_2\dots\)</span> where
+- <span class="arithmatex">\(c_0=(s,\epsilon,u)\)</span> is an initial configuration
+- <span class="arithmatex">\(c_i\to_M c_{i+1}\)</span> holds for each <span class="arithmatex">\(i = 0,1,\dots\)</span></p>
+<p>The computation</p>
+<ul>
+<li>does not halt if the sequence is infinite</li>
+<li>halts if the sequence is finite and its last element <span class="arithmatex">\((q,w,u)\)</span> is a normal form</li>
+</ul>
+<h3 id="graphical-representation-of-a-turning-machine">Graphical representation of a turning machine</h3>
+<p>the graph representing a TM</p>
+<ul>
+<li>Nodes: states <span class="arithmatex">\(q\in Q\)</span></li>
+<li>Edges: representing the transition function
+For <span class="arithmatex">\(((q,s),(q',s',M))\in\delta\)</span> with <span class="arithmatex">\(q,q'\in Q, s,s'\in\sum\)</span> and <span class="arithmatex">\(M\in\{L,R\}\)</span> there is a link from q to q' labelled by <span class="arithmatex">\(s\to s',M\)</span> and</li>
+<li>initial state: <span class="arithmatex">\(s\in Q\)</span> indicated e.g. by an unlabeled edge</li>
+</ul>
+<h3 id="theorm">Theorm</h3>
+<p>The computation of a Turning machine M can be implemented by a register machine</p>
+<p>(a register machine is at least as powerufl as a turning maching)</p>
+<h4 id="step1">step1:</h4>
+<p>fix a numerical encoding of <span class="arithmatex">\(M\)</span>'s state,, tape symbols, tape contents and configurations</p>
+<p>Identify the state and tape symbol with numbers:</p>
+<p><span class="arithmatex">\(Q =\{0,1,\dots,n\}\qquad\sum=\{0,1,\dots,m\}\)</span></p>
+<p>where s = 0 and <span class="arithmatex">\(\textvisiblespace = 0\)</span></p>
+<p>Code configurations <span class="arithmatex">\(c = (q,w,u)\)</span> with three numbers</p>
+<ul>
+<li>q the state number</li>
+<li><span class="arithmatex">\({^{\lceil}}[a_i,\dots,a_1]{^{\rceil}}\)</span> where <span class="arithmatex">\(q = a_1,\dots,a_i\)</span></li>
+<li><span class="arithmatex">\({^{\lceil}}[b_i,\dots,b_1]{^{\rceil}}\)</span> where <span class="arithmatex">\(q = b_1,\dots,b_i\)</span></li>
+</ul>
+<p>this reversla make it easier for RM programs</p>
+<p>define directions <span class="arithmatex">\(L = 0, R = 1\)</span></p>
+<h4 id="step2">step2:</h4>
+<p>we can turn the finite table of (argument, result) pairs specifying <span class="arithmatex">\(\delta\)</span> into a RM gadget</p>
+<p><img alt="slide10" src="../../../assets/Imperial/50003/lecture3-slide10.png" /></p>
+<p>which does the following, q,a,d are the initial values of registers I, A, D</p>
+<ul>
+<li>updates the registers to I=q', A = a', D = d' and takes the defined exit if <span class="arithmatex">\(\delta(q,a) = (q',a',d')\)</span></li>
+<li>leaves the registers inteact and the undefined exit if <span class="arithmatex">\(\delta(q,a)\)</span> is undefined</li>
+</ul>
+<h4 id="step3">step3:</h4>
+<p>for a TM M, it uses registers </p>
+<ul>
+<li>I = current state</li>
+<li>W = code of tape symbold left of tape head</li>
+<li>U = code ofo tape symbols at and right of the tape head</li>
+</ul>
+<p>starting with U containing the code of the input string, the RM program halts if and only if M halts; we can use the following UNiversal Register machine to achieve the same effect of a Turing machine</p>
+<p><img alt="slide17" src="../../../assets/Imperial/50003/lecture3-slide17.png" /></p>
+<h3 id="tape-encoding-of-lists-of-numbers">tape encoding of lists of numbers</h3>
+<p>A tape of <span class="arithmatex">\(\{\textvisiblespace, 0, 1\}\)</span> codes a list of numbers if precisely two cell contain 0 and the only cells containing 1 between these</p>
+<p><span class="arithmatex">\(\underbrace{\dots\textvisiblespace\textvisiblespace}_{all\textvisiblespace s}0\underbrace{1/dots1}_{n_1}\textvisiblespace\underbrace{1/dots1}_{n_2}\textvisiblespace\dots\underbrace{1/dots1}_{n_k}\textvisiblespace0\underbrace{\textvisiblespace\textvisiblespace\dots}_{all\textvisiblespace s}\)</span></p>
+<h1 id="lecutre-4-lambda-calculus">Lecutre 4 <span class="arithmatex">\(\lambda\)</span> calculus</h1>
+<p>it is in the following form</p>
+<p><span class="arithmatex">\(M\quad::=\quad \underbrace{x}_{\text{Variable}}|\underbrace{\lambdax.M}_{\text{Abstraction}}|\underbrace{M M}_{\text{Application}}\)</span></p>
+<p>the Abstraction is a single-parameter function</p>
+<p>just recall the <code>lambda x: 2*x + 1</code> in python</p>
+<p>or <span class="arithmatex">\(x =&gt; 2*x + 1\)</span> in javascript</p>
+<h2 id="syntax">syntax:</h2>
+<h3 id="free-and-bound-variables">free and bound variables</h3>
+<p>consider these three</p>
+<ul>
+<li><span class="arithmatex">\(\lambda x.x\)</span>
+  In this case x is bounded</li>
+<li><span class="arithmatex">\(\lambda x.y\)</span>
+  In this case y is free</li>
+<li><span class="arithmatex">\(\lambda x.\lambda y.\lambda z xy\)</span>
+  We call this a closed term as there are no free variables </li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      2024 by Honglei Gu
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["content.code.annotate"], "search": "../../../assets/javascripts/workers/search.07f07601.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.56dfad97.min.js"></script>
+      
+        <script src="../../../theme/js/mathjax.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.0/es5/tex-mml-chtml.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.0/es5/tex-chtml.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.0/es5/tex-chtml-full.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.0/es5/tex-svg-full.js"></script>
+      
+    
+  </body>
+</html>

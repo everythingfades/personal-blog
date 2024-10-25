@@ -1,0 +1,4813 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="Honglei Gu(everythingfades)">
+      
+      
+        <link rel="canonical" href="http://localhost:9000/zh/web/css.html">
+      
+      
+        <link rel="prev" href="html.html">
+      
+      
+        <link rel="next" href="js/js.html">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.34">
+    
+    
+      
+        <title>css - Honglei Gu's personal blog</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.35f28582.min.css">
+      
+      
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+  
+  <style>:root{--md-admonition-icon--note:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M1 7.775V2.75C1 1.784 1.784 1 2.75 1h5.025c.464 0 .91.184 1.238.513l6.25 6.25a1.75 1.75 0 0 1 0 2.474l-5.026 5.026a1.75 1.75 0 0 1-2.474 0l-6.25-6.25A1.75 1.75 0 0 1 1 7.775m1.5 0c0 .066.026.13.073.177l6.25 6.25a.25.25 0 0 0 .354 0l5.025-5.025a.25.25 0 0 0 0-.354l-6.25-6.25a.25.25 0 0 0-.177-.073H2.75a.25.25 0 0 0-.25.25ZM6 5a1 1 0 1 1 0 2 1 1 0 0 1 0-2"/></svg>');--md-admonition-icon--abstract:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M2.5 1.75v11.5c0 .138.112.25.25.25h3.17a.75.75 0 0 1 0 1.5H2.75A1.75 1.75 0 0 1 1 13.25V1.75C1 .784 1.784 0 2.75 0h8.5C12.216 0 13 .784 13 1.75v7.736a.75.75 0 0 1-1.5 0V1.75a.25.25 0 0 0-.25-.25h-8.5a.25.25 0 0 0-.25.25m13.274 9.537zl-4.557 4.45a.75.75 0 0 1-1.055-.008l-1.943-1.95a.75.75 0 0 1 1.062-1.058l1.419 1.425 4.026-3.932a.75.75 0 1 1 1.048 1.074M4.75 4h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5M4 7.75A.75.75 0 0 1 4.75 7h2a.75.75 0 0 1 0 1.5h-2A.75.75 0 0 1 4 7.75"/></svg>');--md-admonition-icon--info:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13M6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75M8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2"/></svg>');--md-admonition-icon--tip:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.499.75a.75.75 0 0 1 1.5 0v.996C5.9 2.903 6.793 3.65 7.662 4.376l.24.202c-.036-.694.055-1.422.426-2.163C9.1.873 10.794-.045 12.622.26 14.408.558 16 1.94 16 4.25c0 1.278-.954 2.575-2.44 2.734l.146.508.065.22c.203.701.412 1.455.476 2.226.142 1.707-.4 3.03-1.487 3.898C11.714 14.671 10.27 15 8.75 15h-6a.75.75 0 0 1 0-1.5h1.376a4.5 4.5 0 0 1-.563-1.191 3.84 3.84 0 0 1-.05-2.063 4.65 4.65 0 0 1-2.025-.293.75.75 0 0 1 .525-1.406c1.357.507 2.376-.006 2.698-.318l.009-.01a.747.747 0 0 1 1.06 0 .75.75 0 0 1-.012 1.074c-.912.92-.992 1.835-.768 2.586.221.74.745 1.337 1.196 1.621H8.75c1.343 0 2.398-.296 3.074-.836.635-.507 1.036-1.31.928-2.602-.05-.603-.216-1.224-.422-1.93l-.064-.221c-.12-.407-.246-.84-.353-1.29a2.4 2.4 0 0 1-.507-.441 3.1 3.1 0 0 1-.633-1.248.75.75 0 0 1 1.455-.364c.046.185.144.436.31.627.146.168.353.305.712.305.738 0 1.25-.615 1.25-1.25 0-1.47-.95-2.315-2.123-2.51-1.172-.196-2.227.387-2.706 1.345-.46.92-.27 1.774.019 3.062l.042.19.01.05c.348.443.666.949.94 1.553a.75.75 0 1 1-1.365.62c-.553-1.217-1.32-1.94-2.3-2.768L6.7 5.527c-.814-.68-1.75-1.462-2.692-2.619a3.7 3.7 0 0 0-1.023.88c-.406.495-.663 1.036-.722 1.508.116.122.306.21.591.239.388.038.797-.06 1.032-.19a.75.75 0 0 1 .728 1.31c-.515.287-1.23.439-1.906.373-.682-.067-1.473-.38-1.879-1.193L.75 5.677V5.5c0-.984.48-1.94 1.077-2.664.46-.559 1.05-1.055 1.673-1.353z"/></svg>');--md-admonition-icon--success:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.75.75 0 0 1 .018-1.042.75.75 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0"/></svg>');--md-admonition-icon--question:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13M6.92 6.085h.001a.749.749 0 1 1-1.342-.67c.169-.339.436-.701.849-.977C6.845 4.16 7.369 4 8 4a2.76 2.76 0 0 1 1.637.525c.503.377.863.965.863 1.725 0 .448-.115.83-.329 1.15-.205.307-.47.513-.692.662-.109.072-.22.138-.313.195l-.006.004a6 6 0 0 0-.26.16 1 1 0 0 0-.276.245.75.75 0 0 1-1.248-.832c.184-.264.42-.489.692-.661q.154-.1.313-.195l.007-.004c.1-.061.182-.11.258-.161a1 1 0 0 0 .277-.245C8.96 6.514 9 6.427 9 6.25a.61.61 0 0 0-.262-.525A1.27 1.27 0 0 0 8 5.5c-.369 0-.595.09-.74.187a1 1 0 0 0-.34.398M9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/></svg>');--md-admonition-icon--warning:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0 1 14.082 15H1.918a1.75 1.75 0 0 1-1.543-2.575Zm1.763.707a.25.25 0 0 0-.44 0L1.698 13.132a.25.25 0 0 0 .22.368h12.164a.25.25 0 0 0 .22-.368Zm.53 3.996v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0M9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/></svg>');--md-admonition-icon--failure:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M2.344 2.343za8 8 0 0 1 11.314 11.314A8.002 8.002 0 0 1 .234 10.089a8 8 0 0 1 2.11-7.746m1.06 10.253a6.5 6.5 0 1 0 9.108-9.275 6.5 6.5 0 0 0-9.108 9.275M6.03 4.97 8 6.94l1.97-1.97a.749.749 0 0 1 1.275.326.75.75 0 0 1-.215.734L9.06 8l1.97 1.97a.749.749 0 0 1-.326 1.275.75.75 0 0 1-.734-.215L8 9.06l-1.97 1.97a.749.749 0 0 1-1.275-.326.75.75 0 0 1 .215-.734L6.94 8 4.97 6.03a.75.75 0 0 1 .018-1.042.75.75 0 0 1 1.042-.018"/></svg>');--md-admonition-icon--danger:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M9.504.43a1.516 1.516 0 0 1 2.437 1.713L10.415 5.5h2.123c1.57 0 2.346 1.909 1.22 3.004l-7.34 7.142a1.25 1.25 0 0 1-.871.354h-.302a1.25 1.25 0 0 1-1.157-1.723L5.633 10.5H3.462c-1.57 0-2.346-1.909-1.22-3.004zm1.047 1.074L3.286 8.571A.25.25 0 0 0 3.462 9H6.75a.75.75 0 0 1 .694 1.034l-1.713 4.188 6.982-6.793A.25.25 0 0 0 12.538 7H9.25a.75.75 0 0 1-.683-1.06l2.008-4.418.003-.006-.004-.009-.006-.006-.008-.001q-.005 0-.009.004"/></svg>');--md-admonition-icon--bug:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M4.72.22a.75.75 0 0 1 1.06 0l1 .999a3.5 3.5 0 0 1 2.441 0l.999-1a.748.748 0 0 1 1.265.332.75.75 0 0 1-.205.729l-.775.776c.616.63.995 1.493.995 2.444v.327q0 .15-.025.292c.408.14.764.392 1.029.722l1.968-.787a.75.75 0 0 1 .556 1.392L13 7.258V9h2.25a.75.75 0 0 1 0 1.5H13v.5q-.002.615-.141 1.186l2.17.868a.75.75 0 0 1-.557 1.392l-2.184-.873A5 5 0 0 1 8 16a5 5 0 0 1-4.288-2.427l-2.183.873a.75.75 0 0 1-.558-1.392l2.17-.868A5 5 0 0 1 3 11v-.5H.75a.75.75 0 0 1 0-1.5H3V7.258L.971 6.446a.75.75 0 0 1 .558-1.392l1.967.787c.265-.33.62-.583 1.03-.722a1.7 1.7 0 0 1-.026-.292V4.5c0-.951.38-1.814.995-2.444L4.72 1.28a.75.75 0 0 1 0-1.06m.53 6.28a.75.75 0 0 0-.75.75V11a3.5 3.5 0 1 0 7 0V7.25a.75.75 0 0 0-.75-.75ZM6.173 5h3.654A.17.17 0 0 0 10 4.827V4.5a2 2 0 1 0-4 0v.327c0 .096.077.173.173.173"/></svg>');--md-admonition-icon--example:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M5 5.782V2.5h-.25a.75.75 0 0 1 0-1.5h6.5a.75.75 0 0 1 0 1.5H11v3.282l3.666 5.76C15.619 13.04 14.543 15 12.767 15H3.233c-1.776 0-2.852-1.96-1.899-3.458Zm-2.4 6.565a.75.75 0 0 0 .633 1.153h9.534a.75.75 0 0 0 .633-1.153L12.225 10.5h-8.45ZM9.5 2.5h-3V6c0 .143-.04.283-.117.403L4.73 9h6.54L9.617 6.403A.75.75 0 0 1 9.5 6Z"/></svg>');--md-admonition-icon--quote:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M1.75 2.5h10.5a.75.75 0 0 1 0 1.5H1.75a.75.75 0 0 1 0-1.5m4 5h8.5a.75.75 0 0 1 0 1.5h-8.5a.75.75 0 0 1 0-1.5m0 5h8.5a.75.75 0 0 1 0 1.5h-8.5a.75.75 0 0 1 0-1.5M2.5 7.75v6a.75.75 0 0 1-1.5 0v-6a.75.75 0 0 1 1.5 0"/></svg>');}</style>
+
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#2-css" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../index.html" title="Honglei Gu&#39;s personal blog" class="md-header__button md-logo" aria-label="Honglei Gu's personal blog" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Honglei Gu's personal blog
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              css
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/everythingfades/personal-blog.git" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../index.html" title="Honglei Gu&#39;s personal blog" class="md-nav__button md-logo" aria-label="Honglei Gu's personal blog" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Honglei Gu's personal blog
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/everythingfades/personal-blog.git" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../index.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    中文
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            中文
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    web(前端+后端)
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            web(前端+后端)
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="html.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    html
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    css
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="css.html" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    css
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1 一般格式:
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.1 一般格式:">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#jupyter-notebookhtmlcssjupyter-notebook" class="md-nav__link">
+    <span class="md-ellipsis">
+      注意:由于jupyter notebook直接使用html,更改css可能会导致jupyter notebook整个格式错乱,记得重置
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#22-css" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.2 css的引入方式:
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.2 css的引入方式:">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#221" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.2.1 行内(不建议)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#222-style-style" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.2.2 &lt; style&gt;&lt; /style&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#223-link" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.2.3 &lt; link&gt;
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#23-css" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.3 css选择器
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.3 css选择器">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#231" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.3.1 全局选择器:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#232" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.3.2 元素选择器:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#233" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.3.3 类选择器:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#234-id" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.3.4 id选择器
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#235" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.3.5 合并选择器
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#236" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.3.6 其他选择器
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.3.6 其他选择器">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#237" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.3.7 后代选择器
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#238" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.3.8 &gt;选择器：
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#239" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.3.9 +选择器:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2310" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.3.10 ~选择器:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2311" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.3.11 伪对象选择器:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2312" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.3.12 优先级
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#24-css" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.4 css特性
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#25" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.5 字体属性:
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.5 字体属性:">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#251-color" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.5.1 color:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#252-font-size" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.5.2 font-size
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#253-font-weight" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.5.3 font-weight:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#254-font-style" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.5.4 font-style:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#255-font-family" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.5.5 font-family:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#256-line-height" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.5.6 line-height:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#257-font" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.5.7 font:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#258-text-indent" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.5.8 text-indent:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#259-text-align" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.5.9 text-align:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2510-text-decoration" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.5.10 text-decoration:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#26" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.6 背景
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.6 背景">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#261-background-color" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.6.1 background-color
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#262-background-image" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.6.2 background-image
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#263-background-repeat" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.6.3 background-repeat:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#264-background-size" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.6.4 background-size:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#265-background-position" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.6.5 background-position:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#266-background-attachment" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.6.6 background-attachment
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#267-background" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.6.7 background复合:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#27" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.7文本属性
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.7文本属性">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#271-text-align" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.7.1 text-align
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#272-text-decoration" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.7.2 text-decoration:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#273-text-transform" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.7.3 text-transform
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#274-text-indent" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.7.4 text-indent:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#28" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.8 表格/边界属性
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.8 表格/边界属性">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#281-border" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.8.1 border：
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#282-border-collapse" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.8.2 border-collapse:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#283-border-radius" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.8.3 border-radius(这个一般不在表格中用)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#29-css" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.9 css盒子模型:
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.9 css盒子模型:">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#291" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.9.1 外边距问题:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#292" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.9.2 行内元素内外边距问题:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#293" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.9.3 清除默认样式:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#294" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.9.4 元素溢出:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#295-box-shadow" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.9.5 box-shadow
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#210-css" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.10 css弹性盒子
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.10 css弹性盒子">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#2101-justify-content" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.10.1 justify-content:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2102-flex-direction" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.10.2 flex-direction:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2103-align-items" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.10.3 align-items:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2104-align-self" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.10.4 align-self:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2105-flex" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.10.5 flex:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2106-flex-grow" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.10.6 flex-grow:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2107-flex-wrap" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.10.7 flex-wrap:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2108-align-content" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.10.8 align-content
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#211" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.11 文档流:
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.11 文档流:">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#2111" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.11.1 问题:
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.11.1 问题:">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21121" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.11.2.1 空格折叠
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#21122" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.11.2.2 元素无间隙:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2112" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.11.2 解决:
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.11.2 解决:">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      浮动:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#21121_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.11.2.1 清除浮动:
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.11.2.1 清除浮动:">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#211211-clear" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.11.2.1.1 clear
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#211212-overflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.11.2.1.2 overflow:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#212" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.12 定位:
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.12 定位:">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#2121-z-index" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.12.1 z-index:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#213-transition" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.13 transition:
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#214-opacity" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.14 opacity:
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#215-seo" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.15 SEO:
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#216-favicon" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.16 Favicon图标:
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#217" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.17 各种效果:
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.17 各种效果:">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#2171" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.17.1 二维
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.17.1 二维">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21711" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.17.1.1 平移:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#21712" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.17.1.2 旋转效果:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#21713" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.17.1.3 转换原点:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#21714" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.17.1.4 复合效果:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#21715" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.17.1.5 缩放:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#21716" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.17.1.6 倾斜:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#21717" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.17.1.7 背景渐变:
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.17.1.7 背景渐变:">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#217171" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.17.1.7.1 线性:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#217172" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.17.1.7.2 径向
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2172" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.17.2 空间转换:
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.17.2 空间转换:">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21721" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.17.2.1 平移:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#21722" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.17.2.2 视距
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#21723" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.17.2.3 旋转
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#21724" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.17.2.4 立体呈现:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#21725" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.17.2.5 空间缩放:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#218" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.18 动画:
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#219" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.19 兼容不同设备:
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.19 兼容不同设备:">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#2191" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.19.1 视口:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2192" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.19.2 二倍图:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2193" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.19.3 适配方案:
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.19.3 适配方案:">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#2194-rem" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.19.4 rem:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2195-vw-vh" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.19.5 vw vh
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2196" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.19.6 媒体查询:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2197-rem-flexiblejs" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.19.7 rem-flexible.js
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.19.7 rem-flexible.js">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21971-pxrem" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.19.7.1 px转rem
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2198" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.19.8 雪碧图/精灵图
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2199" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.19.9 字体图标:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#220-less" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.20 less
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.20 less">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#2201" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.20.1 注释:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2202" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.20.2 支持运算:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2203" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.20.3 嵌套
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2204" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.20.4 变量:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2205" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.20.5 导入:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2206" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.20.6 导出:
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.20.6 导出:">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#22061" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.20.6.1 禁止导出:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_1_3" id="__nav_2_1_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    js
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1_3">
+            <span class="md-nav__icon md-icon"></span>
+            js
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="js/js.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    基础语法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="js/js-advanced.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    进阶语法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="js/DOM.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DOM
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="js/BOM.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    BOM
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="AJAX.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    AJAX
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="nodejs.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    nodejs
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="webpack.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    webpack
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="vue2.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    vue2
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    English
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            English
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_1" id="__nav_3_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Imperial
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            Imperial
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_1_1" id="__nav_3_1_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    year2
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_1_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_1_1">
+            <span class="md-nav__icon md-icon"></span>
+            year2
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../en/Imperial/year2/pintos.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    [Protected] pintos
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../en/Imperial/year2/50001-Algorithms.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    50001-Algorithms
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../en/Imperial/year2/50003-Models-of-Computation.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    50003-Model-of-Computation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../en/Imperial/year2/50004-Operating-System.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    50004-Operating-System
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    web
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            web
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../en/web/html.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    html
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    other
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            other
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3_1" id="__nav_3_3_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    CTF
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            CTF
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../en/other/CTF/cyber_security.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    cyber-security
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../en/other/CTF/CTFhub.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CTFhub
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1 一般格式:
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.1 一般格式:">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#jupyter-notebookhtmlcssjupyter-notebook" class="md-nav__link">
+    <span class="md-ellipsis">
+      注意:由于jupyter notebook直接使用html,更改css可能会导致jupyter notebook整个格式错乱,记得重置
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#22-css" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.2 css的引入方式:
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.2 css的引入方式:">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#221" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.2.1 行内(不建议)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#222-style-style" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.2.2 &lt; style&gt;&lt; /style&gt;
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#223-link" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.2.3 &lt; link&gt;
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#23-css" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.3 css选择器
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.3 css选择器">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#231" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.3.1 全局选择器:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#232" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.3.2 元素选择器:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#233" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.3.3 类选择器:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#234-id" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.3.4 id选择器
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#235" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.3.5 合并选择器
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#236" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.3.6 其他选择器
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.3.6 其他选择器">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#237" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.3.7 后代选择器
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#238" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.3.8 &gt;选择器：
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#239" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.3.9 +选择器:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2310" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.3.10 ~选择器:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2311" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.3.11 伪对象选择器:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2312" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.3.12 优先级
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#24-css" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.4 css特性
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#25" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.5 字体属性:
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.5 字体属性:">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#251-color" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.5.1 color:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#252-font-size" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.5.2 font-size
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#253-font-weight" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.5.3 font-weight:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#254-font-style" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.5.4 font-style:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#255-font-family" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.5.5 font-family:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#256-line-height" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.5.6 line-height:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#257-font" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.5.7 font:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#258-text-indent" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.5.8 text-indent:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#259-text-align" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.5.9 text-align:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2510-text-decoration" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.5.10 text-decoration:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#26" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.6 背景
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.6 背景">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#261-background-color" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.6.1 background-color
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#262-background-image" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.6.2 background-image
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#263-background-repeat" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.6.3 background-repeat:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#264-background-size" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.6.4 background-size:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#265-background-position" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.6.5 background-position:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#266-background-attachment" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.6.6 background-attachment
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#267-background" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.6.7 background复合:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#27" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.7文本属性
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.7文本属性">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#271-text-align" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.7.1 text-align
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#272-text-decoration" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.7.2 text-decoration:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#273-text-transform" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.7.3 text-transform
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#274-text-indent" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.7.4 text-indent:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#28" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.8 表格/边界属性
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.8 表格/边界属性">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#281-border" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.8.1 border：
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#282-border-collapse" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.8.2 border-collapse:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#283-border-radius" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.8.3 border-radius(这个一般不在表格中用)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#29-css" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.9 css盒子模型:
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.9 css盒子模型:">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#291" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.9.1 外边距问题:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#292" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.9.2 行内元素内外边距问题:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#293" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.9.3 清除默认样式:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#294" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.9.4 元素溢出:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#295-box-shadow" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.9.5 box-shadow
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#210-css" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.10 css弹性盒子
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.10 css弹性盒子">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#2101-justify-content" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.10.1 justify-content:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2102-flex-direction" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.10.2 flex-direction:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2103-align-items" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.10.3 align-items:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2104-align-self" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.10.4 align-self:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2105-flex" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.10.5 flex:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2106-flex-grow" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.10.6 flex-grow:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2107-flex-wrap" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.10.7 flex-wrap:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2108-align-content" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.10.8 align-content
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#211" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.11 文档流:
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.11 文档流:">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#2111" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.11.1 问题:
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.11.1 问题:">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21121" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.11.2.1 空格折叠
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#21122" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.11.2.2 元素无间隙:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2112" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.11.2 解决:
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.11.2 解决:">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      浮动:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#21121_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.11.2.1 清除浮动:
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.11.2.1 清除浮动:">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#211211-clear" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.11.2.1.1 clear
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#211212-overflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.11.2.1.2 overflow:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#212" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.12 定位:
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.12 定位:">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#2121-z-index" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.12.1 z-index:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#213-transition" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.13 transition:
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#214-opacity" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.14 opacity:
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#215-seo" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.15 SEO:
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#216-favicon" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.16 Favicon图标:
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#217" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.17 各种效果:
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.17 各种效果:">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#2171" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.17.1 二维
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.17.1 二维">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21711" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.17.1.1 平移:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#21712" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.17.1.2 旋转效果:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#21713" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.17.1.3 转换原点:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#21714" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.17.1.4 复合效果:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#21715" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.17.1.5 缩放:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#21716" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.17.1.6 倾斜:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#21717" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.17.1.7 背景渐变:
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.17.1.7 背景渐变:">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#217171" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.17.1.7.1 线性:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#217172" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.17.1.7.2 径向
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2172" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.17.2 空间转换:
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.17.2 空间转换:">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21721" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.17.2.1 平移:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#21722" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.17.2.2 视距
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#21723" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.17.2.3 旋转
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#21724" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.17.2.4 立体呈现:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#21725" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.17.2.5 空间缩放:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#218" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.18 动画:
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#219" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.19 兼容不同设备:
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.19 兼容不同设备:">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#2191" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.19.1 视口:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2192" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.19.2 二倍图:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2193" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.19.3 适配方案:
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.19.3 适配方案:">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#2194-rem" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.19.4 rem:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2195-vw-vh" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.19.5 vw vh
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2196" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.19.6 媒体查询:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2197-rem-flexiblejs" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.19.7 rem-flexible.js
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.19.7 rem-flexible.js">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21971-pxrem" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.19.7.1 px转rem
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2198" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.19.8 雪碧图/精灵图
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2199" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.19.9 字体图标:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#220-less" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.20 less
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.20 less">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#2201" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.20.1 注释:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2202" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.20.2 支持运算:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2203" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.20.3 嵌套
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2204" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.20.4 变量:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2205" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.20.5 导入:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2206" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.20.6 导出:
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2.20.6 导出:">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#22061" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.20.6.1 禁止导出:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="2-css">2. css</h1>
+<h2 id="21">2.1 一般格式:</h2>
+<p>选择器 {属性1:值;属性2:值}</p>
+<p>差不多和json很像</p>
+<p>例:(这里直接写入html)</p>
+<h3 id="jupyter-notebookhtmlcssjupyter-notebook">注意:由于jupyter notebook直接使用html,更改css可能会导致jupyter notebook整个格式错乱,记得重置</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="ch">#! pip install --upgrade jupyterthemes</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="c1"># 也可以用这个设置jupyter风格,不过我习惯默认</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="err">!</span><span class="n">jt</span> <span class="o">-</span><span class="n">r</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="c1"># refresh the page to reload css</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="c1"># remember to save!!!</span>
+</code></pre></div>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">代码</label><label for="__tabbed_1_2">效果</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>    <span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>        <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>网页<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>        <span class="p">&lt;</span><span class="nt">style</span><span class="p">&gt;</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">            </span><span class="nt">h1</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">                </span><span class="k">color</span><span class="p">:</span><span class="w"> </span><span class="kc">blue</span><span class="p">;</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">                </span><span class="k">font-size</span><span class="p">:</span><span class="w"> </span><span class="mi">12</span><span class="kt">px</span><span class="p">;</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">                </span><span class="k">font-family</span><span class="p">:</span><span class="w"> </span><span class="n">SimSun</span><span class="p">;</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="w">                </span><span class="k">background-color</span><span class="p">:</span><span class="w"> </span><span class="kc">red</span><span class="p">;</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="w">            </span><span class="p">}</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="w">        </span><span class="p">&lt;/</span><span class="nt">style</span><span class="p">&gt;</span>
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>    <span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>    <span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>        某个网页
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>        <span class="p">&lt;</span><span class="nt">h1</span> <span class="na">align </span><span class="o">=</span> <span class="s">&quot;center&quot;</span><span class="p">&gt;</span>标题1<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>        <span class="p">&lt;</span><span class="nt">h2</span> <span class="na">align </span><span class="o">=</span> <span class="s">&quot;left&quot;</span><span class="p">&gt;</span>标题2<span class="p">&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
+<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>        <span class="p">&lt;</span><span class="nt">h3</span> <span class="na">align </span><span class="o">=</span> <span class="s">&quot;right&quot;</span><span class="p">&gt;</span>标题3<span class="p">&lt;/</span><span class="nt">h3</span><span class="p">&gt;</span>
+<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a>        <span class="p">&lt;</span><span class="nt">h4</span><span class="p">&gt;</span>标题4<span class="p">&lt;/</span><span class="nt">h4</span><span class="p">&gt;</span>
+<a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a>        <span class="p">&lt;</span><span class="nt">h5</span><span class="p">&gt;</span>标题5<span class="p">&lt;/</span><span class="nt">h5</span><span class="p">&gt;</span>
+<a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a>        <span class="p">&lt;</span><span class="nt">h6</span><span class="p">&gt;</span>标题6<span class="p">&lt;/</span><span class="nt">h6</span><span class="p">&gt;</span>
+<a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a>    <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a><span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<p>请自行查看<a href="https://github.com/everythingfades/html/blob/main/examples/css_involved/html/basic.html">examples/css_involved/html/basic.html</a>,并确保阅读首页须知</p>
+</div>
+</div>
+</div>
+</div>
+<h2 id="22-css">2.2 css的引入方式:</h2>
+<h3 id="221">2.2.1 行内(不建议)</h3>
+<p>通过style通用html标签属性直接写在标签里(不建议使用)</p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">代码</label><label for="__tabbed_2_2">效果</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>    <span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>        <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>Page Title<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>    <span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>    <span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>        <span class="p">&lt;</span><span class="nt">p</span> <span class="na">style</span><span class="o">=</span><span class="s">&quot;text-indent:30px;color:red&quot;</span><span class="p">&gt;</span>行内css<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>        <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>不用css<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>    <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<p>请自行查看<a href="https://github.com/everythingfades/html/blob/main/examples/css_involved/html/inline_css.html">examples/css_involved/html/inline_css.html</a>,并确保阅读首页须知</p>
+</div>
+</div>
+</div>
+</div>
+<h3 id="222-style-style">2.2.2 &lt; style&gt;&lt; /style&gt;</h3>
+<p>可以直接在&lt; head&gt;&lt; /head&gt;中添加&lt; style&gt;&lt; /style&gt;来定义整个html的css</p>
+<p>注意:如果通过&lt; a&gt;跳转到其他页面&lt; style&gt;&lt; /style&gt;里的格式不会生效</p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">代码</label><label for="__tabbed_3_2">效果</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>    <span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>        <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>网页<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>        <span class="p">&lt;</span><span class="nt">style</span><span class="p">&gt;</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">            </span><span class="nt">h1</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="w">                </span><span class="k">color</span><span class="p">:</span><span class="w"> </span><span class="kc">blue</span><span class="p">;</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="w">                </span><span class="k">font-size</span><span class="p">:</span><span class="w"> </span><span class="mi">12</span><span class="kt">px</span><span class="p">;</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="w">                </span><span class="k">font-family</span><span class="p">:</span><span class="w"> </span><span class="n">SimSun</span><span class="p">;</span>
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="w">                </span><span class="k">background-color</span><span class="p">:</span><span class="w"> </span><span class="kc">red</span><span class="p">;</span>
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="w">            </span><span class="p">}</span>
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="w">        </span><span class="p">&lt;/</span><span class="nt">style</span><span class="p">&gt;</span>
+<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>    <span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>    <span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+<a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a>        某个网页
+<a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a>        <span class="p">&lt;</span><span class="nt">h1</span> <span class="na">align </span><span class="o">=</span> <span class="s">&quot;center&quot;</span><span class="p">&gt;</span>标题1<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+<a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a>        <span class="p">&lt;</span><span class="nt">h2</span> <span class="na">align </span><span class="o">=</span> <span class="s">&quot;left&quot;</span><span class="p">&gt;</span>标题2<span class="p">&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
+<a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a>        <span class="p">&lt;</span><span class="nt">h3</span> <span class="na">align </span><span class="o">=</span> <span class="s">&quot;right&quot;</span><span class="p">&gt;</span>标题3<span class="p">&lt;/</span><span class="nt">h3</span><span class="p">&gt;</span>
+<a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a>        <span class="p">&lt;</span><span class="nt">h4</span><span class="p">&gt;</span>标题4<span class="p">&lt;/</span><span class="nt">h4</span><span class="p">&gt;</span>
+<a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a>        <span class="p">&lt;</span><span class="nt">h5</span><span class="p">&gt;</span>标题5<span class="p">&lt;/</span><span class="nt">h5</span><span class="p">&gt;</span>
+<a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a>        <span class="p">&lt;</span><span class="nt">h6</span><span class="p">&gt;</span>标题6<span class="p">&lt;/</span><span class="nt">h6</span><span class="p">&gt;</span>
+<a id="__codelineno-3-22" name="__codelineno-3-22" href="#__codelineno-3-22"></a>    <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<a id="__codelineno-3-23" name="__codelineno-3-23" href="#__codelineno-3-23"></a><span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<p>请自行查看<a href="https://github.com/everythingfades/html/blob/main/examples/css_involved/html/style_tag_css.html">examples/css_involved/html/style_tag_css.html</a>,并确保阅读首页须知</p>
+</div>
+</div>
+</div>
+</div>
+<h3 id="223-link">2.2.3 &lt; link&gt;</h3>
+<p>通过&lt; link&gt;引入外部css文件</p>
+<p>同样,跳转到其他页面不会生效</p>
+<p>注意,虽然是外部文件,但是这里加载依然会改变整个jupyter notebook的css,不建议直接在jupyter里运行</p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="4:2"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><div class="tabbed-labels"><label for="__tabbed_4_1">代码</label><label for="__tabbed_4_2">效果</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>    <span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>        <span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text/css&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;./examples/css_involved/css/example.css&quot;</span><span class="p">&gt;</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>        <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>网页<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>    <span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>    <span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>        <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>某个网页<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>        <span class="p">&lt;</span><span class="nt">h1</span> <span class="na">align </span><span class="o">=</span> <span class="s">&quot;center&quot;</span><span class="p">&gt;</span>标题1<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>        <span class="p">&lt;</span><span class="nt">h2</span> <span class="na">align </span><span class="o">=</span> <span class="s">&quot;left&quot;</span><span class="p">&gt;</span>标题2<span class="p">&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
+<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>        <span class="p">&lt;</span><span class="nt">h3</span> <span class="na">align </span><span class="o">=</span> <span class="s">&quot;right&quot;</span><span class="p">&gt;</span>标题3<span class="p">&lt;/</span><span class="nt">h3</span><span class="p">&gt;</span>
+<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a>        <span class="p">&lt;</span><span class="nt">h4</span><span class="p">&gt;</span>标题4<span class="p">&lt;/</span><span class="nt">h4</span><span class="p">&gt;</span>
+<a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a>        <span class="p">&lt;</span><span class="nt">h5</span><span class="p">&gt;</span>标题5<span class="p">&lt;/</span><span class="nt">h5</span><span class="p">&gt;</span>
+<a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a>        <span class="p">&lt;</span><span class="nt">h6</span><span class="p">&gt;</span>标题6<span class="p">&lt;/</span><span class="nt">h6</span><span class="p">&gt;</span>
+<a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a>    <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a><span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<p>请自行查看<a href="https://github.com/everythingfades/html/blob/main/examples/css_involved/html/link.html">examples/css_involved/html/link.html</a>,并确保阅读首页须知</p>
+</div>
+</div>
+</div>
+</div>
+<h2 id="23-css">2.3 css选择器</h2>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="5:1"><input checked="checked" id="__tabbed_5_1" name="__tabbed_5" type="radio" /><div class="tabbed-labels"><label for="__tabbed_5_1">说明</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>这部分所有代码效果可请自行查看<a href="https://github.com/everythingfades/html/blob/main/examples/css_involved/html/selectors.html">examples/css_involved/html/selectors.html</a>,并确保阅读首页须知</p>
+</div>
+</div>
+</div>
+</div>
+<h3 id="231">2.3.1 全局选择器:</h3>
+<p>应用到所有元素上,优先级最低,一般是样式初始化</p>
+<div class="admonition example">
+<p class="admonition-title">代码</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="w">    </span><span class="o">*</span><span class="p">{</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">        </span><span class="k">font-family</span><span class="p">:</span><span class="w"> </span><span class="n">SimSun</span><span class="p">;</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">    </span><span class="p">}</span>
+</code></pre></div>
+</div>
+<h3 id="232">2.3.2 元素选择器:</h3>
+<p>标签名 {属性:值;}</p>
+<p>可以是任何html文档中的标签,但是只能同时改变所有这种标签的样式</p>
+<p>之前已经有很多这种例子了</p>
+<div class="admonition example">
+<p class="admonition-title">代码</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="nt">p</span><span class="p">{</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">    </span><span class="k">font-size</span><span class="p">:</span><span class="mi">14</span><span class="kt">px</span><span class="p">;</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">    </span><span class="k">color</span><span class="p">:</span><span class="kc">red</span><span class="p">;</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="p">}</span>
+</code></pre></div>
+</div>
+<h3 id="233">2.3.3 类选择器:</h3>
+<p>需要现在要改样式的标签里定义class属性,然后根据class名写css</p>
+<ul>
+<li>可以对多种标签使用</li>
+<li>类名不能以数字开头</li>
+<li>同一个标签可以用多个类选择器,加上空格隔开的多个class属性就行,如果属性冲突,会优先使用第一个可适用的属性定义</li>
+</ul>
+<div class="admonition example">
+<p class="admonition-title">代码</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="err">#</span><span class="w"> </span><span class="nt">假设我们有一个class叫example</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="p">.</span><span class="nc">example</span><span class="p">{</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">    </span><span class="k">color</span><span class="p">:</span><span class="kc">purple</span><span class="p">;</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="p">}</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="err">#</span><span class="w"> </span><span class="nt">会应用到如下tag上</span><span class="o">,</span><span class="nt">注</span><span class="p">:</span><span class="nd">something这个标签不存在</span><span class="o">,</span><span class="nt">可以是任意标签</span>
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="o">&lt;</span><span class="nt">something</span><span class="w"> </span><span class="nt">class</span><span class="o">=</span><span class="s2">&quot;example&quot;</span><span class="o">&gt;...&lt;/</span><span class="nt">something</span><span class="o">&gt;</span>
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="o">&lt;</span><span class="nt">something</span><span class="w"> </span><span class="nt">class</span><span class="o">=</span><span class="s2">&quot;example&quot;</span><span class="w"> </span><span class="nt">class</span><span class="o">=</span><span class="s2">&quot;example1&quot;</span><span class="o">&gt;...&lt;/</span><span class="nt">something</span><span class="o">&gt;</span>
+</code></pre></div>
+</div>
+<h3 id="234-id">2.3.4 id选择器</h3>
+<p>针对一个特定的标签使用,只能使用一次,css中用#定义 </p>
+<ul>
+<li>id是唯一的(规范上不能重复,语法上可行)</li>
+<li>id不能以数字开头</li>
+</ul>
+<div class="admonition example">
+<p class="admonition-title">代码</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="c1">#something{</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>    <span class="n">border</span><span class="p">:</span><span class="mi">3</span><span class="n">px</span> <span class="n">dashed</span> <span class="n">green</span><span class="p">;</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="p">}</span>
+</code></pre></div>
+</div>
+<h3 id="235">2.3.5 合并选择器</h3>
+<p>提取相同的样式,减少重复代码</p>
+<p>选择器1,选择器2{}</p>
+<div class="admonition example">
+<p class="admonition-title">代码</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="o">.</span><span class="n">h1</span><span class="o">.</span><span class="n">p</span><span class="p">{</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>    <span class="n">color</span><span class="p">:</span><span class="n">green</span><span class="p">;</span>
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="p">}</span>
+</code></pre></div>
+</div>
+<h3 id="236">2.3.6 其他选择器</h3>
+<h4 id="237">2.3.7 后代选择器</h4>
+<p>选择所有被符合选择器1的标签包含的选择器2类标签</p>
+<div class="admonition example">
+<p class="admonition-title">代码</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="n">ul</span> <span class="n">li</span><span class="p">{</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>    <span class="n">color</span><span class="p">:</span><span class="n">green</span>
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="p">}</span>
+</code></pre></div>
+</div>
+<h4 id="238">2.3.8 &gt;选择器：</h4>
+<p>只选择直接作为选择器1的标签的选择器2类标签应用css,不对更深的标签起作用</p>
+<p>可以和上面的选择器一起用</p>
+<div class="admonition example">
+<p class="admonition-title">代码</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="n">ul</span><span class="o">&gt;</span><span class="n">li</span><span class="p">{</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>    <span class="n">color</span><span class="p">:</span><span class="n">green</span><span class="p">;</span>
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="p">}</span>
+</code></pre></div>
+</div>
+<h4 id="239">2.3.9 +选择器:</h4>
+<p>选择跟在符合选择器1条件的标签之后的选择器2类标签应用css</p>
+<p>可以和上面的选择器一起用</p>
+<div class="admonition example">
+<p class="admonition-title">代码</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="o">.</span><span class="n">example</span><span class="o">+</span><span class="n">p</span><span class="p">{</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>    <span class="n">color</span><span class="p">:</span><span class="n">red</span><span class="p">;</span>
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="p">}</span>
+</code></pre></div>
+</div>
+<h4 id="2310">2.3.10 ~选择器:</h4>
+<p>选择跟在符合选择器1条件的标签之后的所有选择器2元素,和后代选择器不同的是这个不在选择器1标签里</p>
+<div class="admonition example">
+<p class="admonition-title">代码</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="o">.</span><span class="n">example</span><span class="o">~</span><span class="n">p</span><span class="p">{</span>
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>    <span class="n">color</span><span class="p">:</span><span class="n">red</span><span class="p">;</span>
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="p">}</span>
+</code></pre></div>
+</div>
+<h3 id="2311">2.3.11 伪对象选择器:</h3>
+<p>给元素追加一个虚拟标签,可以节省html的资源开销</p>
+<ul>
+<li>::after在后面添加一个对象,虚拟对象,装饰作用</li>
+<li>::before在前面添加一个对象,虚拟对象,装饰作用</li>
+<li>:nth-chlid(n),选择的n个子元素</li>
+<li>:first-chlid,选择第一个子元素</li>
+<li>:last-child,选择最后一个子元素</li>
+<li>content(必须有,否则伪对象无效)</li>
+</ul>
+<p>其他查表:https://www.w3schools.com/cssref/css_selectors.php</p>
+<h3 id="2312">2.3.12 优先级</h3>
+<p>行内样式&gt;ID选择器&gt;类选择器&gt;元素选择器</p>
+<h2 id="24-css">2.4 css特性</h2>
+<ul>
+<li>继承性: 子级默认继承父级的字体特性</li>
+<li>一般把文字写到body标签,然后特定元素单独设置</li>
+<li>层叠性</li>
+<li>相同的属性会覆盖,后面的css覆盖前面的css属性</li>
+<li>不同是属性会叠加,不同的css属性都生效</li>
+<li>优先级:但一个标签用了多种选择器的时候</li>
+<li>选择器优先级高的样式神效</li>
+<li>通配符选择器(*)&lt; 标签选择器(p,div...) &lt; 类选择器(.class) &lt; id选择器(#id) &lt; 行内样式 &lt; !important (除了!important以外,选中标签的范围越大,优先级越低)</li>
+<li>如果涉及复合选择器,则需要叠加计算<ul>
+<li>按照行内样式,id选择器个数,类选择器个数,标签选择器个数,(从左到右比较)</li>
+</ul>
+</li>
+</ul>
+<h2 id="25">2.5 字体属性:</h2>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="6:1"><input checked="checked" id="__tabbed_6_1" name="__tabbed_6" type="radio" /><div class="tabbed-labels"><label for="__tabbed_6_1">说明</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>这部分所有效果可自行查看<a href="https://github.com/everythingfades/html/blob/main/examples/css_involved/html/font.html">examples/css_involved/html/font.html</a>,并确保阅读首页须知,不然太乱了</p>
+</div>
+</div>
+</div>
+</div>
+<h3 id="251-color">2.5.1 color:</h3>
+<ul>
+<li>color<ul>
+<li>各种颜色: 查表https://www.w3schools.com/colors/colors_names.asp</li>
+<li>色值:(茴香豆有4种写法,色值主要有3种写法)</li>
+<li>RGB值:rgb(255,99,71),三个值分别对应rgb三个值,取值范围0-255<ul>
+<li>&lt; p style="background-color:rgb(255, 99, 71)"&gt;html&lt; /p&gt;:<p style="background-color:rgb(255,99,71)">rgb(255,99,71)</p></li>
+</ul>
+</li>
+<li>HEX值:#ff6347,和上面差不多,每两位表示RGB中的一个值,前面加上井号<ul>
+<li>&lt; p style="background-color:#ff6347"&gt;html&lt; /p&gt;:<p style="background-color:#ff6347">#ff6347</p></li>
+</ul>
+</li>
+<li>RGBA值:rgba(255,99,71,1),rgba加上透明度(这个应该是可以的,但是jupyter不知道为什么会把style吞掉,如果%%html没问题,直接markdown不显示颜色)<ul>
+<li>&lt; p style="background-color:rgba(255, 99, 71, 0.5)"&gt;&lt; /p&gt;:<p style="background-color:hsla(9, 100%, 64%, 0.5)">rgba(9, 100%, 64%, 0.5)</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div class="admonition example">
+<p class="admonition-title">代码</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="nt">div</span><span class="p">{</span><span class="k">color</span><span class="p">:</span><span class="kc">red</span><span class="p">;}</span>
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="nt">div</span><span class="p">{</span><span class="k">color</span><span class="p">:</span><span class="mh">#ff0000</span><span class="p">;}</span>
+<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="nt">div</span><span class="p">{</span><span class="k">color</span><span class="p">:</span><span class="nb">rgb</span><span class="p">(</span><span class="mi">255</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)}</span>
+<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="nt">div</span><span class="p">{</span><span class="k">color</span><span class="p">:</span><span class="nb">rgba</span><span class="p">(</span><span class="mf">255.0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mf">.5</span><span class="p">)}</span>
+</code></pre></div>
+</div>
+<h3 id="252-font-size">2.5.2 font-size</h3>
+<p>某些浏览器有最小字体大小</p>
+<div class="admonition example">
+<p class="admonition-title">代码</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="nt">div</span><span class="p">{</span><span class="k">font-size</span><span class="p">:</span><span class="mi">10</span><span class="kt">px</span><span class="p">;}</span>
+</code></pre></div>
+</div>
+<h3 id="253-font-weight">2.5.3 font-weight:</h3>
+<p>设置文本的粗细</p>
+<ul>
+<li>bold:加粗</li>
+<li>bolder:更粗</li>
+<li>lighter:更细</li>
+<li>100-900:默认400,bold700</li>
+</ul>
+<p>注: 其实如果自己引入字体的话,可以自定义,@font-face</p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="7:1"><input checked="checked" id="__tabbed_7_1" name="__tabbed_7" type="radio" /><div class="tabbed-labels"><label for="__tabbed_7_1">代码</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>#5 {font-weight:normal}
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>#6 {font-weight:bold}
+<a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>#7 {font-weight:bolder}
+<a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a>#8 {font-weight:lighter}
+<a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a>#9 {font-weight:360}
+</code></pre></div>
+</div>
+</div>
+</div>
+</div>
+<h3 id="254-font-style">2.5.4 font-style:</h3>
+<p>设置文本的字体样式</p>
+<ul>
+<li>normal:默认</li>
+<li>italic:斜体字</li>
+</ul>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="8:1"><input checked="checked" id="__tabbed_8_1" name="__tabbed_8" type="radio" /><div class="tabbed-labels"><label for="__tabbed_8_1">代码</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>#10 {font-style:normal}
+<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>#11 {font-style:italic}
+</code></pre></div>
+</div>
+</div>
+</div>
+</div>
+<h3 id="255-font-family">2.5.5 font-family:</h3>
+<p>用来指定一个元素的字体,如果字体名称包含空格,则必须用引号包裹</p>
+<h3 id="256-line-height">2.5.6 line-height:</h3>
+<p>设置文本间距,单倍间距或者双倍间距等</p>
+<ul>
+<li>数字px</li>
+<li>数据(几倍行距)</li>
+</ul>
+<h3 id="257-font">2.5.7 font:</h3>
+<p>把上面所有font属性写到一起</p>
+<p>字号和字体值必须写,不然不生效</p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="9:1"><input checked="checked" id="__tabbed_9_1" name="__tabbed_9" type="radio" /><div class="tabbed-labels"><label for="__tabbed_9_1">说明</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>text部分所有效果可自行查看<a href="https://github.com/everythingfades/html/blob/main/examples/css_involved/html/text.html">examples/css_involved/html/text.html</a>,并确保阅读首页须知,不然太乱了</p>
+</div>
+</div>
+</div>
+</div>
+<h3 id="258-text-indent">2.5.8 text-indent:</h3>
+<p>文本缩进</p>
+<ul>
+<li>数字px</li>
+<li>数字em(1em是当前标签的字号大小)</li>
+</ul>
+<h3 id="259-text-align">2.5.9 text-align:</h3>
+<p>内容对齐,默认是left,居中的是文字,不是标签</p>
+<h3 id="2510-text-decoration">2.5.10 text-decoration:</h3>
+<p>加上修饰线</p>
+<ul>
+<li>none;</li>
+<li>underline</li>
+<li>line-through</li>
+<li>overline</li>
+</ul>
+<div class="admonition example">
+<p class="admonition-title">代码</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="n">div</span> <span class="p">{</span>
+<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>    <span class="c1"># font-style, font-weight font-size line-height font-family</span>
+<a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>    <span class="n">font</span><span class="p">:</span> <span class="n">italic</span> <span class="mi">700</span> <span class="mi">30</span><span class="n">px</span><span class="o">/</span><span class="mi">2</span> <span class="n">楷体</span><span class="p">;</span>
+<a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a><span class="p">}</span>
+</code></pre></div>
+</div>
+<h2 id="26">2.6 背景</h2>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="10:1"><input checked="checked" id="__tabbed_10_1" name="__tabbed_10" type="radio" /><div class="tabbed-labels"><label for="__tabbed_10_1">说明</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>这部分所有效果可自行查看<a href="https://github.com/everythingfades/html/blob/main/examples/css_involved/html/background.html">examples/css_involved/html/background.html</a>,并确保阅读首页须知,不然太乱了</p>
+</div>
+</div>
+</div>
+</div>
+<h3 id="261-background-color">2.6.1 background-color</h3>
+<p>和color一样,但是color是文字的颜色,bgc是背景的颜色</p>
+<h3 id="262-background-image">2.6.2 background-image</h3>
+<p>那个url()里面可以填本地地址,直接从本地访问图片,也可以直接url,</p>
+<div class="admonition example">
+<p class="admonition-title">代码</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>.box{
+<a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>    width: 600px;
+<a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>    height: 600px;
+<a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a>    background-image: url(&quot;some url&quot;)
+<a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a>}
+</code></pre></div>
+</div>
+<h3 id="263-background-repeat">2.6.3 background-repeat:</h3>
+<p>设置图片如何重复:</p>
+<ul>
+<li>repeat:默认属性,在分配的空间大于图片大小的时候会像两个方向重复图片</li>
+<li>repeat-x:只在x方向上重复图片</li>
+<li>repeat-y:只在y方向上重复图片</li>
+<li>no-repeat:不重复图片</li>
+</ul>
+<div class="admonition example">
+<p class="admonition-title">代码</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>.box{
+<a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>    background-image:url(&quot;something&quot;);
+<a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a>    background-repeat:no-repeat;
+<a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a>}
+</code></pre></div>
+</div>
+<h3 id="264-background-size">2.6.4 background-size:</h3>
+<p>设置背景图片的大小</p>
+<ul>
+<li>length:设置背景图片的宽度和高度,可以只设置一个值,另一个会默认成auto</li>
+<li>percentage:设置图片占相对区域面积的百分比,可以只设置一个值,另一个会默认成auto</li>
+<li>cover:将图片设置成能完全覆盖背景区域的最大大小</li>
+<li>contain:保持图片和总比并且放缩成适合背景定位的最大大小</li>
+</ul>
+<div class="admonition example">
+<p class="admonition-title">代码</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>.box{
+<a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>    background-image: url(&quot;something&quot;);
+<a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a>    background-size 100% 100%;
+<a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a>}
+</code></pre></div>
+</div>
+<h3 id="265-background-position">2.6.5 background-position:</h3>
+<p>以下都是第一个位置为水平位置,第二个为垂直位置,英文字面意思,不要多想</p>
+<ul>
+<li>left top</li>
+<li>left center</li>
+<li>left bottom</li>
+<li>right center</li>
+<li>right bottom</li>
+<li>center top</li>
+<li>center center</li>
+<li>center bottom</li>
+<li>x% y%</li>
+<li>xpos ypos</li>
+</ul>
+<div class="admonition example">
+<p class="admonition-title">代码</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>.box{
+<a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>    background-image: url(&quot;something&quot;);
+<a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a>    background-position: left top;
+<a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a>}
+</code></pre></div>
+</div>
+<h3 id="266-background-attachment">2.6.6 background-attachment</h3>
+<p>使背景不会跟着元素移动</p>
+<h3 id="267-background">2.6.7 background复合:</h3>
+<p>把上面所有属性写到一起,空格隔开,不区分顺序</p>
+<h2 id="27">2.7文本属性</h2>
+<p>感觉好像font里也写了一遍,不过不管了</p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="11:1"><input checked="checked" id="__tabbed_11_1" name="__tabbed_11" type="radio" /><div class="tabbed-labels"><label for="__tabbed_11_1">说明</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>text部分所有效果可自行查看<a href="https://github.com/everythingfades/html/blob/main/examples/css_involved/html/text.html">examples/css_involved/html/text.html</a>,并确保阅读首页须知,不然太乱了</p>
+</div>
+</div>
+</div>
+</div>
+<h3 id="271-text-align">2.7.1 text-align</h3>
+<p>文本对齐方式,英文字面意思</p>
+<ul>
+<li>left</li>
+<li>right</li>
+<li>center</li>
+</ul>
+<div class="admonition example">
+<p class="admonition-title">代码</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>h1 {
+<a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a>    text-align:center
+<a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a>}
+</code></pre></div>
+</div>
+<h3 id="272-text-decoration">2.7.2 text-decoration:</h3>
+<p>添加到文本的修饰,下划线,上划线,删除线等,英文字面意思</p>
+<ul>
+<li>underline</li>
+<li>overline</li>
+<li>line-through</li>
+</ul>
+<div class="admonition example">
+<p class="admonition-title">代码</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>h1 {
+<a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a>    text-decoration:underline;
+<a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a>}
+</code></pre></div>
+</div>
+<h3 id="273-text-transform">2.7.3 text-transform</h3>
+<p>还是英文字面意思</p>
+<ul>
+<li>captialize</li>
+<li>uppercase</li>
+<li>lowercase</li>
+</ul>
+<div class="admonition example">
+<p class="admonition-title">代码</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="n">h1</span> <span class="p">{</span>
+<a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a>    <span class="n">text</span><span class="o">-</span><span class="n">transform</span><span class="p">:</span><span class="n">uppercase</span><span class="p">;</span>
+<a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a><span class="p">}</span>
+</code></pre></div>
+</div>
+<h3 id="274-text-indent">2.7.4 text-indent:</h3>
+<p>定义缩进,直接是x px</p>
+<div class="admonition example">
+<p class="admonition-title">代码</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="n">h1</span> <span class="p">{</span>
+<a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a>    <span class="n">text</span><span class="o">-</span><span class="n">indent</span><span class="p">:</span><span class="mi">30</span><span class="n">px</span><span class="p">;</span>
+<a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a><span class="p">}</span>
+</code></pre></div>
+</div>
+<h2 id="28">2.8 表格/边界属性</h2>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="12:1"><input checked="checked" id="__tabbed_12_1" name="__tabbed_12" type="radio" /><div class="tabbed-labels"><label for="__tabbed_12_1">说明</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>text部分所有效果可自行查看<a href="https://github.com/everythingfades/html/blob/main/examples/css_involved/html/table.html">examples/css_involved/html/table.html</a>,并确保阅读首页须知,本来想分开的,但是没了边界属性之外感觉表格就没东西了</p>
+</div>
+</div>
+</div>
+</div>
+<h3 id="281-border">2.8.1 border：</h3>
+<p>定义表格边框：</p>
+<ul>
+<li>边框距离</li>
+<li>边框样式</li>
+<li>边框颜色</li>
+</ul>
+<div class="admonition example">
+<p class="admonition-title">代码</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a>table,td{
+<a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a>    border: 1px solid black;
+<a id="__codelineno-27-3" name="__codelineno-27-3" href="#__codelineno-27-3"></a>}
+</code></pre></div>
+</div>
+<h3 id="282-border-collapse">2.8.2 border-collapse:</h3>
+<p>设置边框是折叠成一个单一的边框还是隔开</p>
+<div class="admonition example">
+<p class="admonition-title">代码</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a><span class="n">table</span><span class="p">{</span>
+<a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a>    <span class="n">border</span><span class="o">-</span><span class="n">collapse</span><span class="p">:</span><span class="n">collapse</span><span class="p">;</span>
+<a id="__codelineno-28-3" name="__codelineno-28-3" href="#__codelineno-28-3"></a><span class="p">}</span>
+</code></pre></div>
+</div>
+<h3 id="283-border-radius">2.8.3 border-radius(这个一般不在表格中用)</h3>
+<p>创建圆角</p>
+<ul>
+<li>设置一个值:四个角圆角相同</li>
+<li>设置两个值:第一个为左上角和右下角,第二个值为右上角和左下角</li>
+<li>设置三个值:第一个为左上角,第二个为右上角和左下角,第三个是右下角</li>
+<li>设置四个值:第一个为左上角,第二个为右上角,第三个为左下角,第四个是右下角</li>
+</ul>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a><span class="c1">#border-radius1{</span>
+<a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a>            <span class="n">width</span><span class="p">:</span><span class="mi">200</span><span class="n">px</span><span class="p">;</span>
+<a id="__codelineno-29-3" name="__codelineno-29-3" href="#__codelineno-29-3"></a>            <span class="n">height</span><span class="p">:</span><span class="mi">200</span><span class="n">px</span><span class="p">;</span>
+<a id="__codelineno-29-4" name="__codelineno-29-4" href="#__codelineno-29-4"></a>            <span class="n">background</span><span class="p">:</span><span class="n">violet</span><span class="p">;</span>
+<a id="__codelineno-29-5" name="__codelineno-29-5" href="#__codelineno-29-5"></a>            <span class="n">border</span><span class="o">-</span><span class="n">radius</span><span class="p">:</span><span class="mi">20</span><span class="n">px</span><span class="p">;</span>
+<a id="__codelineno-29-6" name="__codelineno-29-6" href="#__codelineno-29-6"></a>        <span class="p">}</span>
+</code></pre></div>
+<h2 id="29-css">2.9 css盒子模型:</h2>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="13:1"><input checked="checked" id="__tabbed_13_1" name="__tabbed_13" type="radio" /><div class="tabbed-labels"><label for="__tabbed_13_1">说明</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>盒子部分所有效果可自行查看<a href="https://github.com/everythingfades/html/blob/main/examples/css_involved/html/box_model.html">examples/css_involved/html/box_model.html</a>,并确保阅读首页须知,不然太乱了</p>
+</div>
+</div>
+</div>
+</div>
+<p>封装周围的html元素的整体框架</p>
+<ul>
+<li>margin 外边距,透明的</li>
+<li>border 边框</li>
+<li>padding 内边距,透明的</li>
+<li>content 实际内容,编辑weight和height的时候实际编辑的是content部分的大小</li>
+</ul>
+<p>针对这几个有一堆的css属性,具体自己查https://www.w3schools.com/cssref/index.php</p>
+<p>一般border属性都以border开头</p>
+<p>常用的对于以上四个都适用的,英文字面意思</p>
+<ul>
+<li>margin-top</li>
+<li>margin-bottom</li>
+<li>margin-left</li>
+<li>margin-right</li>
+<li>border-top</li>
+<li>border-bottom</li>
+<li>border-left</li>
+<li>border-right</li>
+<li>padding-top</li>
+<li>padding-bottom</li>
+<li>padding-left</li>
+<li>padding-right</li>
+</ul>
+<p>盒子大小</p>
+<ul>
+<li>默认:盒子大小= 内容尺寸 + border尺寸 + 内边距尺寸</li>
+</ul>
+<p>margin不算进盒子</p>
+<p><img alt="css盒子" src="../assets/盒子模型.png"></p>
+<ul>
+<li>border和padding会撑大盒子</li>
+<li>解决:</li>
+<li>手动做减法</li>
+<li>内减模式: box-sizing:border-box </li>
+</ul>
+<h3 id="291">2.9.1 外边距问题:</h3>
+<p>子级添加margin会导致父元素塌陷</p>
+<p>解决办法:</p>
+<ul>
+<li>取消自己margin,父级设置padding</li>
+<li>父级设置overflow:hidden</li>
+<li>父级设置border-top</li>
+</ul>
+<h3 id="292">2.9.2 行内元素内外边距问题:</h3>
+<p>行内元素添加margin和padding无法改变垂直位置</p>
+<p>解决问题: 加line-height</p>
+<h3 id="293">2.9.3 清除默认样式:</h3>
+<p>比如p标签的空白,这里用全局选择器</p>
+<div class="admonition example">
+<p class="admonition-title">代码</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a>* {
+<a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a>    margin: 0px;
+<a id="__codelineno-30-3" name="__codelineno-30-3" href="#__codelineno-30-3"></a>    padding: 0px;
+<a id="__codelineno-30-4" name="__codelineno-30-4" href="#__codelineno-30-4"></a>    box-sizing: border-box;
+<a id="__codelineno-30-5" name="__codelineno-30-5" href="#__codelineno-30-5"></a>}
+</code></pre></div>
+</div>
+<h3 id="294">2.9.4 元素溢出:</h3>
+<p>用overflow控制,或者overflow-x,overflow-y</p>
+<ul>
+<li>scroll : 无论是否溢出都有滚动条</li>
+<li>hidden: 隐藏溢出部分</li>
+<li>auto: 自动识别,溢出就加scroll</li>
+</ul>
+<h3 id="295-box-shadow">2.9.5 box-shadow</h3>
+<p>一共四个值:</p>
+<ul>
+<li>h-shadow(必选):水平阴影的位置</li>
+<li>v-shadow(必选):垂直阴影的位置</li>
+<li>blur(可选):模糊距离</li>
+<li>color(可选):阴影的颜色</li>
+</ul>
+<div class="admonition example">
+<p class="admonition-title">代码</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a>#box-shadow1{
+<a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a>            width:200px;
+<a id="__codelineno-31-3" name="__codelineno-31-3" href="#__codelineno-31-3"></a>            height:200px;
+<a id="__codelineno-31-4" name="__codelineno-31-4" href="#__codelineno-31-4"></a>            background:aqua;
+<a id="__codelineno-31-5" name="__codelineno-31-5" href="#__codelineno-31-5"></a>            box-shadow: 10px 20px
+<a id="__codelineno-31-6" name="__codelineno-31-6" href="#__codelineno-31-6"></a>        }
+</code></pre></div>
+</div>
+<h2 id="210-css">2.10 css弹性盒子</h2>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="14:1"><input checked="checked" id="__tabbed_14_1" name="__tabbed_14" type="radio" /><div class="tabbed-labels"><label for="__tabbed_14_1">说明</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>弹性盒子部分所有效果可自行查看<a href="https://github.com/everythingfades/html/blob/main/examples/css_involved/html/flex-box.html">examples/css_involved/html/flex-box.html,并确保阅读首页须知,不然太乱了</p>
+</div>
+</div>
+</div>
+</div>
+<p>弹性元素由弹性容器和弹性子元素组成,通过设置display的属性将其定义为弹性容器</p>
+<p>弹性盒子默认横向摆放</p>
+<ul>
+<li>display:flex 启用弹性盒子,默认为水平排列</li>
+</ul>
+<p>这种子元素可以自动基岩或拉伸</p>
+<p>组成部分:
+- 弹性容器
+- 弹性盒子
+- 主轴: 默认在水平方向
+- 侧轴: 默认在垂直方向</p>
+<h3 id="2101-justify-content">2.10.1 justify-content:</h3>
+<ul>
+<li>flex-start: 默认值,从七点开始依次排列</li>
+<li>flex-end: 弹性盒子从终点开始依次排列</li>
+<li>center: 主轴居中</li>
+<li>space-between: 均匀排列,空白在盒子中间</li>
+<li>space-around: 均匀排列,空白在盒子两侧</li>
+<li>space-evenly: 弹性盒子和容器之间间距相等</li>
+</ul>
+<h3 id="2102-flex-direction">2.10.2 flex-direction:</h3>
+<ul>
+<li>row 横向从左到右摆放</li>
+<li>row-reverse 横向从右到左摆放</li>
+<li>column 纵向从上到下排列</li>
+<li>column-reverse 纵向从下到上排列</li>
+</ul>
+<h3 id="2103-align-items">2.10.3 align-items:</h3>
+<ul>
+<li>flex-start</li>
+<li>flex-end</li>
+<li>center</li>
+</ul>
+<h3 id="2104-align-self">2.10.4 align-self:</h3>
+<p>单独控制某个弹性盒子的侧轴排列方式
+- stretch: 沿着测轴拉伸至铺满容器
+- center: 居中
+- flex-start: 起点开始排列
+- flex-end: 弹性盒子从终点开始依次排列</p>
+<h3 id="2105-flex">2.10.5 flex:</h3>
+<p>控制弹性盒子在主轴方向的尺寸</p>
+<p>属性值: 政治素质,表示占用父级元素剩余尺寸的分数,默认是1</p>
+<h3 id="2106-flex-grow">2.10.6 flex-grow:</h3>
+<p>设置扩展因子,会根据弹性盒子的扩展因子分配剩余空间</p>
+<p>可以设置扩展因子让各个元素大小自动按比例分配</p>
+<p>各个元素的比例=扩展因子+1</p>
+<h3 id="2107-flex-wrap">2.10.7 flex-wrap:</h3>
+<p>弹性盒子可以自动挤压或者拉伸,默认情况下,所有天哪星河在一行显示</p>
+<ul>
+<li>wrap: 换行</li>
+<li>no-wrap: 不换行(默认)</li>
+</ul>
+<h3 id="2108-align-content">2.10.8 align-content</h3>
+<p>这个是不会对单行生效的,和align-itmes似乎是一个东西</p>
+<ul>
+<li>flex-start: 默认值,从七点开始依次排列</li>
+<li>flex-end: 弹性盒子从终点开始依次排列</li>
+<li>center: 主轴居中</li>
+<li>space-between: 均匀排列,空白在盒子中间</li>
+<li>space-around: 均匀排列,空白在盒子两侧</li>
+<li>space-evenly: 弹性盒子和容器之间间距相等</li>
+</ul>
+<h2 id="211">2.11 文档流:</h2>
+<h3 id="2111">2.11.1 问题:</h3>
+<h4 id="21121">2.11.2.1 空格折叠</h4>
+<p>无论放多少个空格都会被折叠成一个空格</p>
+<h4 id="21122">2.11.2.2 元素无间隙:</h4>
+<p>如果有两个并排的图片一起放置,中间是没有间隙的</p>
+<h3 id="2112">2.11.2 解决:</h3>
+<p>脱离文档流:</p>
+<ul>
+<li>浮动</li>
+<li>绝对定位</li>
+<li>固定定位</li>
+</ul>
+<h4 id="_1">浮动:</h4>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="15:1"><input checked="checked" id="__tabbed_15_1" name="__tabbed_15" type="radio" /><div class="tabbed-labels"><label for="__tabbed_15_1">说明</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>浮动部分所有效果可自行查看<a href="https://github.com/everythingfades/html/blob/main/examples/css_involved/html/float.html">examples/css_involved/html/float.html</a>,并确保阅读首页须知,不然太乱了</p>
+</div>
+</div>
+</div>
+</div>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="16:1"><input checked="checked" id="__tabbed_16_1" name="__tabbed_16" type="radio" /><div class="tabbed-labels"><label for="__tabbed_16_1">说明</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>清除浮动部分所有效果可自行查看<a href="https://github.com/everythingfades/html/blob/main/examples/css_involved/html/disable-float.html">examples/css_involved/html/disable-float.html</a>,并确保阅读首页须知,不然太乱了</p>
+</div>
+</div>
+</div>
+</div>
+<p>float属性:(只有左右浮动,没有上下浮动),可以是元素拖了文档流</p>
+<ul>
+<li>left(向左浮动)</li>
+<li>right(向右浮动)</li>
+</ul>
+<p>元素同时向一方向浮动的时候,会变成水平摆放,向左或者向右</p>
+<p>当容器大小不足的时候会在下一行摆放</p>
+<h4 id="21121_1">2.11.2.1 清除浮动:</h4>
+<p>清除浮动会导致某些元素的位置发生变化,后续元素会收到影响</p>
+<p>比如如果父级元素没有高度,子级元素无法撑开父级高度</p>
+<ul>
+<li>父元素设置相应属性</li>
+<li>增加clear属性, clear:both</li>
+<li>overflow清除浮动</li>
+<li>伪对象方式, 在父级对象加上一个::after或者::before选择器,设置clear:both</li>
+</ul>
+<h5 id="211211-clear">2.11.2.1.1 clear</h5>
+<ul>
+<li>left(清除左浮动)</li>
+<li>right(清除右浮动)</li>
+<li>both(清除左右浮动,如果有的话)</li>
+</ul>
+<h5 id="211212-overflow">2.11.2.1.2 overflow:</h5>
+<p>如果父元素出了问题,同级元素受到影响,可以用overflow清除浮动,这种情况下不能设置父元素的高度</p>
+<ul>
+<li>visible(全部铺在页面上)</li>
+<li>hidden(隐藏)</li>
+<li>clip(把多的部分隐藏)</li>
+<li>scroll(增加一个可滚动的轴,大小不调整)</li>
+<li>auto(自适应)</li>
+</ul>
+<h2 id="212">2.12 定位:</h2>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="17:1"><input checked="checked" id="__tabbed_17_1" name="__tabbed_17" type="radio" /><div class="tabbed-labels"><label for="__tabbed_17_1">说明</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>position部分所有效果可自行查看<a href="https://github.com/everythingfades/html/blob/main/examples/css_involved/html/position.html">examples/css_involved/html/position.html</a>,并确保阅读首页须知,不然太乱了</p>
+</div>
+</div>
+</div>
+</div>
+<p>position属性</p>
+<ul>
+<li>relative</li>
+<li>absolute(脱离文档流)</li>
+<li>fixed(脱离文档流)</li>
+</ul>
+<p>可以使用left,top,right,bottom四个属性调整位置</p>
+<p>对于absolute可以理解成每一个absolute的元素都在一个新的图层上(子绝父相)</p>
+<p>fixed一般来说不会有这个问题,因为fixed元素会跟着页面滚动</p>
+<p>设置定位后定位随着能定位的父元素决定,直到顶层文档</p>
+<table>
+<thead>
+<tr>
+<th>定位方式</th>
+<th>属性值</th>
+<th>是否脱离标准流(文档流)</th>
+<th>显示模式</th>
+<th>参照物</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>相对定位</td>
+<td>relative</td>
+<td>否</td>
+<td>保持标签原有显示模式</td>
+<td>自己原来的位置</td>
+</tr>
+<tr>
+<td>绝对定位</td>
+<td>absolute</td>
+<td>是</td>
+<td>行内块特点</td>
+<td>已经定位的祖先元素或者浏览器可视区</td>
+</tr>
+<tr>
+<td>固定定位</td>
+<td>fixed</td>
+<td>是</td>
+<td>行内块特点</td>
+<td>浏览器窗口</td>
+</tr>
+</tbody>
+</table>
+<h3 id="2121-z-index">2.12.1 z-index:</h3>
+<p>解决图层问题,后来者居上,取值越大越靠上</p>
+<h2 id="213-transition">2.13 transition:</h2>
+<p>和@keyframes 差不多, 语法上也差不多</p>
+<ul>
+<li>可以在一个元素不同状态之间切换的时候添加过渡效果</li>
+<li>transition: 过渡属性,花费时间</li>
+<li>注意:</li>
+<li>过渡属性可以是具体的css属性</li>
+<li>也可以设置为all,所有不同的属性值都产生过渡效果</li>
+<li>transition设置给元素本身</li>
+<li>一般和伪对象选择器一起使用,设置不同状态</li>
+</ul>
+<h2 id="214-opacity">2.14 opacity:</h2>
+<p>设置整的元素的透明度,0-1</p>
+<h2 id="215-seo">2.15 SEO:</h2>
+<p>尽量让网页在搜索引擎里靠前,一般企业里会用</p>
+<p>方法:</p>
+<ul>
+<li>氪金</li>
+<li>网页后缀设置为html</li>
+<li>标签语义化(在合适的地方使用合适的标签)</li>
+</ul>
+<p>网页SEO标签</p>
+<ul>
+<li>title: 网页标题标签 &lt; head&gt;里的&lt; title&gt;</li>
+<li>description:网页描述 &lt; head&gt;里的&lt; meta name="description"&gt;</li>
+<li>keywords: 网页关键词 &lt; head&gt;里的&lt; meta name="keywords"&gt;</li>
+</ul>
+<h2 id="216-favicon">2.16 Favicon图标:</h2>
+<p>出现在浏览器标题栏的图标</p>
+<div class="admonition example">
+<p class="admonition-title">代码</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a><span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;shortcut icon&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;文件名&quot;</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;image/x-icon&quot;</span><span class="p">&gt;</span>
+</code></pre></div>
+</div>
+<h2 id="217">2.17 各种效果:</h2>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="18:1"><input checked="checked" id="__tabbed_18_1" name="__tabbed_18" type="radio" /><div class="tabbed-labels"><label for="__tabbed_18_1">说明</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>tranlates部分所有效果可自行查看<a href="https://github.com/everythingfades/html/blob/main/examples/css_involved/html/translates.html">examples/css_involved/html/translates.html</a>,并确保阅读首页须知,不然太乱了</p>
+</div>
+</div>
+</div>
+</div>
+<h3 id="2171">2.17.1 二维</h3>
+<h4 id="21711">2.17.1.1 平移:</h4>
+<p>transition和translate实现</p>
+<h4 id="21712">2.17.1.2 旋转效果:</h4>
+<div class="admonition example">
+<p class="admonition-title">代码</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a><span class="nt">transform</span><span class="o">:</span><span class="w"> </span><span class="nt">rotate</span><span class="o">(</span><span class="nt">角度</span><span class="o">)</span>
+</code></pre></div>
+</div>
+<p>https://developer.mozilla.org/zh-CN/docs/Web/CSS/transform-function/rotate</p>
+<h4 id="21713">2.17.1.3 转换原点:</h4>
+<div class="admonition example">
+<p class="admonition-title">代码</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a><span class="nt">transform-origin</span><span class="o">:</span><span class="w"> </span><span class="nt">水平位置</span><span class="w"> </span><span class="nt">垂直位置</span>
+</code></pre></div>
+</div>
+<h4 id="21714">2.17.1.4 复合效果:</h4>
+<div class="admonition example">
+<p class="admonition-title">代码</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a><span class="nt">transform</span><span class="o">:</span><span class="w"> </span><span class="nt">translate</span><span class="o">()</span><span class="w"> </span><span class="nt">rotate</span><span class="o">()</span><span class="w"> </span>
+</code></pre></div>
+</div>
+<p>transform属性有层叠性,不能一个一个写,必须写进一个transform属性里</p>
+<h4 id="21715">2.17.1.5 缩放:</h4>
+<div class="admonition example">
+<p class="admonition-title">代码</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a><span class="nt">transform</span><span class="o">:</span><span class="w"> </span><span class="nt">scale</span><span class="o">(</span><span class="nt">缩放倍数</span><span class="o">)</span>
+</code></pre></div>
+</div>
+<p>或者</p>
+<div class="admonition example">
+<p class="admonition-title">代码</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a><span class="nt">transform</span><span class="o">:</span><span class="w"> </span><span class="nt">scale</span><span class="o">(</span><span class="nt">X缩放倍数</span><span class="o">,</span><span class="nt">Y缩放倍数</span><span class="o">)</span>
+</code></pre></div>
+</div>
+<h4 id="21716">2.17.1.6 倾斜:</h4>
+<p>transform: skew(角度);</p>
+<h4 id="21717">2.17.1.7 背景渐变:</h4>
+<h5 id="217171">2.17.1.7.1 线性:</h5>
+<div class="admonition example">
+<p class="admonition-title">代码</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a><span class="nt">background-image</span><span class="w"> </span><span class="nt">linear-gradient</span><span class="o">(</span>
+<a id="__codelineno-38-2" name="__codelineno-38-2" href="#__codelineno-38-2"></a><span class="w">    </span><span class="nt">渐变方向</span><span class="o">(</span><span class="nt">角度或者to</span><span class="o">),</span>
+<a id="__codelineno-38-3" name="__codelineno-38-3" href="#__codelineno-38-3"></a><span class="w">    </span><span class="nt">颜色1</span><span class="o">,</span><span class="w"> </span><span class="nt">终点位置</span><span class="o">(</span><span class="nt">可不写</span><span class="o">)</span>
+<a id="__codelineno-38-4" name="__codelineno-38-4" href="#__codelineno-38-4"></a><span class="w">    </span><span class="nt">颜色2</span><span class="o">,</span><span class="w"> </span><span class="nt">终点位置</span><span class="o">(</span><span class="nt">可不写</span><span class="o">)</span>
+<a id="__codelineno-38-5" name="__codelineno-38-5" href="#__codelineno-38-5"></a><span class="o">)</span>
+</code></pre></div>
+</div>
+<p>https://developer.mozilla.org/zh-CN/docs/Web/CSS/gradient/linear-gradient</p>
+<h5 id="217172">2.17.1.7.2 径向</h5>
+<div class="admonition example">
+<p class="admonition-title">代码</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a><span class="nt">background-image</span><span class="w"> </span><span class="nt">radial-gradient</span><span class="o">(</span>
+<a id="__codelineno-39-2" name="__codelineno-39-2" href="#__codelineno-39-2"></a><span class="w">    </span><span class="nt">半径</span><span class="w"> </span><span class="nt">at</span><span class="w"> </span><span class="nt">圆形位置</span><span class="o">(</span><span class="nt">x位置</span><span class="w"> </span><span class="nt">y位置</span><span class="o">),</span>
+<a id="__codelineno-39-3" name="__codelineno-39-3" href="#__codelineno-39-3"></a><span class="w">    </span><span class="nt">颜色1</span><span class="o">,</span><span class="w"> </span><span class="nt">终点位置</span><span class="o">(</span><span class="nt">可不写</span><span class="o">)</span>
+<a id="__codelineno-39-4" name="__codelineno-39-4" href="#__codelineno-39-4"></a><span class="w">    </span><span class="nt">颜色2</span><span class="o">,</span><span class="w"> </span><span class="nt">终点位置</span><span class="o">(</span><span class="nt">可不写</span><span class="o">)</span>
+<a id="__codelineno-39-5" name="__codelineno-39-5" href="#__codelineno-39-5"></a><span class="o">)</span>
+</code></pre></div>
+</div>
+<p>半径可以是两条,这种情况会变成椭圆</p>
+<h3 id="2172">2.17.2 空间转换:</h3>
+<h4 id="21721">2.17.2.1 平移:</h4>
+<div class="admonition example">
+<p class="admonition-title">代码</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a><span class="nt">transform</span><span class="o">:</span><span class="w"> </span><span class="nt">translate3d</span><span class="o">(</span><span class="nt">x</span><span class="o">,</span><span class="nt">y</span><span class="o">,</span><span class="nt">z</span><span class="o">);</span><span class="w"> </span><span class="c">/*这里必须逗号隔开*/</span>
+<a id="__codelineno-40-2" name="__codelineno-40-2" href="#__codelineno-40-2"></a><span class="nt">transform</span><span class="o">:</span><span class="w"> </span><span class="nt">translateX</span><span class="o">();</span>
+<a id="__codelineno-40-3" name="__codelineno-40-3" href="#__codelineno-40-3"></a><span class="nt">transform</span><span class="o">:</span><span class="w"> </span><span class="nt">translateY</span><span class="o">();</span>
+<a id="__codelineno-40-4" name="__codelineno-40-4" href="#__codelineno-40-4"></a><span class="nt">transform</span><span class="o">:</span><span class="w"> </span><span class="nt">translateZ</span><span class="o">();</span>
+</code></pre></div>
+</div>
+<p>默认z是没有效果的,但是可以给父级元素设置视距</p>
+<h4 id="21722">2.17.2.2 视距</h4>
+<p>perspective: 视距</p>
+<p>添加给直接父级元素</p>
+<h4 id="21723">2.17.2.3 旋转</h4>
+<div class="admonition example">
+<p class="admonition-title">代码</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a><span class="nt">transform</span><span class="o">:</span><span class="w"> </span><span class="nt">rotateX</span><span class="o">(</span><span class="nt">值</span><span class="o">);</span>
+<a id="__codelineno-41-2" name="__codelineno-41-2" href="#__codelineno-41-2"></a><span class="nt">transform</span><span class="o">:</span><span class="w"> </span><span class="nt">rotateY</span><span class="o">(</span><span class="nt">值</span><span class="o">);</span>
+<a id="__codelineno-41-3" name="__codelineno-41-3" href="#__codelineno-41-3"></a><span class="nt">transform</span><span class="o">:</span><span class="w"> </span><span class="nt">rotateZ</span><span class="o">(</span><span class="nt">值</span><span class="o">);</span>
+</code></pre></div>
+</div>
+<p>或者</p>
+<div class="admonition example">
+<p class="admonition-title">代码</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a><span class="nt">transform</span><span class="o">:</span><span class="w"> </span><span class="nt">rotate3d</span><span class="o">(</span><span class="nt">x</span><span class="o">,</span><span class="nt">y</span><span class="o">,</span><span class="nt">z</span><span class="o">,</span><span class="nt">角度</span><span class="o">);</span><span class="w"> </span><span class="c">/*x,y,z是0-1之间的数字*/</span>
+</code></pre></div>
+</div>
+<h4 id="21724">2.17.2.4 立体呈现:</h4>
+<div class="admonition example">
+<p class="admonition-title">代码</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-43-1" name="__codelineno-43-1" href="#__codelineno-43-1"></a><span class="nt">transform-style</span><span class="o">:</span><span class="w"> </span><span class="nt">属性</span>
+</code></pre></div>
+</div>
+<ul>
+<li>flat: 子级处于平面中</li>
+<li>preserve-3d: 自己处于3D空间</li>
+</ul>
+<h4 id="21725">2.17.2.5 空间缩放:</h4>
+<div class="admonition example">
+<p class="admonition-title">代码</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-44-1" name="__codelineno-44-1" href="#__codelineno-44-1"></a><span class="nt">transform</span><span class="o">:</span><span class="w"> </span><span class="nt">scale3d</span><span class="o">(</span><span class="nt">x</span><span class="o">,</span><span class="nt">y</span><span class="o">,</span><span class="nt">z</span><span class="o">);</span>
+</code></pre></div>
+</div>
+<h2 id="218">2.18 动画:</h2>
+<p>用@keyframes创建动画,这个会一直重复播放</p>
+<p>属性太多了,建议自己查表https://www.w3schools.com/css/css3_animations.asp</p>
+<p>同时要在对应的元素上加animation属性</p>
+<div class="admonition example">
+<p class="admonition-title">代码</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-45-1" name="__codelineno-45-1" href="#__codelineno-45-1"></a><span class="nt">animation</span><span class="o">:</span><span class="w"> </span><span class="nt">动画名称</span><span class="w"> </span><span class="nt">动画时长</span><span class="w"> </span><span class="nt">速度曲线</span><span class="w"> </span><span class="nt">延迟时间</span><span class="w"> </span><span class="nt">重复次数</span><span class="w"> </span><span class="nt">动画方向</span><span class="w"> </span><span class="nt">执行完毕时状态</span>
+</code></pre></div>
+</div>
+<p>比如</p>
+<div class="admonition example">
+<p class="admonition-title">代码</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-46-1" name="__codelineno-46-1" href="#__codelineno-46-1"></a><span class="p">#</span><span class="nn">breath</span><span class="p">:</span><span class="nd">hover</span><span class="p">{</span>
+<a id="__codelineno-46-2" name="__codelineno-46-2" href="#__codelineno-46-2"></a><span class="w">    </span><span class="k">animation</span><span class="p">:</span><span class="w"> </span><span class="n">breath</span><span class="w"> </span><span class="mi">2700</span><span class="kt">ms</span><span class="w"> </span><span class="kc">ease-in-out</span><span class="w"> </span><span class="mi">0</span><span class="kt">s</span><span class="w"> </span><span class="kc">infinite</span><span class="w"> </span><span class="kc">alternate</span><span class="w"> </span><span class="kc">running</span><span class="p">;</span>
+<a id="__codelineno-46-3" name="__codelineno-46-3" href="#__codelineno-46-3"></a><span class="p">}</span>
+</code></pre></div>
+</div>
+<p>或者拆成多个属性值去写
+- animation-name
+- animation-duration
+- animation-delay
+- animation-fill-mode
+  - forwards: 最后一帧状态
+  - backwards: 第一帧状态
+- animation-timing-function
+  - linear
+  - ease-in-out
+  - step()
+  - ...
+- animation-iteration-count
+  - infinite
+  - 数字
+- animation-direction
+  - alternate为反向
+- animation-play-state 
+  - paused为暂停</p>
+<div class="admonition example">
+<p class="admonition-title">代码</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-47-1" name="__codelineno-47-1" href="#__codelineno-47-1"></a><span class="p">@</span><span class="k">keyframes</span><span class="w"> </span><span class="nt">rainbow</span><span class="p">{</span>
+<a id="__codelineno-47-2" name="__codelineno-47-2" href="#__codelineno-47-2"></a><span class="w">                </span><span class="nt">0</span><span class="o">%</span><span class="p">{</span>
+<a id="__codelineno-47-3" name="__codelineno-47-3" href="#__codelineno-47-3"></a><span class="w">                    </span><span class="k">height</span><span class="p">:</span><span class="mi">25</span><span class="kt">px</span><span class="p">;</span>
+<a id="__codelineno-47-4" name="__codelineno-47-4" href="#__codelineno-47-4"></a><span class="w">                    </span><span class="k">width</span><span class="p">:</span><span class="mi">25</span><span class="kt">px</span><span class="p">;</span>
+<a id="__codelineno-47-5" name="__codelineno-47-5" href="#__codelineno-47-5"></a><span class="w">                    </span><span class="k">background-color</span><span class="p">:</span><span class="kc">red</span><span class="p">;</span>
+<a id="__codelineno-47-6" name="__codelineno-47-6" href="#__codelineno-47-6"></a><span class="w">                </span><span class="p">}</span>
+<a id="__codelineno-47-7" name="__codelineno-47-7" href="#__codelineno-47-7"></a><span class="w">                </span><span class="nt">16</span><span class="o">%</span><span class="p">{</span>
+<a id="__codelineno-47-8" name="__codelineno-47-8" href="#__codelineno-47-8"></a><span class="w">                    </span><span class="k">height</span><span class="p">:</span><span class="mi">50</span><span class="kt">px</span><span class="p">;</span>
+<a id="__codelineno-47-9" name="__codelineno-47-9" href="#__codelineno-47-9"></a><span class="w">                    </span><span class="k">width</span><span class="p">:</span><span class="mi">50</span><span class="kt">px</span><span class="p">;</span>
+<a id="__codelineno-47-10" name="__codelineno-47-10" href="#__codelineno-47-10"></a><span class="w">                    </span><span class="k">background-color</span><span class="p">:</span><span class="kc">orange</span><span class="p">;</span>
+<a id="__codelineno-47-11" name="__codelineno-47-11" href="#__codelineno-47-11"></a><span class="w">                </span><span class="p">}</span>
+<a id="__codelineno-47-12" name="__codelineno-47-12" href="#__codelineno-47-12"></a><span class="w">                </span><span class="nt">33</span><span class="o">%</span><span class="p">{</span>
+<a id="__codelineno-47-13" name="__codelineno-47-13" href="#__codelineno-47-13"></a><span class="w">                    </span><span class="k">height</span><span class="p">:</span><span class="mi">75</span><span class="kt">px</span><span class="p">;</span>
+<a id="__codelineno-47-14" name="__codelineno-47-14" href="#__codelineno-47-14"></a><span class="w">                    </span><span class="k">width</span><span class="p">:</span><span class="mi">75</span><span class="kt">px</span><span class="p">;</span>
+<a id="__codelineno-47-15" name="__codelineno-47-15" href="#__codelineno-47-15"></a><span class="w">                    </span><span class="k">background-color</span><span class="p">:</span><span class="kc">yellow</span>
+<a id="__codelineno-47-16" name="__codelineno-47-16" href="#__codelineno-47-16"></a><span class="w">                </span><span class="p">}</span>
+<a id="__codelineno-47-17" name="__codelineno-47-17" href="#__codelineno-47-17"></a><span class="w">                </span><span class="nt">50</span><span class="o">%</span><span class="p">{</span>
+<a id="__codelineno-47-18" name="__codelineno-47-18" href="#__codelineno-47-18"></a><span class="w">                    </span><span class="k">height</span><span class="p">:</span><span class="mi">100</span><span class="kt">px</span><span class="p">;</span>
+<a id="__codelineno-47-19" name="__codelineno-47-19" href="#__codelineno-47-19"></a><span class="w">                    </span><span class="k">width</span><span class="p">:</span><span class="mi">100</span><span class="kt">px</span><span class="p">;</span>
+<a id="__codelineno-47-20" name="__codelineno-47-20" href="#__codelineno-47-20"></a><span class="w">                    </span><span class="k">background-color</span><span class="p">:</span><span class="kc">green</span>
+<a id="__codelineno-47-21" name="__codelineno-47-21" href="#__codelineno-47-21"></a><span class="w">                </span><span class="p">}</span>
+<a id="__codelineno-47-22" name="__codelineno-47-22" href="#__codelineno-47-22"></a><span class="w">                </span><span class="nt">67</span><span class="o">%</span><span class="p">{</span>
+<a id="__codelineno-47-23" name="__codelineno-47-23" href="#__codelineno-47-23"></a><span class="w">                    </span><span class="k">height</span><span class="p">:</span><span class="mi">125</span><span class="kt">px</span><span class="p">;</span>
+<a id="__codelineno-47-24" name="__codelineno-47-24" href="#__codelineno-47-24"></a><span class="w">                    </span><span class="k">width</span><span class="p">:</span><span class="mi">125</span><span class="kt">px</span><span class="p">;</span>
+<a id="__codelineno-47-25" name="__codelineno-47-25" href="#__codelineno-47-25"></a><span class="w">                    </span><span class="k">background-color</span><span class="p">:</span><span class="kc">aquamarine</span><span class="p">;</span>
+<a id="__codelineno-47-26" name="__codelineno-47-26" href="#__codelineno-47-26"></a><span class="w">                </span><span class="p">}</span>
+<a id="__codelineno-47-27" name="__codelineno-47-27" href="#__codelineno-47-27"></a><span class="w">                </span><span class="nt">83</span><span class="o">%</span><span class="p">{</span>
+<a id="__codelineno-47-28" name="__codelineno-47-28" href="#__codelineno-47-28"></a><span class="w">                    </span><span class="k">height</span><span class="p">:</span><span class="mi">150</span><span class="kt">px</span><span class="p">;</span>
+<a id="__codelineno-47-29" name="__codelineno-47-29" href="#__codelineno-47-29"></a><span class="w">                    </span><span class="k">width</span><span class="p">:</span><span class="mi">150</span><span class="kt">px</span><span class="p">;</span>
+<a id="__codelineno-47-30" name="__codelineno-47-30" href="#__codelineno-47-30"></a><span class="w">                    </span><span class="k">background-color</span><span class="p">:</span><span class="kc">blue</span>
+<a id="__codelineno-47-31" name="__codelineno-47-31" href="#__codelineno-47-31"></a><span class="w">                </span><span class="p">}</span>
+<a id="__codelineno-47-32" name="__codelineno-47-32" href="#__codelineno-47-32"></a><span class="w">                </span><span class="nt">100</span><span class="o">%</span><span class="p">{</span>
+<a id="__codelineno-47-33" name="__codelineno-47-33" href="#__codelineno-47-33"></a><span class="w">                    </span><span class="k">height</span><span class="p">:</span><span class="mi">175</span><span class="kt">px</span><span class="p">;</span>
+<a id="__codelineno-47-34" name="__codelineno-47-34" href="#__codelineno-47-34"></a><span class="w">                    </span><span class="k">width</span><span class="p">:</span><span class="mi">175</span><span class="kt">px</span><span class="p">;</span>
+<a id="__codelineno-47-35" name="__codelineno-47-35" href="#__codelineno-47-35"></a><span class="w">                    </span><span class="k">background-color</span><span class="p">:</span><span class="kc">purple</span><span class="p">;</span>
+<a id="__codelineno-47-36" name="__codelineno-47-36" href="#__codelineno-47-36"></a><span class="w">                </span><span class="p">}</span>
+<a id="__codelineno-47-37" name="__codelineno-47-37" href="#__codelineno-47-37"></a><span class="w">            </span><span class="p">}</span>
+</code></pre></div>
+</div>
+<h2 id="219">2.19 兼容不同设备:</h2>
+<ul>
+<li>分辨率:</li>
+<li>物理分辨率: 出厂设置,电脑显示屏分辨率</li>
+<li>逻辑分辨率: 调节之后的的分辨率</li>
+</ul>
+<p>其实一般来说我更倾向写个scss,里面封装一下vh和vw函数,不过这个是在vue里</p>
+<h3 id="2191">2.19.1 视口:</h3>
+<div class="admonition example">
+<p class="admonition-title">代码</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-48-1" name="__codelineno-48-1" href="#__codelineno-48-1"></a><span class="p">&lt;</span><span class="nt">meta</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;viewport&quot;</span> <span class="na">content</span><span class="o">=</span><span class="s">&quot;width=device-width, initial-scale=1.0&quot;</span><span class="p">&gt;</span>
+</code></pre></div>
+</div>
+<p>这个大概率不用动,vscode自动生成</p>
+<p>上述代码表示</p>
+<ul>
+<li>视口宽度=设备宽度</li>
+<li>缩放一倍(不缩放)</li>
+</ul>
+<h3 id="2192">2.19.2 二倍图:</h3>
+<ul>
+<li>移动端参考iPhone6/7/8,设备宽度375px产出设计稿</li>
+<li>二倍图设计稿尺寸: 宽750px</li>
+</ul>
+<h3 id="2193">2.19.3 适配方案:</h3>
+<ul>
+<li>宽度适配:宽度自适应,pc端网页</li>
+<li>百分比布局</li>
+<li>flex布局</li>
+<li>注意:这两个不能高度自适应</li>
+<li>等比适配:宽高等比缩放,移动端网页</li>
+<li>rem</li>
+<li>vw</li>
+</ul>
+<h4 id="2194-rem">2.19.4 rem:</h4>
+<p>rem是个相对单位,表示1HTML字号大小,是相对HTML标签字号计算出的单位</p>
+<h4 id="2195-vw-vh">2.19.5 vw vh</h4>
+<p>也是相对单位,相对试图的尺寸的计算结果,50vw表示50%视图宽</p>
+<h4 id="2196">2.19.6 媒体查询:</h4>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="19:1"><input checked="checked" id="__tabbed_19_1" name="__tabbed_19" type="radio" /><div class="tabbed-labels"><label for="__tabbed_19_1">说明</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>自行查看<a href="https://github.com/everythingfades/html/blob/main/examples/css_involved/html/media-search.html">examples/css_involved/html/media-search.html</a>,并确保阅读首页须知</p>
+</div>
+</div>
+</div>
+</div>
+<p>检测视口的宽度,编写差异化的css, 如果用rem调整大小,只需要固定html字号即可</p>
+<p>先设置&lt; meta&gt;</p>
+<p>用@media创建媒体查询,在不同屏幕大小下设置不同比例</p>
+<div class="admonition example">
+<p class="admonition-title">代码</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-49-1" name="__codelineno-49-1" href="#__codelineno-49-1"></a>@media screen and (max-width:768px) and (min-width:996px){
+<a id="__codelineno-49-2" name="__codelineno-49-2" href="#__codelineno-49-2"></a>                #box{
+<a id="__codelineno-49-3" name="__codelineno-49-3" href="#__codelineno-49-3"></a>                    background-color:aqua;
+<a id="__codelineno-49-4" name="__codelineno-49-4" href="#__codelineno-49-4"></a>                }
+<a id="__codelineno-49-5" name="__codelineno-49-5" href="#__codelineno-49-5"></a>                #p{
+<a id="__codelineno-49-6" name="__codelineno-49-6" href="#__codelineno-49-6"></a>                    display:none;
+<a id="__codelineno-49-7" name="__codelineno-49-7" href="#__codelineno-49-7"></a>                }
+<a id="__codelineno-49-8" name="__codelineno-49-8" href="#__codelineno-49-8"></a>            }
+</code></pre></div>
+</div>
+<h4 id="2197-rem-flexiblejs">2.19.7 rem-flexible.js</h4>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="20:1"><input checked="checked" id="__tabbed_20_1" name="__tabbed_20" type="radio" /><div class="tabbed-labels"><label for="__tabbed_20_1">说明</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>可自行查看<a href="https://github.com/everythingfades/html/blob/main/examples/css_involved/html/flexible.html">examples/css_involved/html/flexible.html</a>,并确保阅读首页须知,不然太乱了</p>
+</div>
+</div>
+</div>
+</div>
+<p>我个人觉得能不用别的插件就不用别的插件,不然你的项目还得跟着他的更新来,除非太好用了,这个插件我个人没在项目中用过,vue里直接用别的适配方式(自定义vw,vh)</p>
+<h5 id="21971-pxrem">2.19.7.1 px转rem</h5>
+<p>一般设计稿是375px视口,</p>
+<p>所以<span class="arithmatex">\(rem = \frac{px}{根字号}\)</span></p>
+<h3 id="2198">2.19.8 雪碧图/精灵图</h3>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="21:1"><input checked="checked" id="__tabbed_21_1" name="__tabbed_21" type="radio" /><div class="tabbed-labels"><label for="__tabbed_21_1">说明</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>text部分所有效果可自行查看<a href="https://github.com/everythingfades/html/blob/main/examples/css_involved/html/sprite.html">examples/css_involved/html/sprite.html</a>,并确保阅读首页须知,不然太乱了</p>
+</div>
+</div>
+</div>
+</div>
+<p>减少图片大小,减少http请求,提高性能</p>
+<p>通过把图片设置到background-image里调整位置可以把一堆图片整合进一张,需要用哪个就调整到哪个的位置</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-50-1" name="__codelineno-50-1" href="#__codelineno-50-1"></a><span class="c1">#icon{</span>
+<a id="__codelineno-50-2" name="__codelineno-50-2" href="#__codelineno-50-2"></a>                <span class="n">display</span><span class="p">:</span> <span class="n">block</span><span class="p">;</span> 
+<a id="__codelineno-50-3" name="__codelineno-50-3" href="#__codelineno-50-3"></a>                <span class="n">width</span><span class="p">:</span> <span class="mi">45</span><span class="n">px</span><span class="p">;</span>
+<a id="__codelineno-50-4" name="__codelineno-50-4" href="#__codelineno-50-4"></a>                <span class="n">height</span><span class="p">:</span> <span class="mi">70</span><span class="n">px</span><span class="p">;</span>
+<a id="__codelineno-50-5" name="__codelineno-50-5" href="#__codelineno-50-5"></a>                <span class="n">background</span><span class="o">-</span><span class="n">image</span><span class="p">:</span> <span class="n">url</span><span class="p">(</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">prts</span><span class="o">.</span><span class="n">wiki</span><span class="o">/</span><span class="n">images</span><span class="o">/</span><span class="n">ak</span><span class="o">.</span><span class="n">png</span><span class="err">?</span><span class="mi">8</span><span class="n">efd0</span><span class="p">);</span>
+<a id="__codelineno-50-6" name="__codelineno-50-6" href="#__codelineno-50-6"></a>                <span class="n">border</span><span class="p">:</span> <span class="mi">3</span><span class="n">px</span> <span class="n">solid</span> <span class="n">red</span><span class="p">;</span>
+<a id="__codelineno-50-7" name="__codelineno-50-7" href="#__codelineno-50-7"></a>            <span class="p">}</span>
+</code></pre></div>
+<h3 id="2199">2.19.9 字体图标:</h3>
+<p>相当于把图标通过unicode编码变成字体,省内存</p>
+<h2 id="220-less">2.20 less</h2>
+<p>css的扩展,使css具备一定的逻辑性计算能力</p>
+<p>存放在 .less文件中,网页要引入对应的css,因为浏览器不支持less</p>
+<p>VScode的插件Easy less,应该也有别的插件能做到,不过先用这个</p>
+<h3 id="2201">2.20.1 注释:</h3>
+<p>单行注释: //</p>
+<p>多行注释和css一样</p>
+<p>记什么记,ctrl+/</p>
+<h3 id="2202">2.20.2 支持运算:</h3>
+<p>加减乘除直接写计算表达式</p>
+<p>除法要么用括号括起来,要么用 ./</p>
+<p>如果运算中出现多个单位值,最后只会以一个单位为准</p>
+<h3 id="2203">2.20.3 嵌套</h3>
+<p>可以生成后代选择器</p>
+<div class="admonition example">
+<p class="admonition-title">代码</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-51-1" name="__codelineno-51-1" href="#__codelineno-51-1"></a><span class="p">.</span><span class="nc">father</span><span class="p">{</span>
+<a id="__codelineno-51-2" name="__codelineno-51-2" href="#__codelineno-51-2"></a><span class="w">    </span><span class="k">color</span><span class="p">:</span><span class="w"> </span><span class="kc">red</span><span class="p">;</span>
+<a id="__codelineno-51-3" name="__codelineno-51-3" href="#__codelineno-51-3"></a><span class="w">    </span><span class="err">.son</span><span class="p">{</span>
+<a id="__codelineno-51-4" name="__codelineno-51-4" href="#__codelineno-51-4"></a><span class="w">        </span><span class="k">color</span><span class="p">:</span><span class="w"> </span><span class="kc">green</span><span class="p">;</span>
+<a id="__codelineno-51-5" name="__codelineno-51-5" href="#__codelineno-51-5"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-51-6" name="__codelineno-51-6" href="#__codelineno-51-6"></a><span class="p">}</span>
+</code></pre></div>
+</div>
+<p>用&amp;表示当前元素,相当于this</p>
+<p>同时可以写&amp;:hover实现伪对象选择器</p>
+<h3 id="2204">2.20.4 变量:</h3>
+<ul>
+<li>定义变量: @变量名:数据;</li>
+<li>使用变量: CSS属性: 变量名;</li>
+</ul>
+<h3 id="2205">2.20.5 导入:</h3>
+<div class="admonition example">
+<p class="admonition-title">代码</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-52-1" name="__codelineno-52-1" href="#__codelineno-52-1"></a><span class="nv">@import</span><span class="w"> </span><span class="s1">&#39;文件路径&#39;</span><span class="o">;</span>
+</code></pre></div>
+</div>
+<p>如果是less文件可以省略后缀</p>
+<h3 id="2206">2.20.6 导出:</h3>
+<p>文件第一行写 </p>
+<div class="admonition example">
+<p class="admonition-title">代码</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-53-1" name="__codelineno-53-1" href="#__codelineno-53-1"></a><span class="o">//</span><span class="w"> </span><span class="nt">out</span><span class="w"> </span><span class="nt">路径</span>
+</code></pre></div>
+</div>
+<h4 id="22061">2.20.6.1 禁止导出:</h4>
+<p>对于某些通用属性,我们不希望他们生成css</p>
+<div class="admonition example">
+<p class="admonition-title">代码</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-54-1" name="__codelineno-54-1" href="#__codelineno-54-1"></a><span class="o">//</span><span class="w"> </span><span class="nt">out</span><span class="p">:</span><span class="nd">false</span>
+</code></pre></div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      2024 by Honglei Gu
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["content.code.annotate"], "search": "../../assets/javascripts/workers/search.07f07601.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.56dfad97.min.js"></script>
+      
+        <script src="../../theme/js/mathjax.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.0/es5/tex-mml-chtml.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.0/es5/tex-chtml.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.0/es5/tex-chtml-full.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.0/es5/tex-svg-full.js"></script>
+      
+    
+  </body>
+</html>

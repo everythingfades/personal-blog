@@ -1,0 +1,2617 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="Honglei Gu(everythingfades)">
+      
+      
+        <link rel="canonical" href="http://localhost:9000/en/Imperial/year2/50004-Operating-System.html">
+      
+      
+        <link rel="prev" href="50003-Models-of-Computation.html">
+      
+      
+        <link rel="next" href="../../web/html.html">
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.34">
+    
+    
+      
+        <title>50004-Operating-System - Honglei Gu's personal blog</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.35f28582.min.css">
+      
+      
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+  
+  <style>:root{--md-admonition-icon--note:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M1 7.775V2.75C1 1.784 1.784 1 2.75 1h5.025c.464 0 .91.184 1.238.513l6.25 6.25a1.75 1.75 0 0 1 0 2.474l-5.026 5.026a1.75 1.75 0 0 1-2.474 0l-6.25-6.25A1.75 1.75 0 0 1 1 7.775m1.5 0c0 .066.026.13.073.177l6.25 6.25a.25.25 0 0 0 .354 0l5.025-5.025a.25.25 0 0 0 0-.354l-6.25-6.25a.25.25 0 0 0-.177-.073H2.75a.25.25 0 0 0-.25.25ZM6 5a1 1 0 1 1 0 2 1 1 0 0 1 0-2"/></svg>');--md-admonition-icon--abstract:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M2.5 1.75v11.5c0 .138.112.25.25.25h3.17a.75.75 0 0 1 0 1.5H2.75A1.75 1.75 0 0 1 1 13.25V1.75C1 .784 1.784 0 2.75 0h8.5C12.216 0 13 .784 13 1.75v7.736a.75.75 0 0 1-1.5 0V1.75a.25.25 0 0 0-.25-.25h-8.5a.25.25 0 0 0-.25.25m13.274 9.537zl-4.557 4.45a.75.75 0 0 1-1.055-.008l-1.943-1.95a.75.75 0 0 1 1.062-1.058l1.419 1.425 4.026-3.932a.75.75 0 1 1 1.048 1.074M4.75 4h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5M4 7.75A.75.75 0 0 1 4.75 7h2a.75.75 0 0 1 0 1.5h-2A.75.75 0 0 1 4 7.75"/></svg>');--md-admonition-icon--info:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13M6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75M8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2"/></svg>');--md-admonition-icon--tip:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.499.75a.75.75 0 0 1 1.5 0v.996C5.9 2.903 6.793 3.65 7.662 4.376l.24.202c-.036-.694.055-1.422.426-2.163C9.1.873 10.794-.045 12.622.26 14.408.558 16 1.94 16 4.25c0 1.278-.954 2.575-2.44 2.734l.146.508.065.22c.203.701.412 1.455.476 2.226.142 1.707-.4 3.03-1.487 3.898C11.714 14.671 10.27 15 8.75 15h-6a.75.75 0 0 1 0-1.5h1.376a4.5 4.5 0 0 1-.563-1.191 3.84 3.84 0 0 1-.05-2.063 4.65 4.65 0 0 1-2.025-.293.75.75 0 0 1 .525-1.406c1.357.507 2.376-.006 2.698-.318l.009-.01a.747.747 0 0 1 1.06 0 .75.75 0 0 1-.012 1.074c-.912.92-.992 1.835-.768 2.586.221.74.745 1.337 1.196 1.621H8.75c1.343 0 2.398-.296 3.074-.836.635-.507 1.036-1.31.928-2.602-.05-.603-.216-1.224-.422-1.93l-.064-.221c-.12-.407-.246-.84-.353-1.29a2.4 2.4 0 0 1-.507-.441 3.1 3.1 0 0 1-.633-1.248.75.75 0 0 1 1.455-.364c.046.185.144.436.31.627.146.168.353.305.712.305.738 0 1.25-.615 1.25-1.25 0-1.47-.95-2.315-2.123-2.51-1.172-.196-2.227.387-2.706 1.345-.46.92-.27 1.774.019 3.062l.042.19.01.05c.348.443.666.949.94 1.553a.75.75 0 1 1-1.365.62c-.553-1.217-1.32-1.94-2.3-2.768L6.7 5.527c-.814-.68-1.75-1.462-2.692-2.619a3.7 3.7 0 0 0-1.023.88c-.406.495-.663 1.036-.722 1.508.116.122.306.21.591.239.388.038.797-.06 1.032-.19a.75.75 0 0 1 .728 1.31c-.515.287-1.23.439-1.906.373-.682-.067-1.473-.38-1.879-1.193L.75 5.677V5.5c0-.984.48-1.94 1.077-2.664.46-.559 1.05-1.055 1.673-1.353z"/></svg>');--md-admonition-icon--success:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.75.75 0 0 1 .018-1.042.75.75 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0"/></svg>');--md-admonition-icon--question:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13M6.92 6.085h.001a.749.749 0 1 1-1.342-.67c.169-.339.436-.701.849-.977C6.845 4.16 7.369 4 8 4a2.76 2.76 0 0 1 1.637.525c.503.377.863.965.863 1.725 0 .448-.115.83-.329 1.15-.205.307-.47.513-.692.662-.109.072-.22.138-.313.195l-.006.004a6 6 0 0 0-.26.16 1 1 0 0 0-.276.245.75.75 0 0 1-1.248-.832c.184-.264.42-.489.692-.661q.154-.1.313-.195l.007-.004c.1-.061.182-.11.258-.161a1 1 0 0 0 .277-.245C8.96 6.514 9 6.427 9 6.25a.61.61 0 0 0-.262-.525A1.27 1.27 0 0 0 8 5.5c-.369 0-.595.09-.74.187a1 1 0 0 0-.34.398M9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/></svg>');--md-admonition-icon--warning:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0 1 14.082 15H1.918a1.75 1.75 0 0 1-1.543-2.575Zm1.763.707a.25.25 0 0 0-.44 0L1.698 13.132a.25.25 0 0 0 .22.368h12.164a.25.25 0 0 0 .22-.368Zm.53 3.996v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0M9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/></svg>');--md-admonition-icon--failure:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M2.344 2.343za8 8 0 0 1 11.314 11.314A8.002 8.002 0 0 1 .234 10.089a8 8 0 0 1 2.11-7.746m1.06 10.253a6.5 6.5 0 1 0 9.108-9.275 6.5 6.5 0 0 0-9.108 9.275M6.03 4.97 8 6.94l1.97-1.97a.749.749 0 0 1 1.275.326.75.75 0 0 1-.215.734L9.06 8l1.97 1.97a.749.749 0 0 1-.326 1.275.75.75 0 0 1-.734-.215L8 9.06l-1.97 1.97a.749.749 0 0 1-1.275-.326.75.75 0 0 1 .215-.734L6.94 8 4.97 6.03a.75.75 0 0 1 .018-1.042.75.75 0 0 1 1.042-.018"/></svg>');--md-admonition-icon--danger:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M9.504.43a1.516 1.516 0 0 1 2.437 1.713L10.415 5.5h2.123c1.57 0 2.346 1.909 1.22 3.004l-7.34 7.142a1.25 1.25 0 0 1-.871.354h-.302a1.25 1.25 0 0 1-1.157-1.723L5.633 10.5H3.462c-1.57 0-2.346-1.909-1.22-3.004zm1.047 1.074L3.286 8.571A.25.25 0 0 0 3.462 9H6.75a.75.75 0 0 1 .694 1.034l-1.713 4.188 6.982-6.793A.25.25 0 0 0 12.538 7H9.25a.75.75 0 0 1-.683-1.06l2.008-4.418.003-.006-.004-.009-.006-.006-.008-.001q-.005 0-.009.004"/></svg>');--md-admonition-icon--bug:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M4.72.22a.75.75 0 0 1 1.06 0l1 .999a3.5 3.5 0 0 1 2.441 0l.999-1a.748.748 0 0 1 1.265.332.75.75 0 0 1-.205.729l-.775.776c.616.63.995 1.493.995 2.444v.327q0 .15-.025.292c.408.14.764.392 1.029.722l1.968-.787a.75.75 0 0 1 .556 1.392L13 7.258V9h2.25a.75.75 0 0 1 0 1.5H13v.5q-.002.615-.141 1.186l2.17.868a.75.75 0 0 1-.557 1.392l-2.184-.873A5 5 0 0 1 8 16a5 5 0 0 1-4.288-2.427l-2.183.873a.75.75 0 0 1-.558-1.392l2.17-.868A5 5 0 0 1 3 11v-.5H.75a.75.75 0 0 1 0-1.5H3V7.258L.971 6.446a.75.75 0 0 1 .558-1.392l1.967.787c.265-.33.62-.583 1.03-.722a1.7 1.7 0 0 1-.026-.292V4.5c0-.951.38-1.814.995-2.444L4.72 1.28a.75.75 0 0 1 0-1.06m.53 6.28a.75.75 0 0 0-.75.75V11a3.5 3.5 0 1 0 7 0V7.25a.75.75 0 0 0-.75-.75ZM6.173 5h3.654A.17.17 0 0 0 10 4.827V4.5a2 2 0 1 0-4 0v.327c0 .096.077.173.173.173"/></svg>');--md-admonition-icon--example:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M5 5.782V2.5h-.25a.75.75 0 0 1 0-1.5h6.5a.75.75 0 0 1 0 1.5H11v3.282l3.666 5.76C15.619 13.04 14.543 15 12.767 15H3.233c-1.776 0-2.852-1.96-1.899-3.458Zm-2.4 6.565a.75.75 0 0 0 .633 1.153h9.534a.75.75 0 0 0 .633-1.153L12.225 10.5h-8.45ZM9.5 2.5h-3V6c0 .143-.04.283-.117.403L4.73 9h6.54L9.617 6.403A.75.75 0 0 1 9.5 6Z"/></svg>');--md-admonition-icon--quote:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M1.75 2.5h10.5a.75.75 0 0 1 0 1.5H1.75a.75.75 0 0 1 0-1.5m4 5h8.5a.75.75 0 0 1 0 1.5h-8.5a.75.75 0 0 1 0-1.5m0 5h8.5a.75.75 0 0 1 0 1.5h-8.5a.75.75 0 0 1 0-1.5M2.5 7.75v6a.75.75 0 0 1-1.5 0v-6a.75.75 0 0 1 1.5 0"/></svg>');}</style>
+
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#pre-recorded-lecture-1-intro" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../index.html" title="Honglei Gu&#39;s personal blog" class="md-header__button md-logo" aria-label="Honglei Gu's personal blog" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Honglei Gu's personal blog
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              50004-Operating-System
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/everythingfades/personal-blog.git" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../index.html" title="Honglei Gu&#39;s personal blog" class="md-nav__button md-logo" aria-label="Honglei Gu's personal blog" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Honglei Gu's personal blog
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/everythingfades/personal-blog.git" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../index.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    中文
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            中文
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    web(前端+后端)
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            web(前端+后端)
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../zh/web/html.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    html
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../zh/web/css.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    css
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_1_3" id="__nav_2_1_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    js
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_1_3">
+            <span class="md-nav__icon md-icon"></span>
+            js
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../zh/web/js/js.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    基础语法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../zh/web/js/js-advanced.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    进阶语法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../zh/web/js/DOM.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DOM
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../zh/web/js/BOM.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    BOM
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../zh/web/AJAX.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    AJAX
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../zh/web/nodejs.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    nodejs
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../zh/web/webpack.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    webpack
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../zh/web/vue2.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    vue2
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    English
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            English
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3_1" id="__nav_3_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Imperial
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            Imperial
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1_1" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3_1_1" id="__nav_3_1_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    year2
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_1_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_1_1">
+            <span class="md-nav__icon md-icon"></span>
+            year2
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="pintos.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    pintos
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="50001-Algorithms.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    50001-Algorithms
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="50003-Models-of-Computation.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    50003-Model-of-Computation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    50004-Operating-System
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="50004-Operating-System.html" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    50004-Operating-System
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#computer-architectur-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Computer Architectur Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#manage-resources" class="md-nav__link">
+    <span class="md-ellipsis">
+      Manage Resources
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#provide-clean-interfaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      Provide clean Interfaces
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sharing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sharing
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#concurrency" class="md-nav__link">
+    <span class="md-ellipsis">
+      Concurrency
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#non-determiniism" class="md-nav__link">
+    <span class="md-ellipsis">
+      Non-determiniism
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#storing-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      Storing Data
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#os-functionality" class="md-nav__link">
+    <span class="md-ellipsis">
+      OS functionality
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#os-need-to-support-different-hardware" class="md-nav__link">
+    <span class="md-ellipsis">
+      OS need to support different hardware
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    web
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            web
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../web/html.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    html
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    other
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            other
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3_1" id="__nav_3_3_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    CTF
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            CTF
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../other/CTF/cyber_security.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    cyber-security
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../other/CTF/CTFhub.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CTFhub
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#computer-architectur-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Computer Architectur Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#manage-resources" class="md-nav__link">
+    <span class="md-ellipsis">
+      Manage Resources
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#provide-clean-interfaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      Provide clean Interfaces
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sharing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sharing
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#concurrency" class="md-nav__link">
+    <span class="md-ellipsis">
+      Concurrency
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#non-determiniism" class="md-nav__link">
+    <span class="md-ellipsis">
+      Non-determiniism
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#storing-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      Storing Data
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#os-functionality" class="md-nav__link">
+    <span class="md-ellipsis">
+      OS functionality
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#os-need-to-support-different-hardware" class="md-nav__link">
+    <span class="md-ellipsis">
+      OS need to support different hardware
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="pre-recorded-lecture-1-intro">pre-recorded lecture 1 intro</h1>
+<h2 id="computer-architectur-overview">Computer Architectur Overview</h2>
+<p><img alt="slide2" src="../../../assets/Imperial/50004/lecture1-slide2.png" /></p>
+<p>so the primary purpose of the operating system is to provide abstractions of clean interface to the applications</p>
+<p>it should also control all the hardwar that connects to the computer</p>
+<p>So OS need to </p>
+<h2 id="manage-resources">Manage Resources</h2>
+<p>OS must make efficient use of the limit avalible resource
+- this includes time, space, money, etc..</p>
+<p>OS have to share the resource among multiple users
+- schedules access and offers a fair allocation
+- prevent interference between users</p>
+<p>The managed resources include
+- Processors(mainly CPU stuff)
+- Memory(caches, RAM, etc.)
+- I/O devices
+- Internal devices(clocks timer, interrupt controllers)
+- Persistent storages(disks, SSDs, DVDs, tapes, etc..)</p>
+<h2 id="provide-clean-interfaces">Provide clean Interfaces</h2>
+<p>OS hides complexity of lower levels from higher levels and provide a clean interface</p>
+<p>example:</p>
+<p><img alt="slide7" src="../../../assets/Imperial/50004/lecture1-slide7.png" /></p>
+<h2 id="sharing">Sharing</h2>
+<p>OS must share data, programs and hardware
+- OS use time multiplexing and space multiplexing for this(more later)</p>
+<p>OS must offer resource allocation
+- fair use of memory, CPU time, disk space
+- simultaneous access to resuorce(Disks, RAM, network, GPU)
+- mutual exclusion for some resources(guarantee that risky operations are protected)
+- OS must protect against(accidental or malicious) corruption</p>
+<h2 id="concurrency">Concurrency</h2>
+<p>OS must support several simultaneous parallel activities
+- multi users and programs must run in parallel</p>
+<p>OS may switch activities at arbitrary times
+- guarantee fairness and prompt replies</p>
+<p>OS must ensure safe concurrency
+- must offer primitives to sychronise actions
+- protect user/process interference(Each program wants to have its own space)</p>
+<h2 id="non-determiniism">Non-determiniism</h2>
+<p>Because it is concurrent, results from events occur in an unpredictable order</p>
+<h2 id="storing-data">Storing Data</h2>
+<p>Persistent storage
+- easy access to files
+- access controls: protect the files so only authorised people can alter the file
+- protest against failures
+- manage storage devices</p>
+<h2 id="os-functionality">OS functionality</h2>
+<ul>
+<li>SImplified I/O (access disk, or remote file server or DVDs)</li>
+<li>Virtual memory(larger than physical memeory and partition)</li>
+<li>File systems(persistent storages)</li>
+<li>Program interaction and communication</li>
+<li>Network communication(sending/receiving data on network)</li>
+<li>Security(preventing program accessing unauthorised resuorce)</li>
+<li>UI</li>
+<li>other(Administration, managment, accounting)</li>
+</ul>
+<h2 id="os-need-to-support-different-hardware">OS need to support different hardware</h2>
+<h1 id="lecture-2">lecture 2:</h1>
+<p>it just introduces different OS, linux and windows</p>
+<h1 id="lecture-3-processes">lecture 3: processes</h1>
+<h2 id="intro">intro:</h2>
+<p>it is one of the oldest abstractions in computing</p>
+<p>it allows a singe processor to run multiple programs simultaneously
+- processes turn a single CPU into multiple virtual CPUs
+- Each process runs on a virtual CPU</p>
+<p>the processes are isoloated from each other, each with its own address space and program a does not worry about program b</p>
+<h2 id="time-slicing">time-slicing:</h2>
+<p>this is one technique from concurrency</p>
+<ul>
+<li>OS switchses application running onn the physical CPU every 50ms</li>
+</ul>
+<p>so we have </p>
+<p><img alt="slide5" src="../../../assets/Imperial/50004/lecture3-slide5.png" /></p>
+<p>we could optimise it like running gcc when firefox waits for input</p>
+<h2 id="context-switches">context switches:</h2>
+<p>the processor switches from executing process A to executing process B</p>
+<p>it takes periodic scheduling decisions</p>
+<p>it may switch processes(cannot be pre-determine because the events are non-deterministic)</p>
+<h3 id="context-switches-are-expensive">context switches are expensive</h3>
+<p>Direct cost: save/restore process state</p>
+<p>Indirect cost: pertubation of memory caches, TLB
+- Translation lookaside buffers(TLBS), caches mapping of virtual addresses to physical addresses, and is typically flushed on a context seitch
+- (this will be continued in memory management lectures)</p>
+<p>since this is costly, we need to avoid unnecessary context switches</p>
+<h2 id="process">Process</h2>
+<h3 id="creation">Creation</h3>
+<p>they are created when 
+- System init
+- User request
+- System calls</p>
+<p>note that daemons are background tasks, that's why docker daemon</p>
+<h3 id="termination">Termination</h3>
+<ul>
+<li>Normal completion</li>
+<li>system call: exit() in UNIX, ExitProcess() in Windows</li>
+<li>Abnormal exit: program run into an error or unhandled exception</li>
+<li>Aborted: Process stop due to overruling of its execution(e.g. killed)</li>
+<li>Never: Some processes run in endless loops and never terminated unless error occurs</li>
+</ul>
+<h3 id="_1"></h3>
+<h2 id="case-study-unix">Case study UNIX:</h2>
+<h3 id="creating-processes">creating processes:</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kt">int</span><span class="w"> </span><span class="n">fork</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+</code></pre></div>
+<p>this Creates a new child process by making the exact copy of parent process image</p>
+<p>it returns twice
+- in parent process: fork() returns process ID of child
+- in child process: fork() returns 0</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;unistd.h&gt;</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">fork</span><span class="p">()</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="c1">// if this is not in child process</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Parent code</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">  </span><span class="k">else</span><span class="w"> </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Child code</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Common code</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w"> </span><span class="p">}</span>
+</code></pre></div>
+<p>on error, no child is created, and -1 is returned to the parent</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;unistd.h&gt;</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">fork</span><span class="p">()</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;A</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">  </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">fork</span><span class="p">()</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">      </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;B</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="w">    </span><span class="k">else</span><span class="w"> </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;C</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="w">  </span><span class="p">}</span>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="p">}</span>
+</code></pre></div>
+<h3 id="executing-process">executing process</h3>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kt">int</span><span class="w"> </span><span class="n">execve</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">path</span><span class="p">,</span><span class="w"> </span><span class="n">chat</span><span class="w"> </span><span class="o">*</span><span class="k">const</span><span class="w"> </span><span class="n">argv</span><span class="p">[],</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="k">const</span><span class="w"> </span><span class="n">envp</span><span class="p">[])</span>
+</code></pre></div>
+args</p>
+<ul>
+<li>path: the full pathname of the program to run</li>
+<li>argv: args passed to main</li>
+<li>envp: environment variables</li>
+</ul>
+<p>it changes process image amnd runs new process</p>
+<p>for example, a command interpreter could do</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">TRUE</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">  </span><span class="n">read_command</span><span class="p">(</span><span class="n">command</span><span class="p">,</span><span class="w"> </span><span class="n">params</span><span class="p">);</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">fork</span><span class="p">()</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="c1">// fork off child process, fork fails or is parent process</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">    </span><span class="n">waitpid</span><span class="p">(</span><span class="mi">-1</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">status</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span><span class="w"> </span><span class="c1">// parent code</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">  </span><span class="k">else</span><span class="w"> </span><span class="c1">// at this point, we are certain is child process</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">    </span><span class="n">execve</span><span class="p">(</span><span class="n">command</span><span class="p">,</span><span class="w"> </span><span class="n">parameters</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span><span class="w"> </span><span class="c1">// child code</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="p">}</span>
+</code></pre></div>
+<h3 id="wait-for-process-termination">Wait for process termination</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kt">int</span><span class="w"> </span><span class="n">waitpid</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">pid</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="o">*</span><span class="w"> </span><span class="n">statis</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">options</span><span class="p">)</span>
+</code></pre></div>
+<p>suspends excution of calling process until process wihth PID pid terminates normally or a signal is recieved</p>
+<p>we can wait for more than one child
+- pid = -1: wait for any child
+- pid = 0: wait for any child in the same process group as caller
+- pid = - gid: wait for any child with process group gid</p>
+<p>returns:
+- pid of the terminated child process
+- 0  if WNOHANG is set(call should not block) and no terminated children
+- -1 on error, with the errno set to indicate error</p>
+<p>In UNIX we have both fork() and execve()</p>
+<p>but in Windows, CreateProcess() = fork + execve, but it has 10 params</p>
+<h3 id="process-termination">Process Termination</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kt">void</span><span class="w"> </span><span class="n">exit</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">status</span><span class="p">)</span>
+</code></pre></div>
+<p>terminates a process
+- called implicitly when the program finished</p>
+<p>never returns in the calling process
+- returns an exit status to the parent process
+- stored with in status pointer arg in waitpid()</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kt">int</span><span class="w"> </span><span class="n">kill</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">pid</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">sig</span><span class="p">)</span>
+</code></pre></div>
+<p>send signal sig to process pid</p>
+<h3 id="unix-signals">UNIX signals</h3>
+<p>Inter-Process Communication (IPC) mechanism</p>
+<p>Signal delivery similar to delivery of hardware interrupts
+- used to notify process when event occurs</p>
+<p>process can send signal to another process if it has permission
+- kernel can send signal to any process</p>
+<h4 id="when">when?</h4>
+<p>exception:
+- division by zero -&gt; SIGFPE
+- segment violation -&gt; SIGSEGV(you acces memory that is not avaliable)
+- ...</p>
+<p>when the kernel wants to notify the process of an event
+- e.g. if process writes to a closed pipe -&gt; SIGPIPE</p>
+<p>when certain key combations are typed in a terminal
+- e.g. Ctrl-C -&gt; SIGINT(so you interrupt the process with ctrl + C)</p>
+<p>programmatically using the kill() system call</p>
+<p><img alt="slide29" src="../../../assets/Imperial/50004/lectur3-slide29.png" /></p>
+<p>the default action for most signals is to terminate the process</p>
+<p>the recieving process may choose to :
+- ignore it
+- handle it by signal handler
+- two signals cannot be ignored/handled: SIGKILL and SIGSTOP</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="n">signal</span><span class="p">(</span><span class="n">SIGINT</span><span class="p">,</span><span class="w"> </span><span class="n">my_handler</span><span class="p">)</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="kt">void</span><span class="w"> </span><span class="n">my_handler</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">sig</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="w">  </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Recieved SIGINT. Ignoring ...&quot;</span><span class="p">)</span>
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="p">}</span>
+</code></pre></div>
+<h3 id="unix-pipes">UNIX Pipes:</h3>
+<p>pipe is connecting the standard output od one processs to the standard input of another</p>
+<p>it allow <strong>one-way</strong> communication between processes</p>
+<p>consider the linux commands</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>ls | less
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>cat file.txt | grep hello | wc -l
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>ls | tee my.txt
+</code></pre></div>
+<p>two types: unnamed, named</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="kt">int</span><span class="w"> </span><span class="n">pipe</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">fd</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+</code></pre></div>
+<p>so there is a fd(file desciptor) table in the kernel, and the address of the two ends are stored in the fd table, the child process copies the fd table</p>
+<p>it return two file descriptor in fd
+- fd[0] the read end of the pipe
+- fd[1] the write end of the pipe</p>
+<p>sender shoudl close the read end</p>
+<p>reciever should close the write end</p>
+<p>If receiver reads from empty pipe, it blocks until data is written at the other end</p>
+<p>If sender attempts to write to full pipe, it blocks until data is read at the other end</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">argv</span><span class="p">[])</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">fd</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">buf</span><span class="p">;</span>
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="w">  </span><span class="n">assert</span><span class="p">(</span><span class="n">argc</span><span class="o">==</span><span class="w"> </span><span class="mi">2</span><span class="p">);</span><span class="w"> </span><span class="c1">// if the number of args is not 2, exit</span>
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">pipe</span><span class="p">(</span><span class="n">fd</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">-1</span><span class="p">)</span><span class="w"> </span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span><span class="w"> </span><span class="c1">// if pipe unavaliable, exit</span>
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="w">  </span><span class="c1">// this also creates a pipe between the two args in fd</span>
+<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">fork</span><span class="p">()</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="w">    </span><span class="n">close</span><span class="p">(</span><span class="n">fd</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+<a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a><span class="w">    </span><span class="n">write</span><span class="p">(</span><span class="n">fd</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="w"> </span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="w"> </span><span class="n">strlen</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]));</span>
+<a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a><span class="w">    </span><span class="n">close</span><span class="p">(</span><span class="n">fd</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+<a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a><span class="w">    </span><span class="n">waitpid</span><span class="p">(</span><span class="mi">-1</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+<a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a><span class="w">  </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-11-12" name="__codelineno-11-12" href="#__codelineno-11-12"></a><span class="w">    </span><span class="n">close</span><span class="p">(</span><span class="n">fd</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+<a id="__codelineno-11-13" name="__codelineno-11-13" href="#__codelineno-11-13"></a><span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">read</span><span class="p">(</span><span class="n">fd</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="w"> </span><span class="o">&amp;</span><span class="n">buf</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
+<a id="__codelineno-11-14" name="__codelineno-11-14" href="#__codelineno-11-14"></a><span class="w">      </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;%c&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">buf</span><span class="p">);</span>
+<a id="__codelineno-11-15" name="__codelineno-11-15" href="#__codelineno-11-15"></a><span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<a id="__codelineno-11-16" name="__codelineno-11-16" href="#__codelineno-11-16"></a><span class="w">    </span><span class="n">close</span><span class="p">(</span><span class="n">fd</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+<a id="__codelineno-11-17" name="__codelineno-11-17" href="#__codelineno-11-17"></a><span class="w">  </span><span class="p">}</span>
+<a id="__codelineno-11-18" name="__codelineno-11-18" href="#__codelineno-11-18"></a><span class="p">}</span>
+</code></pre></div>
+<p>at the end of the process, the pipe is closed</p>
+<p>named pipes: outlive process which create them</p>
+<p>they are store on file system</p>
+<p>we want to use these because its faster, it is store in the RAM instead of being optimised by the file system
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>mkfifo /tmp/abc
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>echo ABC &gt;/tmp/abc
+</code></pre></div></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>cat /tmp/abc
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>(we get ABC)
+</code></pre></div>
+<p>a pipe is just a buffer, it stores the data from the memory, calling it retrieves data from the buffer</p>
+<h1 id="lecture-4-threads">lecture 4: threads</h1>
+<p>threads are execution atreams that share the sma eaddress space</p>
+<p>if multithreading is used, each process can contain one or more threads</p>
+<h2 id="why-thread">why thread?</h2>
+<p>many appplications contain multiple activities
+- executes in parallele
+- access and process the same data
+- some of which may block</p>
+<h2 id="why-not-process">why not process</h2>
+<p>processes are too heavyweight
+- diificult to communicate between different address spaces
+- Activity that blocks may switch out th eentire application
+- Expensive to context switch
+- expensive to create/destory activities</p>
+<h2 id="problems-with-thread">problems with thread</h2>
+<p>shared address space
+- memory corruption: one thread can write another thread's stack
+- concurrency bugs: conccurrent access to shared data(possible race conditions)</p>
+<p>forking: the previous forking copies the current process, but multiple threads run at the same time</p>
+<p>signals
+- when a signal s arrives, which thread should handle it (currently, all the threads are able to handle it, so we dont know which thread will do it)</p>
+<h2 id="case-study-pthreads">case study: PThreads</h2>
+<p>PThread(POSIX Threads)</p>
+<p>defined by IEEE standard and implemented by most UNIX systems</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;pthread.h&gt;</span>
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;sys/types.h&gt;</span>
+<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="n">pthread_t</span><span class="w">       </span><span class="c1">//type representing a thread </span>
+<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="n">pthread_attr_t</span><span class="w">  </span><span class="c1">//type representing the attributes of a thread</span>
+</code></pre></div>
+<h3 id="create-a-new-thread">create a new thread</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="kt">int</span><span class="w"> </span><span class="n">pthread_create</span><span class="p">(</span><span class="n">pthread_t</span><span class="w"> </span><span class="o">*</span><span class="kr">thread</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">pthread_attr_t</span><span class="w"> </span><span class="o">*</span><span class="n">attr</span><span class="p">,</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="p">(</span><span class="o">*</span><span class="n">start_routine</span><span class="p">)(</span><span class="kt">void</span><span class="o">*</span><span class="p">),</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">arg</span><span class="p">)</span>
+</code></pre></div>
+<ul>
+<li>the newly created thread is stored in *thread</li>
+<li>function return 0 if the thread was successfully created, or error code</li>
+</ul>
+<p>args:</p>
+<ul>
+<li>attr: the thread attributes, can be NULL for default</li>
+<li>start_routine: C function the thread will start executing</li>
+<li>arg: args to be passed to start_routine(of pointer type void*) can be NULL</li>
+</ul>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;pthread.h&gt;</span>
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
+<a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;unistd.h&gt;</span>
+<a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="nf">thread_work</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">threadid</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a><span class="w">  </span><span class="kt">long</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">long</span><span class="p">)</span><span class="w"> </span><span class="n">threadid</span><span class="p">;</span>
+<a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a><span class="w">  </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Thread %ld</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">id</span><span class="p">);</span>
+<a id="__codelineno-16-7" name="__codelineno-16-7" href="#__codelineno-16-7"></a><span class="p">}</span>
+<a id="__codelineno-16-8" name="__codelineno-16-8" href="#__codelineno-16-8"></a><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="w"> </span><span class="p">(</span><span class="n">intargc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">argv</span><span class="p">[])</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-16-9" name="__codelineno-16-9" href="#__codelineno-16-9"></a><span class="w">  </span><span class="n">pthread_t</span><span class="w"> </span><span class="n">threads</span><span class="p">[</span><span class="mi">5</span><span class="p">];</span>
+<a id="__codelineno-16-10" name="__codelineno-16-10" href="#__codelineno-16-10"></a><span class="w">  </span><span class="kt">long</span><span class="w"> </span><span class="n">t</span><span class="p">;</span>
+<a id="__codelineno-16-11" name="__codelineno-16-11" href="#__codelineno-16-11"></a><span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">t</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">t</span><span class="o">&lt;</span><span class="mi">5</span><span class="p">;</span><span class="w"> </span><span class="n">t</span><span class="o">++</span><span class="p">)</span>
+<a id="__codelineno-16-12" name="__codelineno-16-12" href="#__codelineno-16-12"></a><span class="w">    </span><span class="n">pthread_create</span><span class="p">(</span><span class="o">&amp;</span><span class="n">threads</span><span class="p">[</span><span class="n">t</span><span class="p">],</span><span class="w"> </span><span class="nb">NULL</span><span class="p">,</span>
+<a id="__codelineno-16-13" name="__codelineno-16-13" href="#__codelineno-16-13"></a><span class="w">  </span><span class="n">thread_work</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="n">t</span><span class="p">);</span>
+<a id="__codelineno-16-14" name="__codelineno-16-14" href="#__codelineno-16-14"></a><span class="w">  </span><span class="n">sleep</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+<a id="__codelineno-16-15" name="__codelineno-16-15" href="#__codelineno-16-15"></a><span class="p">}</span>
+</code></pre></div>
+<h3 id="terminating-thread">Terminating thread:</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="kt">void</span><span class="w"> </span><span class="n">pthread_exit</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">value_ptr</span><span class="p">)</span>
+</code></pre></div>
+<p>Terminates the thread and makes value_ptr avaliable to any successful join with the terminating thread</p>
+<ul>
+<li>not for the initial thread that start main()</li>
+<li>if main terminates before other threads, calling pthread_exit(), the entire process is terminated</li>
+<li>if pthread_exit() is called in main(), the process continues executing until last thread terminates(or exit())</li>
+</ul>
+<h3 id="yielding-the-cpu">yielding the CPU</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="kt">int</span><span class="w"> </span><span class="n">ptherad_yield</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+</code></pre></div>
+<p>relesease the CPU to let another thread run, returns 0 on success, or an error code</p>
+<p>should not use this because we dont know the next time we are going to run the thread that yields again</p>
+<h3 id="joining-the-threads">Joining the threads</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="kt">int</span><span class="w"> </span><span class="n">pthread_join</span><span class="p">(</span><span class="n">pthread_t</span><span class="w"> </span><span class="kr">thread</span><span class="p">,</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">**</span><span class="n">value_ptr</span><span class="p">)</span><span class="w"> </span>
+</code></pre></div>
+<p>block until thread terminates</p>
+<p>the value_ptr will be passed to pthread_exit()</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;pthread.h&gt;</span>
+<a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
+<a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a><span class="kt">long</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">,</span><span class="w"> </span><span class="n">c</span><span class="p">;</span>
+<a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="nf">work1</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">long</span><span class="p">)</span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="kt">long</span><span class="p">)</span><span class="n">x</span><span class="p">;}</span>
+<a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="nf">work2</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">y</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">long</span><span class="p">)</span><span class="n">y</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="kt">long</span><span class="p">)</span><span class="n">y</span><span class="p">;}</span>
+<a id="__codelineno-20-6" name="__codelineno-20-6" href="#__codelineno-20-6"></a><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">argv</span><span class="p">[])</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-20-7" name="__codelineno-20-7" href="#__codelineno-20-7"></a><span class="w">  </span><span class="n">pthread_t</span><span class="w"> </span><span class="n">t1</span><span class="p">,</span><span class="w"> </span><span class="n">t2</span><span class="p">;</span>
+<a id="__codelineno-20-8" name="__codelineno-20-8" href="#__codelineno-20-8"></a><span class="w">  </span><span class="n">pthread_create</span><span class="p">(</span><span class="o">&amp;</span><span class="n">t1</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">,</span><span class="w"> </span><span class="n">work1</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="kt">void</span><span class="o">*</span><span class="p">)</span><span class="w"> </span>
+<a id="__codelineno-20-9" name="__codelineno-20-9" href="#__codelineno-20-9"></a><span class="mi">3</span><span class="p">);</span>
+<a id="__codelineno-20-10" name="__codelineno-20-10" href="#__codelineno-20-10"></a><span class="w">  </span><span class="n">pthread_create</span><span class="p">(</span><span class="o">&amp;</span><span class="n">t2</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">,</span><span class="w"> </span><span class="n">work2</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="kt">void</span><span class="o">*</span><span class="p">)</span><span class="w"> </span>
+<a id="__codelineno-20-11" name="__codelineno-20-11" href="#__codelineno-20-11"></a><span class="mi">4</span><span class="p">);</span>
+<a id="__codelineno-20-12" name="__codelineno-20-12" href="#__codelineno-20-12"></a><span class="w">  </span><span class="n">pthread_join</span><span class="p">(</span><span class="n">t1</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">);</span><span class="w"> </span><span class="c1">// a is assigned to 9 only after the thread</span>
+<a id="__codelineno-20-13" name="__codelineno-20-13" href="#__codelineno-20-13"></a><span class="w">  </span><span class="n">pthread_join</span><span class="p">(</span><span class="n">t2</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">);</span><span class="w"> </span><span class="c1">// b is assigned to 16 only after the thread</span>
+<a id="__codelineno-20-14" name="__codelineno-20-14" href="#__codelineno-20-14"></a><span class="w">  </span><span class="n">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">b</span><span class="p">;</span>
+<a id="__codelineno-20-15" name="__codelineno-20-15" href="#__codelineno-20-15"></a><span class="w">  </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;3^2 + 4^2 = %ld</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">c</span><span class="p">);</span>
+<a id="__codelineno-20-16" name="__codelineno-20-16" href="#__codelineno-20-16"></a><span class="p">}</span>
+</code></pre></div>
+<h3 id="implementing-threads">Implementing Threads</h3>
+<h4 id="user-level-threads">User-level threads:</h4>
+<ul>
+<li>OS kernel is not aware of the threads</li>
+<li>Each process manages its own threads
+OS-kernel thinks it is mamaging processes only</li>
+<li>the threads are implemented by software library</li>
+<li>Process maintains thread table for thread scheduling</li>
+</ul>
+<p>advantages:</p>
+<p>it is fast
+- thread creation and termination are fast
+- thread switching is fast(only do registers)
+- thread synchronisation(e.g. joining other threads) is fast
+- All these operations do not require kernel involvement</p>
+<p>Each application can have its own schduling algorithm</p>
+<p>disadvntages</p>
+<p>blocking system calls stops all threads in process</p>
+<ul>
+<li>denies one core motivations for using threads</li>
+</ul>
+<p>Non-blocking I.O cna be used(e.g. select())</p>
+<ul>
+<li>not elegant</li>
+</ul>
+<p>During page fault OS blocks the whold process</p>
+<ul>
+<li>But other threads may be runnable</li>
+</ul>
+<h4 id="kernel-level-threads">Kernel-level threads</h4>
+<ul>
+<li>Managed by the OS kernel</li>
+</ul>
+<p>pthreads are kernel-levels</p>
+<p>advantages</p>
+<p>blocking system calls/page faults can be easily accommodated</p>
+<ul>
+<li>if one thread calls a blocking system call or causes a page fault, the kernel can shedule a runnable thread from the same process</li>
+</ul>
+<p>disadvantages:</p>
+<p>thread creation and termination more expensive
+- require system calls(but still cheaper than process creation/termination)
+- one mitigation is to recycle threads(thread pools)</p>
+<p>thread synchronisation more expensive
+- requires blocking system calls</p>
+<p>thread switching more expensive
+- require system calls(still cheaper than process switches(same address space))</p>
+<p>no application-specific schedulers</p>
+<h4 id="hybrid-approaches">hybrid approaches</h4>
+<h1 id="lecture-5-scheduling">lecture 5: scheduling</h1>
+<p>the process states is just a finite state machine</p>
+<p><img alt="slide2" src="../../../assets/Imperial/50004/lecture4-slide2.png" /></p>
+<h2 id="goals-of-scheduling-algorithms">goals of scheduling algorithms</h2>
+<p>Ensure fairness
+- comparable processes should get comparable services</p>
+<p>Avoid indefinite postponement
+- No process should starve</p>
+<p>Enfore policy
+- E.g. priorities</p>
+<p>Maximise resource utilisation</p>
+<p>Minimize overhead
+- From context switches, scheduling decisions</p>
+<p>Batch systems: (Give a batch of task to the system, just do it as fast as possible)
+- Thoughput: Jobs per unit time
+- Turnaround time: TIme between job submission and completion</p>
+<p>Interactive systems:
+- Response time crucial: TIme between request issued and first response</p>
+<p>Real-time systems:
+- Meeting deadlines:
+- - Soft deadlines: leads to degraded video quality(360p, 1080p)
+- - Hard dealine: e.g. leads to plane crash</p>
+<h2 id="preemptive-and-non-preemptive-scheduling">preemptive and non-preemptive scheduling</h2>
+<p>non-preemptive
+- let process run until it blocks or voluntarily release CPU</p>
+<p>preemptive:
+- let process run for a maximum amount of fixed time
+- reuqires a clock interrupt</p>
+<h2 id="cpu-bound-or-io-boun">CPU -bound or I/O boun</h2>
+<p>CPU bound processes
+- spend most of their time in the CPU</p>
+<p>I/O bound processes
+- spend most of their time waiting for I/O
+- Tend to only use CPU briefly before issuing I/O request</p>
+<h2 id="first-come-first-servedfcfsnon-preemptive">First-Come First-Served(FCFS)(non-preemptive)</h2>
+<p><img alt="slide7" src="../../../assets/Imperial/50004/lecture4-slide7.png" /></p>
+<h3 id="advantage">advantage:</h3>
+<p>No indefinite postponement
+- All processes are eventually scheduled</p>
+<p>Really easy to implement</p>
+<h3 id="fcfs-disadvantages">FCFS Disadvantages</h3>
+<p>consider a long job is follows by many short jobs</p>
+<p>3600s -&gt; 1s -&gt; 1s -&gt; 1s</p>
+<ul>
+<li>Throughput: 3603/4</li>
+<li>Average turnaround time: 14406 / 4</li>
+</ul>
+<p>1s -&gt; 1s -&gt; 1s -&gt; 3600s</p>
+<ul>
+<li>Throughput: 3603/4</li>
+<li>Average turnaround time: 3606/4</li>
+</ul>
+<h2 id="round-robin">Round-robin</h2>
+<p><img alt="slide10" src="../../../assets/Imperial/50004/lecture4-slide10.png" /></p>
+<p>Fairness
+- ready jobs gets equal shar of the CPU</p>
+<p>Response time
+- Good for small number of jobs</p>
+<p>Average turnaround time:
+- Low when run-times differ
+- Poor for similar run-times</p>
+<h3 id="rr-quantumtime-slice">RR-Quantum(Time slice)</h3>
+<p>RR Overhead:
+- 4ms quantum, 1ms context switch time: 20% time -&gt; overhead
+- 1s overhead, 1ms context switch time: 1% -&gt; overhead</p>
+<p>so </p>
+<p>Large quantum -&gt; smaller overhead, worse response time</p>
+<p>small quantum -&gt; large overhead and better response time</p>
+<p>the quantum should be much larger than context switch cost, but provide decent repsonse time</p>
+<p>typical value: 10ms - 200ms</p>
+<ul>
+<li>linux: 100ms</li>
+<li>windows client: 20ms</li>
+<li>windows server: 180ms</li>
+</ul>
+<h2 id="shortest-job-first-sjf">Shortest Job First (SJF)</h2>
+<p>Non-preemptive scheduling with run-times known in advance, then we pick the shortest job first</p>
+<p>if A(8) -&gt; B(4) -&gt; C(4) -&gt; D(4)</p>
+<p>then the turanaround time is 8 + (8 + 4) + (8 + 4 + 4) + (8 + 4 + 4 + 4) = 56</p>
+<p>if B(4) -&gt; C(4) -&gt; D(4) -&gt; A(8)</p>
+<p>then the turnaround time is 4 + (4 + 4) + (4 + 4 + 4) + (4 + 4 + 4 + 8) = 44</p>
+<h3 id="shortest-remaining-timesrt">Shortest Remaining Time(SRT)</h3>
+<p>this is a preemptive version of Shortest Job First
+- Runtime have to be known in advance</p>
+<p>choose the process whose remaining time is shortest</p>
+<p>so</p>
+<p><img alt="slide15" src="../../../assets/Imperial/50004/lecture4-slide15.png" /></p>
+<h3 id="problem-how-to-know-the-runtime-in-advance">problem: how to know the runtime in advance?</h3>
+<p>they are not usually available in advance</p>
+<p>Compute CPU burst estimates based on heuristics
+- E.g. based on previous history
+- Not always applicable</p>
+<p>User-supplied estimates
+- need to counteract cheating to get higher priority</p>
+<h2 id="fair-share-scheduling">Fair Share Scheduling:</h2>
+<p>Users are assigned some fraciton of the CPU
+- Schduler takes into accoun twho owns a process before scheduling it</p>
+<p>assume each user take 50% of the CPU
+- User 1: ABCD
+- User 2: EF</p>
+<p>A RR scheduler would maybe do A E B F C E D A E B F C E D F</p>
+<p>so the user list is iterated when scheduling</p>
+<h2 id="priority-scheduling">Priority Scheduling</h2>
+<p>Jobs are running based on their priority(consider PintOS)</p>
+<p>they can be externally defined or based on some process-specific metrics</p>
+<p>they can be static(do change) or dynamic(pintos)</p>
+<p>the processes with the highest priorities is going to run first</p>
+<h2 id="general-purpose-scheduling">General-Purpose Scheduling</h2>
+<p>Favoue short and IO bound jobs
+- good resource utilisation and short response times</p>
+<p>they react quickly and can adpat to changes
+- each process have IO-bound periods and CPU-bound period</p>
+<h2 id="multilevel-feedback-queues">Multilevel Feedback Queues</h2>
+<p>form this on, this would be implementations</p>
+<p>implemented on many OSs including pintos</p>
+<p>one queue for each priority level, in each queue, we can use round-robin</p>
+<p>consider the zipping method in hashset for resolving conflict in same hashcode</p>
+<p><img alt="slide21" src="../../../assets/Imperial/50004/lecture4-slide21.png" /></p>
+<h3 id="concerns">Concerns:</h3>
+<p>need to determine current nature of the job (IO-bound /CPU-bound)</p>
+<p>Need to worry about starvation of lower-priority jobs</p>
+<p>feedback mechanism:
+- priorities recomputed periodically
+- Aging: increse job;s priority as it waits</p>
+<p>this is not very flexible and does not react fast to changes
+- apps have no control
+- priorities make no guarantee
+- often need warm-up</p>
+<p>Cheating is a consern:
+- may add meaningless I/O to boost priority</p>
+<p>Cannot donate priority</p>
+<h2 id="lottery-scheduling">Lottery Scheduling</h2>
+<p>Jobs recieve lottery tickets for various resources</p>
+<p>at each decision, one ticket is chosen at random and the job holding the ticket wins</p>
+<p>so if 100 tickets and P1 has 20 tickets, then in the long run P1 gets 20% of the CPU time</p>
+<h3 id="characteristics">characteristics:</h3>
+<p>Number of lottery tickets is meaningful, unlike priorities</p>
+<p>this is highly responsive
+- new job given p% of tickets has the p% chance to get the resource at the next scheduling decision</p>
+<p>no starvation</p>
+<p>jobs can exchange tickets for donations</p>
+<p>adding or removing the jobs affect remaining jobs proportionally</p>
+<p>Unpredictable response-time: unlucky</p>
+<h2 id="summary">Summary:</h2>
+<p>Scheduling algorithms often need to balance conflicting goals, so different algorithms are suitable for different scheduling goals</p>
+<h2 id="tutorial">Tutorial</h2>
+<h3 id="1">1</h3>
+<p>Five batch jobs, A through E, arrive at a data centre at essentially the same 
+time. Their estimated running time are as follows: A=12min, B=5min, 
+C=17min, D=9min and E=10min. Their (externally defined) priorities are: 
+A=8, B=5, C=2, D=6 and E=3, with a lower value corresponding to a higher 
+priority. For each of the following scheduling algorithms, determine the 
+turnaround time for each job, and the average turnaround time for all jobs. 
+Ignore process switching overhead and assume all jobs are completely CPU 
+bound</p>
+<h4 id="non-preemptive-priority-scheduling">non-preemptive priority scheduling</h4>
+<p>non-preemptive so run to finish</p>
+<p>the order is C -&gt; E -&gt; B -&gt; D -&gt; A following the priority order</p>
+<h4 id="fcfsfirst-come-first-serve">FCFS(first come first serve)</h4>
+<p>order: A -&gt; B -&gt; C -&gt; D -&gt; E</p>
+<h4 id="shortest-job-firstsjf">Shortest job first(SJF)</h4>
+<p>order: B -&gt; D -&gt; E -&gt; A -&gt; C</p>
+<h4 id="round-robin-with-a-time-quantum-of-1-minute">Round robin with a time quantum of 1 minute</h4>
+<p>(A(1) -&gt; B(1) -&gt; C(1) -&gt; D(1) -&gt; E(1)) * 5</p>
+<p>(A(1) -&gt; C(1) -&gt; D(1) -&gt; E(1)) * 4</p>
+<p>(A(1) -&gt; C(1) -&gt; E(1)) * 1</p>
+<p>(A(1) -&gt; C(1)) * 2</p>
+<p>C(5) * 5</p>
+<p>to do: add the turnaround times</p>
+<h1 id="quiz2">quiz2:</h1>
+<h2 id="1_1">1.</h2>
+<p><strong>Which of the following constitute the state of a process?</strong>
+- Process Identification (e.g pid) <span class="arithmatex">\(\correct\)</span>
+- The process' address space <span class="arithmatex">\(\correct\)</span>
+- Caches in kernel space <span class="arithmatex">\(\times\)</span>
+- OS provided resources(e.g. open files/devices, handlers for child processes) <span class="arithmatex">\(\correct\)</span>
+- Main memeory (DRAM) <span class="arithmatex">\(\times\)</span>
+- The process' virtual CPU (e.g register) <span class="arithmatex">\(\correct\)</span></p>
+<h2 id="2">2.</h2>
+<p><strong>Which term describes the following "Switching between processes at regular time intervals the illusion of parallelism"</strong>
+- Context Switch
+- Time Slicing <span class="arithmatex">\(\correct\)</span>
+- Deterministic Scheduling</p>
+<h2 id="3">3.</h2>
+<p><strong>The overhead associated with a context switch includes the direct cost of saving state, and restoring the state of the process being switched to. What is the main indirect cost?</strong>
+- Restoring registers 
+- Pertubation of caches:</p>
+<p>comment: This is a considerable cost - any context switch will inevitably results in cache misses.</p>
+<h2 id="4">4.</h2>
+<p>Question:</p>
+<p>How many processes need to be running to only waste 10% or less of CPU time, if each process spends 80%
+of time waiting for I/O?</p>
+<p>(clue: Consider the probability that at a given time that n processes are waiting. P1 waits for 80% of the time, in that 80% P2 can be run, and wastes 80% of the 80% of the time P1 is waiting, etc.)</p>
+<p>11, so continuing the hint, every spare 80% should be occupied by another thread, then another 80% of 80% is wasted, this forms a sequence with common ratio 0.8, 11 terms is sufficient to sum up the time used to 90%</p>
+<h2 id="5">5.</h2>
+<p>question:(too long to format in markdown)</p>
+<p>Compare reading a file using a single-threaded file server and a multithreaded server, running on a   single-CPU machine. </p>
+<p>It takes 15 msec to get a request for work, dispatch it, and do the rest of the necessary processing, assuming that the data needed are in the block cache. </p>
+<p>If a disk operation is needed, as is the case one-third of the time, an additional 75 msec is required, during which time the thread sleeps. </p>
+<p>For this problem, assume that thread switching time is negligible.  How many requests/sec can the server handle with 1 thread, 2 threads or 6 threads</p>
+<p>see https://edstem.org/us/courses/67154/discussion/5479922</p>
+<ul>
+<li>for one thread, we can at most do 3 requests in 15*3 + 75 = 120ms, so 25req/s</li>
+<li>for two threads, the second thread can do the same in the 5/8 time that thread 1 is sleeping, so <span class="arithmatex">\(25 + 25 \times\frac{5}{8} = 40.625\)</span>, we can do this because we only care about the average not actual</li>
+<li>similar for 6 threads <span class="arithmatex">\(25 + \frac{5}{8}\times 25 + (\frac{5}{8}) \times (25) +\dots + (\frac{5}{8})^5\times(25) \approx 62.69\)</span></li>
+</ul>
+<h2 id="6">6</h2>
+<p><strong>How many parameters does the "CreateProcessA" function have?</strong></p>
+<p>10, just see the notes</p>
+<h2 id="7">7</h2>
+<p>A developer wants to display a prompt ("do you wish to save?") when the user uses Ctrl-C on his program when running from the terminal. </p>
+<p>In order do this, the developer needs to create an register a signal handler. Which signal do they need to handle?</p>
+<ul>
+<li>SIGKEYBOARD</li>
+<li>SIGSEGV</li>
+<li>SIGINT <span class="arithmatex">\(\correct\)</span></li>
+<li>SIGPIPE</li>
+</ul>
+<h2 id="8">8</h2>
+<p><strong>How many X Y and Z characters are printed by this program?</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;uninstd.h&gt;</span>
+<a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
+<a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a>
+<a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">fork</span><span class="p">()</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-21-6" name="__codelineno-21-6" href="#__codelineno-21-6"></a><span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;X&quot;</span><span class="p">);</span><span class="w"> </span><span class="n">fflush</span><span class="p">(</span><span class="n">stdout</span><span class="p">);</span>
+<a id="__codelineno-21-7" name="__codelineno-21-7" href="#__codelineno-21-7"></a><span class="w">  </span><span class="p">}</span>
+<a id="__codelineno-21-8" name="__codelineno-21-8" href="#__codelineno-21-8"></a><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">fork</span><span class="p">()</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-21-9" name="__codelineno-21-9" href="#__codelineno-21-9"></a><span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Y&quot;</span><span class="p">);</span><span class="w"> </span><span class="n">fflush</span><span class="p">(</span><span class="n">stdout</span><span class="p">);</span>
+<a id="__codelineno-21-10" name="__codelineno-21-10" href="#__codelineno-21-10"></a><span class="w">  </span><span class="p">}</span>
+<a id="__codelineno-21-11" name="__codelineno-21-11" href="#__codelineno-21-11"></a><span class="w">  </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Z&quot;</span><span class="p">);</span>
+<a id="__codelineno-21-12" name="__codelineno-21-12" href="#__codelineno-21-12"></a><span class="p">}</span>
+</code></pre></div>
+<p>every fork creates a child thread</p>
+<p>so, first X, forked so 2Y, and 4Z</p>
+<h2 id="9">9</h2>
+<p><strong>Given a given number n &lt; N, how many instances of n are printed?</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;unistd.h&gt;</span>
+<a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
+<a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a>
+<a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a><span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">N</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-22-6" name="__codelineno-22-6" href="#__codelineno-22-6"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">fork</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-22-7" name="__codelineno-22-7" href="#__codelineno-22-7"></a><span class="w">      </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;%d&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">);</span><span class="w"> </span><span class="n">fflush</span><span class="p">(</span><span class="n">stdout</span><span class="p">);</span>
+<a id="__codelineno-22-8" name="__codelineno-22-8" href="#__codelineno-22-8"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-22-9" name="__codelineno-22-9" href="#__codelineno-22-9"></a><span class="w">  </span><span class="p">}</span>
+<a id="__codelineno-22-10" name="__codelineno-22-10" href="#__codelineno-22-10"></a><span class="p">}</span>
+</code></pre></div>
+<p>same, every fork(even in the child process) creates a exactly same process, so every fork doubles the number of n, <span class="arithmatex">\(2^N\)</span></p>
+<h2 id="10">10</h2>
+<p><strong>What is a thread?</strong></p>
+<ul>
+<li>A process</li>
+<li>A single stream of instructions being executed <span class="arithmatex">\(\correct\)</span></li>
+<li>A king of thin yarn used for sewing</li>
+</ul>
+<h2 id="11">11</h2>
+<p><strong>Why do Oses provide the thread abstraction?</strong>
+- Allow time sharing on a common resource(This is the process abstraction's job) <span class="arithmatex">\(\correct\)</span>
+- Provide a common API on top of CPU threads so programs do not need to know the specifics of CPU they are executing on <span class="arithmatex">\(\correct\)</span>
+- Provice a security boundary
+- To preven ta failure of one part of the program from crashing another(if any thread in a multithread program segfaults and the signal is unhandled, the entire process and all threads terminate)</p>
+<h2 id="12">12</h2>
+<p><strong>Which of the following are examples of a user-level thread implementation used on operating systems that support kernel threads?</strong></p>
+<ul>
+<li>Pthreads (this is user-level thread as in notes)</li>
+<li>Goroutines <span class="arithmatex">\(\correct\)</span></li>
+<li>Python threading <span class="arithmatex">\(\correct\)</span></li>
+<li>C++ std::thread <span class="arithmatex">\(\times\)</span>(kernal level)</li>
+</ul>
+<h2 id="13">13</h2>
+<p>A student is compiling a basic pthread example with gcc, however keep getting a linking error: undefined reference to `pthread_create'</p>
+<p>What flag might they be missing when compiling with GCC.</p>
+<p>-pthread</p>
+<h2 id="14">14</h2>
+<p><strong>What is the value_ptr parameter for?</strong></p>
+<p><code>int pthread_join(pthread_t thread, void **value_ptr)</code></p>
+<p>A pointer to the location that value_ptr from pthread_exit(void *value_ptr) should be placed</p>
+<h2 id="15">15</h2>
+<p><strong>Linux was heavily influenced by which microkernel operating system (clue: Linux originally implemented its file system, but linux used a monolithic design)</strong></p>
+<p>MINIX, factual stuff</p>
+<h2 id="16">16</h2>
+<p><strong>What is the main disadvantage of a microkernel design?</strong></p>
+<ul>
+<li>High complexity - easy to introduce bugs</li>
+<li>IPC overhead - more ipc requied as more OS components operate in user-mode <span class="arithmatex">\(\correct\)</span></li>
+<li>Portability - More difficult to separate machine specific code</li>
+</ul>
+<h1 id="lecture6">lecture6:</h1>
+<p>Sychronization I</p>
+<h2 id="critical-sections-and-mutual-exclusion">critical sections and mutual exclusion:</h2>
+<ul>
+<li>
+<p>critical sections/region
+the region of code in which the processes aceess a shared resource</p>
+</li>
+<li>
+<p>mutual exclusion
+this ensures that if a process is excuting its critical section, no other process can be executing it</p>
+</li>
+</ul>
+<p>so A synchronisation mechanism is require at entry adn exit of the critical section</p>
+<h3 id="requirements">requirements</h3>
+<p>no two processes can simultaneously be inside a critical section</p>
+<p>no other process outside the critical section may prvent othe processes from entering the critical section</p>
+<p>correspondingly, process requestign permission to enter must be allowed if no process is inside a critical section</p>
+<p>no process requiring access to critical section can be delayed forever</p>
+<p>no assumptions are made about the speed</p>
+<h2 id="disabling-interrupts">disabling interrupts:</h2>
+<p>this is what pintos does</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="kt">void</span><span class="w"> </span><span class="nf">Extract</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">acc_no</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">sum</span><span class="p">)</span>
+<a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a><span class="p">{</span>
+<a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a><span class="w">  </span><span class="n">CLI</span><span class="p">();</span><span class="w"> </span><span class="c1">// CLI is the assembly disable interrupt</span>
+<a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a><span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">B</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Acc</span><span class="p">[</span><span class="n">acc_no</span><span class="p">];</span>
+<a id="__codelineno-23-5" name="__codelineno-23-5" href="#__codelineno-23-5"></a><span class="w">  </span><span class="n">Acc</span><span class="p">[</span><span class="n">acc_no</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">B</span><span class="w"> </span><span class="err">–</span><span class="w"> </span><span class="n">sum</span><span class="p">;</span>
+<a id="__codelineno-23-6" name="__codelineno-23-6" href="#__codelineno-23-6"></a><span class="w">  </span><span class="n">STI</span><span class="p">();</span><span class="w"> </span><span class="c1">// the assembly enable interrupt</span>
+<a id="__codelineno-23-7" name="__codelineno-23-7" href="#__codelineno-23-7"></a><span class="p">}</span>
+</code></pre></div>
+<p>but it only works on single-processor systems</p>
+<p>some process may never release CPU</p>
+<h2 id="strict-alternation">Strict Alternation</h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="c1">// TO</span>
+<a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="nb">true</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a><span class="w">   </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">turn</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span>
+<a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a><span class="w">     </span><span class="cm">/* loop */</span><span class="w"> </span><span class="p">;</span>
+<a id="__codelineno-24-5" name="__codelineno-24-5" href="#__codelineno-24-5"></a><span class="w">   </span><span class="n">critical_section</span><span class="p">()</span>
+<a id="__codelineno-24-6" name="__codelineno-24-6" href="#__codelineno-24-6"></a><span class="w">   </span><span class="n">turn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<a id="__codelineno-24-7" name="__codelineno-24-7" href="#__codelineno-24-7"></a>
+<a id="__codelineno-24-8" name="__codelineno-24-8" href="#__codelineno-24-8"></a><span class="w">  </span><span class="n">noncritical_section0</span><span class="p">();</span>
+<a id="__codelineno-24-9" name="__codelineno-24-9" href="#__codelineno-24-9"></a><span class="p">}</span>
+<a id="__codelineno-24-10" name="__codelineno-24-10" href="#__codelineno-24-10"></a>
+<a id="__codelineno-24-11" name="__codelineno-24-11" href="#__codelineno-24-11"></a><span class="c1">// T1</span>
+<a id="__codelineno-24-12" name="__codelineno-24-12" href="#__codelineno-24-12"></a><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="nb">true</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-24-13" name="__codelineno-24-13" href="#__codelineno-24-13"></a><span class="w">  </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">turn</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span>
+<a id="__codelineno-24-14" name="__codelineno-24-14" href="#__codelineno-24-14"></a><span class="w">    </span><span class="cm">/* loop */</span><span class="w"> </span><span class="p">;</span>
+<a id="__codelineno-24-15" name="__codelineno-24-15" href="#__codelineno-24-15"></a><span class="w">  </span><span class="n">critical_section</span><span class="p">()</span>
+<a id="__codelineno-24-16" name="__codelineno-24-16" href="#__codelineno-24-16"></a><span class="w">  </span><span class="n">turn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<a id="__codelineno-24-17" name="__codelineno-24-17" href="#__codelineno-24-17"></a>
+<a id="__codelineno-24-18" name="__codelineno-24-18" href="#__codelineno-24-18"></a><span class="n">noncritical_section1</span><span class="p">();</span>
+<a id="__codelineno-24-19" name="__codelineno-24-19" href="#__codelineno-24-19"></a><span class="p">}</span>
+</code></pre></div>
+<p>if T0 works for a long time in the noncritical_sention1</p>
+<p>and also difficult to implement when there are many threads</p>
+<h2 id="busy-waiting">Busy waiting</h2>
+<p>Strict alteration solution requires continuously testing the value of a variable</p>
+<p>this a called busy-waiting
+- wastes CPU time
+- should onyl do this when the waiting time is expected to be short</p>
+<p>some conditions(the idle thread in pintos) can only be checked with busy waiting</p>
+<h2 id="petersons-solution">Peterson's solution</h2>
+<p>this is just addapted from strict alternation</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="c1">// outside the threads</span>
+<a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a><span class="kt">int</span><span class="w"> </span><span class="n">turn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span>
+<a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a><span class="kt">int</span><span class="w"> </span><span class="n">interested</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">};</span>
+<a id="__codelineno-25-4" name="__codelineno-25-4" href="#__codelineno-25-4"></a><span class="c1">// thread is 0 or 1</span>
+<a id="__codelineno-25-5" name="__codelineno-25-5" href="#__codelineno-25-5"></a><span class="kt">void</span><span class="w"> </span><span class="nf">enter_critical</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="kr">thread</span><span class="p">)</span><span class="w"> </span>
+<a id="__codelineno-25-6" name="__codelineno-25-6" href="#__codelineno-25-6"></a><span class="p">{</span>
+<a id="__codelineno-25-7" name="__codelineno-25-7" href="#__codelineno-25-7"></a><span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">other</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="err">–</span><span class="w"> </span><span class="kr">thread</span><span class="p">;</span>
+<a id="__codelineno-25-8" name="__codelineno-25-8" href="#__codelineno-25-8"></a><span class="w">  </span><span class="n">interested</span><span class="p">[</span><span class="kr">thread</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<a id="__codelineno-25-9" name="__codelineno-25-9" href="#__codelineno-25-9"></a><span class="w">  </span><span class="n">turn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">other</span><span class="p">;</span>
+<a id="__codelineno-25-10" name="__codelineno-25-10" href="#__codelineno-25-10"></a><span class="w">  </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">turn</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">other</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>
+<a id="__codelineno-25-11" name="__codelineno-25-11" href="#__codelineno-25-11"></a><span class="w">        </span><span class="n">interested</span><span class="p">[</span><span class="n">other</span><span class="p">])</span>
+<a id="__codelineno-25-12" name="__codelineno-25-12" href="#__codelineno-25-12"></a><span class="w">    </span><span class="cm">/* loop */</span><span class="w"> </span><span class="p">;</span>
+<a id="__codelineno-25-13" name="__codelineno-25-13" href="#__codelineno-25-13"></a><span class="p">}</span>
+<a id="__codelineno-25-14" name="__codelineno-25-14" href="#__codelineno-25-14"></a><span class="kt">void</span><span class="w"> </span><span class="nf">leave_critical</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="kr">thread</span><span class="p">)</span><span class="w"> </span>
+<a id="__codelineno-25-15" name="__codelineno-25-15" href="#__codelineno-25-15"></a><span class="p">{</span><span class="w"> </span>
+<a id="__codelineno-25-16" name="__codelineno-25-16" href="#__codelineno-25-16"></a><span class="w">  </span><span class="n">interested</span><span class="p">[</span><span class="kr">thread</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<a id="__codelineno-25-17" name="__codelineno-25-17" href="#__codelineno-25-17"></a><span class="p">}</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="c1">// T0</span>
+<a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a><span class="n">enter_critical</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+<a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a><span class="n">critical_section</span><span class="p">();</span>
+<a id="__codelineno-26-4" name="__codelineno-26-4" href="#__codelineno-26-4"></a><span class="n">leave_critical</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+<a id="__codelineno-26-5" name="__codelineno-26-5" href="#__codelineno-26-5"></a><span class="c1">//T1</span>
+<a id="__codelineno-26-6" name="__codelineno-26-6" href="#__codelineno-26-6"></a><span class="n">enter_critical</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<a id="__codelineno-26-7" name="__codelineno-26-7" href="#__codelineno-26-7"></a><span class="n">critical_section</span><span class="p">();</span>
+<a id="__codelineno-26-8" name="__codelineno-26-8" href="#__codelineno-26-8"></a><span class="n">leave_critical</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</code></pre></div>
+<h2 id="atomic-operations">Atomic Operations:</h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a><span class="kt">void</span><span class="w"> </span><span class="nf">Extract</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">acc_no</span><span class="p">,</span><span class="w"> </span>
+<a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a><span class="kt">int</span><span class="w"> </span><span class="n">sum</span><span class="p">)</span>
+<a id="__codelineno-27-3" name="__codelineno-27-3" href="#__codelineno-27-3"></a><span class="p">{</span>
+<a id="__codelineno-27-4" name="__codelineno-27-4" href="#__codelineno-27-4"></a><span class="kt">int</span><span class="w"> </span><span class="n">B</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Acc</span><span class="p">[</span><span class="n">acc_no</span><span class="p">];</span>
+<a id="__codelineno-27-5" name="__codelineno-27-5" href="#__codelineno-27-5"></a><span class="n">Acc</span><span class="p">[</span><span class="n">acc_no</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">B</span><span class="w"> </span><span class="err">–</span><span class="w"> </span><span class="n">sum</span><span class="p">;</span>
+<a id="__codelineno-27-6" name="__codelineno-27-6" href="#__codelineno-27-6"></a><span class="c1">// if you change it into</span>
+<a id="__codelineno-27-7" name="__codelineno-27-7" href="#__codelineno-27-7"></a><span class="c1">// Acc[acc_no] -= sum</span>
+<a id="__codelineno-27-8" name="__codelineno-27-8" href="#__codelineno-27-8"></a><span class="c1">// it breaks the atomicity as its just </span>
+<a id="__codelineno-27-9" name="__codelineno-27-9" href="#__codelineno-27-9"></a><span class="c1">// syntactic sugar for the two lines above</span>
+<a id="__codelineno-27-10" name="__codelineno-27-10" href="#__codelineno-27-10"></a><span class="p">}</span>
+</code></pre></div>
+<p>Atomic operation: a sequence of one or more 
+statements that is/appears to be indivisible</p>
+<p>all executes or none executes like that of SQL</p>
+<h2 id="locks">locks</h2>
+<p>so locks are implemented this way</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a><span class="kt">void</span><span class="w"> </span><span class="nf">Extract</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">acc_no</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">sum</span><span class="p">)</span>
+<a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a><span class="p">{</span>
+<a id="__codelineno-28-3" name="__codelineno-28-3" href="#__codelineno-28-3"></a><span class="n">lock</span><span class="p">(</span><span class="n">L</span><span class="p">);</span>
+<a id="__codelineno-28-4" name="__codelineno-28-4" href="#__codelineno-28-4"></a><span class="kt">int</span><span class="w"> </span><span class="n">B</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Acc</span><span class="p">[</span><span class="n">acc_no</span><span class="p">];</span>
+<a id="__codelineno-28-5" name="__codelineno-28-5" href="#__codelineno-28-5"></a><span class="n">Acc</span><span class="p">[</span><span class="n">acc_no</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">B</span><span class="w"> </span><span class="err">–</span><span class="w"> </span><span class="n">sum</span><span class="p">;</span>
+<a id="__codelineno-28-6" name="__codelineno-28-6" href="#__codelineno-28-6"></a><span class="n">unlock</span><span class="p">(</span><span class="n">L</span><span class="p">);</span>
+<a id="__codelineno-28-7" name="__codelineno-28-7" href="#__codelineno-28-7"></a><span class="p">}</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a><span class="kt">void</span><span class="w"> </span><span class="nf">lock</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">L</span><span class="p">)</span><span class="w"> </span>
+<a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a><span class="p">{</span>
+<a id="__codelineno-29-3" name="__codelineno-29-3" href="#__codelineno-29-3"></a><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">L</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
+<a id="__codelineno-29-4" name="__codelineno-29-4" href="#__codelineno-29-4"></a><span class="cm">/* wait */</span><span class="w"> </span><span class="p">;</span>
+<a id="__codelineno-29-5" name="__codelineno-29-5" href="#__codelineno-29-5"></a><span class="n">L</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<a id="__codelineno-29-6" name="__codelineno-29-6" href="#__codelineno-29-6"></a><span class="p">}</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a><span class="kt">void</span><span class="w"> </span><span class="nf">unlock</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">L</span><span class="p">)</span>
+<a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a><span class="p">{</span>
+<a id="__codelineno-30-3" name="__codelineno-30-3" href="#__codelineno-30-3"></a><span class="n">L</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span>
+<a id="__codelineno-30-4" name="__codelineno-30-4" href="#__codelineno-30-4"></a><span class="p">}</span>
+</code></pre></div>
+<h3 id="tsl-instruction">TSL Instruction:</h3>
+<p>this is the atomic instruction provided by most CPUs</p>
+<ul>
+<li>Test-and-Set-Lock</li>
+<li>Atomically sets memory location LOCK to 1 and returns old value</li>
+</ul>
+<h3 id="priority-inversion">Priority Inversion</h3>
+<p><img alt="slide18" src="../../../assets/Imperial/50004/lecture5-slide18.png" /></p>
+<h3 id="locks-granularity">locks granularity</h3>
+<p>in short, things get messed up if we have a global lock</p>
+<p>so we have a single lock for every thread</p>
+<h3 id="lock-overhead-and-lock-contention">Lock overhead and Lock contention</h3>
+<ul>
+<li>
+<p>lock overhead: 
+measure of cost assciated with using lcoks</p>
+</li>
+<li>
+<p>lock contention: 
+measure of number of processes waiting for the lock, more contetion less parallelism</p>
+</li>
+</ul>
+<h4 id="minimising-lock-contention">minimising lock contention</h4>
+<p>choose finer granularity(there are trade off in resources as you need to implement more locks)</p>
+<p>release a lock sson as it is not needed or making critical sections small</p>
+<h3 id="readwrite-lock">read/write lock</h3>
+<p>in write mode, the thread has exclusive access</p>
+<p>multiple threads can acquire the lock in read mode</p>
+<h3 id="race-condition">race condition:</h3>
+<p>multiple threads trying to access the shared data and the final result depends on the order of the processes
+(TODO)</p>
+<h1 id="lecture-7">lecture 7</h1>
+<h2 id="semaphore-example">semaphore example:</h2>
+<p>for producer:</p>
+<ul>
+<li>producer deposits item s in the buffer if there is space</li>
+<li>Items can only be deposit in mutual exclusion</li>
+</ul>
+<p>for customer:</p>
+<ul>
+<li>Items cna onyl be fethced if the buffer is not empty</li>
+<li>Items can only be fetched if mutual exclusion is ensured</li>
+</ul>
+<p>for buffer:
+- buffer cna hold 0 to N Items</p>
+<p>so basically the semphore sets restriction on the number of threads that could access the current state</p>
+<p><img alt="slide10" src="../../../assets/Imperial/50004/lecture6-slide10.png" /></p>
+<h2 id="monitors">Monitors:</h2>
+<ul>
+<li>shared data</li>
+<li>entry procedures</li>
+<li>Internal procedures</li>
+<li>(Implicit)monitor lock</li>
+<li>One or more conditional variables</li>
+<li>Processes can onyl call entry procedures and only one process can b e in the monitor at one time</li>
+</ul>
+<h2 id="conditional-variables">Conditional variables</h2>
+<p>this is associated with high-level conditions
+- for example this can be used to indicate whether some space has become available in the buffer</p>
+<p>Operations</p>
+<ul>
+<li>wait(c): releases monitor lock and waits for c to be signaled</li>
+<li>signal(e): wake up one process waiting for C</li>
+<li>broadcast(c): wake up all processes waiting for C</li>
+</ul>
+<p>Signals do not accumulate</p>
+<ul>
+<li>condiiton variables signaled with no one waiting fo ri, the signal is lost</li>
+</ul>
+<p>back to the customer example</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a><span class="c1">// pseudo-code</span>
+<a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a><span class="n">monitor</span><span class="w"> </span><span class="n">ProducerConsumer</span>
+<a id="__codelineno-31-3" name="__codelineno-31-3" href="#__codelineno-31-3"></a><span class="w">    </span><span class="n">condition</span><span class="w"> </span><span class="n">not_full</span><span class="p">,</span><span class="w"> </span><span class="n">not_empty</span><span class="p">;</span>
+<a id="__codelineno-31-4" name="__codelineno-31-4" href="#__codelineno-31-4"></a><span class="w">    </span><span class="n">integer</span><span class="w"> </span><span class="n">count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<a id="__codelineno-31-5" name="__codelineno-31-5" href="#__codelineno-31-5"></a>
+<a id="__codelineno-31-6" name="__codelineno-31-6" href="#__codelineno-31-6"></a><span class="w">    </span><span class="n">entry</span><span class="w"> </span><span class="n">procedure</span><span class="w"> </span><span class="n">insert</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+<a id="__codelineno-31-7" name="__codelineno-31-7" href="#__codelineno-31-7"></a><span class="w">       </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">count</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">N</span><span class="p">)</span><span class="w"> </span><span class="n">wait</span><span class="p">(</span><span class="n">not_full</span><span class="p">);</span>
+<a id="__codelineno-31-8" name="__codelineno-31-8" href="#__codelineno-31-8"></a><span class="w">       </span><span class="c1">// if this is in a if statement</span>
+<a id="__codelineno-31-9" name="__codelineno-31-9" href="#__codelineno-31-9"></a><span class="w">       </span><span class="c1">// </span>
+<a id="__codelineno-31-10" name="__codelineno-31-10" href="#__codelineno-31-10"></a><span class="w">       </span><span class="n">insert_item</span><span class="p">(</span><span class="n">item</span><span class="p">);</span><span class="w"> </span><span class="n">count</span><span class="o">++</span><span class="p">;</span>
+<a id="__codelineno-31-11" name="__codelineno-31-11" href="#__codelineno-31-11"></a><span class="w">       </span><span class="n">signal</span><span class="p">(</span><span class="n">not_empty</span><span class="p">);</span>
+<a id="__codelineno-31-12" name="__codelineno-31-12" href="#__codelineno-31-12"></a><span class="w">    </span><span class="n">entry</span><span class="w"> </span><span class="n">procedure</span><span class="w"> </span><span class="n">remove</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+<a id="__codelineno-31-13" name="__codelineno-31-13" href="#__codelineno-31-13"></a><span class="w">       </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">count</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="n">wait</span><span class="p">(</span><span class="n">not_empty</span><span class="p">);</span>
+<a id="__codelineno-31-14" name="__codelineno-31-14" href="#__codelineno-31-14"></a><span class="w">       </span><span class="n">remove_item</span><span class="p">(</span><span class="n">item</span><span class="p">);</span><span class="w"> </span><span class="n">count</span><span class="o">--</span><span class="p">;</span>
+<a id="__codelineno-31-15" name="__codelineno-31-15" href="#__codelineno-31-15"></a><span class="w">       </span><span class="n">signal</span><span class="p">(</span><span class="n">not_full</span><span class="p">);</span>
+<a id="__codelineno-31-16" name="__codelineno-31-16" href="#__codelineno-31-16"></a><span class="w"> </span><span class="n">end</span><span class="w"> </span><span class="n">monitor</span>
+</code></pre></div>
+<p>if the whiles are replaced with if:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a><span class="n">monitor</span><span class="w"> </span><span class="n">ProducerConsumer</span>
+<a id="__codelineno-32-2" name="__codelineno-32-2" href="#__codelineno-32-2"></a><span class="w">    </span><span class="n">condition</span><span class="w"> </span><span class="n">not_full</span><span class="p">,</span><span class="w"> </span><span class="n">not_empty</span><span class="p">;</span>
+<a id="__codelineno-32-3" name="__codelineno-32-3" href="#__codelineno-32-3"></a><span class="w">    </span><span class="n">integer</span><span class="w"> </span><span class="n">count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<a id="__codelineno-32-4" name="__codelineno-32-4" href="#__codelineno-32-4"></a>
+<a id="__codelineno-32-5" name="__codelineno-32-5" href="#__codelineno-32-5"></a><span class="w">    </span><span class="n">entry</span><span class="w"> </span><span class="n">procedure</span><span class="w"> </span><span class="n">insert</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+<a id="__codelineno-32-6" name="__codelineno-32-6" href="#__codelineno-32-6"></a><span class="w">       </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">count</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">N</span><span class="p">)</span><span class="w"> </span><span class="n">wait</span><span class="p">(</span><span class="n">not_full</span><span class="p">);</span>
+<a id="__codelineno-32-7" name="__codelineno-32-7" href="#__codelineno-32-7"></a><span class="w">       </span><span class="c1">// if this is in a if statement</span>
+<a id="__codelineno-32-8" name="__codelineno-32-8" href="#__codelineno-32-8"></a><span class="w">       </span><span class="c1">// </span>
+<a id="__codelineno-32-9" name="__codelineno-32-9" href="#__codelineno-32-9"></a><span class="w">       </span><span class="n">insert_item</span><span class="p">(</span><span class="n">item</span><span class="p">);</span><span class="w"> </span><span class="n">count</span><span class="o">++</span><span class="p">;</span>
+<a id="__codelineno-32-10" name="__codelineno-32-10" href="#__codelineno-32-10"></a><span class="w">       </span><span class="n">signal</span><span class="p">(</span><span class="n">not_empty</span><span class="p">);</span>
+<a id="__codelineno-32-11" name="__codelineno-32-11" href="#__codelineno-32-11"></a><span class="w">    </span><span class="n">entry</span><span class="w"> </span><span class="n">procedure</span><span class="w"> </span><span class="n">remove</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+<a id="__codelineno-32-12" name="__codelineno-32-12" href="#__codelineno-32-12"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">count</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="n">wait</span><span class="p">(</span><span class="n">not_empty</span><span class="p">);</span>
+<a id="__codelineno-32-13" name="__codelineno-32-13" href="#__codelineno-32-13"></a><span class="w">       </span><span class="n">remove_item</span><span class="p">(</span><span class="n">item</span><span class="p">);</span><span class="w"> </span><span class="n">count</span><span class="o">--</span><span class="p">;</span>
+<a id="__codelineno-32-14" name="__codelineno-32-14" href="#__codelineno-32-14"></a><span class="w">       </span><span class="n">signal</span><span class="p">(</span><span class="n">not_full</span><span class="p">);</span>
+<a id="__codelineno-32-15" name="__codelineno-32-15" href="#__codelineno-32-15"></a><span class="w"> </span><span class="n">end</span><span class="w"> </span><span class="n">monitor</span>
+</code></pre></div>
+<p>consider the following executiong order</p>
+<ul>
+<li>producer 1 tries to insert so it is waiting (count = N)</li>
+<li>customer 1 consumes an item (count = N-1)</li>
+<li>producer 2 insert, since count is not N, it does the insert (count = N)</li>
+<li>producer 1 insert, the if condition has passed before producer 2 insert so it would insert (count = N+1)</li>
+</ul>
+<p>so the buffer exceeds the maximum item it can hold</p>
+<p>monitors are a language construct and is not supported by c</p>
+<p>in pintos we have an explicit monitor lock, in java there are sychronized methods and no condition variables</p>
+<h2 id="summary_1">Summary</h2>
+<p>Lock</p>
+<ul>
+<li>Reader/writer locks</li>
+<li>often exposed with Minitor language construct</li>
+<li>Within a process</li>
+<li>1 process/thread in critical section</li>
+</ul>
+<p>mutex</p>
+<ul>
+<li>Like lock, but can work across processess too</li>
+</ul>
+<p>semaphore</p>
+<ul>
+<li>like mutex, but can let in N processes/threads</li>
+</ul>
+<h1 id="lecture-8-deadlocks">lecture 8 deadlocks</h1>
+<h2 id="the-dining-philosopher-example">the dining philosopher example</h2>
+<p><img alt="slide3" src="../../../assets/Imperial/50004/lecture7-slide3.png" /></p>
+<p>so there are 5 philosophers and 5 single chopsticks</p>
+<p>each philosopher need two chopsticks to eat</p>
+<p>if everyone tries to get the same chopstick, deadlocks</p>
+<h2 id="deadlock">deadlock:</h2>
+<p>Set of processes is dead lock if each process is waiting for an event that only another processs can causes</p>
+<p>4 conditions, most common deadlock is Resource deadlock</p>
+<ul>
+<li>Mutual exclusion: each resource is either available or assigned to exactly one process</li>
+<li>Hold and wait: process cna request resources whil it holds other resources earlier</li>
+<li>No preemption: resources given to a process cannot be forcibly revoked</li>
+<li>Circular wait: a set of processes in a circular chain, each waiting for a resource held by the next process</li>
+</ul>
+<h2 id="resource-allocation-graphs">Resource Allocation Graphs</h2>
+<p>a Directed Graph</p>
+<ul>
+<li>edge form resource to process means that the process is currently owning the process</li>
+<li>edge from process to resource means that ht eprocess is currently blocked waiting for the resource</li>
+</ul>
+<p><img alt="slide7" src="../../../assets/Imperial/50004/lecture7-slide7.png" /></p>
+<h2 id="delaing-with-dead-lock">delaing with dead lock</h2>
+<h3 id="strategies">strategies:</h3>
+<h4 id="ignore-it-this-works-when-contention-for-resource-is-low-or-deadlock-infrequent">ignore it: this works when contention for resource is low or deadlock infrequent</h4>
+<h4 id="detection-recovery">detection &amp; recovery</h4>
+<p>After system is deadlocked, detect the dealock and recover from It</p>
+<p><img alt="slide9" src="../../../assets/Imperial/50004/lecture7-slide9.png" /></p>
+<p>example</p>
+<p><img alt="slide10" src="../../../assets/Imperial/50004/lecture7-slide10.png" /></p>
+<p>so we do BFS, we find a cycle TEVGUD</p>
+<p>but this is time-consuming</p>
+<p>recovery can do the following</p>
+<ul>
+<li>Preemption: temporarily take resource from owner and give to another</li>
+<li>Rollback: Processes are periodically checkpointed, so on deadlock just Rollback</li>
+<li>Killing the process: directly kill pid</li>
+</ul>
+<h4 id="dynamic-avoidance">dynamic avoidance:</h4>
+<p>system grants resource when it knows that it is safe to do so</p>
+<h4 id="prevention">Prevention</h4>
+<p>we focus on the 4 conditions(above)</p>
+<p>we can do</p>
+<ul>
+<li>remove Mutual Exclusion condition: e.g. share the resource</li>
+<li>remove Hold and Wait condition: requires all the processes to request resources before start, but you need to know what you need in advance</li>
+<li>remove No-preemption condition: e.g. forcing process to give up printer half wat not good</li>
+<li>remove circular wait condition: </li>
+<li>
+<ul>
+<li>Force single resource per process, then there is Optimality issues</li>
+</ul>
+</li>
+<li>
+<ul>
+<li>resources, processes must ask for resources in order</li>
+</ul>
+</li>
+</ul>
+<p>or</p>
+<p>acquire locks Atomically
+- protect all lock acquisition by global lock(lock acquisition)
+- which Typically means locks acquired at start of functions</p>
+<p>Giving up locks
+- give up the lock voluntarily</p>
+<p>ordering the resources and thus order lock acquisition
+<img alt="slide19" src="../../../assets/Imperial/50004/lecture7-slide19.png" /></p>
+<h3 id="communication-deadlock">Communication deadlock</h3>
+<p>Process A sends message to B and blocks waiting on B's reply</p>
+<p>but B didn't get A's message then A is blocked, and B is blocked waiting on the message</p>
+<p>so Ordering resource and careful scheduling does not work however</p>
+<p>we should use commiunication protocol based on timeouts</p>
+<h2 id="livelocks">Livelocks</h2>
+<p>the threads/processes are not blocked, but they or the system as a whole not making progress</p>
+<h2 id="starvation">Starvation:</h2>
+<p>need to alter the scheduling policy</p>
+<h2 id="summary_2">summary:</h2>
+<p>Resource deadlock: </p>
+<ul>
+<li>4 condition</li>
+<li>resource allocationi Graphs
+Strategies for avoiding deadlock</li>
+</ul>
+<p>communication deadlock: scheduling policy</p>
+<p>livelock: overall system make no progress</p>
+<h1 id="lecture9-memory-management">lecture9 memory management</h1>
+<p>memory is the key component of computer in the con Neumann architecture model<em>all data and code is stored in memory</em></p>
+<p>memory management needs to provide allocation and protection</p>
+<p>requirements:</p>
+<p>we have no knowledge of how memory address generated and no knowledge what memeory addresses are used for</p>
+<h2 id="overview">Overview</h2>
+<p>Basic concepts:
+- memory allocation
+- swapping: exchange between the disk and the network</p>
+<p>VitualMemeory
+- paging</p>
+<p>Demand paging
+- page replacement models
+- working set model</p>
+<p>linux implementation</p>
+<h2 id="logicalphisical-address-space">logical/Phisical address space</h2>
+<p>memory management binds logical address space to physical address space</p>
+<ul>
+<li>Logical address is generated by the CPU and seen by processes</li>
+<li>Physical address is seen by the memory unit and referes to physical system memory</li>
+</ul>
+<p>these are same in compile and load-time address-binding schemes</p>
+<p>but different in executing time address-binding schemes</p>
+<h2 id="memory-management-unitmmu">memory management unit(MMU)</h2>
+<p>mapping logical to physical addresses</p>
+<p>user process deals with logical address only</p>
+<p>MMU has to be fast so it is <strong>HARDWARE</strong></p>
+<h2 id="contiguous-memory-allocation">Contiguous Memory Allocation</h2>
+<p>Main memory usualy split into two partitions:</p>
+<ul>
+<li>Resident operating system(kernel), this is ususally held in low memory</li>
+<li>user processes(user), this is held in high memory</li>
+</ul>
+<p>contiguous allocation with relocation registers</p>
+<ul>
+<li>base register contains value of the smallest physical address</li>
+<li>limit register contains range of logical addresses, each logical address must be less than limit register</li>
+<li>MMU maps logical address dynamically</li>
+</ul>
+<p>so we do this
+<img alt="slide10" src="../../../assets/Imperial/50004/lecture8-slide10.png" /></p>
+<h2 id="multi-partition-allocation">multi-partition allocation</h2>
+<p>hole:
+- block of available memory
+- holes of various size scattered throughout memory</p>
+<p>when a process arrives, allocate a hole bug enough</p>
+<p>so it maintains information about allocated partitions and free partitions</p>
+<h3 id="dynamic-storage-allocation">dynamic storage allocation</h3>
+<ul>
+<li>first fit: allocate the first hole that is big enough</li>
+<li>best fit: allocate smallest hole that is big enough, but you must search the entire list, unless ordered by size</li>
+<li>worst fit: allocate largest hole, must search list and produces largest leftover hole</li>
+</ul>
+<h3 id="fragmentation">fragmentation:</h3>
+<p>external fragmentation: you have 100MB of free memory but in 200 half a MB holes</p>
+<p>internal fragmentation: allocated memory larger than requested memory</p>
+<p>reduce external fragmentation by compaction</p>
+<ul>
+<li>shuffle memory contents to place all free memory together in one large block</li>
+<li>Leads to I/O bottlenecks</li>
+</ul>
+<h3 id="swapping">Swapping</h3>
+<p>the problem is that the number of processes id limited by the amount of available memory, but only the running process need to be in memory,</p>
+<p>so we simply swap them out</p>
+<ul>
+<li>swap processes temporarily out of memory to disk</li>
+<li>bring back into memory for continue execution</li>
+<li>requires swap space(which can be a file or partiiton on disk)</li>
+<li>Transfer time is the major part of swap time</li>
+</ul>
+<p>sometimes the computer is doing nothing because it is moving threads in and out instead of executing the threads</p>
+<p>so by constantly moving the threads it provides the illusion of running all the threads at once</p>
+<h2 id="virtual-memory">Virtual memory</h2>
+<p>separation of user logical memory from physical memory</p>
+<p>since logical address space can be much larger than physical address space</p>
+<p>this can be done with paging or segmentation</p>
+<h3 id="paging">paging:</h3>
+<p>so the logical address space of process can be noncontiguous, the processes are allocated physical memoty when available</p>
+<p>we have frames</p>
+<ul>
+<li>fixed-size blocks of physical memory</li>
+<li>keep track of all free frames</li>
+</ul>
+<p>pages</p>
+<ul>
+<li>block of sam e size logical memory</li>
+</ul>
+<p>To run program of size n pages</p>
+<ul>
+<li>find n free frames and load program</li>
+<li>set up a page table</li>
+</ul>
+<p>this is then pass to the MMU(hardware) for converting logical address to physical address</p>
+<h4 id="tutorial_1">tutorial</h4>
+<h5 id="1_2">1.</h5>
+<p><strong>What is the advantage of a paged virtual memory system with a (a) small page size and (b) large page size</strong></p>
+<p>with a small page size, you can allocate more threads accurately(imply less internal fragmentation, even if you request 1 byte, the OS gives you a whole page), so more efficient memory use</p>
+<p>with a large page size, you can write more code in the thread and less mapping to do so faster, less overhead for address translation</p>
+<h5 id="2_1">2.</h5>
+<p><strong>Describe how a context switch affects the virtual memory system</strong></p>
+<p>the context switch basically moves the thread not running to other place and the running thread to the main memory</p>
+<p>(we dont always need all the process in the memory?)</p>
+<p>we can have multiple page tables and switch them when we need to run another process</p>
+<h4 id="adrdress-translation">Adrdress Translation:</h4>
+<p>the address generated by the CPU can be divided into</p>
+<p>Page number (p)</p>
+<ul>
+<li>Used as index into page table</li>
+<li>Page table has base address of pages in physical memory</li>
+</ul>
+<p>Page offset (d)</p>
+<ul>
+<li>Defines physical memory address sent to MMU</li>
+<li>combines with base address</li>
+</ul>
+<p>so we have </p>
+<p><img alt="slide21" src="../../../assets/Imperial/50004/lecture8-slide21.png" /></p>
+<p><img alt="slide22" src="../../../assets/Imperial/50004/lecture8-slide22.png" /></p>
+<p>this is what the MMU does, we keep the offset and translate the page number in the page table</p>
+<p>by using paging, everything is the same size, so it reduces external memory fragementation</p>
+<p><img alt="slide23" src="../../../assets/Imperial/50004/lecture8-slide23.png" /></p>
+<h4 id="memory-protection">memory protection:</h4>
+<p>this is implementaed by associating protection bits with pages</p>
+<p>so there is a valid-invalid bit attached to each page table entry:</p>
+<p>if valid: legel page</p>
+<ul>
+<li>associated page in process; logical address space</li>
+</ul>
+<p>if Invalid: page is missing</p>
+<ul>
+<li>page not in process' logical address space(page fault)</li>
+<li>need to load the page(demand paging)</li>
+<li>Incorrect access(program error)</li>
+</ul>
+<p>null is a address it always point to 0</p>
+<p><img alt="slide25" src="../../../assets/Imperial/50004/lecture8-slide25.png" /></p>
+<h5 id="exam-question">exam question:</h5>
+<p>An embedded system uses a 16-bit big-endian architecture. It supports virtual memory management with a one-level page table. It has a page size of 1 KByte. Each page table entry contains the frame's physical address; the least significant bit represents a valid bit; the second least significant bit is the modified (dirty) bit.</p>
+<p>The following are the current entries in the page table (in hexadecimal notation):</p>
+<ul>
+<li>0x2C00 valid bit 0, </li>
+<li>0x0403</li>
+<li>0xCC01</li>
+<li>0x0000</li>
+<li>0x7C01</li>
+</ul>
+<p>Translate the following virtual memory addresses to physical memory addresses using the page table given above (if possible):</p>
+<ul>
+<li>(i) 0xB85 </li>
+<li>(ii) 0x1420 (page fault beyound end)</li>
+<li>(iii) 0x1000 </li>
+<li>(iv) 0xC9A (page fault invalid)</li>
+</ul>
+<p>1Kb = <span class="arithmatex">\(2^{10} b\)</span> so 10 significant bits </p>
+<p>we only use the least 10 bits</p>
+<p>so <span class="arithmatex">\(0xB85 = 0p\underbrace_{p}{0000 10}|\underbrace_{d}{11 1000 0101}\)</span></p>
+<p>so we should go to the second entry in the page table</p>
+<p>which is 0xCC01, 1100 11|00 0000 0001</p>
+<p>we check the valid bit, valid bit 1</p>
+<p>then we map the page number p to the physical address</p>
+<p>0000 10 -&gt; 1100 11</p>
+<p>so the final address</p>
+<p>is 1100 1111 1000 0101</p>
+<p>the dirty bit means nothing for now</p>
+<h4 id="page-table-implementation">page table implementation</h4>
+<p>page table is kept in main memory</p>
+<ul>
+<li>Page table base register(PTBR) points to page</li>
+<li>Page table length register(RTLR) indicates size</li>
+</ul>
+<p>the problem is inefficient
+- every data/instruction access requires two memory accesses: one for page table and one for data/instruction</p>
+<p>the MMU in segmentation does arithmetical operations(base and limit registers),, but MMU in paging needs to look up stuff in the page table</p>
+<p>so we cache</p>
+<h4 id="associative-memory">associative memory:</h4>
+<p>Solution: use special fast-lookup hardware cache as associative memory</p>
+<p>Associative memory: Supports parallel search</p>
+<p>for translation(p,d)</p>
+<ul>
+<li>if p in associative register, get the frame # out</li>
+<li>otherwise get frame # from page table in the memory</li>
+</ul>
+<h4 id="translation-look-aside-bufferstlbs">Translation Look-aside Buffers(TLBs)</h4>
+<p>SOme TLBs store address-space ids(ASIDs) in entries</p>
+<ul>
+<li>this uniquely identifies each process to provide address-space protection for that process</li>
+</ul>
+<p>TLBs usually needs to be flushed after context switch (each process has its own page table, so not flushing causes errors)</p>
+<ul>
+<li>can lead to substantial overhead(every instruction would call the TLB)</li>
+<li>for kernel pages for system calls, it is the same for every process or thread, so we dont need to flush the entire TLB, we only need to flush those related to the user pages</li>
+</ul>
+<p>the page table should be somewhere that only the OS kernel can access, not the user</p>
+<p><img alt="slide31" src="../../../assets/Imperial/50004/lecture8-slide31.png" /></p>
+<p>so this is the MMU that is implmented today</p>
+<h4 id="performance-effective-access-time">Performance: Effective Access Time</h4>
+<p>Associative Lookup = <span class="arithmatex">\(\epsilon\)</span></p>
+<p>Assume memory cycle time = 1 <span class="arithmatex">\(\mu\)</span> sec</p>
+<p>Hit ratio <span class="arithmatex">\(\alpha\)</span></p>
+<ul>
+<li>the fraction of times that page found in associative refister</li>
+<li>ratio related to number of associative registers</li>
+</ul>
+<p>Effective Access Time(EAT)
+- <span class="arithmatex">\(EAT = (\epsilon + 1)\alpha + (\epsilon + 2)(1-\alpha)  =2 + \epsilon - \alpha\)</span></p>
+<p>when hit, we do <span class="arithmatex">\(\epsilon + 1\)</span> (1 for the memory cycle time) and times the ratio</p>
+<p>when miss we do two matches(1 in the associative and miss and another in the memory)</p>
+<h4 id="page-table-types">Page table types</h4>
+<ul>
+<li>Hierarchical page table</li>
+<li>Hashed page table</li>
+<li>Inverted page table</li>
+</ul>
+<h4 id="hierachical-page-table">Hierachical page table</h4>
+<p>this make use of two-level paging</p>
+<p>this form a 3-level tree with the outer page table -&gt; page table -&gt; memory</p>
+<p><img alt="slide34" src="../../../assets/Imperial/50004/lecture8-slide34.png" /></p>
+<p>Two level Paging:</p>
+<p>THe logical address is divided(assuming 32bit machine with 1K  2^10b page size)</p>
+<ul>
+<li>page number 22 bits</li>
+<li>page offset 10 bits</li>
+</ul>
+<p>the page table is paged so the page number</p>
+<ul>
+<li>12 bit page number</li>
+<li>10 bit offset</li>
+</ul>
+<p>so you get something like</p>
+<p>| p1 | p2 | d |</p>
+<p>today's machine has 4 levels and moving to 5 (active field of research)</p>
+<p>the EAT would then be <span class="arithmatex">\((\epsilon + 1)\alpha + (\epsilon + 3)(1 - \alpha) = 3 + \epsilon -\alpha\)</span></p>
+<p>on 32-bit machine with 4kb pages
+- page table will be at leas 4MB (4B * 2^(32-12))</p>
+<p>on 64-bit machine
+- page table needs 2^52 entries, if 8bytes, 30 million GB</p>
+<p>so dont store entry per page but per frame</p>
+<h4 id="hashed-page-table">hashed page table</h4>
+<p>Hash virtual page number into page table</p>
+<ul>
+<li>page table contains chain of elements hashing to the same location</li>
+<li>search for match virtual page number in chain</li>
+<li>extract corresonding physical frame if match found</li>
+</ul>
+<p><img alt="slide39" src="../../../assets/Imperial/50004/lecture8-slide39.png" /></p>
+<h4 id="inverted-page-table">inverted Page table</h4>
+<p>entry for each page frame of memory consisting of</p>
+<ul>
+<li>virtual address of page stored in that memory location</li>
+<li>information about process that owns the page</li>
+</ul>
+<p>this decrease memory needed to store page table. but increases time to search table when page reference occurs</p>
+<p>we use hash table to limit search to one or few entries</p>
+<p><img alt="slide40" src="../../../assets/Imperial/50004/lecture8-slide40.png" /></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      2024 by Honglei Gu
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["content.code.annotate"], "search": "../../../assets/javascripts/workers/search.07f07601.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.56dfad97.min.js"></script>
+      
+        <script src="../../../theme/js/mathjax.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.0/es5/tex-mml-chtml.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.0/es5/tex-chtml.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.0/es5/tex-chtml-full.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.0/es5/tex-svg-full.js"></script>
+      
+    
+  </body>
+</html>
