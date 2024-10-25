@@ -1,0 +1,2873 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="Honglei Gu(everythingfades)">
+      
+      
+        <link rel="canonical" href="http://localhost:9000/zh/web/js/DOM.html">
+      
+      
+        <link rel="prev" href="js-advanced.html">
+      
+      
+        <link rel="next" href="BOM.html">
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.34">
+    
+    
+      
+        <title>DOM - Honglei Gu's personal blog</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.35f28582.min.css">
+      
+      
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+  
+  <style>:root{--md-admonition-icon--note:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M1 7.775V2.75C1 1.784 1.784 1 2.75 1h5.025c.464 0 .91.184 1.238.513l6.25 6.25a1.75 1.75 0 0 1 0 2.474l-5.026 5.026a1.75 1.75 0 0 1-2.474 0l-6.25-6.25A1.75 1.75 0 0 1 1 7.775m1.5 0c0 .066.026.13.073.177l6.25 6.25a.25.25 0 0 0 .354 0l5.025-5.025a.25.25 0 0 0 0-.354l-6.25-6.25a.25.25 0 0 0-.177-.073H2.75a.25.25 0 0 0-.25.25ZM6 5a1 1 0 1 1 0 2 1 1 0 0 1 0-2"/></svg>');--md-admonition-icon--abstract:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M2.5 1.75v11.5c0 .138.112.25.25.25h3.17a.75.75 0 0 1 0 1.5H2.75A1.75 1.75 0 0 1 1 13.25V1.75C1 .784 1.784 0 2.75 0h8.5C12.216 0 13 .784 13 1.75v7.736a.75.75 0 0 1-1.5 0V1.75a.25.25 0 0 0-.25-.25h-8.5a.25.25 0 0 0-.25.25m13.274 9.537zl-4.557 4.45a.75.75 0 0 1-1.055-.008l-1.943-1.95a.75.75 0 0 1 1.062-1.058l1.419 1.425 4.026-3.932a.75.75 0 1 1 1.048 1.074M4.75 4h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5M4 7.75A.75.75 0 0 1 4.75 7h2a.75.75 0 0 1 0 1.5h-2A.75.75 0 0 1 4 7.75"/></svg>');--md-admonition-icon--info:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13M6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75M8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2"/></svg>');--md-admonition-icon--tip:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.499.75a.75.75 0 0 1 1.5 0v.996C5.9 2.903 6.793 3.65 7.662 4.376l.24.202c-.036-.694.055-1.422.426-2.163C9.1.873 10.794-.045 12.622.26 14.408.558 16 1.94 16 4.25c0 1.278-.954 2.575-2.44 2.734l.146.508.065.22c.203.701.412 1.455.476 2.226.142 1.707-.4 3.03-1.487 3.898C11.714 14.671 10.27 15 8.75 15h-6a.75.75 0 0 1 0-1.5h1.376a4.5 4.5 0 0 1-.563-1.191 3.84 3.84 0 0 1-.05-2.063 4.65 4.65 0 0 1-2.025-.293.75.75 0 0 1 .525-1.406c1.357.507 2.376-.006 2.698-.318l.009-.01a.747.747 0 0 1 1.06 0 .75.75 0 0 1-.012 1.074c-.912.92-.992 1.835-.768 2.586.221.74.745 1.337 1.196 1.621H8.75c1.343 0 2.398-.296 3.074-.836.635-.507 1.036-1.31.928-2.602-.05-.603-.216-1.224-.422-1.93l-.064-.221c-.12-.407-.246-.84-.353-1.29a2.4 2.4 0 0 1-.507-.441 3.1 3.1 0 0 1-.633-1.248.75.75 0 0 1 1.455-.364c.046.185.144.436.31.627.146.168.353.305.712.305.738 0 1.25-.615 1.25-1.25 0-1.47-.95-2.315-2.123-2.51-1.172-.196-2.227.387-2.706 1.345-.46.92-.27 1.774.019 3.062l.042.19.01.05c.348.443.666.949.94 1.553a.75.75 0 1 1-1.365.62c-.553-1.217-1.32-1.94-2.3-2.768L6.7 5.527c-.814-.68-1.75-1.462-2.692-2.619a3.7 3.7 0 0 0-1.023.88c-.406.495-.663 1.036-.722 1.508.116.122.306.21.591.239.388.038.797-.06 1.032-.19a.75.75 0 0 1 .728 1.31c-.515.287-1.23.439-1.906.373-.682-.067-1.473-.38-1.879-1.193L.75 5.677V5.5c0-.984.48-1.94 1.077-2.664.46-.559 1.05-1.055 1.673-1.353z"/></svg>');--md-admonition-icon--success:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.75.75 0 0 1 .018-1.042.75.75 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0"/></svg>');--md-admonition-icon--question:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13M6.92 6.085h.001a.749.749 0 1 1-1.342-.67c.169-.339.436-.701.849-.977C6.845 4.16 7.369 4 8 4a2.76 2.76 0 0 1 1.637.525c.503.377.863.965.863 1.725 0 .448-.115.83-.329 1.15-.205.307-.47.513-.692.662-.109.072-.22.138-.313.195l-.006.004a6 6 0 0 0-.26.16 1 1 0 0 0-.276.245.75.75 0 0 1-1.248-.832c.184-.264.42-.489.692-.661q.154-.1.313-.195l.007-.004c.1-.061.182-.11.258-.161a1 1 0 0 0 .277-.245C8.96 6.514 9 6.427 9 6.25a.61.61 0 0 0-.262-.525A1.27 1.27 0 0 0 8 5.5c-.369 0-.595.09-.74.187a1 1 0 0 0-.34.398M9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/></svg>');--md-admonition-icon--warning:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0 1 14.082 15H1.918a1.75 1.75 0 0 1-1.543-2.575Zm1.763.707a.25.25 0 0 0-.44 0L1.698 13.132a.25.25 0 0 0 .22.368h12.164a.25.25 0 0 0 .22-.368Zm.53 3.996v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0M9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/></svg>');--md-admonition-icon--failure:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M2.344 2.343za8 8 0 0 1 11.314 11.314A8.002 8.002 0 0 1 .234 10.089a8 8 0 0 1 2.11-7.746m1.06 10.253a6.5 6.5 0 1 0 9.108-9.275 6.5 6.5 0 0 0-9.108 9.275M6.03 4.97 8 6.94l1.97-1.97a.749.749 0 0 1 1.275.326.75.75 0 0 1-.215.734L9.06 8l1.97 1.97a.749.749 0 0 1-.326 1.275.75.75 0 0 1-.734-.215L8 9.06l-1.97 1.97a.749.749 0 0 1-1.275-.326.75.75 0 0 1 .215-.734L6.94 8 4.97 6.03a.75.75 0 0 1 .018-1.042.75.75 0 0 1 1.042-.018"/></svg>');--md-admonition-icon--danger:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M9.504.43a1.516 1.516 0 0 1 2.437 1.713L10.415 5.5h2.123c1.57 0 2.346 1.909 1.22 3.004l-7.34 7.142a1.25 1.25 0 0 1-.871.354h-.302a1.25 1.25 0 0 1-1.157-1.723L5.633 10.5H3.462c-1.57 0-2.346-1.909-1.22-3.004zm1.047 1.074L3.286 8.571A.25.25 0 0 0 3.462 9H6.75a.75.75 0 0 1 .694 1.034l-1.713 4.188 6.982-6.793A.25.25 0 0 0 12.538 7H9.25a.75.75 0 0 1-.683-1.06l2.008-4.418.003-.006-.004-.009-.006-.006-.008-.001q-.005 0-.009.004"/></svg>');--md-admonition-icon--bug:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M4.72.22a.75.75 0 0 1 1.06 0l1 .999a3.5 3.5 0 0 1 2.441 0l.999-1a.748.748 0 0 1 1.265.332.75.75 0 0 1-.205.729l-.775.776c.616.63.995 1.493.995 2.444v.327q0 .15-.025.292c.408.14.764.392 1.029.722l1.968-.787a.75.75 0 0 1 .556 1.392L13 7.258V9h2.25a.75.75 0 0 1 0 1.5H13v.5q-.002.615-.141 1.186l2.17.868a.75.75 0 0 1-.557 1.392l-2.184-.873A5 5 0 0 1 8 16a5 5 0 0 1-4.288-2.427l-2.183.873a.75.75 0 0 1-.558-1.392l2.17-.868A5 5 0 0 1 3 11v-.5H.75a.75.75 0 0 1 0-1.5H3V7.258L.971 6.446a.75.75 0 0 1 .558-1.392l1.967.787c.265-.33.62-.583 1.03-.722a1.7 1.7 0 0 1-.026-.292V4.5c0-.951.38-1.814.995-2.444L4.72 1.28a.75.75 0 0 1 0-1.06m.53 6.28a.75.75 0 0 0-.75.75V11a3.5 3.5 0 1 0 7 0V7.25a.75.75 0 0 0-.75-.75ZM6.173 5h3.654A.17.17 0 0 0 10 4.827V4.5a2 2 0 1 0-4 0v.327c0 .096.077.173.173.173"/></svg>');--md-admonition-icon--example:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M5 5.782V2.5h-.25a.75.75 0 0 1 0-1.5h6.5a.75.75 0 0 1 0 1.5H11v3.282l3.666 5.76C15.619 13.04 14.543 15 12.767 15H3.233c-1.776 0-2.852-1.96-1.899-3.458Zm-2.4 6.565a.75.75 0 0 0 .633 1.153h9.534a.75.75 0 0 0 .633-1.153L12.225 10.5h-8.45ZM9.5 2.5h-3V6c0 .143-.04.283-.117.403L4.73 9h6.54L9.617 6.403A.75.75 0 0 1 9.5 6Z"/></svg>');--md-admonition-icon--quote:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M1.75 2.5h10.5a.75.75 0 0 1 0 1.5H1.75a.75.75 0 0 1 0-1.5m4 5h8.5a.75.75 0 0 1 0 1.5h-8.5a.75.75 0 0 1 0-1.5m0 5h8.5a.75.75 0 0 1 0 1.5h-8.5a.75.75 0 0 1 0-1.5M2.5 7.75v6a.75.75 0 0 1-1.5 0v-6a.75.75 0 0 1 1.5 0"/></svg>');}</style>
+
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#5-api-dom" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../index.html" title="Honglei Gu&#39;s personal blog" class="md-header__button md-logo" aria-label="Honglei Gu's personal blog" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Honglei Gu's personal blog
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              DOM
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/everythingfades/personal-blog.git" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../index.html" title="Honglei Gu&#39;s personal blog" class="md-nav__button md-logo" aria-label="Honglei Gu's personal blog" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Honglei Gu's personal blog
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/everythingfades/personal-blog.git" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../index.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    中文
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            中文
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_1" id="__nav_2_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    web(前端+后端)
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_1_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_1">
+            <span class="md-nav__icon md-icon"></span>
+            web(前端+后端)
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../html.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    html
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../css.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    css
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_1_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_1_3" id="__nav_2_1_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    js
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_2_1_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_1_3">
+            <span class="md-nav__icon md-icon"></span>
+            js
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="js.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    基础语法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="js-advanced.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    进阶语法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    DOM
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="DOM.html" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    DOM
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#51-dom" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.1 DOM元素:
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.1 DOM元素:">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#511-dom" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.1.1 获取DOM元素:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#512" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.1.2 操作元素内容:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#513" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.1.3 更改属性:
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.1.3 更改属性:">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#5131-classname" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.1.3.1 className
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5132-classlist" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.1.3.2 classList:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5133" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.1.3.3 表单类
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#514" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.1.4 自定义属性:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#52" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.2 间歇函数/计时器:
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#53" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.3 事件监听
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.3 事件监听">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#531" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.3.1 事件类型:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#532" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.3.2 事件对象:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#533" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.3.3 环境对象：
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#534" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.3.4 回调函数:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#54" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.4 事件流:
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.4 事件流:">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#541" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.4.1 事件捕获:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#542" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.4.2 事件冒泡
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#543" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.4.3 阻止冒泡:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#544" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.4.4 解绑事件:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#545" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.4.5 特殊事件:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#546" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.4.6 事件委托
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#547" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.4.7 阻止事件默认行为:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#548" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.4.8 其他事件:
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.4.8 其他事件:">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#5481" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.4.8.1 页面加载事件
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.4.8.1 页面加载事件">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#54811-load" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.4.8.1.1 load
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#54812-domcontentloaded" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.4.8.1.2 DOMContentLoaded:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5482" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.4.8.2 元素滚动事件
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.4.8.2 元素滚动事件">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#54821-scroll" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.4.8.2.1 scroll
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#54822-scroll" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.4.8.2.2 scroll获取滚动位置:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#54823-scrollto" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.4.8.2.3 scrollTo
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5483-resize" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.4.8.3 resize事件
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.4.8.3 resize事件">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#54831-clientwidth-clientheight" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.4.8.3.1 clientWidth clientHeight
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#54832-offsetleft-offsettop" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.4.8.3.2 offsetLeft offsetTop
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#55" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.5 日期对象:
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.5 日期对象:">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#551" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.5.1 实例化:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#552" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.5.2 日期对象方法:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#553" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.5.3 时间戳:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#56" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.6 节点操作:
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.6 节点操作:">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#561-dom" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.6.1 DOM 节点
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#562" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.6.2 查找节点:
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.6.2 查找节点:">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#5621" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.6.2.1 父节点:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5622" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.6.2.2 子节点:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5623" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.6.2.3 兄弟节点:
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.6.2.3 兄弟节点:">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#56231" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.6.2.3.1 下一个兄弟节点:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#56232" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.6.2.3.2 上一个兄弟节点:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#563" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.6.3 添加节点
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#564" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.6.4 克隆节点:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#565" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.6.5 删除节点
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#57-m" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.7 M端事件:
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#58-js" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.8 JS插件:
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="BOM.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    BOM
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../AJAX.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    AJAX
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../nodejs.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    nodejs
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../webpack.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    webpack
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../vue2.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    vue2
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    English
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            English
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_1" id="__nav_3_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Imperial
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            Imperial
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_1_1" id="__nav_3_1_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    year2
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_1_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_1_1">
+            <span class="md-nav__icon md-icon"></span>
+            year2
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../en/Imperial/year2/pintos.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    [Protected] pintos
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../en/Imperial/year2/SED_Ex1.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SED-Ex1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../en/Imperial/year2/SED_Ex2.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SED-Ex2
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../en/Imperial/year2/50001-Algorithms.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    50001-Algorithms
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../en/Imperial/year2/50003-Models-of-Computation.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    50003-Model-of-Computation
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../en/Imperial/year2/50004-Operating-System.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    50004-Operating-System
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    web
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            web
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../en/web/html.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    html
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    other
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            other
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../en/other/cyber_security.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    cyber-security
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#51-dom" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.1 DOM元素:
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.1 DOM元素:">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#511-dom" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.1.1 获取DOM元素:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#512" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.1.2 操作元素内容:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#513" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.1.3 更改属性:
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.1.3 更改属性:">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#5131-classname" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.1.3.1 className
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5132-classlist" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.1.3.2 classList:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5133" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.1.3.3 表单类
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#514" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.1.4 自定义属性:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#52" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.2 间歇函数/计时器:
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#53" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.3 事件监听
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.3 事件监听">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#531" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.3.1 事件类型:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#532" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.3.2 事件对象:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#533" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.3.3 环境对象：
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#534" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.3.4 回调函数:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#54" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.4 事件流:
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.4 事件流:">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#541" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.4.1 事件捕获:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#542" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.4.2 事件冒泡
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#543" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.4.3 阻止冒泡:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#544" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.4.4 解绑事件:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#545" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.4.5 特殊事件:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#546" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.4.6 事件委托
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#547" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.4.7 阻止事件默认行为:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#548" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.4.8 其他事件:
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.4.8 其他事件:">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#5481" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.4.8.1 页面加载事件
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.4.8.1 页面加载事件">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#54811-load" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.4.8.1.1 load
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#54812-domcontentloaded" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.4.8.1.2 DOMContentLoaded:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5482" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.4.8.2 元素滚动事件
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.4.8.2 元素滚动事件">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#54821-scroll" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.4.8.2.1 scroll
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#54822-scroll" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.4.8.2.2 scroll获取滚动位置:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#54823-scrollto" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.4.8.2.3 scrollTo
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5483-resize" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.4.8.3 resize事件
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.4.8.3 resize事件">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#54831-clientwidth-clientheight" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.4.8.3.1 clientWidth clientHeight
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#54832-offsetleft-offsettop" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.4.8.3.2 offsetLeft offsetTop
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#55" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.5 日期对象:
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.5 日期对象:">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#551" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.5.1 实例化:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#552" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.5.2 日期对象方法:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#553" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.5.3 时间戳:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#56" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.6 节点操作:
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.6 节点操作:">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#561-dom" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.6.1 DOM 节点
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#562" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.6.2 查找节点:
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.6.2 查找节点:">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#5621" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.6.2.1 父节点:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5622" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.6.2.2 子节点:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5623" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.6.2.3 兄弟节点:
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.6.2.3 兄弟节点:">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#56231" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.6.2.3.1 下一个兄弟节点:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#56232" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.6.2.3.2 上一个兄弟节点:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#563" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.6.3 添加节点
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#564" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.6.4 克隆节点:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#565" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.6.5 删除节点
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#57-m" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.7 M端事件:
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#58-js" class="md-nav__link">
+    <span class="md-ellipsis">
+      5.8 JS插件:
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="5-api-dom">5. API DOM:</h1>
+<p>每个html标签在js里都是一个对象</p>
+<h2 id="51-dom">5.1 DOM元素:</h2>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:1"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">示例</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>请自行查看<a href="https://github.com/everythingfades/html/blob/main/examples/js_involved/html/js_select.html">examples/js_involved/html/js_select.html</a></p>
+</div>
+</div>
+</div>
+</div>
+<h3 id="511-dom">5.1.1 获取DOM元素:</h3>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:1"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">代码</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s1">&#39;css选择器&#39;</span><span class="p">)</span><span class="w"> </span><span class="c1">// 这个只选择一个,如果有多个符合条件的只会返回第一个</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nb">document</span><span class="p">.</span><span class="nx">querySelectorAll</span><span class="p">(</span><span class="s1">&#39;css选择器&#39;</span><span class="p">)</span><span class="w"> </span><span class="c1">// 这个选择所有,以伪数组形式返回,有长度有索引,但是没有pop(),push()等方法</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="c1">// 返回的对象可以直接更改属性</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="c1">// 其他:</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="c1">// 根据id获取一个元素</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;id&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="c1">// 根据标签获取一个元素</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="nb">document</span><span class="p">.</span><span class="nx">getElementByTagName</span><span class="p">(</span><span class="s2">&quot;div&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="c1">// 根据类名获取所有符合条件的元素</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="nb">document</span><span class="p">.</span><span class="nx">getElementsByClassName</span><span class="p">(</span><span class="s2">&quot;w&quot;</span><span class="p">)</span>
+</code></pre></div>
+</div>
+</div>
+</div>
+</div>
+<h3 id="512">5.1.2 操作元素内容:</h3>
+<p>.innerText属性可以获取文字内容</p>
+<p>.innerHTML属性可以获取HTML文本</p>
+<h3 id="513">5.1.3 更改属性:</h3>
+<p>直接赋值就行,以下是几个常用的</p>
+<p>如果属性名称用连字符连接,改写成驼峰命名法的格式, obj.style.fontFamily = "SimHei"
+- obj.style.(相当于更改这个标签的css,更改样式)
+  - eg. obj.style.color = "red"
+- obj.src (更改标签的src属性,可以换图片之类的)
+- obj.href (更改标签的href属性,可以换链接之类的)</p>
+<p>对于document,由于一个html只会有一个body,可以通过document.body直接获取页面的body标签,然后进行修改</p>
+<h4 id="5131-classname">5.1.3.1 className</h4>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="3:1"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">示例</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block"></div>
+</div>
+</div>
+<p>请自行查看<a href="https://github.com/everythingfades/html/blob/main/examples/js_involved/html/className.html">examples/js_involved/html/className.html</a></p>
+</div>
+<p>如果修改的样式很多,直接通过style属性修改会比较麻烦,于是可以通过借助css类名的形式改属性</p>
+<p>其实就是修改一个标签的class属性,把他变成某个class从而应用那个类的css</p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="4:1"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><div class="tabbed-labels"><label for="__tabbed_4_1">代码</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nx">元素</span><span class="p">.</span><span class="nx">className</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;active&quot;</span>
+</code></pre></div>
+</div>
+</div>
+</div>
+</div>
+<p>可以用css的选择器使得改完类名之后应用css不会覆盖原先的样式而是应用新类的新增样式</p>
+<h4 id="5132-classlist">5.1.3.2 classList:</h4>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="5:1"><input checked="checked" id="__tabbed_5_1" name="__tabbed_5" type="radio" /><div class="tabbed-labels"><label for="__tabbed_5_1">示例</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block"></div>
+</div>
+</div>
+<p>请自行查看<a href="https://github.com/everythingfades/html/blob/main/examples/js_involved/html/classList.html">examples/js_involved/html/classList.html</a></p>
+</div>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="6:1"><input checked="checked" id="__tabbed_6_1" name="__tabbed_6" type="radio" /><div class="tabbed-labels"><label for="__tabbed_6_1">代码</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nx">元素</span><span class="p">.</span><span class="nx">classList</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="s1">&#39;类名&#39;</span><span class="p">)</span><span class="w"> </span><span class="c1">//增加类名</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="nx">元素</span><span class="p">.</span><span class="nx">classList</span><span class="p">.</span><span class="nx">remove</span><span class="p">(</span><span class="s1">&#39;类名&#39;</span><span class="p">)</span><span class="w"> </span><span class="c1">//删除类名</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="nx">元素</span><span class="p">.</span><span class="nx">classList</span><span class="p">.</span><span class="nx">toggle</span><span class="p">(</span><span class="s1">&#39;类名&#39;</span><span class="p">)</span><span class="w"> </span><span class="c1">// 切换类名,存在就删,没有就加</span>
+</code></pre></div>
+</div>
+</div>
+</div>
+</div>
+<p>如果classlist里的css有重复的,则会显示最有一个可用的属性</p>
+<h4 id="5133">5.1.3.3 表单类</h4>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="7:1"><input checked="checked" id="__tabbed_7_1" name="__tabbed_7" type="radio" /><div class="tabbed-labels"><label for="__tabbed_7_1">示例</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block"></div>
+</div>
+</div>
+<p>请自行查看<a href="https://github.com/everythingfades/html/blob/main/examples/js_involved/html/form.html">examples/js_involved/html/form.html</a></p>
+<div class="tabbed-set tabbed-alternate" data-tabs="8:1"><input checked="checked" id="__tabbed_8_1" name="__tabbed_8" type="radio" /><div class="tabbed-labels"><label for="__tabbed_8_1">示例</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block"></div>
+</div>
+</div>
+<p>请自行查看<a href="https://github.com/everythingfades/html/blob/main/examples/js_involved/html/exampleForm.html">examples/js_involved/html/exampleForm.html</a></p>
+</div>
+<p>如果获取innerHTML是空,需要通过表单名称.value获取所有的值</p>
+<h3 id="514">5.1.4 自定义属性:</h3>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="9:1"><input checked="checked" id="__tabbed_9_1" name="__tabbed_9" type="radio" /><div class="tabbed-labels"><label for="__tabbed_9_1">示例</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block"></div>
+</div>
+</div>
+<p>请自行查看<a href="https://github.com/everythingfades/html/blob/main/examples/js_involved/html/self-define-attr.html">examples/js_involved/self-defined-attr.html</a></p>
+</div>
+<p>自定义属性名称以data-开头</p>
+<h2 id="52">5.2 间歇函数/计时器:</h2>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="10:1"><input checked="checked" id="__tabbed_10_1" name="__tabbed_10" type="radio" /><div class="tabbed-labels"><label for="__tabbed_10_1">代码</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block"></div>
+</div>
+</div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nx">setInterval</span><span class="p">(</span><span class="nx">函数</span><span class="p">,</span><span class="nx">间隔时间</span><span class="p">)</span>
+</code></pre></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="11:1"><input checked="checked" id="__tabbed_11_1" name="__tabbed_11" type="radio" /><div class="tabbed-labels"><label for="__tabbed_11_1">示例</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block"></div>
+</div>
+</div>
+<p>请自行查看<a href="https://github.com/everythingfades/html/blob/main/examples/js_involved/html/timer.html">examples/js_involved/html/timer.html</a></p>
+</div>
+<ul>
+<li>
+<p>间隔时间是毫秒,表示每过间隔时间执行一次函数,一旦开启就一直执行,注意函数的位置写的是函数名,也就是不加参数</p>
+</li>
+<li>
+<p>setInteval函数会返回一个id</p>
+</li>
+<li>
+<p>用clearInterval(id)暂停执行</p>
+</li>
+</ul>
+<h2 id="53">5.3 事件监听</h2>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="12:1"><input checked="checked" id="__tabbed_12_1" name="__tabbed_12" type="radio" /><div class="tabbed-labels"><label for="__tabbed_12_1">示例</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block"></div>
+</div>
+</div>
+<p>请自行查看<a href="https://github.com/everythingfades/html/blob/main/examples/js_involved/html/eventListener.html">examples/js_involved/html/eventListener.html</a></p>
+</div>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>元素对象.addEventListener(&#39;事件类型&#39;,执行函数)
+</code></pre></div>
+- 事件类型要加引号
+- 每次按按钮触发一次函数</p>
+<h3 id="531">5.3.1 事件类型:</h3>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="13:1"><input checked="checked" id="__tabbed_13_1" name="__tabbed_13" type="radio" /><div class="tabbed-labels"><label for="__tabbed_13_1">示例</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block"></div>
+</div>
+</div>
+<p>请自行查看<a href="https://github.com/everythingfades/html/blob/main/examples/js_involved/html/otherEvent.html">examples/js_involved/html/otherEvent.html</a></p>
+<div class="tabbed-set tabbed-alternate" data-tabs="14:1"><input checked="checked" id="__tabbed_14_1" name="__tabbed_14" type="radio" /><div class="tabbed-labels"><label for="__tabbed_14_1">示例</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block"></div>
+</div>
+</div>
+<p>请自行查看<a href="https://github.com/everythingfades/html/blob/main/examples/js_involved/html/mouseEvent.html">examples/js_involved/html/mouseEvent.html</a></p>
+</div>
+<ul>
+<li>鼠标</li>
+<li>click 鼠标点击</li>
+<li>mouseenter 鼠标经过</li>
+<li>mouseleave 鼠标离开</li>
+<li>焦点</li>
+<li>focus 获得焦点</li>
+<li>blur 失去焦点</li>
+<li>键盘事件</li>
+<li>Keydown 键盘按下触发</li>
+<li>Keyup 键盘抬起触发</li>
+<li>文本事件:</li>
+<li>input 用户输入事件</li>
+</ul>
+<h3 id="532">5.3.2 事件对象:</h3>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="15:1"><input checked="checked" id="__tabbed_15_1" name="__tabbed_15" type="radio" /><div class="tabbed-labels"><label for="__tabbed_15_1">示例</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block"></div>
+</div>
+</div>
+<p>请自行查看<a href="https://github.com/everythingfades/html/blob/main/examples/js_involved/html/eventobject.html">examples/js_involved/html/eventobject.html</a></p>
+</div>
+<p>一个存储时间执行是的相关参数的一个对象,是事件监听绑定函数传入的参数,差不多就是一个json
+- type:
+  - 获取当前的时间类型
+- clientX/clientY
+  - 获取光标相对于浏览器课件窗口左上角的位置
+- offsetX/offsetY
+  - 获取光标相对当前DOM元素左上角的位置
+- key
+  - 用户按下键的数值
+  - (keyCode已经废弃)</p>
+<h3 id="533">5.3.3 环境对象：</h3>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="16:1"><input checked="checked" id="__tabbed_16_1" name="__tabbed_16" type="radio" /><div class="tabbed-labels"><label for="__tabbed_16_1">示例</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block"></div>
+</div>
+</div>
+<p>请自行查看<a href="https://github.com/everythingfades/html/blob/main/examples/js_involved/html/this.html">examples/js_involved/html/this.html</a></p>
+</div>
+<p>this, java的this</p>
+<p>普通事件里this指的是window</p>
+<p>如果是addEventListener返回调用的元素</p>
+<p>可以用this.style之类的改参数</p>
+<h3 id="534">5.3.4 回调函数:</h3>
+<p>就是把一个A函数传给另一个B函数,此时A是回调函数</p>
+<p>常见的回调函数:</p>
+<ul>
+<li>setInterval</li>
+<li>addEventListener</li>
+</ul>
+<h2 id="54">5.4 事件流:</h2>
+<p>分成两个阶段,捕获和冒泡</p>
+<p>捕获阶段冲大往小,冒泡反着来</p>
+<h3 id="541">5.4.1 事件捕获:</h3>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="17:1"><input checked="checked" id="__tabbed_17_1" name="__tabbed_17" type="radio" /><div class="tabbed-labels"><label for="__tabbed_17_1">示例</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block"></div>
+</div>
+</div>
+<p>请自行查看<a href="https://github.com/everythingfades/html/blob/main/examples/js_involved/html/eventCapture.html">examples/js_involved/html/eventCapture.html</a></p>
+</div>
+<ul>
+<li>在addEventListener里传入第三个参数,true为使用捕获机制,false为不使用捕获机制</li>
+<li>如果是用onclick绑定的则没有捕获阶段</li>
+</ul>
+<h3 id="542">5.4.2 事件冒泡</h3>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="18:1"><input checked="checked" id="__tabbed_18_1" name="__tabbed_18" type="radio" /><div class="tabbed-labels"><label for="__tabbed_18_1">示例</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block"></div>
+</div>
+</div>
+<p>请自行查看<a href="https://github.com/everythingfades/html/blob/main/examples/js_involved/html/mouseEvent.html">examples/js_involved/html/mouseEvent.html</a></p>
+</div>
+<ul>
+<li>相当于子类父类继承,如果点击的部分在子类里,他也在父类里,这个时候绑定的同名函数将会按照冒泡阶段从小向大依次执行</li>
+</ul>
+<h3 id="543">5.4.3 阻止冒泡:</h3>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="19:1"><input checked="checked" id="__tabbed_19_1" name="__tabbed_19" type="radio" /><div class="tabbed-labels"><label for="__tabbed_19_1">代码</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>事件对象.stopPropagation()
+</code></pre></div>
+</div>
+</div>
+</div>
+</div>
+<p>这个是阻断事件流传播, 同时阻止冒泡和捕获</p>
+<h3 id="544">5.4.4 解绑事件:</h3>
+<ul>
+<li>如果是onclick,直接把onclick属性赋值成null即可</li>
+<li>addEventListener使用removeEventListener(事件,函数名),(匿名函数无法被解绑)</li>
+</ul>
+<h3 id="545">5.4.5 特殊事件:</h3>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="20:1"><input checked="checked" id="__tabbed_20_1" name="__tabbed_20" type="radio" /><div class="tabbed-labels"><label for="__tabbed_20_1">示例</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block"></div>
+</div>
+</div>
+<p>请自行查看<a href="https://github.com/everythingfades/html/blob/main/examples/js_involved/html/mouseEvent.html">examples/js_involved/html/mouseEvent.html</a></p>
+</div>
+<ul>
+<li>mouseover和mouseout有冒泡效果</li>
+<li>mouseenter和mouseleave没有冒泡效果</li>
+</ul>
+<h3 id="546">5.4.6 事件委托</h3>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="21:1"><input checked="checked" id="__tabbed_21_1" name="__tabbed_21" type="radio" /><div class="tabbed-labels"><label for="__tabbed_21_1">示例</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block"></div>
+</div>
+</div>
+<p>请自行查看<a href="https://github.com/everythingfades/html/blob/main/examples/js_involved/html/eventCommission.html">examples/js_involved/html/eventCommission.html</a></p>
+</div>
+<p>同时给多个元素注册事件</p>
+<p>就是定义一个父对象,触发子对象的时候会通过冒泡触发父对象的事件</p>
+<h3 id="547">5.4.7 阻止事件默认行为:</h3>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="22:1"><input checked="checked" id="__tabbed_22_1" name="__tabbed_22" type="radio" /><div class="tabbed-labels"><label for="__tabbed_22_1">代码</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block"></div>
+</div>
+</div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="nx">e</span><span class="p">.</span><span class="nx">pre1ventDefault</span><span class="p">()</span>
+</code></pre></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="23:1"><input checked="checked" id="__tabbed_23_1" name="__tabbed_23" type="radio" /><div class="tabbed-labels"><label for="__tabbed_23_1">示例</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block"></div>
+</div>
+</div>
+<p>请自行查看<a href="https://github.com/everythingfades/html/blob/main/examples/js_involved/html/preventDefault.html">examples/js_involved/html/preventDefault.html</a></p>
+</div>
+<h3 id="548">5.4.8 其他事件:</h3>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="24:1"><input checked="checked" id="__tabbed_24_1" name="__tabbed_24" type="radio" /><div class="tabbed-labels"><label for="__tabbed_24_1">示例</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block"></div>
+</div>
+</div>
+<p>请自行查看<a href="https://github.com/everythingfades/html/blob/main/examples/js_involved/html/otherEvent.html">examples/js_involved/html/otherEvent.html</a></p>
+</div>
+<h4 id="5481">5.4.8.1 页面加载事件</h4>
+<h5 id="54811-load">5.4.8.1.1 load</h5>
+<p>加载外部资源的加载完毕的时候触发的事件
+- 等资源加载完处理事情
+- 老代码script放在head中,直接找dom找不到</p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="25:1"><input checked="checked" id="__tabbed_25_1" name="__tabbed_25" type="radio" /><div class="tabbed-labels"><label for="__tabbed_25_1">代码</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>window.addEventListener(&quot;load&quot;, function(){
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>    // 等页面加载完在处理回调函数
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>})
+</code></pre></div>
+</div>
+</div>
+</div>
+</div>
+<p>window是document的更上一级</p>
+<p>也可以对元素加load,等这个文件加载完的时候在处理回调函数</p>
+<h5 id="54812-domcontentloaded">5.4.8.1.2 DOMContentLoaded:</h5>
+<p>当初是的html被加载,就触发,不需要等待所有的元素都完全加载</p>
+<p>这会是给document加这个事件</p>
+<h4 id="5482">5.4.8.2 元素滚动事件</h4>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="26:1"><input checked="checked" id="__tabbed_26_1" name="__tabbed_26" type="radio" /><div class="tabbed-labels"><label for="__tabbed_26_1">示例</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block"></div>
+</div>
+</div>
+<p>请自行查看<a href="https://github.com/everythingfades/html/blob/main/examples/js_involved/html/scrollExample.html">examples/js_involved/html/scrollExample.html</a></p>
+</div>
+<h5 id="54821-scroll">5.4.8.2.1 scroll</h5>
+<p>滚动到某个区域的时候会触发的东西</p>
+<p>还是给window加scroll事件</p>
+<h5 id="54822-scroll">5.4.8.2.2 scroll获取滚动位置:</h5>
+<ul>
+<li>scorllLeft</li>
+<li>scorllTop</li>
+</ul>
+<h5 id="54823-scrollto">5.4.8.2.3 scrollTo</h5>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="27:1"><input checked="checked" id="__tabbed_27_1" name="__tabbed_27" type="radio" /><div class="tabbed-labels"><label for="__tabbed_27_1">代码</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="nx">windows</span><span class="p">.</span><span class="nx">scrollTo</span><span class="p">(</span><span class="nx">x坐标</span><span class="p">,</span><span class="nx">y坐标</span><span class="p">)</span>
+</code></pre></div>
+</div>
+</div>
+</div>
+</div>
+<h4 id="5483-resize">5.4.8.3 resize事件</h4>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="28:1"><input checked="checked" id="__tabbed_28_1" name="__tabbed_28" type="radio" /><div class="tabbed-labels"><label for="__tabbed_28_1">示例</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block"></div>
+</div>
+</div>
+<p>请自行查看<a href="https://github.com/everythingfades/html/blob/main/examples/js_involved/html/resizeEvent.html">examples/js_involved/html/resizeEvent.html</a></p>
+</div>
+<p>当浏览器窗口大小发生变化的时候触发</p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="29:1"><input checked="checked" id="__tabbed_29_1" name="__tabbed_29" type="radio" /><div class="tabbed-labels"><label for="__tabbed_29_1">代码</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;resize&#39;</span><span class="p">,</span><span class="kd">function</span><span class="p">)</span>
+</code></pre></div>
+</div>
+</div>
+</div>
+</div>
+<h5 id="54831-clientwidth-clientheight">5.4.8.3.1 clientWidth clientHeight</h5>
+<p>获取元素的课件的宽和高(不包含border和margin等,但是包含padding)</p>
+<h5 id="54832-offsetleft-offsettop">5.4.8.3.2 offsetLeft offsetTop</h5>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="30:1"><input checked="checked" id="__tabbed_30_1" name="__tabbed_30" type="radio" /><div class="tabbed-labels"><label for="__tabbed_30_1">示例</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block"></div>
+</div>
+</div>
+<p>请自行查看<a href="https://github.com/everythingfades/html/blob/main/examples/js_involved/html/offset.html">examples/js_involved/html/offset.html</a></p>
+</div>
+<p>获取元素距离自己定位父级元素的左,上距离,这个会包含border很margin等</p>
+<p>这个父级元素是有position属性的最近的父元素,直到document</p>
+<h2 id="55">5.5 日期对象:</h2>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="31:1"><input checked="checked" id="__tabbed_31_1" name="__tabbed_31" type="radio" /><div class="tabbed-labels"><label for="__tabbed_31_1">示例</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block"></div>
+</div>
+</div>
+<p>请自行查看<a href="https://github.com/everythingfades/html/blob/main/examples/js_involved/html/date.html">examples/js_involved/html/date.html</a></p>
+</div>
+<h3 id="551">5.5.1 实例化:</h3>
+<p>java里的new关键字仙剑一个对象(js这么久居然没有新建过对象)</p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="32:1"><input checked="checked" id="__tabbed_32_1" name="__tabbed_32" type="radio" /><div class="tabbed-labels"><label for="__tabbed_32_1">代码</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="kd">const</span><span class="w"> </span><span class="nx">date</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Date</span><span class="p">()</span>
+</code></pre></div>
+</div>
+</div>
+</div>
+</div>
+<p>也可以</p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="33:1"><input checked="checked" id="__tabbed_33_1" name="__tabbed_33" type="radio" /><div class="tabbed-labels"><label for="__tabbed_33_1">代码</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="kd">const</span><span class="w"> </span><span class="nx">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Date</span><span class="p">(</span><span class="s2">&quot;2022-5-1 8:30:00&quot;</span><span class="p">)</span>
+</code></pre></div>
+</div>
+</div>
+</div>
+</div>
+<h3 id="552">5.5.2 日期对象方法:</h3>
+<ul>
+<li>getFullYear() 获得四位年份</li>
+<li>getMonth() 获得月份 0-11</li>
+<li>getDate() 获得约分钟的某一天</li>
+<li>getDay() 获得星期 0-6</li>
+<li>getHours() 获得小时 0-23</li>
+<li>getMinutes() 获得分钟 0-59</li>
+<li>getSeconds() 获得秒 0-59</li>
+</ul>
+<h3 id="553">5.5.3 时间戳:</h3>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="34:4"><input checked="checked" id="__tabbed_34_1" name="__tabbed_34" type="radio" /><input id="__tabbed_34_2" name="__tabbed_34" type="radio" /><input id="__tabbed_34_3" name="__tabbed_34" type="radio" /><input id="__tabbed_34_4" name="__tabbed_34" type="radio" /><div class="tabbed-labels"><label for="__tabbed_34_1">代码1</label><label for="__tabbed_34_2">代码2</label><label for="__tabbed_34_3">代码3</label><label for="__tabbed_34_4">示例</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="kd">const</span><span class="w"> </span><span class="nx">date</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Date</span><span class="p">()</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="nx">date</span><span class="p">.</span><span class="nx">getTime</span><span class="p">()</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="o">+</span><span class="ow">new</span><span class="w"> </span><span class="nb">Date</span><span class="p">()</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="nb">Date</span><span class="p">.</span><span class="nx">now</span><span class="p">()</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block"></div>
+</div>
+</div>
+<p>请自行查看<a href="https://github.com/everythingfades/html/blob/main/examples/js_involved/html/timestamp.html">examples/js_involved/html/timestamp.html</a></p>
+</div>
+<p>是指从1970年01月01日00分00秒开始到现在的毫秒数</p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="35:2"><input checked="checked" id="__tabbed_35_1" name="__tabbed_35" type="radio" /><input id="__tabbed_35_2" name="__tabbed_35" type="radio" /><div class="tabbed-labels"><label for="__tabbed_35_1">时间戳转时间</label><label for="__tabbed_35_2">输出</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="kd">function</span><span class="w"> </span><span class="nx">timestampToTime</span><span class="p">(</span><span class="nx">timestamp</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="w">        </span><span class="kd">var</span><span class="w"> </span><span class="nx">date</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Date</span><span class="p">(</span><span class="nx">timestamp</span><span class="p">);</span><span class="c1">//时间戳为10位需*1000，时间戳为13位的话不需乘1000</span>
+<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="w">        </span><span class="kd">var</span><span class="w"> </span><span class="nx">Y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">date</span><span class="p">.</span><span class="nx">getFullYear</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s1">&#39;-&#39;</span><span class="p">;</span>
+<a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="w">        </span><span class="kd">var</span><span class="w"> </span><span class="nx">M</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nx">date</span><span class="p">.</span><span class="nx">getMonth</span><span class="p">()</span><span class="o">+</span><span class="mf">1</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mf">10</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="s1">&#39;0&#39;</span><span class="o">+</span><span class="p">(</span><span class="nx">date</span><span class="p">.</span><span class="nx">getMonth</span><span class="p">()</span><span class="o">+</span><span class="mf">1</span><span class="p">)</span><span class="o">:</span><span class="nx">date</span><span class="p">.</span><span class="nx">getMonth</span><span class="p">()</span><span class="o">+</span><span class="mf">1</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s1">&#39;-&#39;</span><span class="p">;</span>
+<a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a><span class="w">        </span><span class="kd">var</span><span class="w"> </span><span class="nx">D</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nx">date</span><span class="p">.</span><span class="nx">getDate</span><span class="p">()</span><span class="o">&lt;</span><span class="w"> </span><span class="mf">10</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="s1">&#39;0&#39;</span><span class="o">+</span><span class="nx">date</span><span class="p">.</span><span class="nx">getDate</span><span class="p">()</span><span class="o">:</span><span class="nx">date</span><span class="p">.</span><span class="nx">getDate</span><span class="p">())</span><span class="o">+</span><span class="w"> </span><span class="s1">&#39; &#39;</span><span class="p">;</span>
+<a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a><span class="w">        </span><span class="kd">var</span><span class="w"> </span><span class="nx">h</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nx">date</span><span class="p">.</span><span class="nx">getHours</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mf">10</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="s1">&#39;0&#39;</span><span class="o">+</span><span class="nx">date</span><span class="p">.</span><span class="nx">getHours</span><span class="p">()</span><span class="o">:</span><span class="nx">date</span><span class="p">.</span><span class="nx">getHours</span><span class="p">())</span><span class="o">+</span><span class="w"> </span><span class="s1">&#39;:&#39;</span><span class="p">;</span>
+<a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a><span class="w">        </span><span class="kd">var</span><span class="w"> </span><span class="nx">m</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="nx">date</span><span class="p">.</span><span class="nx">getMinutes</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mf">10</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="s1">&#39;0&#39;</span><span class="o">+</span><span class="nx">date</span><span class="p">.</span><span class="nx">getMinutes</span><span class="p">()</span><span class="o">:</span><span class="nx">date</span><span class="p">.</span><span class="nx">getMinutes</span><span class="p">())</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s1">&#39;:&#39;</span><span class="p">;</span>
+<a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a><span class="w">        </span><span class="kd">var</span><span class="w"> </span><span class="nx">s</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">date</span><span class="p">.</span><span class="nx">getSeconds</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mf">10</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="s1">&#39;0&#39;</span><span class="o">+</span><span class="nx">date</span><span class="p">.</span><span class="nx">getSeconds</span><span class="p">()</span><span class="o">:</span><span class="nx">date</span><span class="p">.</span><span class="nx">getSeconds</span><span class="p">();</span>
+<a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nx">Y</span><span class="o">+</span><span class="nx">M</span><span class="o">+</span><span class="nx">D</span><span class="o">+</span><span class="nx">h</span><span class="o">+</span><span class="nx">m</span><span class="o">+</span><span class="nx">s</span><span class="p">;</span>
+<a id="__codelineno-15-10" name="__codelineno-15-10" href="#__codelineno-15-10"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-15-11" name="__codelineno-15-11" href="#__codelineno-15-11"></a><span class="nx">timestampToTime</span><span class="p">(</span><span class="nb">Date</span><span class="p">.</span><span class="nx">now</span><span class="p">())</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<p>'2024-03-19 00:53:28'</p>
+</div>
+</div>
+</div>
+</div>
+<h2 id="56">5.6 节点操作:</h2>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="36:1"><input checked="checked" id="__tabbed_36_1" name="__tabbed_36" type="radio" /><div class="tabbed-labels"><label for="__tabbed_36_1">示例</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block"></div>
+</div>
+</div>
+<p>请自行查看<a href="https://github.com/everythingfades/html/blob/main/examples/js_involved/html/modifyDOM.html">examples/js_involved/html/modifyDOM.html</a></p>
+</div>
+<h3 id="561-dom">5.6.1 DOM 节点</h3>
+<ul>
+<li>元素节点</li>
+<li>所有的标签, body, div</li>
+<li>html是根节点</li>
+<li>属性节点</li>
+<li>href等</li>
+<li>文本节点:</li>
+<li>标签里的字</li>
+<li>其他类</li>
+</ul>
+<p>主要操作元素节点</p>
+<h3 id="562">5.6.2 查找节点:</h3>
+<p>根据关系找</p>
+<h4 id="5621">5.6.2.1 父节点:</h4>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="37:1"><input checked="checked" id="__tabbed_37_1" name="__tabbed_37" type="radio" /><div class="tabbed-labels"><label for="__tabbed_37_1">代码</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="nx">e</span><span class="p">.</span><span class="nx">parentNode</span>
+</code></pre></div>
+</div>
+</div>
+</div>
+</div>
+<h4 id="5622">5.6.2.2 子节点:</h4>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="38:1"><input checked="checked" id="__tabbed_38_1" name="__tabbed_38" type="radio" /><div class="tabbed-labels"><label for="__tabbed_38_1">代码</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="nx">e</span><span class="p">.</span><span class="nx">children</span>
+</code></pre></div>
+</div>
+</div>
+</div>
+</div>
+<h4 id="5623">5.6.2.3 兄弟节点:</h4>
+<h5 id="56231">5.6.2.3.1 下一个兄弟节点:</h5>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="39:1"><input checked="checked" id="__tabbed_39_1" name="__tabbed_39" type="radio" /><div class="tabbed-labels"><label for="__tabbed_39_1">代码</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="nx">e</span><span class="p">.</span><span class="nx">nextElementSibling</span>
+</code></pre></div>
+</div>
+</div>
+</div>
+</div>
+<h5 id="56232">5.6.2.3.2 上一个兄弟节点:</h5>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="40:1"><input checked="checked" id="__tabbed_40_1" name="__tabbed_40" type="radio" /><div class="tabbed-labels"><label for="__tabbed_40_1">代码</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="nx">e</span><span class="p">.</span><span class="nx">previousElementSibling</span>
+</code></pre></div>
+</div>
+</div>
+</div>
+</div>
+<h3 id="563">5.6.3 添加节点</h3>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="41:1"><input checked="checked" id="__tabbed_41_1" name="__tabbed_41" type="radio" /><div class="tabbed-labels"><label for="__tabbed_41_1">示例</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block"></div>
+</div>
+</div>
+<p>请自行查看<a href="https://github.com/everythingfades/html/blob/main/examples/js_involved/html/createElement.html">examples/js_involved/html/createElement.html</a></p>
+<div class="tabbed-set tabbed-alternate" data-tabs="42:1"><input checked="checked" id="__tabbed_42_1" name="__tabbed_42" type="radio" /><div class="tabbed-labels"><label for="__tabbed_42_1">示例</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block"></div>
+</div>
+</div>
+<p>请自行查看<a href="https://github.com/everythingfades/html/blob/main/examples/js_involved/html/createInsertElement.html">examples/js_involved/html/createInsertElement.html</a></p>
+</div>
+<ul>
+<li>
+<p>先新建一个新的节点,</p>
+</li>
+<li>
+<div class="highlight"><pre><span></span><code>```
+document.createElement()
+```
+</code></pre></div>
+</li>
+<li>然后在放到文档之中</li>
+<li>插入到父元素中作为最后一个子元素
+  <div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>父元素.appenChild()
+</code></pre></div></li>
+<li>插入到某个元素之前
+  <div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>父元素.insertBefore(要插入的元素, 在哪个元素前面)
+</code></pre></div></li>
+</ul>
+<h3 id="564">5.6.4 克隆节点:</h3>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="43:1"><input checked="checked" id="__tabbed_43_1" name="__tabbed_43" type="radio" /><div class="tabbed-labels"><label for="__tabbed_43_1">代码</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>元素.cloneNode(Bool)
+</code></pre></div>
+</div>
+</div>
+</div>
+</div>
+<p>如果参数是True,则会和后代一起克隆</p>
+<p>如果是False,则不克隆后代节点</p>
+<p>默认是False</p>
+<p>注意克隆之后还需要追加节点</p>
+<h3 id="565">5.6.5 删除节点</h3>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="44:1"><input checked="checked" id="__tabbed_44_1" name="__tabbed_44" type="radio" /><div class="tabbed-labels"><label for="__tabbed_44_1">代码</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>父元素.deleteNode(要删除的元素)
+</code></pre></div>
+</div>
+</div>
+</div>
+</div>
+<h2 id="57-m">5.7 M端事件:</h2>
+<p>移动端特殊事件:</p>
+<p>touch事件:</p>
+<ul>
+<li>touchstart</li>
+<li>touchmove</li>
+<li>touchend</li>
+</ul>
+<h2 id="58-js">5.8 JS插件:</h2>
+<p>swiper:移动端插件 具体的建议去查api文档</p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="45:1"><input checked="checked" id="__tabbed_45_1" name="__tabbed_45" type="radio" /><div class="tabbed-labels"><label for="__tabbed_45_1">示例</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block"></div>
+</div>
+</div>
+<p>请自行查看<a href="https://github.com/everythingfades/html/blob/main/examples/js_involved/html/swiper.html">examples/js_involved/html/swiper.html</a></p>
+</div>
+<p>ctrl cv全栈工程师上线</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      2024 by Honglei Gu
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["content.code.annotate"], "search": "../../../assets/javascripts/workers/search.07f07601.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.56dfad97.min.js"></script>
+      
+        <script src="../../../theme/js/mathjax.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.0/es5/tex-mml-chtml.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.0/es5/tex-chtml.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.0/es5/tex-chtml-full.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.0/es5/tex-svg-full.js"></script>
+      
+    
+  </body>
+</html>

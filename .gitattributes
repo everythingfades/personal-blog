@@ -1,0 +1,5 @@
+* !filter !diff
+encryptcontent.cache filter=git-crypt diff=git-crypt
+*.md filter=git-crypt diff=git-crypt
+docs/** filter=git-crypt diff=git-crypt
+sites/** filter=git-crypt diff=git-crypt
