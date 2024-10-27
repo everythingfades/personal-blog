@@ -2,98 +2,150 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>http://localhost:9000/index.html</loc>
-         <lastmod>2024-10-26</lastmod>
+         <lastmod>2024-10-27</lastmod>
     </url>
     <url>
          <loc>http://localhost:9000/html1.html</loc>
-         <lastmod>2024-10-26</lastmod>
+         <lastmod>2024-10-27</lastmod>
     </url>
     <url>
          <loc>http://localhost:9000/en/Imperial/year2/50001-Algorithms.html</loc>
-         <lastmod>2024-10-26</lastmod>
+         <lastmod>2024-10-27</lastmod>
     </url>
     <url>
          <loc>http://localhost:9000/en/Imperial/year2/50002-Software-Design.html</loc>
-         <lastmod>2024-10-26</lastmod>
+         <lastmod>2024-10-27</lastmod>
     </url>
     <url>
          <loc>http://localhost:9000/en/Imperial/year2/50003-Models-of-Computation.html</loc>
-         <lastmod>2024-10-26</lastmod>
+         <lastmod>2024-10-27</lastmod>
     </url>
     <url>
          <loc>http://localhost:9000/en/Imperial/year2/50004-Operating-System.html</loc>
-         <lastmod>2024-10-26</lastmod>
+         <lastmod>2024-10-27</lastmod>
     </url>
     <url>
          <loc>http://localhost:9000/en/Imperial/year2/SED_Ex1.html</loc>
-         <lastmod>2024-10-26</lastmod>
+         <lastmod>2024-10-27</lastmod>
     </url>
     <url>
          <loc>http://localhost:9000/en/Imperial/year2/SED_Ex2.html</loc>
-         <lastmod>2024-10-26</lastmod>
+         <lastmod>2024-10-27</lastmod>
     </url>
     <url>
          <loc>http://localhost:9000/en/Imperial/year2/SED_Ex3.html</loc>
-         <lastmod>2024-10-26</lastmod>
+         <lastmod>2024-10-27</lastmod>
     </url>
     <url>
          <loc>http://localhost:9000/en/Imperial/year2/pintos.html</loc>
-         <lastmod>2024-10-26</lastmod>
+         <lastmod>2024-10-27</lastmod>
+    </url>
+    <url>
+         <loc>http://localhost:9000/en/Imperial/year2/50004/lectures/lecture1.html</loc>
+         <lastmod>2024-10-27</lastmod>
+    </url>
+    <url>
+         <loc>http://localhost:9000/en/Imperial/year2/50004/lectures/lecture2.html</loc>
+         <lastmod>2024-10-27</lastmod>
+    </url>
+    <url>
+         <loc>http://localhost:9000/en/Imperial/year2/50004/lectures/lecture3.html</loc>
+         <lastmod>2024-10-27</lastmod>
+    </url>
+    <url>
+         <loc>http://localhost:9000/en/Imperial/year2/50004/lectures/lecture4.html</loc>
+         <lastmod>2024-10-27</lastmod>
+    </url>
+    <url>
+         <loc>http://localhost:9000/en/Imperial/year2/50004/lectures/lecture5.html</loc>
+         <lastmod>2024-10-27</lastmod>
+    </url>
+    <url>
+         <loc>http://localhost:9000/en/Imperial/year2/50004/lectures/lecture6.html</loc>
+         <lastmod>2024-10-27</lastmod>
+    </url>
+    <url>
+         <loc>http://localhost:9000/en/Imperial/year2/50004/lectures/lecture7.html</loc>
+         <lastmod>2024-10-27</lastmod>
+    </url>
+    <url>
+         <loc>http://localhost:9000/en/Imperial/year2/50004/lectures/lecture8.html</loc>
+         <lastmod>2024-10-27</lastmod>
+    </url>
+    <url>
+         <loc>http://localhost:9000/en/Imperial/year2/50004/lectures/lecture9.html</loc>
+         <lastmod>2024-10-27</lastmod>
+    </url>
+    <url>
+         <loc>http://localhost:9000/en/Imperial/year2/50004/quiz%2Btutorials/lecture5tutorial.html</loc>
+         <lastmod>2024-10-27</lastmod>
+    </url>
+    <url>
+         <loc>http://localhost:9000/en/Imperial/year2/50004/quiz%2Btutorials/lecture9tutorial1.html</loc>
+         <lastmod>2024-10-27</lastmod>
+    </url>
+    <url>
+         <loc>http://localhost:9000/en/Imperial/year2/50004/quiz%2Btutorials/quiz2.html</loc>
+         <lastmod>2024-10-27</lastmod>
+    </url>
+    <url>
+         <loc>http://localhost:9000/en/Imperial/year2/50004/quiz%2Btutorials/quiz4.html</loc>
+         <lastmod>2024-10-27</lastmod>
     </url>
     <url>
          <loc>http://localhost:9000/en/other/CTF/CTFhub.html</loc>
-         <lastmod>2024-10-26</lastmod>
+         <lastmod>2024-10-27</lastmod>
     </url>
     <url>
          <loc>http://localhost:9000/en/other/CTF/cyber_security.html</loc>
-         <lastmod>2024-10-26</lastmod>
+         <lastmod>2024-10-27</lastmod>
     </url>
     <url>
          <loc>http://localhost:9000/en/web/css.html</loc>
-         <lastmod>2024-10-26</lastmod>
+         <lastmod>2024-10-27</lastmod>
     </url>
     <url>
          <loc>http://localhost:9000/en/web/html.html</loc>
-         <lastmod>2024-10-26</lastmod>
+         <lastmod>2024-10-27</lastmod>
     </url>
     <url>
          <loc>http://localhost:9000/zh/web/AJAX.html</loc>
-         <lastmod>2024-10-26</lastmod>
+         <lastmod>2024-10-27</lastmod>
     </url>
     <url>
          <loc>http://localhost:9000/zh/web/css.html</loc>
-         <lastmod>2024-10-26</lastmod>
+         <lastmod>2024-10-27</lastmod>
     </url>
     <url>
          <loc>http://localhost:9000/zh/web/html.html</loc>
-         <lastmod>2024-10-26</lastmod>
+         <lastmod>2024-10-27</lastmod>
     </url>
     <url>
          <loc>http://localhost:9000/zh/web/nodejs.html</loc>
-         <lastmod>2024-10-26</lastmod>
+         <lastmod>2024-10-27</lastmod>
     </url>
     <url>
          <loc>http://localhost:9000/zh/web/vue2.html</loc>
-         <lastmod>2024-10-26</lastmod>
+         <lastmod>2024-10-27</lastmod>
     </url>
     <url>
          <loc>http://localhost:9000/zh/web/webpack.html</loc>
-         <lastmod>2024-10-26</lastmod>
+         <lastmod>2024-10-27</lastmod>
     </url>
     <url>
          <loc>http://localhost:9000/zh/web/js/BOM.html</loc>
-         <lastmod>2024-10-26</lastmod>
+         <lastmod>2024-10-27</lastmod>
     </url>
     <url>
          <loc>http://localhost:9000/zh/web/js/DOM.html</loc>
-         <lastmod>2024-10-26</lastmod>
+         <lastmod>2024-10-27</lastmod>
     </url>
     <url>
          <loc>http://localhost:9000/zh/web/js/js-advanced.html</loc>
-         <lastmod>2024-10-26</lastmod>
+         <lastmod>2024-10-27</lastmod>
     </url>
     <url>
          <loc>http://localhost:9000/zh/web/js/js.html</loc>
-         <lastmod>2024-10-26</lastmod>
+         <lastmod>2024-10-27</lastmod>
     </url>
 </urlset>
