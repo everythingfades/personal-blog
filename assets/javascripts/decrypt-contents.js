@@ -150,7 +150,21 @@ async function decrypt_content_from_bundle(key, ciphertext_bundle) {
     return false;
 };
 
+/* Save decrypted keystore to sessionStorage */
+async function setKeys(keys_from_keystore) {
+    for (const id in keys_from_keystore) {
+        sessionStorage.setItem(id, keys_from_keystore[id]);
+    }
+};
 
+/* Delete key with specific name in sessionStorage */
+async function delItemName(key) {
+    sessionStorage.removeItem(key);
+};
+
+async function getItemName(key) {
+    return sessionStorage.getItem(key);
+};
 /* save username/password to sessionStorage/localStorage */
 async function setCredentials(username, password) {
     sessionStorage.setItem('encryptcontent_credentials', JSON.stringify({'user': username, 'password': password}));
@@ -289,7 +303,7 @@ async function decryptor_reaction(key_or_keys, password_input, decrypted_content
         let key;
         if (typeof key_or_keys === "object") {
             key = key_or_keys[encryptcontent_id];
-            
+            setKeys(key_or_keys);
             
         } else {
             key = key_or_keys;
@@ -329,7 +343,7 @@ async function decryptor_reaction(key_or_keys, password_input, decrypted_content
                 password_input.focus();
             }
         }
-        
+        delItemName(encryptcontent_id);
     }
 }
 
@@ -344,7 +358,32 @@ async function init_decryptor() {
     let encrypted_content = document.getElementById('mkdocs-encrypted-content');
     let decrypted_content = document.getElementById('mkdocs-decrypted-content');
     let content_decrypted;
-    
+    /* If remember_keys is set, try to use sessionStorage item to decrypt content when page is loaded */
+    let key_from_storage = await getItemName(encryptcontent_id);
+    if (key_from_storage) {
+        content_decrypted = await decrypt_action(
+            username_input, password_input, encrypted_content, decrypted_content, key_from_storage
+        );
+        /* try to get username/password from sessionStorage */
+        if (content_decrypted === false) {
+            let got_credentials = await getCredentials(username_input, password_input);
+            if (got_credentials) {
+                content_decrypted = await decrypt_action(
+                    username_input, password_input, encrypted_content, decrypted_content
+                );
+            }
+        }
+        decryptor_reaction(content_decrypted, password_input, decrypted_content, true);
+    }
+    else {
+        let got_credentials = await getCredentials(username_input, password_input);
+        if (got_credentials) {
+            content_decrypted = await decrypt_action(
+                username_input, password_input, encrypted_content, decrypted_content
+            );
+            decryptor_reaction(content_decrypted, password_input, decrypted_content, true);
+        }
+    }
     /* If password_button is set, try decrypt content when button is press */
     let decrypt_button = document.getElementById("mkdocs-decrypt-button");
     if (decrypt_button) {
