@@ -1913,6 +1913,27 @@
   
   
     <li class="md-nav__item">
+      <a href="../../Imperial/year2/50004/quiz%2Btutorials/quiz3.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    quiz3
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../Imperial/year2/50004/quiz%2Btutorials/quiz4.html" class="md-nav__link">
         
   
@@ -2348,7 +2369,7 @@
 <p>when we meet some certain signals, we trade</p>
 <h2 id="moving-averagemomentum">Moving average/momentum</h2>
 <p>Using the moving averages to identify the direction/momentum of a stock</p>
-<p>Involves takeing the average stock price over fast and slow period</p>
+<p>Involves takeing the average stock price over fast and slow period usually 50-day and 200-day</p>
 <p><span class="arithmatex">\(SMA = \frac{A_1 + A_2+\dots + A_n}{n}, A_n = \text{asset price at period n}, n = \text{total number of periods}\)</span></p>
 <p>if the fast cross the slow</p>
 <ul>
@@ -2360,10 +2381,26 @@
 <p>short otherwise</p>
 <p>Ma seems to be a bit short</p>
 <p>so </p>
+<p><img alt="slide31" src="../../../assets/Finance/lecture2-slide31.png" /></p>
 <h2 id="weighted-moving-average">weighted moving average</h2>
-<p>more recent periods have higher weights, thsugreater influence in the average</p>
+<p>more recent periods have higher weights, thus greater influence in the average</p>
+<p><span class="arithmatex">\(WMA = \frac{\sum_{i=1}^n w_ix_i}{\sum_{i=1}^n w_i}\)</span></p>
+<p><span class="arithmatex">\(\begin{aligned}
+x_i &amp;= \text{value of asset at ith period}\\
+w_i &amp;= \text{weight of asset at ith period}\\
+n &amp;= \text{total number of assset}\\
+i &amp;= \text{sum of all weights}
+\end{aligned}\)</span></p>
 <p>even more responsive</p>
 <h2 id="exponetial-moving-average">Exponetial Moving average</h2>
+<p><span class="arithmatex">\(EMA_t = Price(t) * k + EMA_{t-1}\times (1-k)\)</span></p>
+<p><span class="arithmatex">\(\begin{aligned}
+t &amp;= \text{today}\\
+n &amp;= \text{number of days}\\
+k &amp;= \text{smoothing factor}\frac{2}{1+n}
+\end{aligned}\)</span></p>
+<p>EMA is more sensitive helping to identify trends earlier</p>
+<p>but does experience more sudden short-term changes</p>
 <h1 id="mean-reversion">Mean reversion</h1>
 <p>assume that hte asset prices wil retunr ot the histroical average, or mean, after deviating from it.</p>
 <h2 id="concepts">concepts</h2>
@@ -2372,16 +2409,58 @@
 <li>efficient market hypothesis</li>
 <li>investor behavior biases</li>
 </ul>
-<h2 id="_1"></h2>
+<p>(Investors overreact to merket news etc, A stock's price is reflective of all information)</p>
+<h2 id="how-it-works">how it works</h2>
 <p>rolling averages to determine the mean price</p>
-<h2 id="bounds-and-limits">Bounds and limits</h2>
-<h2 id="z-score">z-score</h2>
+<p>set bounds, if the flucuation went beyond the bounds, we enter a trade</p>
+<p>if the price reverts to its historical average, we profit</p>
+<h2 id="bounds-and-limits">bounds and limits</h2>
+<h3 id="z-score">z-score</h3>
 <p>how much standard deviations it is from the mean</p>
 <p>if its below the mean, its short</p>
+<p><span class="arithmatex">\(Z = \frac{P - \mu}{\sigma}\)</span></p>
+<h3 id="bolliger-bands">bolliger bands</h3>
+<ul>
+<li>Upper band: 20-day SMA + (20-day standard deviation * 2)</li>
+<li>Middle band: 20-day SMA</li>
+<li>Lower band: 20-day SMA - (20-day standard deviation * 2)</li>
+</ul>
+<h3 id="rsireletive-strength-index">RSI(reletive strength index)</h3>
+<p><span class="arithmatex">\(\begin{aligned}
+RSI &amp;= 100 - (\frac{100}{1+RS})\\
+RS &amp;= \frac{\text{Average of x days' up closes}}{\text{Average of x days' down closes}}
+\end{aligned}\)</span></p>
 <h1 id="pair-trading">pair trading</h1>
-<p>two stock of similar type,</p>
-<p>we coudl assume that one rise, one falls</p>
-<p>set a bound, and if the price divergence is greater than the bounds, we make actions</p>
+<p>monitor the price divergence of two highly correlated assets</p>
+<p>The price difference is referred to as the spread and when the spread diverges (greater than set bounds) it presents a trading opportunity</p>
+<p>Long the undervalued assest and short the overvalued, and close both trades once they revert</p>
+<p>use Z-scores or standard deviation to set bounds for the spread</p>
+<h2 id="monitor-spread">Monitor spread</h2>
+<p>We calculate spread of asset via a ratio of their prices</p>
+<p><span class="arithmatex">\(\begin{aligned}
+\text{Spread} &amp;= \frac{P_A}{P_B}\\
+P_x &amp;= \text{price of asset x}
+\end{aligned}\)</span></p>
+<h1 id="drawdown">drawdown</h1>
+<p>the peak-to-trough decline during a specific period for an investment</p>
+<ul>
+<li>maximum drawdown: The largest drop from a peak to a trough over the trading period</li>
+<li>Relative Drawdown: Percentage decline from the highest equity point relative to the account balance</li>
+</ul>
+<p>high drawdown is caused by high volatility</p>
+<h1 id="measure-volatility">measure volatility</h1>
+<ul>
+<li>Standard deviation: widely regarded as a highly effective measure of volatility - it quantifies how much return deviate from the average</li>
+<li>Higher standard deviation implies more variability(volatility) in returns, while a lower standard deviation indicates returns are closer to the average, suggesting less volatility</li>
+</ul>
+<h2 id="sharpe-ratio">Sharpe Ratio</h2>
+<p><span class="arithmatex">\(S = \frac{R_p - R_f}{\sigma_p}\)</span></p>
+<p><span class="arithmatex">\(\begin{aligned}
+R_p &amp;= \text{Expect return(or actual return) of portfolio/investment}\\
+R_f &amp;= \text{Risk-free rate(e.g. return of government bonds)}\\
+\sigma_p &amp;= Standard deviation of the portfolio's returns (a measure of risk or volatility)
+\end{aligned}\)</span></p>
+<p>the amount of return per risk</p>
 
 
 
