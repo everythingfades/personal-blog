@@ -1079,6 +1079,27 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../50001/lectures/lecture5-Deque.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    lecture5-Deque
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -1129,7 +1150,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../50001/tutorials/tutorial1.html" class="md-nav__link">
+      <a href="../50001/tutorials/tutorial1.md" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1155,6 +1176,48 @@
   
   <span class="md-ellipsis">
     tutorial2
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../50001/tutorials/tutorial3.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    tutorial3
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../50001/tutorials/coursework1.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    coursework1
   </span>
   
 
@@ -1589,6 +1652,48 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../50003/tutorials/lecture5tutorial.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    lecture5tutorial
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../50003/tutorials/revisionTest.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    revisionTest
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -1855,6 +1960,27 @@
   
   <span class="md-ellipsis">
     lecture9-memory-management
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../50004/lectures/lecture10.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    lecture10-device-management
   </span>
   
 
@@ -2492,6 +2618,74 @@
 <p>Change process wait to an infinite loop. (At this point, processes will execute but will not exit- being able to run individual tests and look at their .output files will be invaluable.)</p>
 <p>(nothing will work until here)</p>
 <p>Start implementing everything else, beginning with argument passing and process wait(). This can be done in parallel.</p>
+<h2 id="vm-overview">VM overview:</h2>
+<p>so we got a PHYS_BASE at 3GB, the total memory is 4GB</p>
+<p>it is similar to the linux 32-bit VM in 50004 lecture 9</p>
+<p>so we have</p>
+<p><img alt="VM" src="../../../../assets/Imperial/pintos/VM.jpg" /></p>
+<p>when we try to access a data, it checks the page table and retrieve the part from the 4MB memory</p>
+<p>User VM is oer-process</p>
+<ul>
+<li>when the kernel switches processes it also switches use virtual address spaces</li>
+<li>stuct thread contains a pointer to a process's page table</li>
+</ul>
+<p>Kernel VM is global, pintos maps every physical address to kernel address using a fixed offset(PHYS_BASE)</p>
+<p>the user program is loaded with load_segment() (already done)</p>
+<p>in reading and writing, the MMU maps the memory automatically</p>
+<ul>
+<li>is_user_vaddr(): just if hte provided user virtual address is below PHYS_BASE</li>
+<li>pagedir_get_page(): looks up the physical address for the provided user virtual address, return null is unmapped</li>
+</ul>
+<p>alloc user memory</p>
+<ul>
+<li>palloc_get_page obtains a single free page of memmory and returns its kernel address</li>
+<li>Useful flags: PAL_USER (user pool page), PAL_ZERO (fill page with zeros)</li>
+<li>install page() adds a mapping from the user virtual address to the kernel address</li>
+<li>writable flag controls if the user can modify the page or not</li>
+</ul>
+<p>free user memory</p>
+<ul>
+<li>pagedir_clear_page() marks the user virtual page as not present in the process's page directory</li>
+<li>palloc_free_page deallocates the memory</li>
+</ul>
+<p>page faults:</p>
+<ul>
+<li>try to access kernel VM</li>
+<li>try to access unmapped user VM</li>
+</ul>
+<p>for the process_wait, the recommended solutions is to create some third party stuff (intermediate SQL tables for relations) to check parent and child, since we have no idea what the child process may do</p>
+<h1 id="coding">coding:</h1>
+<p>work split according to https://edstem.org/us/courses/67157/discussion/5600476</p>
+<h2 id="my-part">my part:</h2>
+<p>subtasks 6 7 9</p>
+<h3 id="subtask-6">subtask 6</h3>
+<p><strong>Implement the write() syscall for STDOUT so that you can see printfs from the user programs.</strong></p>
+<p>when the file sys is not complete, we only need to take care of fd 0 case, the spec says it a putbuf call</p>
+<p>so we do</p>
+<div class="language-C highlight"><span class="filename">C</span><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kt">int</span><span class="w"> </span><span class="nf">write</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">fd</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">buffer</span><span class="p">,</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="n">size</span><span class="p">)</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="p">{</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">  </span><span class="n">lock_acquire</span><span class="p">(</span><span class="o">&amp;</span><span class="n">IO_lock</span><span class="p">);</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">rtrn</span><span class="p">;</span><span class="w"> </span><span class="c1">// for the final return</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">fd</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">    </span><span class="c1">// write to console</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">    </span><span class="n">putbuf</span><span class="p">(</span><span class="n">buffer</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="p">);</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">    </span><span class="n">rtrn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">size</span><span class="p">;</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">  </span><span class="p">}</span>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="w">  </span><span class="c1">// else {</span>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="w">    </span><span class="c1">// this still needs to be implemented </span>
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="w">    </span><span class="c1">// when the filesys is done</span>
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="w">    </span><span class="c1">// subtasks 5 is done</span>
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="w">  </span><span class="c1">// }</span>
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="w">  </span><span class="n">lock_release</span><span class="p">(</span><span class="o">&amp;</span><span class="n">IO_lock</span><span class="p">);</span>
+</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span>
+</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="p">}</span>
+</span></code></pre></div>
+<h3 id="subtask-7">subtask 7:</h3>
+<p><strong>Implement full argument passing and stack setup</strong></p>
+<p>the arguments should look like this:</p>
+<p>bash foo baz</p>
+<p>except the first filename, the rest are args</p>
+<p>I dont want to do the argument splitting when we recieve the params, lets do it in the thread creation</p>
 
 
 
