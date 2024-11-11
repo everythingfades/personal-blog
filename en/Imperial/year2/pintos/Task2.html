@@ -221,7 +221,9 @@
           
             
               
-              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" hidden>
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
                     
@@ -1171,7 +1173,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../50001/tutorials/tutorial1.md" class="md-nav__link">
+      <a href="../50001/tutorials/tutorial1.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2845,7 +2847,9 @@
             
             
               
-              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" hidden>
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
                     
@@ -2873,224 +2877,27 @@
   
 
 
-<h1 id="pre-requirements">pre-requirements</h1>
-<p>Task1</p>
-<ul>
-<li>No task1 code is required, but need to fix scheduler big bugs</li>
-<li>can start with fresh code or build upon existing code</li>
-</ul>
-<h1 id="files">files:</h1>
-<p>everything should be in the userprog directory</p>
-<p>src/userprog/process.c</p>
-<ul>
-<li>Handles loading, execution and exit of processes, set up the stack here</li>
-</ul>
-<p>src/userprog/syscall.c</p>
-<ul>
-<li>All system calls</li>
-<li>it just exits at default</li>
-</ul>
-<p>src/userprog/exception.c</p>
-<ul>
-<li>Contains exception codes</li>
-<li>may not need to alter</li>
-</ul>
-<h2 id="important-files">important files</h2>
-<p>src/userprog/pagedir.c</p>
-<ul>
-<li>pagedir_get_page() is used for validating memory references</li>
-</ul>
-<p>src/threads/vaddr.h</p>
-<ul>
-<li>is_user_vaddr() is used to validate user provided pointers</li>
-</ul>
-<p>src/lib/string.c</p>
-<ul>
-<li>strtok_r() can be used to tokenise strings</li>
-</ul>
-<h1 id="user-program-in-unix">user program in Unix</h1>
-<p>when <code>cp -r /usr/bin/temp</code> is called</p>
-<ul>
-<li>the shell parses user input</li>
-<li>the shell calls for() and execve("cp", argv, env) with the stack set up</li>
-<li>cp process, uses the file system and might print to the console or returning a exit code</li>
-</ul>
-<h1 id="execution-in-pintos">execution in pintos</h1>
-<p>when <code>pintos run task</code> is called</p>
-<p>in src/threads/init.c</p>
-<p>main() -&gt; run_actions(argv) -&gt; run_task(argv) -&gt; process_wait(process_execute(argv[1]))</p>
-<p>in src/userprog/process.c</p>
-<p>process_wait(pid) suspends caller until process terminates</p>
-<p>process_execute(fname) -&gt; thread_create(fname, PRI_DEF, start_process, fcopy) -&gt; start_process(fcopy) -&gt; load(fcopy, &amp;if_.eip, &amp;if._esp)</p>
-<h1 id="requirements">requirements</h1>
-<ul>
-<li>termination messages</li>
-<li>arg passing and stack setup</li>
-<li>user pointers and safe memory access</li>
-<li>system calls</li>
-<li>filesystem interface</li>
-<li>process waiting</li>
-<li>denying writes to executables</li>
-</ul>
-<h2 id="termination">termination</h2>
-<p>whenever a user process terminates, print the name and exit code</p>
-<p>but do not print when a kernel thread that is not a user process terminates, or halt system call is invoked, and dont print any other messages Pintos doesnt already print</p>
-<h2 id="parsing-arguments">Parsing Arguments</h2>
-<p>parse a command line string into process arguments</p>
-<p>just call strtok_r() in lib/string.c</p>
-<p>call this anywhere you load the process, recommended in the process_execute()</p>
-<h2 id="set-up-the-stack">set up the stack</h2>
-<ul>
-<li>push the arguments onto the stack in reverse order one by one</li>
-<li>push a null pointer(0)</li>
-<li>push pointers to the arguments(in reverse)</li>
-<li>push a pointer to the first pointer</li>
-<li>push the number of args</li>
-<li>push a fake return address(0)</li>
-</ul>
-<p>use the hex_dump() in src/lib/stdio.h</p>
-<p>in start_process() once the interrupt frame is intitialized</p>
-<p>so we have something like this</p>
-<p>if for <code>cp foo.txt ../bar.txt</code>
-<span class="arithmatex">\(\begin{array}{|c|}
-\hline
-\text{../bar.txt}\\
-\hline
-\text{foo.txt}\\
-\hline
-\text{cp}\\
-\hline
-0\\
-\hline
-\text{argv[0]}\\
-\hline
-\text{argv[1]}\\
-\hline
-\text{argv[2]}\\
-\hline
-\text{argv}\\
-\hline
-0
-\hline
-\end{array}\)</span></p>
-<h2 id="handleing-user-pointers">Handleing User pointers</h2>
-<p>if a userprog makes a system call, dereference the pointers used to pass arguments</p>
-<p>deal with Null pointers, pointer to unmapped user memory, pointers to kernel address</p>
-<p>if met, just kill the process and free the resources</p>
-<h3 id="implementing-safe-memory-access">Implementing Safe memory access</h3>
-<h4 id="option1-verify-before-dereferencing">Option1: Verify Before Dereferencing</h4>
-<p>Verify each pointer before you dereference it(simpler option)</p>
-<ul>
-<li>check if poitner is in user space</li>
-<li>check if the address is mapped</li>
-</ul>
-<h4 id="option2-modify-fault-handler">Option2: Modify Fault Handler</h4>
-<p>Only check the pointer address is in the user space</p>
-<p>invalid pointers trigger a page fault when dereferenced</p>
-<p>task3 need to do this anyway</p>
-<h2 id="system-calls">System calls</h2>
-<p>allow users to ask the kernel to execute some operations</p>
-<p>implement the syscall_handler() in src/userprog/syscall.c</p>
-<ul>
-<li>Syscall arguments are passed to the handler on a interruot frame</li>
-<li>read the syscall number at the stack pointer(f -&gt; esp)</li>
-<li>Next, read the argument above the stack pointer</li>
-<li>Then pass these to the suitable function(syscall-nr.h)</li>
-<li>return the result to f-&gt; eax</li>
-</ul>
-<p>recommended to implement with function pointers instead of ifelse and switchcases</p>
-<h2 id="filesystem">filesystem</h2>
-<p>sys/filesys</p>
-<p>do not need to modify</p>
-<p>should not be considered as thread-safe(task 4 in stanford original pintos)</p>
-<p>ensure mutex over the whole filesys when modifying files</p>
-<p>(no finer level of synchronisation is expected)</p>
-<p>STDOUT_FILENO for writng to the console</p>
-<p>STDIN_FILENO for reading from the console</p>
-<h2 id="process-waiting">process waiting</h2>
-<p>the calling process blocks waiting for the child process, with the provided tid to exit</p>
-<p>managing the mapping between the file descriptor is part of task 2, but recommended implementation is to use some 3rd party stuff, alot of cs means it is freed</p>
-<h2 id="deny-writes-to-executables">deny writes to executables</h2>
-<p>code that is currentl running should not be modified in-flight</p>
-<p>use file_deny_write to prevent writes to an open file</p>
-<p>use file_allow_write to re-enable writes once the file is closed</p>
-<h2 id="suggested-order">suggested order:</h2>
-<p>Temporarily set up the stack to avoid immediate page faults.</p>
-<p>Implement safe user memory access.</p>
-<p>Set up a basic syscall handler.</p>
-<p>Implement exit syscall and process termination messages.</p>
-<p>Implement write to console.</p>
-<p>Change process wait to an infinite loop. (At this point, processes will execute but will not exit- being able to run individual tests and look at their .output files will be invaluable.)</p>
-<p>(nothing will work until here)</p>
-<p>Start implementing everything else, beginning with argument passing and process wait(). This can be done in parallel.</p>
-<h2 id="vm-overview">VM overview:</h2>
-<p>so we got a PHYS_BASE at 3GB, the total memory is 4GB</p>
-<p>it is similar to the linux 32-bit VM in 50004 lecture 9</p>
-<p>so we have</p>
-<p><img alt="VM" src="../../../../assets/Imperial/pintos/VM.jpg" /></p>
-<p>when we try to access a data, it checks the page table and retrieve the part from the 4MB memory</p>
-<p>User VM is oer-process</p>
-<ul>
-<li>when the kernel switches processes it also switches use virtual address spaces</li>
-<li>stuct thread contains a pointer to a process's page table</li>
-</ul>
-<p>Kernel VM is global, pintos maps every physical address to kernel address using a fixed offset(PHYS_BASE)</p>
-<p>the user program is loaded with load_segment() (already done)</p>
-<p>in reading and writing, the MMU maps the memory automatically</p>
-<ul>
-<li>is_user_vaddr(): just if hte provided user virtual address is below PHYS_BASE</li>
-<li>pagedir_get_page(): looks up the physical address for the provided user virtual address, return null is unmapped</li>
-</ul>
-<p>alloc user memory</p>
-<ul>
-<li>palloc_get_page obtains a single free page of memmory and returns its kernel address</li>
-<li>Useful flags: PAL_USER (user pool page), PAL_ZERO (fill page with zeros)</li>
-<li>install page() adds a mapping from the user virtual address to the kernel address</li>
-<li>writable flag controls if the user can modify the page or not</li>
-</ul>
-<p>free user memory</p>
-<ul>
-<li>pagedir_clear_page() marks the user virtual page as not present in the process's page directory</li>
-<li>palloc_free_page deallocates the memory</li>
-</ul>
-<p>page faults:</p>
-<ul>
-<li>try to access kernel VM</li>
-<li>try to access unmapped user VM</li>
-</ul>
-<p>for the process_wait, the recommended solutions is to create some third party stuff (intermediate SQL tables for relations) to check parent and child, since we have no idea what the child process may do</p>
-<h1 id="coding">coding:</h1>
-<p>work split according to https://edstem.org/us/courses/67157/discussion/5600476</p>
-<h2 id="my-part">my part:</h2>
-<p>subtasks 6 7 9</p>
-<h3 id="subtask-6">subtask 6</h3>
-<p><strong>Implement the write() syscall for STDOUT so that you can see printfs from the user programs.</strong></p>
-<p>when the file sys is not complete, we only need to take care of fd 0 case, the spec says it a putbuf call</p>
-<p>so we do</p>
-<div class="language-C highlight"><span class="filename">C</span><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kt">int</span><span class="w"> </span><span class="nf">write</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">fd</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">buffer</span><span class="p">,</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="n">size</span><span class="p">)</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="p">{</span>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">  </span><span class="n">lock_acquire</span><span class="p">(</span><span class="o">&amp;</span><span class="n">IO_lock</span><span class="p">);</span>
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">rtrn</span><span class="p">;</span><span class="w"> </span><span class="c1">// for the final return</span>
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">fd</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">    </span><span class="c1">// write to console</span>
-</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">    </span><span class="n">putbuf</span><span class="p">(</span><span class="n">buffer</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="p">);</span>
-</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">    </span><span class="n">rtrn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">size</span><span class="p">;</span>
-</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">  </span><span class="p">}</span>
-</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="w">  </span><span class="c1">// else {</span>
-</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="w">    </span><span class="c1">// this still needs to be implemented </span>
-</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="w">    </span><span class="c1">// when the filesys is done</span>
-</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="w">    </span><span class="c1">// subtasks 5 is done</span>
-</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="w">  </span><span class="c1">// }</span>
-</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="w">  </span><span class="n">lock_release</span><span class="p">(</span><span class="o">&amp;</span><span class="n">IO_lock</span><span class="p">);</span>
-</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span>
-</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="p">}</span>
-</span></code></pre></div>
-<h3 id="subtask-7">subtask 7:</h3>
-<p><strong>Implement full argument passing and stack setup</strong></p>
-<p>the arguments should look like this:</p>
-<p>bash foo baz</p>
-<p>except the first filename, the rest are args</p>
-<p>I dont want to do the argument splitting when we recieve the params, lets do it in the thread creation</p>
+<div id="mkdocs-encrypted-content" style="display:none">1uiX5Q1W17gNnTP9FBH7ig==;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</div>
+<div id="mkdocs-decrypted-content">
+    <form id="mkdocs-decrypt-form" class="md-content__inner md-typeset">
+        <h1></h1>
+        <p>Legitimation required.</p>
+        <input class="md-input" type="text" id="mkdocs-content-user" placeholder="User">
+        <input class="md-input" type="password" id="mkdocs-content-password" placeholder="Password">
+        <button class="md-button md-button--primary" id="mkdocs-decrypt-button">ENTER</button>
+        <p id="mkdocs-decrypt-msg"></p>
+    </form>
+</div>
+
+<script type="text/javascript">
+var encryptcontent_id = "encryptcontent_4";
+var encryptcontent_path = "en/Imperial/year2/pintos/Task2.html";
+var decryption_failure_message = "Wrong user name or password.";
+var encryptcontent_keystore = ["GI3Ov6EksQNy14TRTSdbqw==;vPkcDzyU78oQOlOGVug0FjUz90HwA1Mqo48dymUsdCJ2m7QnCQ8UVy0PFlM80z35zdVq+8id9YRoLw7aas/oVrTipAcSQq2Pr4jmEVXshIdLZGay19Gu5YfcC6UpLrnudx6z+3PjQ9Nz1mnaUYID/MZqXF2x1tDUQwBmwGImhlH0kDlzHhu0cJsLJ1eU2dtzQZ0Cd7tTZQxJpmWbYYdhEvXVmcECwpx5Grqsi6zWyFarc3CvohEhXY45tKjvNgT4Z0NU6IM37oZdS/wJeBATl0n+yul8C7U8A8EZGZ47Em/RpN6NRRwQlnEbB+oOw4DPapt3H9+3pnLL/wDvZjnaZEaQRtkXKZ26JoblKkOyEss9U2IzXih1mJQh49Y0sHZkuXIkjjtLFKMm1UfnWnPmT8WgDjR53Tgn9ASmg4to+A8GnSg3wfdyArUv2K2F4nXeq0ezCcXVojoSYxH0/7fzPaTOh7b2AjgLKk/lZZrw1NhTh7wWKQqOyjJezd7KYBOBGBOuHHm3sXZkwL6qKIsh1gpmTdm19y8MRWU0d3SjWUzomDP/rydyFrnbVSY9rNt/UuXf/s+NqxNpiK6X75A5hkqaRteOLjLE9Jldor4FaUq0nlyrCzvtNr/zkIh39fbrgI8UjCDHA5Ww7yiDd7k2UuWToVM80SMhLTV9ggxjpl9s6QZ89Z5tfpXsA1zPaWqVNFsy15hhGdXlWepxbejgTRzCvKFx//Me7MEK5MAn/lbBjCO6i8hTMWcmECeWYv6tPzSIOsWQDGXNcTGguhuSIFRP8AT8nqaVx9mtSL2KKAW/yvT2z+0AtN5izWR2qKNKtegY9KhuYDLaM2v4i9YBL9LrsQhACq9cmUs3bvEfLb5tZJ09/jU84Rn+B8eDifL/NFgIpklhtw5xPJOn0tylKIPxOqZbVKx5ipewHLMH7Fn3M0XR8tDDTiK3uIN2MuPR9ciP0fA9Mt0TpV8AbUQ4u/AZynR8DKmWPers2cQoQIyBaxmXJjqp1GUtNEK3Gn7YTy5tgGeTjaxk+GzFXXIyMZPQH0nsWgisAGBI0+PQNa8t1q35psnwlahJwhAypXqrnvm4X+rTHjiC8+8L0lxpJte/x2ucIl3Q4BvjSfCdIplFBDkOdUkqS7/41rCZg2zHUELMce1Sf+0s2DhmerD2UcpEWRFAQ7r+/m6Iyaom7n0=;2pqpGrnIQ2xBjYA5MQuPyw==;6CDjRrtkgYPmjY2MmYw7WfnmQaMQ1doxw0c6KycSLXM=", "n0ccvU7Nq2uS4LaPaD54qQ==;xsfQ0T9jPS5eOZVWJoahds3+0RKxQAQma+YkWnNX/KEiqIa0yGKqrIji9pS3xOrcpRptojL4mHenz+S1I2ezf+LScCKOdP8f//tgfBUpPYtpWOdmpzxVvwfg9dwCBnkbs+NqNRFpp+FWY+3IOhSMIwAdJ12cXV55CYJs3La2zydmvr8hld8jc2+jPOk7rOScRPdIfi21JnlL2S8kN7Nu2yFbmwVi5jIr8WeoBoh8C06TSTdWpxRGU3AZosxtvnNndCWCzi6fTSAinUMu2F/NHXnZD5wNRilKS79ekS8bA74JHHpX52EvX+fNy68ZzJQEupLmp/+jEUD4DUTBaKc14FcQ4Bx8gd+xtMObsvYXLFEnd0iZMqrU7y5Lb/9t7OZD4TCqjVi6tD4hxK7kCv+eBx2wnF2xakYmgZMS7G2pFKxRQ3iPODojwZpoyApBGQAhKuq+jibca08tppDrf3+hUCAusWYJ2TmNLnNVG11gyYv94AUf9nBbqAvh1DwYb/FFDDw9ArimCdgenmlD9LT4aU7/4ldY9kZiOwDAgKTLfw8iK4KjBEyJbHrrLJ4r0Cqb8NAmBqRqVvyZPidKoN16wnz4yN8uGSoF76/1VnzkVZDm8e09fB6b1u0jxDWkdVpQAozS82ND+OoGEA7UW/mBq8Iew6wQWXC282RMPTLvsFWFA59LnLoC37faKF8bQLukxmeA4m38rBXsW0eAdo5DTwcxkEwQ18L1FcC11mh3qMDKsuiJdms7qlz6bUgBvf/OJ9jb+nma3XrPp1Gef9vdmjt8LM3IA//RDy/mSn2e9Oc1P9WLOiv8TPPYlRplRfaZB19Brxw9XHPmd/btrUZSYFd619K8DHsNZi/KXwYuwaYNhZMnexJUGTSDluhueK3/4YH3S5sSg9fz2tcu05jRq28Zmzcplf3/60IkgpAwIxJ63pd+yEXfN94NTl2VCarzMdEd1IKnYvtLxWXQtfYQDs5snHrTWuRpnqjNEZZB1F2/VdzvxubRTF+Xhg2nhGG2imqzHxYsPlIIQETwv62gO+2ZFENf7i4YKPGGui/BCYUa+HqSdxlQd/OFJP9NQmD8TCqStOXsMyYWDg1DEhYDsKgOBWhi7x3M0jm7pC7IpaVEA3TqgJTxe4H1CWOHclpYan1YqKYJpt+P/VwdW/vYQqwUMduDW73V99mvQasXnWg=;XWDEWgFRsmuT82tlVTCMBg==;jGl25bVBBBW96Qi9Te4V37Fnqchz/Eu4qB9vKrRIqRg=", "v528hIN9rpEqFYBf6yEoEw==;4I/0qjqG4Gr14/kx+t6pWYkLQyifmFJuhXTCIaGvdvkCHii+ZA4eDeIPJfpjBgvS9uJ5voi9T6im+q/H0rdHr97zJhwo7eSi43hYM7glsu3zLvHpRYGnD4kKSH27FDeF2BcBT4BPOLz23u+J7kGUkWSXq7wnQMZxNiMeqHz00ZYZV2GSnWgS0uEc9DPJ2scRitmpmfekpaxjrVkKzUR7GrQ84bTNTnA77ldA9oW00NC35yZ3sCCYurTrzqRDxvJ9YuK+/EO3YUxOegD0DyyQrFNYdku3BnEFPDZE9uo44BsSjADe4RoaQitCdurEGVu04lY3wDKvbsb8GEo9kYb0pGoH7tID/OhrJWSaTDpOxD2w4iBWUXUrrGrUg0qaD6ukIDx5u2DSd4a2IzznhD7QJeXvhq2YMvF+ftYrEZ8zr4+h8iI/F6lmRTt6sDQx/2SOTA7w2cnlx3rcegVpgGhSOsovKMpAN96etocMMinMTtMcs+hYxUc5zUIPUpfgSv69y6OEvJybTgf+ZQJjG9azUytqA7XOkAZ6yzs6lNLUyDdDnUNc8TmqBxJWL5aWCGHpRGA8x3zpC/m/4i8EIx+gCf1IDAdA2v1HtYQE1w+s2V2Hpq84KIilq9rsRAKColh/DiJU/zmHK6lXj1thKqJb7hegk478+5uZNBX9rGi45lN3kxvon7rtCI9JsSADsp37Yod+bCKinCF+UmvjMEArj6onpXoQwvKkK8VGRjuOqnm7isCEIAGwVH35Icm/KUOqUVPCKg/z+4rD+koYyL+0VVcPhihXdehHCvTM6OKnls0RlRGoNERopm2qXJKfaTu4knUUh1qrW0YpA6MJtJC49S60UAA8qBLKfS4fum+x+zLWexIeD18d7aoJwsduCGqYCtLiyg8wk88PmN8Timk+AAgnlQyDm2d0NM4usvHgwz5T9/mu5eqaGneoaQ2zSrFGyDLrF/JrTdCeH/zA0Ke2xsQuZJPrMfJZLVoe5nbZvN/E2y80lXFpN8wC+SFDYlZiM/RtBMRfG2gOMt5sRnb4ErEocv2uMjhiKyEbdIbgH3gk4OFgVktMY3JbAhRFxfPkvXoeNhugoF018+kfyy5l9V01zt1Xkq16MSqs3EMTaGQWplIH0o6X8sXtL+BpP5Mo3AAyiM6gPMn6zd4MYsRDAUk9ghIdE5190Rnp6+h2fBU=;Vt9bL7dT5nvUCB+0dV85xQ==;VmsHB/4WGVIkPlrsrNixJWC78P4PiiXZOTyhgJW0+8o=", "tK0yyH/95VXXFkUnBVMJmw==;QlbAI4DrtfWjKLM7esoK2mrDWJO2IVix36AnW1I4lHYu6TI+GeR5ky9Y9JUm/ECB7ApP3RaOSWa1lt/OqXfkPymOUJLM7FvwXUChhGCdFZtSkEzPFoXEdIhqpoGEJh6v9Ygw/BcdTb/ssRmGpwy2JR0bqrZ5Kx47VmZQiA4dJP5GG5cck5Gt0N2TWQ/RhV0ago2YAll4IGAQHtsyvp3jX+hGgwZKYpk4AS6LLcb/YPtLV39+mMBUxDaSZDjtAZOtvNLXa681uChk5G9B5zE24dLZIhMiLbAL7N272wV4OyXVWxMAkq8D2ZeNhUsIvc3fUinGZ0IvvJU9TcEH3/3vVx3MHkd25M7H8qycv/xE1BhmWRDJIU5UkHYYegPMXbaiOQmji4Tzwun8Vy6WWG2k1PD5X3m8yJTx8TDiIWkQq0CKpYGb5fNiPYeNxspTkXapfEHlfzs2udpRUx2+YoTMQ7OD8W5VOE2AEOZMPgTMQl8+L8B0lR7d8lLcTi64FPAuXKmziy9714NxXETKp/gToh5MclwAOe+ELiHaLS8n4IiEbq7J9AQzIoDv6l/U7xlDUoQBQDO2dKgErdleo6fPwi6rCC5jjrIzM6dE+Kaz4tBpcF6Dr+Nq3XjgCyW/au/Fa6OvdLwWwuf9UZas19hRHNNLbYz2pmvVNcoOVyfbc4NkegX6e/9hhNMjOFp4roagogahOMlUjSIx4Lrk3D2hfCsr/FmcT9pI0+R5E54OAiM1lyF0GuAMwP1S2JfoIye1GExKAc0Y7KtJW4povT+1jItspQXhVhmscQFjp4qGWEgZaFTKbirwtZLUSL8rXq2892On8fYdN0K9aIZ2+atbQboy9dnMjPOOhO5LFZIcibN4Vx5c9d3jP/mSreIS44fAO/mbAMM+ffIp5nLxFzPiXc+NGTDnxd4MKQWyL3xABhCfEKtXslnzDkJ5CcpYHr4bsFUVawf6CB0nYDSNOXHoBC6Y40FACdz2D7q2Axtr2znWgGwZ0WfJerbZHeTxXF4K/VtJTV6wh/g5vQxNgd1glEkEoPKYIltCQeNdoyfrxuVJN8fcNOOkD+vFcsgDMueKofZ6sM3QhNa+eGBysxDFhzxbowDTjefxTJluBYaBSn3TvrvOI9byten7tcBhFh6JOQqqs6ehGbFM+noyI56zoUjB1WBSgbQf7peNB8u3CGs=;KsN5HRyckbuCKOnHHkLESw==;W+KIcFfHhS418P1HTmnLu8IxGD/E1qFxsHvzypJdSfk=", "zyoPT9s34no+5DSiFfZIaQ==;yGD7zag9ZSdA/LNPDRqbWsrCslVAllL4W9Pu8Sc41lOrV5fLOZd1BKZjh6Mzk7Fklqx5Iy/b4QpmA253VqeqDH4sIlKrdMJjtNz1PQ6oE58dRqznr7g8x74RjKlyldQy6LV0ipFtnutcWHS6YZfLFd7NsTJNnx2yXuLRr1jt+rTLR/STIxIKqy/n45lcilo6rudxv/vPqcOV4Qt0Gadnjkg8jHey8yEnGO85TUZ39MYMfuKWkUuX52+pp2HnAd7gHP6bu8Px25DeDkBCn3RihCibdOtv8rYoCn9EoO06xcCzthnXg2jTbwN4OvmAKYcRM/pVdB3GTMZpAnajWqTI/TmmjHYjvK9okYxFBBXk66l8iJrTORVZp0Ly43Kf9hCiUBf3oARQObcfv7KWR2zzvC0Uki+ZENJsR5jNbo+novqQeo3eJ7IBzW3Lb0E8c52kskQRPR8mfkwocGNQHtrqGZXt72Hl7rq2jjcTDvI8ifGKRPrSFhnzlZd9b1pvf0yY+3iBypQCgYCvgx78zZ8vRuLQffQAwRfUhiUH3TGf6bfmrDXlcP48hE+uLfaE4y7qpgZ8++AdRRKK6FVnrWBqUm08ARm7iZuQ+/buhrjIiuoqDza54P6qMGJq4BN++l3ZoQDn+uR7WITmedjoJ/lNwFG8esuIEgonbV/eZgr7fztYhA12IVeNfzMJaZeBoo/GrigYtsHSQwepZXooidUiTOuJK9ykv+HJh96wbQrQTlftW0Gh2TiT8diaUgwvcmRaymnM+heT614xOpJb5bXY9sfH35neKfF+0g7n+5thpf5vfgMSH4NIQJhWMddnkHm/9KRPZGl14x9wrF0kqSkLpibUdSe4slTQPDOY2GRX9l20dg9X1vXX0uTAESuIPDxgyUKVFvtCui2d0gXLfomtqsYVtGggQLPh7LkIv5UchBA3xAvtW3rxHQWO2Y080CaCsIMjmqzP0jcuURcrXmhbf6o4Y1G86BByiCo0bIGOmk1Ce+jCymK0p04THrejggHmvKWXJg7uIn5dmAimm6AVXvE2XVYNW7h8gDnX9OcvN+qpmgfZ8s14JPHpkRrN0f+PrR1Sxui+TvwdBS3kCGTdOHC7YBH4aLncwQukw9B23s/D2J1MtWzfl1pA8j1njvaKbu4cVUY/Q06KF+R5yozqTCTNA4WNU1f0xQ2ieI64fHo=;ezbRexM38gisizOKdMXBoQ==;TmmekmOPHp1YRGk60a7V3sNSPRWIJnfYYibl2s4FuPI=", "AsRTtlsTq977yBsmyW6tQA==;Ee4xeoxfcdoddj35MftWb0QU9tSyCaoiGqxuhD4reIXAKTMRgLZdqZoEAOD856zwkUAA7NnAh1Joqs1BX6qg2FcAKTiGcINevMkRW0LlhuQyjbxPVa8YMokVGBwAYZs6kPKRRofryjuviSOFfdBUqnQW9zdf/YCzsUXyD+dF16YXgjWfGBrOvi4jEPeVSVvcsjD+Zjzvn1t2NDPZfJmUbihk9R6ThiLn5RP6TVdOPkhpjo5KFLKZmeH3MU5TFEzsmQextclj4wAxXCa4mN3eT9MME9064pCuE59raPty1m00vcm+v4RTZlehTzrkj/qflxVDaEKBd6utnut5KXCo3c+Pilh/Gm/P6tZL44uUsGbMGg3jHTym/P+S3xIf2SxIa4vKtnKYE3VxDdQFECL/FY4Cm3vPQ9nq8oNSF/gmdiR5k5UbW+1JnPwcfxeqGq8fA9B/VZXrkrRMc6jnZZCUct3ZSjO/AlKfRtioELSOpFQy0WwJjRIwRRuoHhRPzoCMS7U95a3oimM9aOi80s9nmqseFnANJqSaTOdjTX4FmmlrY1NB4C4I7/2P8lhUcJXVnd/p3c/btX3UP8DVSUaYraBa/Bx+EpkDUI3mT4B5nz9Ew7v9qdR1+CBnnPQ40KsvOefE6e813oS6BNVj0R4adNL73IW496q93g59tyvRg+XDosqNS1+4CYBMTaRiaisCYXy8X5+wC1uAOLOwdGQx6lqpL9ZI1yDjwzJypYhB8mEhyUq16MzWhEk1vB8fI6vtwUh2003qmsvgZAf4a6BM2QhOUiFdvsgQ2wcaSovFJBDSoHdlqp/X14kj75tAAfCHE/sekZDrcRbnyAvr/FEqw1aPO4QY0ELZrR3bPYusMNzkRp86nDQA0iRyP+zsiJ+PIPoXpugwsM0OQ4RXXsORCeSzU0y8qFquo8tleJMkcvyFBgXkp9lzbUg8ctTNEgpJhboc5KYm2kFLeJth9a1hpH1xsF8vEMnP8jKzmtqXW+fPSM+9ow82sjjuK6seW7wP+9VXQY1xhYmK6cSOB1jLuTQcF9hgo5AAzHsB17/xG6H0Or2uaheV0831LGpokjaM22MkzrgHbZFLJ7oKgD1jdtpQjVjhz+OnRtQUE35dcYYtzlNMs63YHiCzNP4YnRkXGXPdyNc2vj2I8cUbHZ52SWSomqYlKgJ6WPtWf8FKZdk=;7ho0u/tD8FVRgx+KRIm/iw==;hNQKFdi0pYr+cqs4Jz0KdxspebJhTOkg0eMCuWz59AQ=", "arxTIiX0Zc0tsjhEfUTEtA==;089BzubGapn9NhGH4VeZJ6y6MQShvUX5p+Fgem7sD58SwV00oUIsGEZlO7AW/C24pRCRr+C6xbdo7JDnoyjgBeCyJqRAOq97ARlxc55BMLnxSmKWs96WmdQe6XiN0Fo4u4HQFLu5ghzvt6jfJ01xTknMepTiBMJqW+AzEPGLNGbYyqiGyQgRPcmUx+cuEsPuoPnB8kIoQzCjftIh2B9k9+nSt3fq6Z+64fd8cPx4CUi3jOw4DwbJ+5awAV2vVo6BrTcLg069uSHwdAoyBOSBNVupinPPG9iyj5SvDZOEmmLbmU7EFlX7vbeHKmU/BDMJF37ZRHO7i0i8Xc0OnZpz4O0a5j5owK+etKbeEQxxjN1QIuirWoMsB1XsICzE6ELt4Jkaf9vIz0xZbZ/wQGj2OhZ4FwJ+BhA+MGH90tLdJ0gGeQ7ScGyixHvW3FOWjZmLmCnWA3c/8P68oK6i9uUBsmi4Ikz9PS1gRbe38VKxWyE2r3li1bPPPwYVZfaLqey6ROKVWUUE+GL2hq/jFQZNfyYT1utcrpLvqj6hg3APhQODkuk7i1MkZipxffJCDbTBdfVBHqmW/L6zg6F8GiTYeW43k+/BuVNOHDy1GtTnhYsyLf3hkBXIhR4nEjyVj7QfjNlFTcTsbybZEHqsh+rQuHMbyvLT7w9ALtzAJPygL9Yd8qtigWAxfjs+N5E9suqrcWrhRRHQBXor4Yh++qjJxuHMCxUEseORBDf3EhZniG4Vzy+8k73MI3dw3zVcmtsael8PlHm3n0p/qKEz7KYN97enXK8qJBKyq09p3C7MPDx8EXkZAFhJSW9KZxce7QJo3aEKkOZcYvF9tbqLV7MN46czBpLVQyJSyosOGOjTB68WcwcOe/LxtQOZJHxVLi0YoEEPLhtm9C6PGNw98+MduYxtZ9mFnPGxzH66fWM23XNXDKQGxF7m+TuCcY2TlxahMbPFdqH+K4rDOnwphaF8mX296+/jNV5P+KtnxzxyfYntw4XMDlZ1askvru9FnsqZqTlr+/i+WyXDutnH2jUhzoBvfBqmrtRY5Gf9CRHu46PbFhVKnnev3/5DnJVwYzlZDUjWBlQz1ov9e5thtP24f2JC6BYiSQEITbN2PwEm1ODPPBuFEpmWlzet8Ea7U+eUjvueeHDg6Xm/ZQ+CRJHl57i4IgdUEeXB9oF2UhxKnYs=;RW8VjDacyuR3DG4SC9Zgjg==;tO+X4LUI+k5TNVms/XN1ZX+KqDbNGHEBer7FGbKdJYg=", "LKtJ8NBsAt402AHFyiOLeg==;mzq0qpXBkFWH+RtC8CU95cg7kGfUhXiyMflFHin8emu4th/bIOMYTWCN9eafRJZvtPj/5b8+IYkKFwnQmbjp+FvmLqljiPJ4TzvJw59G8LjEYEzgBWwG5O4tAXP27dPiVHopf4fulZ9o3fTTdon4UFN9ymiloHoDEHciwP0Dx7zewrdjYHlxJiFKzCgtXkNGp8E4aYSgkFd9iupEfqcJYMjSjZrV7tWZLA1fBboc8PWQ3ffh7F2rw9YK5sRAMZbYaSPVCvN2BxYdJUmwA8sV2LE+FYZBAUVWvJ8TgyGfKPhzWEVEQt4T0hGPc3yOb66r4vGbaGnJ0q/fJ4DY/yr8gwubjy4iW/D4pG+8VWcAHeMrUZ6u+oqEpAo6qrvsGfVjnvzSlcjjZANp2kuUwPSw1xX7zDARTf1JSGeNvJCMa4u/Lge+ygz9WA0giaMSMfOhlaHNq8K1PyEIIY1k/Pa41G2zck61ZHSI8FZfNyZ3GcMOlCoioUe/tseT8wylNDlQNRX55x02q0ebvWLNOAcLu3t0jBjR9PHlN9raJ+c5/Xf/Y8ZVreXPZc8CYlEtoNYCqMH0jXpQyCDIHM6IqLaKZUcUe+DbGDPbH3qPVEEvGp6WKQNuyU+dlJhrBcsCXTPK9yML/7SZCDiZnbuu+F6nrrRqZ91raPH7VT+j0NtX+h0oXO1n1UQSl/rskYPhbawS7mMBDyadn/3S52u14RBIAMFQJIyjaow0J6cwNjyuMXj9DLYr9XhGQjyY/1PLEnIyTYOcUoC1JwGv+BgIKjMgizl6kpTPUz/RtoSzBbGLLwYDsVw6Bm2zo85YTZYy2FrC7IQTPIUVU49MziQxn3/EgixnmsnLXAO+MsaTgThDi/dVAmTqy3EzY0ddzEW5040bFgSJOmhJYducYDWKkS/c/VfCSUrwg/YTjzBz/frZjJ8Ir2i42WUyn3Qkvmo7xGKmpAn0DKRXpwACakav0CQJD5kWnjRwPiemAb54og+KCg6tNeZNrDlxTl/Agz5SiSe4ZkB1un9iFrUvEG+I4w+e/D5KdUT9AqMCGDq9L3k1ihLn0VJSD+vnEvZVRXEf6X/WdmPFP25P9avIw8j606LS/fHJVwHEhhmDACW7DHjVI4xr21u07Bj5wAd4ZHEZBNOClDoMkVyo8ujH+jOv/kGsZIvgcNtR6suAFGDiNJdwtXs=;Z3QDBOmixjv34b8uwz0tTw==;AF2Tv4fZ7DD/BaQGxgeffhHUfd9wJbXiSTJ8vRt7bN8=", "UM079yIh2A5P/EJPf0mTcA==;e9F9gTkvKrWSIpMquYELniJH2o4l8lFs4HgramGugVsLiaoq7jRcDqGeODVTd1K5givpu8frb4CJwSn2LAxjUclSlgVa7y/hNcL1jv6OSCk9VV0RyjAnQVyGuGuWG2VVXir7RALLGK59wUz8mwb1YUAk/oJVnc6nyeY0IZtVxWq0+atcLfvuskZMIHqyRbJqXwaRqD1MRudCnexId/OWgs2HxWiBQk/GBX4c7M3wTpJ6Sy9PCHnmBjEd9UOVdaXY4RPa7tMkYNJ0nDeKKUQEpcTAduTQjW/8G2fLHw3w/xwkOtLauvBRgcCw0JeH0kbh4gU2wcmPGqvpL4F1c6/inCRQkIZYoWFp/8P4G5YrStRzpqxh47SOSX9sKJGiM0xbDd3zl1FrtFQzWPdrL0h86VrfCQGgn9OMazJR1EyyqpksOVWGW0EbvAsxvRlMG3oVL/SHdPsxTK70oFyxl1mQKEVR+H9lKKRIYZPIwYAgeBqWCCU8naPkj08QvSCez2lkUjhicKFRPAd3pGLw/MmDN/sca5PaJSDKPT8RzlSFS+NpdoRSIq6WgzrEAJYKaOv/sLmSSFQh9Do3MtND5cscHvFbvCHDLolp1APbN0oVTXKqRTEBLHO0NvsbCQpJiH+04ttBCFj4eA8qV8byyb8FXzFOU9HCXoQFpLam3TB14EJYnJ8ZMR53ZDdS1JG2O9Ogt1T60LCPI/fRmtho0QvgTxJBeSr3+cxdks+8H53Dm4ZCY51LaNXdehgi/YRUANlBhcdkmWND6/djEOItMPvp85una9u2MO8FhPOcebuhQgzBbrtlzHn5c8FB+7ifag38kfpLO10JCCZ+eoK/r/PerEXHdKSNsb2gZaHuuxrQ8aycIEnwb6NCRqQfFroCzCLCIDfupUHG5P9w8DCa2XiwtXbuhrtWPRTGU5cPb1gMTzfM4KvZvUb9EXfS78ZaBg9RQYrGhwMGonvdlLagedbDDA+Z8du11MkDLT2B3xSzBfD5d2bm1ygwQlpkx5f3pTNhgN1Ms6EZMPQ+vzXXqiDBO1bg8rIvxhkVRD/Rp+JU8RD9mvynZhGWrlI23EGFDeGpx5+x29KWAnziXtvbdUFSOAV++aZ7UiLaH7PyVL93eQU5AU3ac3u5knyAtmm1BuqB8xZngj0UzIct8O5X7Dp5rsvnd7iZqLVgmNCT72koutg=;ap3UBPWh6ZrVZbdTQBXp+w==;5+MP8tk5AjToLhwBfoS8zjSqB2guHAB/LK99DmWWQP4=", "VkoMQ2SILvkiSjyFVNHUjw==;l19dUNhb4Xby0GTb9lxOU7Laiqw2ePYNAxcEVMnl5c3EAwl43Tf1/8to947iBk9wlPYFjcGXShJChz9u8a6oBbHd1XbXjuXBrpj7s/DKOXqtGedqC8bZgvO+Tq3ale+j7M3UzqypT2Lg6b/O0xVSgMTkU3PcXMYejYXvlos81ruHVPxD4w8blkJOwH+GMfMXGqiunWXnQXTw7FZLCBT2SCnzw/xC6tSql6UjyPbaYSB/xX89cmkkcGGHF+Cv4+Atcugx6QQ2G1DVeC27QcW2379E/YKOwYNUd8mH2/kUEhNovD7fwsqT6bmxGWQ7YPRCPgt+UHPBqWk7RE4NYNLhIZ14aSkWVG7ikkshb2v5kqWzZQX8VprWZGXIdVq5BEo88vwMSOQA57h2ZsnFHTVVQBeqtaRSgJpWtzV5P9IOr/MnPtS4U6xSP62NskGt03M7xjYI2EcONBmw0s3wkUMic1lwWzrU/ZbP7fPw2PKWaaWe6rEFWNyjAePoaU6tN7rHShjUsRC57WptI09A/mQZZm90WfABVZgriVmPP5PFJQIKYl/qlmjLKhWLyIeSkoPKe/vQDJ4m2ghUgjr31qw0mHa3QGVWIC/zV7PVL2SqHQP3t3emsyggbg36GrFINuIkEk/2Kf0q9sXrD90DFn96aLsY5tqAbR5OP8bNdGi4xcE7ijePe8XuzJBlYPV8P8gkHj60lwhNs3HDgdiyE9xPAOBiAfIixjKd1lX/VwGci49kCztBvxENqbfoJDDqNpGSbtlQePX3ygOJeqKs49Ys8uptCQHLAm2iijhnNQkgqyBYuya8mmTZ4i8V8dd5KA6a1SRm33y86X4pzDf4X2eBO5/2siC2OCfY5lF37iOvUE3wiG9wzu4+IUSvMNEtNr7KqNxXRhk5dli/jciyv7l/acTJCkWzTWCjkvz9sGyyLOGU4Wn1/PV0FLAaMIvdr94y/s7OiHx/64q7/6rpVApuyJ8MDgPnn7dQMyJ7hB5U71ulJ8i7AojkB7NHlAgxwzzh9JWsvx4nPkYS2sWwKyajvdXKlI3S+KqPH0pDAeiUrnYfmEkF3qy0IshHyUiZtDgxSDlDfWGgldbSfgbArPFHc1tX1vhH0DSdBWXs2ZCsOwplibmRXcPZsX4/mdDoFbK+gDI11zgsWs1hDjN2hNpygz8JlsyoghUsHbIcpFWo2R0=;xcMi/A36ucnuHaZdv4t3Aw==;AF2Tv4fZ7DD/BaQGxgeffhHUfd9wJbXiSTJ8vRt7bN8=", "MLWcOjvA9OVhQGmlh0hpTw==;6IMzFZpFti9axo+BQnMNJdwaTfEUmguPBATBgfQ84w3MfRWTp6+z/sABP1X1esCF07f2msYYphhtuiOUNU3XZC+Fokqlzl9ZLDymM3pfzaNszJ98Y8Clh7LidcF5M3N13L/Q6FTU3olrrVvdo2ZIJRhjbK1lhlP84RETHRi5GC/IjcVuLJNaxyjAFCC5d783ztIinVPnq0N+ZubEt6B/lgCJuIn5NMciqA6pGNLJEv1dl00VzGiPsWIQmIZSM9IX5aSkqHxaz/Jkg0YSuFfmy0Z/3WXy5yUrgDSthBogVrz+PQMDSO/sm93hxxPHqQ62192bkkrBuPANt/yx7WLt8dtkbxBewxE5DWWpOOCpxBQGwM6Wo4gWfbX6PBROllYUdo/+mp7hhk+Ed3V/NdWIvz2u6HybyZFskoaHlhVH9XCAVJDXjh+fcacJvCIsmPWWdsvliMe/NfShI8e3mLdddZ+3YXqXaQAdIrJCG4SKP/OOPbxYvFo94uFG0PaFTqOVwrcHMekgh55EcH4Q/fQkltEvZ8ukq9hOTWUDv9Q2bb+n0K+2XVzUlkUn6QgiOLuGsJh3nQduAKuvHrmrpyTViPLuPjLp+25V+6C34EWV9Z/2KoVrowlQyLPU4PUPfTJhKPo5r36xVl94pfYzdPsUSgX00KVfEEMPPf9LhHNF/iz0kLFLwoZx3XMoAFAahGyLAWjyG+wCPrg+aFiith713Wc0gPba9ANjQSGR3NvZErdkc0MtJ8EcDC/SMAbhOpLaUW9fxPippYZEglDaIyRt8biNZc3dIJDhw7TJek9KSnuRt/xpvtSC3caj13QYiIo5uWxtIaOqNWI3N6lSLkSvud6lkycFF2tYJMpkxBBONx4+i0MtHEgbnMJqygLbJ50Vitnh17i5I7RGK5PsR7HeAECB6BV5+DdL4SpVm29mwSjbo2LrsZdIUNUtxj9bf4c9NeCre7YS1Hq8y2CwtHqHwxpexHKpcw+BRrDnPJUbbTX7Dect4FA2Gy4doJBJJ8GWTDe4nUcNKoLWdV1vf/pNOupGMtWCoSoHjU53fpW4B0ZtFBR1Jjv9ik1/9SVkpQkVi2uCPpkuKdyuicHBL5EpQrmS/t/nEJx2YZrmpQESxCohIIp5IPrfsC3wxKn7arbxFTlIBm9GRN9SLk4WBQaOVrNfECa6CQbx7WXYo0SkoiM=;gNscSKXrua4X/dXSO78PVA==;5+MP8tk5AjToLhwBfoS8zjSqB2guHAB/LK99DmWWQP4="];
+var encryptcontent_obfuscate = 0;
+
+</script>
+<script type="text/javascript" src="../../../../assets/javascripts/decrypt-contents.js" defer></script>
 
 
 
@@ -3098,10 +2905,71 @@
 
 
 
+  
+  
 
 
 
 
+  
+    
+  
+
+
+
+  <h2 id="__comments">Comments</h2>
+  <!-- Insert generated snippet here -->
+  <script src="https://giscus.app/client.js"
+    data-repo="everythingfades/personal-blog"
+    data-repo-id="R_kgDONGAf4w"
+    data-category="Q&A"
+    data-category-id="DIC_kwDONGAf484CkLN3"
+    data-mapping="pathname"
+    data-strict="1"
+    data-reactions-enabled="1"
+    data-emit-metadata="1"
+    data-input-position="top"
+    data-theme="light"
+    data-lang="en"
+    data-loading="lazy"
+    crossorigin="anonymous"
+    async>
+  </script>
+  <!-- Synchronize Giscus theme with palette -->
+  <script>
+    var giscus = document.querySelector("script[src*=giscus]")
+
+    // Set palette on initial load
+    var palette = __md_get("__palette")
+    if (palette && typeof palette.color === "object") {
+      var theme = palette.color.scheme === "slate"
+        ? "transparent_dark"
+        : "light"
+
+      // Instruct Giscus to set theme
+      giscus.setAttribute("data-theme", theme) 
+    }
+
+    // Register event handlers after documented loaded
+    document.addEventListener("DOMContentLoaded", function() {
+      var ref = document.querySelector("[data-md-component=palette]")
+      ref.addEventListener("change", function() {
+        var palette = __md_get("__palette")
+        if (palette && typeof palette.color === "object") {
+          var theme = palette.color.scheme === "slate"
+            ? "transparent_dark"
+            : "light"
+
+          // Instruct Giscus to change theme
+          var frame = document.querySelector(".giscus-frame")
+          frame.contentWindow.postMessage(
+            { giscus: { setConfig: { theme } } },
+            "https://giscus.app"
+          )
+        }
+      })
+    })
+  </script>
 
                 
               </article>

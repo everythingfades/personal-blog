@@ -24,7 +24,7 @@
     
     
       
-        <title>week2 - Honglei Gu's personal blog</title>
+        <title>AI-week1 - Honglei Gu's personal blog</title>
       
     
     
@@ -143,7 +143,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              week2
+              AI-week1
             
           </span>
         </div>
@@ -221,7 +221,9 @@
           
             
               
-              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" hidden>
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
                     
@@ -1155,7 +1157,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../Imperial/year2/50001/tutorials/tutorial1.md" class="md-nav__link">
+      <a href="../../../../Imperial/year2/50001/tutorials/tutorial1.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2922,7 +2924,9 @@
             
             
               
-              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" hidden>
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
                     
@@ -3076,6 +3080,67 @@ x_j^{(i)} &amp;=\text{value of feature j in i}^{th} \text{training example}\\
 <p>Disadvantages:
 - no generalisation
 - slow when feature number is large</p>
+<h1 id="gradient-descent-in-practice">gradient descent in practice</h1>
+<h2 id="feature-scaling">feature scaling</h2>
+<p>so asusme we have the following model <span class="arithmatex">\(\hat{\text{price}} = w_1\underset{\text{size of house}}{x_1} + w_2 \underset{\text{number of bedrooms}}{x_2} + b\)</span></p>
+<p>where <span class="arithmatex">\(x_1\)</span> is in square feet from 300-2000</p>
+<p><span class="arithmatex">\(x_2\)</span> is the number of bedrooms ranging forom 0-5</p>
+<p>say we have a training example, <span class="arithmatex">\(x_1 = 2000, x_2 = 5, \text{price} = \$500k\)</span></p>
+<p>so we have </p>
+<p><span class="arithmatex">\(\begin{array}{l|l}
+\text{example1} &amp; \text{example2}\\
+\underset{\text{large}}{w_1 = 50}, \underset{\text{small}}{w_2 = 0.1}, b = 50 &amp; \underset{\text{small}}{w_1 = 0.1}, \underset{\text{large}}{w_2 = 50}, b = 50\\
+\hat{\text{price}} = 50*2000 + 0.1*5 + 50 = 100050.0k &amp; \hat{\text{price}} = 0.1*2000 + 50 * 5 + 50 = 500k\\
+\end{array}\)</span></p>
+<p>obviously the example2 is more reasonable</p>
+<p>in the scatterplot, we may see all the point concentrating on the edge because one feature is of much larger scale then the other</p>
+<p><img alt="pic1" src="../../../../../assets/AI/coursera/SupervisedML/week2-pic1.png" /></p>
+<h3 id="feature-scaling-with-respect-to-maximum">feature scaling with respect to maximum</h3>
+<p>if <span class="arithmatex">\(x_1\)</span> ranges from 300-200, or <span class="arithmatex">\(300\le x_1\le 2000\)</span></p>
+<p>then we could do <span class="arithmatex">\(0.15\le \text{scaled } x_1\le 1\)</span></p>
+<p>this maps all the points above zero and below 1</p>
+<h3 id="mean-normalisation">mean normalisation</h3>
+<p>if <span class="arithmatex">\(x_1\)</span> ranges from 300-2000, or <span class="arithmatex">\(300\le x_1\le 2000\)</span></p>
+<p>then we do <span class="arithmatex">\(x_1 :=\frac{x_1-\mu_1}{2000-300}\)</span> where <span class="arithmatex">\(\mu\)</span> is the average of the feature</p>
+<p>this maps all the features to equally spread with 0 as the center</p>
+<h3 id="z-score">z-score</h3>
+<p>if <span class="arithmatex">\(200\le x_1\le 2000\)</span></p>
+<p>then <span class="arithmatex">\(x_1:=\frac{x_1-\mu_1}{\sigma_1}\)</span> where <span class="arithmatex">\(\sigma_1\)</span> is the standard deviation of the feature, this maps a normal distribution around 0</p>
+<h3 id="goal">goal:</h3>
+<p>we aim for <span class="arithmatex">\(-1\le x_j\le 1,\forall x_j\)</span></p>
+<p>so probably</p>
+<ul>
+<li><span class="arithmatex">\(0\le x_1\le 3\)</span> acceptable</li>
+<li><span class="arithmatex">\(-2\le x_1\le 0.5\)</span> acceptable</li>
+<li><span class="arithmatex">\(-100\le x_1\le 100\)</span> not acceptable too large</li>
+<li><span class="arithmatex">\(-0.001\le x_1\le 0.001\)</span> not acceptable, too small</li>
+<li><span class="arithmatex">\(98.5\le x_1\le 100\)</span> not acceptable, too large</li>
+</ul>
+<p>feature scaling usually does no harm and can speed up linear regreesion speed</p>
+<h2 id="cheking-gradient-descent-for-convergence">Cheking gradient descent for convergence</h2>
+<p>recall the gradient descent</p>
+<p><span class="arithmatex">\(\begin{cases}
+w_j = w_j-\alpha\frac{\partial}{\partial w_j}J(\vec{w}, b)\\
+b = b - \alpha\frac{\partial}{\partial b}J(\vec{w}, b)
+\end{cases}\)</span></p>
+<p>we want to pick a good learning rate</p>
+<p>so usually we could plot <span class="arithmatex">\(J(\vec{w}, b)\)</span> against the number of iterations</p>
+<p>we check whether the loss is decreading</p>
+<p>the curve is usually called to learning curve</p>
+<p>we can also conduct automatic convergence test, pick a small <span class="arithmatex">\(\epsilon\)</span>, stop if <span class="arithmatex">\(J(\vec{w},b)\)</span> is decreasing for less than <span class="arithmatex">\(\epsilon\)</span> in a single step</p>
+<h2 id="choosing-the-learning-rate">choosing the learning rate</h2>
+<p><img alt="pic2" src="../../../../../assets/AI/coursera/SupervisedML/week2-pic2.png" /></p>
+<p>so usualy we first set <span class="arithmatex">\(\alpha\)</span> to a very small value, if even this causes <span class="arithmatex">\(J(w,b)\)</span> not decreasing, it is likely that there a bug elsewhere</p>
+<p>a learning rate too small make more iterations</p>
+<p>usually we do something like 0.001, 0.01</p>
+<p>so we try to find a overly small lr and a overly large lr, then we pick something in the middle</p>
+<h2 id="feature-engineering">feature engineering</h2>
+<p>for example in a house data we have the frontage and the depth of the are that the house is built on</p>
+<p>we can use these two features and multiply them together to form a new feature area</p>
+<h2 id="ploynomial-regression">ploynomial regression</h2>
+<p>maybe a linear model cannot fit the data well, we want something like <span class="arithmatex">\(f_{\vec{w},b} = w_1 x + w_2x^2 + b\)</span>, or <span class="arithmatex">\(f_{\vec{w},b} + w_2x^2 + w_3x^3 + b\)</span></p>
+<p>in this case, since <span class="arithmatex">\(x^3\)</span> grows expoentially, feature scaling would be crucial in this case</p>
+<p>we could also use something like <span class="arithmatex">\(f_{vec{w},b} = w_1 + w_2\sqrt{x} + b\)</span> or other stuff</p>
 
 
 
@@ -3083,10 +3148,71 @@ x_j^{(i)} &amp;=\text{value of feature j in i}^{th} \text{training example}\\
 
 
 
+  
+  
 
 
 
 
+  
+    
+  
+
+
+
+  <h2 id="__comments">Comments</h2>
+  <!-- Insert generated snippet here -->
+  <script src="https://giscus.app/client.js"
+    data-repo="everythingfades/personal-blog"
+    data-repo-id="R_kgDONGAf4w"
+    data-category="Q&A"
+    data-category-id="DIC_kwDONGAf484CkLN3"
+    data-mapping="pathname"
+    data-strict="1"
+    data-reactions-enabled="1"
+    data-emit-metadata="1"
+    data-input-position="top"
+    data-theme="light"
+    data-lang="en"
+    data-loading="lazy"
+    crossorigin="anonymous"
+    async>
+  </script>
+  <!-- Synchronize Giscus theme with palette -->
+  <script>
+    var giscus = document.querySelector("script[src*=giscus]")
+
+    // Set palette on initial load
+    var palette = __md_get("__palette")
+    if (palette && typeof palette.color === "object") {
+      var theme = palette.color.scheme === "slate"
+        ? "transparent_dark"
+        : "light"
+
+      // Instruct Giscus to set theme
+      giscus.setAttribute("data-theme", theme) 
+    }
+
+    // Register event handlers after documented loaded
+    document.addEventListener("DOMContentLoaded", function() {
+      var ref = document.querySelector("[data-md-component=palette]")
+      ref.addEventListener("change", function() {
+        var palette = __md_get("__palette")
+        if (palette && typeof palette.color === "object") {
+          var theme = palette.color.scheme === "slate"
+            ? "transparent_dark"
+            : "light"
+
+          // Instruct Giscus to change theme
+          var frame = document.querySelector(".giscus-frame")
+          frame.contentWindow.postMessage(
+            { giscus: { setConfig: { theme } } },
+            "https://giscus.app"
+          )
+        }
+      })
+    })
+  </script>
 
                 
               </article>
