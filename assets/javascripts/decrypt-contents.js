@@ -323,7 +323,7 @@ async function decryptor_reaction(key_or_keys, password_input, decrypted_content
 
         // any post processing on the decrypted content should be done here
         if (typeof MathJax === 'object') { MathJax.typesetPromise();};
-        
+        if (typeof mermaid === 'object') { mermaid.contentLoaded();};
         
         
         if (typeof theme_run_after_decryption !== 'undefined') {

@@ -2,326 +2,370 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>http://localhost:9000/index.html</loc>
-         <lastmod>2024-11-18</lastmod>
+         <lastmod>2024-11-27</lastmod>
     </url>
     <url>
          <loc>http://localhost:9000/html1.html</loc>
-         <lastmod>2024-11-18</lastmod>
+         <lastmod>2024-11-27</lastmod>
     </url>
     <url>
          <loc>http://localhost:9000/en/AI/coursera/ML-specialization-DeeplearningAI/SupervisedML-coursera-Ng/week1.html</loc>
-         <lastmod>2024-11-18</lastmod>
+         <lastmod>2024-11-27</lastmod>
     </url>
     <url>
          <loc>http://localhost:9000/en/AI/coursera/ML-specialization-DeeplearningAI/SupervisedML-coursera-Ng/week2.html</loc>
-         <lastmod>2024-11-18</lastmod>
+         <lastmod>2024-11-27</lastmod>
     </url>
     <url>
          <loc>http://localhost:9000/en/AI/coursera/ML-specialization-DeeplearningAI/SupervisedML-coursera-Ng/week3.html</loc>
-         <lastmod>2024-11-18</lastmod>
+         <lastmod>2024-11-27</lastmod>
     </url>
     <url>
          <loc>http://localhost:9000/en/CTF/CTFhub.html</loc>
-         <lastmod>2024-11-18</lastmod>
+         <lastmod>2024-11-27</lastmod>
     </url>
     <url>
          <loc>http://localhost:9000/en/CTF/cyber_security.html</loc>
-         <lastmod>2024-11-18</lastmod>
+         <lastmod>2024-11-27</lastmod>
     </url>
     <url>
          <loc>http://localhost:9000/en/CTF/related.html</loc>
-         <lastmod>2024-11-18</lastmod>
+         <lastmod>2024-11-27</lastmod>
     </url>
     <url>
          <loc>http://localhost:9000/en/Finance/Algorithm-Trading/lecture1-intro.html</loc>
-         <lastmod>2024-11-18</lastmod>
+         <lastmod>2024-11-27</lastmod>
     </url>
     <url>
          <loc>http://localhost:9000/en/Finance/Algorithm-Trading/lecture2-Creating-and-Assessing-Trading-Algorithm.html</loc>
-         <lastmod>2024-11-18</lastmod>
+         <lastmod>2024-11-27</lastmod>
     </url>
     <url>
          <loc>http://localhost:9000/en/Finance/Algorithm-Trading/lecture3-portfolio-optimisation.html</loc>
-         <lastmod>2024-11-18</lastmod>
+         <lastmod>2024-11-27</lastmod>
+    </url>
+    <url>
+         <loc>http://localhost:9000/en/Finance/Algorithm-Trading/lecture6-impact-option.html</loc>
+         <lastmod>2024-11-27</lastmod>
     </url>
     <url>
          <loc>http://localhost:9000/en/Finance/AlgothonPrep/UsefulAlgorithms.html</loc>
-         <lastmod>2024-11-18</lastmod>
+         <lastmod>2024-11-27</lastmod>
     </url>
     <url>
          <loc>http://localhost:9000/en/Finance/AlgothonPrep/IC_Algothon_2023/index.html</loc>
-         <lastmod>2024-11-18</lastmod>
+         <lastmod>2024-11-27</lastmod>
     </url>
     <url>
          <loc>http://localhost:9000/en/Imperial/year2/50003-Models-of-Computation.html</loc>
-         <lastmod>2024-11-18</lastmod>
+         <lastmod>2024-11-27</lastmod>
     </url>
     <url>
          <loc>http://localhost:9000/en/Imperial/year2/50004-Operating-System.html</loc>
-         <lastmod>2024-11-18</lastmod>
+         <lastmod>2024-11-27</lastmod>
     </url>
     <url>
          <loc>http://localhost:9000/en/Imperial/year2/50001/lectures/lecture1-Ts-Normal-Forms.html</loc>
-         <lastmod>2024-11-18</lastmod>
+         <lastmod>2024-11-27</lastmod>
     </url>
     <url>
          <loc>http://localhost:9000/en/Imperial/year2/50001/lectures/lecture2-Lists.html</loc>
-         <lastmod>2024-11-18</lastmod>
+         <lastmod>2024-11-27</lastmod>
     </url>
     <url>
          <loc>http://localhost:9000/en/Imperial/year2/50001/lectures/lecture3-divide-and-conquer.html</loc>
-         <lastmod>2024-11-18</lastmod>
+         <lastmod>2024-11-27</lastmod>
     </url>
     <url>
          <loc>http://localhost:9000/en/Imperial/year2/50001/lectures/lecture4-DP.html</loc>
-         <lastmod>2024-11-18</lastmod>
+         <lastmod>2024-11-27</lastmod>
     </url>
     <url>
          <loc>http://localhost:9000/en/Imperial/year2/50001/lectures/lecture5-Deque.html</loc>
-         <lastmod>2024-11-18</lastmod>
+         <lastmod>2024-11-27</lastmod>
     </url>
     <url>
          <loc>http://localhost:9000/en/Imperial/year2/50001/lectures/lecture6-RandomAccessList.html</loc>
-         <lastmod>2024-11-18</lastmod>
+         <lastmod>2024-11-27</lastmod>
     </url>
     <url>
          <loc>http://localhost:9000/en/Imperial/year2/50001/lectures/lecture7-Poset.html</loc>
-         <lastmod>2024-11-18</lastmod>
+         <lastmod>2024-11-27</lastmod>
+    </url>
+    <url>
+         <loc>http://localhost:9000/en/Imperial/year2/50001/lectures/lecture8-RBTree.html</loc>
+         <lastmod>2024-11-27</lastmod>
+    </url>
+    <url>
+         <loc>http://localhost:9000/en/Imperial/year2/50001/lectures/lecture9-something.html</loc>
+         <lastmod>2024-11-27</lastmod>
     </url>
     <url>
          <loc>http://localhost:9000/en/Imperial/year2/50001/tutorials/coursework1.html</loc>
-         <lastmod>2024-11-18</lastmod>
+         <lastmod>2024-11-27</lastmod>
     </url>
     <url>
          <loc>http://localhost:9000/en/Imperial/year2/50001/tutorials/tutorial1.html</loc>
-         <lastmod>2024-11-18</lastmod>
+         <lastmod>2024-11-27</lastmod>
     </url>
     <url>
          <loc>http://localhost:9000/en/Imperial/year2/50001/tutorials/tutorial2.html</loc>
-         <lastmod>2024-11-18</lastmod>
+         <lastmod>2024-11-27</lastmod>
     </url>
     <url>
          <loc>http://localhost:9000/en/Imperial/year2/50001/tutorials/tutorial3.html</loc>
-         <lastmod>2024-11-18</lastmod>
+         <lastmod>2024-11-27</lastmod>
     </url>
     <url>
          <loc>http://localhost:9000/en/Imperial/year2/50001/tutorials/tutorial4.html</loc>
-         <lastmod>2024-11-18</lastmod>
+         <lastmod>2024-11-27</lastmod>
     </url>
     <url>
          <loc>http://localhost:9000/en/Imperial/year2/50002/50002-Software-Design.html</loc>
-         <lastmod>2024-11-18</lastmod>
+         <lastmod>2024-11-27</lastmod>
     </url>
     <url>
          <loc>http://localhost:9000/en/Imperial/year2/50002/SED/SED_Ex1.html</loc>
-         <lastmod>2024-11-18</lastmod>
+         <lastmod>2024-11-27</lastmod>
     </url>
     <url>
          <loc>http://localhost:9000/en/Imperial/year2/50002/SED/SED_Ex2.html</loc>
-         <lastmod>2024-11-18</lastmod>
+         <lastmod>2024-11-27</lastmod>
     </url>
     <url>
          <loc>http://localhost:9000/en/Imperial/year2/50002/SED/SED_Ex3.html</loc>
-         <lastmod>2024-11-18</lastmod>
+         <lastmod>2024-11-27</lastmod>
     </url>
     <url>
          <loc>http://localhost:9000/en/Imperial/year2/50003/lectures/lecture1-Register-Machine.html</loc>
-         <lastmod>2024-11-18</lastmod>
+         <lastmod>2024-11-27</lastmod>
     </url>
     <url>
          <loc>http://localhost:9000/en/Imperial/year2/50003/lectures/lecture2-Universal-Register-Machines.html</loc>
-         <lastmod>2024-11-18</lastmod>
+         <lastmod>2024-11-27</lastmod>
     </url>
     <url>
          <loc>http://localhost:9000/en/Imperial/year2/50003/lectures/lecture3-Halting-Question.html</loc>
-         <lastmod>2024-11-18</lastmod>
+         <lastmod>2024-11-27</lastmod>
     </url>
     <url>
          <loc>http://localhost:9000/en/Imperial/year2/50003/lectures/lecture4-Turning-Machines.html</loc>
-         <lastmod>2024-11-18</lastmod>
+         <lastmod>2024-11-27</lastmod>
     </url>
     <url>
          <loc>http://localhost:9000/en/Imperial/year2/50003/lectures/lecture5-lambda-calculus.html</loc>
-         <lastmod>2024-11-18</lastmod>
+         <lastmod>2024-11-27</lastmod>
     </url>
     <url>
          <loc>http://localhost:9000/en/Imperial/year2/50003/lectures/lecture6-Imperitive-Language-p1.html</loc>
-         <lastmod>2024-11-18</lastmod>
+         <lastmod>2024-11-27</lastmod>
+    </url>
+    <url>
+         <loc>http://localhost:9000/en/Imperial/year2/50003/lectures/lecture7-Proving-Properties-of-Programming-Languages.html</loc>
+         <lastmod>2024-11-27</lastmod>
     </url>
     <url>
          <loc>http://localhost:9000/en/Imperial/year2/50003/summary/summary.html</loc>
-         <lastmod>2024-11-18</lastmod>
+         <lastmod>2024-11-27</lastmod>
+    </url>
+    <url>
+         <loc>http://localhost:9000/en/Imperial/year2/50003/tutorials/coursework2.html</loc>
+         <lastmod>2024-11-27</lastmod>
     </url>
     <url>
          <loc>http://localhost:9000/en/Imperial/year2/50003/tutorials/lecture5tutorial.html</loc>
-         <lastmod>2024-11-18</lastmod>
+         <lastmod>2024-11-27</lastmod>
     </url>
     <url>
          <loc>http://localhost:9000/en/Imperial/year2/50003/tutorials/lecture6tutorial.html</loc>
-         <lastmod>2024-11-18</lastmod>
+         <lastmod>2024-11-27</lastmod>
     </url>
     <url>
          <loc>http://localhost:9000/en/Imperial/year2/50003/tutorials/revisionTest.html</loc>
-         <lastmod>2024-11-18</lastmod>
+         <lastmod>2024-11-27</lastmod>
     </url>
     <url>
          <loc>http://localhost:9000/en/Imperial/year2/50003/tutorials/tutorial1.html</loc>
-         <lastmod>2024-11-18</lastmod>
+         <lastmod>2024-11-27</lastmod>
     </url>
     <url>
          <loc>http://localhost:9000/en/Imperial/year2/50003/tutorials/tutorial2.html</loc>
-         <lastmod>2024-11-18</lastmod>
+         <lastmod>2024-11-27</lastmod>
     </url>
     <url>
          <loc>http://localhost:9000/en/Imperial/year2/50003/tutorials/tutorial3.html</loc>
-         <lastmod>2024-11-18</lastmod>
+         <lastmod>2024-11-27</lastmod>
+    </url>
+    <url>
+         <loc>http://localhost:9000/en/Imperial/year2/50003/tutorials/tutorial4-part2.html</loc>
+         <lastmod>2024-11-27</lastmod>
     </url>
     <url>
          <loc>http://localhost:9000/en/Imperial/year2/50003/tutorials/tutorial4.html</loc>
-         <lastmod>2024-11-18</lastmod>
+         <lastmod>2024-11-27</lastmod>
+    </url>
+    <url>
+         <loc>http://localhost:9000/en/Imperial/year2/50003/tutorials/tutorial5.html</loc>
+         <lastmod>2024-11-27</lastmod>
     </url>
     <url>
          <loc>http://localhost:9000/en/Imperial/year2/50004/lectures/lecture1.html</loc>
-         <lastmod>2024-11-18</lastmod>
+         <lastmod>2024-11-27</lastmod>
     </url>
     <url>
          <loc>http://localhost:9000/en/Imperial/year2/50004/lectures/lecture10.html</loc>
-         <lastmod>2024-11-18</lastmod>
+         <lastmod>2024-11-27</lastmod>
+    </url>
+    <url>
+         <loc>http://localhost:9000/en/Imperial/year2/50004/lectures/lecture11.html</loc>
+         <lastmod>2024-11-27</lastmod>
+    </url>
+    <url>
+         <loc>http://localhost:9000/en/Imperial/year2/50004/lectures/lecture12.html</loc>
+         <lastmod>2024-11-27</lastmod>
     </url>
     <url>
          <loc>http://localhost:9000/en/Imperial/year2/50004/lectures/lecture2.html</loc>
-         <lastmod>2024-11-18</lastmod>
+         <lastmod>2024-11-27</lastmod>
     </url>
     <url>
          <loc>http://localhost:9000/en/Imperial/year2/50004/lectures/lecture3.html</loc>
-         <lastmod>2024-11-18</lastmod>
+         <lastmod>2024-11-27</lastmod>
     </url>
     <url>
          <loc>http://localhost:9000/en/Imperial/year2/50004/lectures/lecture4.html</loc>
-         <lastmod>2024-11-18</lastmod>
+         <lastmod>2024-11-27</lastmod>
     </url>
     <url>
          <loc>http://localhost:9000/en/Imperial/year2/50004/lectures/lecture5.html</loc>
-         <lastmod>2024-11-18</lastmod>
+         <lastmod>2024-11-27</lastmod>
     </url>
     <url>
          <loc>http://localhost:9000/en/Imperial/year2/50004/lectures/lecture6.html</loc>
-         <lastmod>2024-11-18</lastmod>
+         <lastmod>2024-11-27</lastmod>
     </url>
     <url>
          <loc>http://localhost:9000/en/Imperial/year2/50004/lectures/lecture7.html</loc>
-         <lastmod>2024-11-18</lastmod>
+         <lastmod>2024-11-27</lastmod>
     </url>
     <url>
          <loc>http://localhost:9000/en/Imperial/year2/50004/lectures/lecture8.html</loc>
-         <lastmod>2024-11-18</lastmod>
+         <lastmod>2024-11-27</lastmod>
     </url>
     <url>
          <loc>http://localhost:9000/en/Imperial/year2/50004/lectures/lecture9.html</loc>
-         <lastmod>2024-11-18</lastmod>
+         <lastmod>2024-11-27</lastmod>
+    </url>
+    <url>
+         <loc>http://localhost:9000/en/Imperial/year2/50004/quiz%2Btutorials/lecture10tutorial.html</loc>
+         <lastmod>2024-11-27</lastmod>
+    </url>
+    <url>
+         <loc>http://localhost:9000/en/Imperial/year2/50004/quiz%2Btutorials/lecture11tutorial.html</loc>
+         <lastmod>2024-11-27</lastmod>
     </url>
     <url>
          <loc>http://localhost:9000/en/Imperial/year2/50004/quiz%2Btutorials/lecture5tutorial.html</loc>
-         <lastmod>2024-11-18</lastmod>
+         <lastmod>2024-11-27</lastmod>
     </url>
     <url>
          <loc>http://localhost:9000/en/Imperial/year2/50004/quiz%2Btutorials/lecture9tutorial.html</loc>
-         <lastmod>2024-11-18</lastmod>
+         <lastmod>2024-11-27</lastmod>
     </url>
     <url>
          <loc>http://localhost:9000/en/Imperial/year2/50004/quiz%2Btutorials/quiz2.html</loc>
-         <lastmod>2024-11-18</lastmod>
+         <lastmod>2024-11-27</lastmod>
     </url>
     <url>
          <loc>http://localhost:9000/en/Imperial/year2/50004/quiz%2Btutorials/quiz3.html</loc>
-         <lastmod>2024-11-18</lastmod>
+         <lastmod>2024-11-27</lastmod>
     </url>
     <url>
          <loc>http://localhost:9000/en/Imperial/year2/50004/quiz%2Btutorials/quiz4.html</loc>
-         <lastmod>2024-11-18</lastmod>
+         <lastmod>2024-11-27</lastmod>
     </url>
     <url>
          <loc>http://localhost:9000/en/Imperial/year2/50004/quiz%2Btutorials/quiz5.html</loc>
-         <lastmod>2024-11-18</lastmod>
+         <lastmod>2024-11-27</lastmod>
     </url>
     <url>
          <loc>http://localhost:9000/en/Imperial/year2/50004/summary/summary.html</loc>
-         <lastmod>2024-11-18</lastmod>
+         <lastmod>2024-11-27</lastmod>
     </url>
     <url>
          <loc>http://localhost:9000/en/Imperial/year2/pintos/Task0.html</loc>
-         <lastmod>2024-11-18</lastmod>
+         <lastmod>2024-11-27</lastmod>
     </url>
     <url>
          <loc>http://localhost:9000/en/Imperial/year2/pintos/Task1.html</loc>
-         <lastmod>2024-11-18</lastmod>
+         <lastmod>2024-11-27</lastmod>
     </url>
     <url>
          <loc>http://localhost:9000/en/Imperial/year2/pintos/Task2.html</loc>
-         <lastmod>2024-11-18</lastmod>
+         <lastmod>2024-11-27</lastmod>
     </url>
     <url>
          <loc>http://localhost:9000/en/Imperial/year2/pintos/Task3.html</loc>
-         <lastmod>2024-11-18</lastmod>
+         <lastmod>2024-11-27</lastmod>
     </url>
     <url>
          <loc>http://localhost:9000/en/Imperial/year2/pintos/general.html</loc>
-         <lastmod>2024-11-18</lastmod>
+         <lastmod>2024-11-27</lastmod>
     </url>
     <url>
          <loc>http://localhost:9000/en/web/css.html</loc>
-         <lastmod>2024-11-18</lastmod>
+         <lastmod>2024-11-27</lastmod>
     </url>
     <url>
          <loc>http://localhost:9000/en/web/html.html</loc>
-         <lastmod>2024-11-18</lastmod>
+         <lastmod>2024-11-27</lastmod>
     </url>
     <url>
          <loc>http://localhost:9000/en/work/interview-backup.html</loc>
-         <lastmod>2024-11-18</lastmod>
+         <lastmod>2024-11-27</lastmod>
     </url>
     <url>
          <loc>http://localhost:9000/zh/CTF/CTFHub.html</loc>
-         <lastmod>2024-11-18</lastmod>
+         <lastmod>2024-11-27</lastmod>
     </url>
     <url>
          <loc>http://localhost:9000/zh/web/AJAX.html</loc>
-         <lastmod>2024-11-18</lastmod>
+         <lastmod>2024-11-27</lastmod>
     </url>
     <url>
          <loc>http://localhost:9000/zh/web/css.html</loc>
-         <lastmod>2024-11-18</lastmod>
+         <lastmod>2024-11-27</lastmod>
     </url>
     <url>
          <loc>http://localhost:9000/zh/web/html.html</loc>
-         <lastmod>2024-11-18</lastmod>
+         <lastmod>2024-11-27</lastmod>
     </url>
     <url>
          <loc>http://localhost:9000/zh/web/nodejs.html</loc>
-         <lastmod>2024-11-18</lastmod>
+         <lastmod>2024-11-27</lastmod>
     </url>
     <url>
          <loc>http://localhost:9000/zh/web/vue2.html</loc>
-         <lastmod>2024-11-18</lastmod>
+         <lastmod>2024-11-27</lastmod>
     </url>
     <url>
          <loc>http://localhost:9000/zh/web/webpack.html</loc>
-         <lastmod>2024-11-18</lastmod>
+         <lastmod>2024-11-27</lastmod>
     </url>
     <url>
          <loc>http://localhost:9000/zh/web/js/BOM.html</loc>
-         <lastmod>2024-11-18</lastmod>
+         <lastmod>2024-11-27</lastmod>
     </url>
     <url>
          <loc>http://localhost:9000/zh/web/js/DOM.html</loc>
-         <lastmod>2024-11-18</lastmod>
+         <lastmod>2024-11-27</lastmod>
     </url>
     <url>
          <loc>http://localhost:9000/zh/web/js/js-advanced.html</loc>
-         <lastmod>2024-11-18</lastmod>
+         <lastmod>2024-11-27</lastmod>
     </url>
     <url>
          <loc>http://localhost:9000/zh/web/js/js.html</loc>
-         <lastmod>2024-11-18</lastmod>
+         <lastmod>2024-11-27</lastmod>
     </url>
 </urlset>
