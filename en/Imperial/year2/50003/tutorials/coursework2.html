@@ -3781,23 +3781,27 @@ it terminates to 8</p>
 <h4 id="inductive-hypothesis"><em>Inductive hypothesis:</em></h4>
 <ul>
 <li><span class="arithmatex">\(\forall E_1\in Exp.\forall E_1'\in Exp.\forall T\in Type.[E_1::t\wedge E_1'\in\mathbf{S}(E_1)\Rightarrow E_1'::T]\)</span>(3)</li>
-<li><span class="arithmatex">\(\forall E_1\in Exp.\forall E_1'\in Exp.\forall T\in Type.[E_1::t\wedge E_1'\in\mathbf{S}(E_1)\Rightarrow E_1'::T]\)</span>(4)</li>
+<li><span class="arithmatex">\(\forall E_2\in Exp.\forall E_2'\in Exp.\forall T\in Type.[E_2::t\wedge E_2'\in\mathbf{S}(E_2)\Rightarrow E_2'::T]\)</span>(4)</li>
 </ul>
 <h4 id="to-show"><em>To Show:</em></h4>
 <p><span class="arithmatex">\(\forall E''\in Exp.\forall T\in Type.[(E_1\oplus E_2)::t\wedge E''\in\mathbf{S}(E_1\oplus E_2)\Rightarrow E''::T]\)</span></p>
-<p><span class="arithmatex">\(\begin{aligned}
+<p><span class="arithmatex">\(\begin{array}
 \mathbf{S}(E_1\oplus E_2) = \mathbf{S}(E_1)\cup\mathbf{S}(E_2) &amp; \text{by def of S} &amp; (5)\\
-E''\in(\mathbf{S}(E_1)\cup\mathbf{S}(E_2)) &amp; \text{by hypothesis and (5)} &amp; (6)\\
+E''\in(\mathbf{S}(E_1)\cup\mathbf{S}(E_2)\cup\{(E_1\oplus E_2)\}) &amp; \text{by hypothesis and (5)} &amp; (6)\\
 E''\in\mathbf{S}(E_1)\vee E''\in\mathbf{S}(E_2) &amp; &amp; (7)
-\end{aligned}\)</span></p>
+\end{array}\)</span></p>
 <ul>
-<li>1: <span class="arithmatex">\(E''\in\mathbf{S}(E_1)\)</span>(8)</li>
+<li>case 1: <span class="arithmatex">\(E''\in\mathbf{S}(E_1)\)</span>(8)</li>
 </ul>
 <p>then <span class="arithmatex">\(E'':: T\)</span>(9) by (3) and (8)</p>
 <ul>
 <li>case 2: <span class="arithmatex">\(E''\in\mathbf{S}(E_1)\)</span>(10)</li>
 </ul>
 <p>then <span class="arithmatex">\(E'':: T\)</span>(11) by (4) and (10)</p>
+<ul>
+<li>case 3: <span class="arithmatex">\(E'' = E_1\oplus E_2\)</span> (12)</li>
+</ul>
+<p>then by rule T.3 and (12), <span class="arithmatex">\(E'':: T\)</span></p>
 <p>so in conclusion <span class="arithmatex">\(E''::T\)</span> and </p>
 <p><span class="arithmatex">\(\forall n\in \mathbb{N}.\forall E'\in Exp.\forall T\in Type.[n::T\wedge E'\in\mathbf{S}(E)\Rightarrow E'::T]\)</span></p>
 <h2 id="e">e.</h2>
@@ -3825,7 +3829,7 @@ E''\in\mathbf{S}(E_1)\vee E''\in\mathbf{S}(E_2) &amp; &amp; (7)
 <p>we can prove this lemma by induction</p>
 <h4 id="base-case_2"><em>Base case</em></h4>
 <p><span class="arithmatex">\(\forall E_1::Int,\forall n_1\in\mathbb{N}(E_1\Downarrow n_1\Rightarrow E_1\oplus 0\Downarrow n_1)\)</span></p>
-<p>assume <span class="arithmatex">\(E_1\Downarrow n+1\)</span>, then by rule E1, E.5 and rule E.6</p>
+<p>assume <span class="arithmatex">\(E_1\Downarrow n_1\)</span>, then by rule E1, E.5 and rule E.6</p>
 <p><span class="arithmatex">\(n_1\oplus 0\Downarrow n_1, 0\Downarrow 0, E_1\Downarrow n_1\)</span></p>
 <p>so</p>
 <p><span class="arithmatex">\(E_1\oplus 0\Downarrow n_1\)</span></p>
@@ -3844,12 +3848,30 @@ E''\in\mathbf{S}(E_1)\vee E''\in\mathbf{S}(E_2) &amp; &amp; (7)
 <li><span class="arithmatex">\(\forall E_2\in Exp\forall v\in\mathbb{V}.[E_2\Downarrow v\Rightarrow[E_2::Int\Rightarrow v\in\mathbb{N}]]\)</span> (2)</li>
 </ul>
 <h3 id="to-show_2"><em>To Show:</em></h3>
-<p><span class="arithmatex">\(\forall E_1, E_2\in Exp. \forall v\in\mathbb{V}.[E_1\oplus E_2\Downarrow v\Rightarrow [(E_1\oplus E_2)::Int \Rightarrow v\in\mathbb{N}]]\)</span> (3)</p>
-<p>by (1)(2), we assume <span class="arithmatex">\(E_1\Downarrow n_1, E_2\Downarrow n_2\)</span></p>
-<p>then by lemma <span class="arithmatex">\(E_1\oplus E_2 = n_1 + n_2\in\mathbb{N}\)</span></p>
-<p>therefore <span class="arithmatex">\(\forall E_1, E_2\in Exp. \forall v\in\mathbb{V}.[(E_1\oplus E_2)::Int \Rightarrow v\in\mathbb{N}]\)</span></p>
-<p>and therefore <span class="arithmatex">\(\forall E_1, E_2\in Exp. \forall v\in\mathbb{V}.[E_1\oplus E_2\Downarrow v\Rightarrow [(E_1\oplus E_2)::Int \Rightarrow v\in\mathbb{N}]]\)</span></p>
-<p>in conclusion <span class="arithmatex">\(\forall E\in Exp.\forall v\in\mathbb{V}.[E\Downarrow v\Rightarrow [E::Int\Rightarrow v\in\mathbb{N}]]\)</span></p>
+<p><span class="arithmatex">\(\forall E_1, E_2\in Exp. \forall v\in\mathbb{V}.[E_1\oplus E_2\Downarrow v\Rightarrow [(E_1\oplus E_2)::Int \Rightarrow v\in\mathbb{N}]]\)</span></p>
+<p>we assume </p>
+<p><span class="arithmatex">\(E_1\oplus E_2\Downarrow v\)</span> (3)</p>
+<p>and </p>
+<p><span class="arithmatex">\((E_1\oplus E_2)::Int\)</span> (4)</p>
+<p>and also</p>
+<p><span class="arithmatex">\(E_1\Downarrow v_1, (v_1\in\mathbb{V})\)</span>(5)</p>
+<p><span class="arithmatex">\(E_2\Downarrow v_2, (v_2\in\mathbb{V})\)</span>(6)</p>
+<p>by (4), since if <span class="arithmatex">\(E_1\Downarrow v\in\mathbb{V}\)</span>, then <span class="arithmatex">\(v\in\mathbb{B}\vee v\in\mathbb{N}\)</span></p>
+<p>so we have two cases, there are other two but they are impossible as we did not have a rule which can get the type of <span class="arithmatex">\(E_1::Bool\wedge E_2::Int\)</span> or <span class="arithmatex">\(E_1::Int\wedge E_2::Bool\)</span></p>
+<ul>
+<li>case 1: <span class="arithmatex">\(E_1::Bool\wedge E_2::Bool\)</span></li>
+</ul>
+<p>then by T.3 <span class="arithmatex">\(E_1\oplus E_2:: Bool\)</span>, so <span class="arithmatex">\((E_1\oplus E_2)::Int \Rightarrow v\in\mathbb{N}\)</span> as <span class="arithmatex">\((E_1\oplus E_2)::Int\)</span> does not hole</p>
+<ul>
+<li>case 2: <span class="arithmatex">\(E_1::Int\wedge E_2::Int\)</span></li>
+</ul>
+<p>then by T.3 <span class="arithmatex">\(E_1\oplus E_2::Int\)</span>(7)</p>
+<p>then by case analysis of T.1 T.2 we can get <span class="arithmatex">\(v_1, v_2\in\mathbb{N}\)</span></p>
+<p>by (5)(6) we have <span class="arithmatex">\(E_1\oplus E_2\Downarrow v = v_1+v_2\in\mathbb{N}\)</span></p>
+<p>so we have </p>
+<p><span class="arithmatex">\(E_1\oplus E_2\Downarrow v\Rightarrow [(E_1\oplus E_2)::Int \Rightarrow v\in\mathbb{N}]\)</span></p>
+<p>in conclusion</p>
+<p><span class="arithmatex">\(\forall E_1::Int,E_2::Int\forall n_1,n_2\in\mathbb{N}(E_1\Downarrow n_1-1 \wedge E_2\Downarrow n_2 + 1\Rightarrow E_1\oplus E_2\Downarrow n_1-1+n_2+1 = n_1 + n_2)\)</span></p>
 
 
 
