@@ -3751,16 +3751,7 @@ it terminates to 8</p>
 <p>no, it does not have a type, similar to 2.b.a and 2.b.b</p>
 <h2 id="c_2">c:</h2>
 <p><strong>Give the set of subexpressions calculated by <span class="arithmatex">\(\mathbf{S}(\text{ff}\oplus (3\oplus 4))\)</span>. You do not need to show any intermediate calculations, or justify any further</strong></p>
-<p><span class="arithmatex">\(\{\text{ff},3,4, \text{ff}\oplus(\text{ff}\oplus(3\oplus 4))\}\)</span></p>
-<p>(
-<span class="arithmatex">\(\begin{aligned}
-&amp;\mathbf{S}(\text{ff}\oplus (3\oplus 4))\\
-&amp;=\mathbf{S}(\text{ff})\cup \mathbf{S}(3\oplus 4)\\
-&amp;=\{\text{ff}\}\cup \mathbf{S}(3)\cup\mathbf{S}(4)\\
-&amp;=\{\text{ff}\}\cup \{3\}\cup \{4\}\\
-&amp;=\{\text{ff},3,4\}
-\end{aligned}\)</span>
-)</p>
+<p><span class="arithmatex">\(\{\text{ff},3,4, (\text{ff}\oplus(3\oplus 4))\}\)</span></p>
 <h2 id="d_2">d:</h2>
 <p><strong>The assertion (A8) guarantees that if E has type T, then all its subexpresions have the same type</strong></p>
 <p><span class="arithmatex">\((A8)\forall E\in Exp.\forall E'\in Exp.\forall T\in Type.[E::T\wedge E'\in\mathbf{S}(E)\Rightarrow E'::T]\)</span></p>
